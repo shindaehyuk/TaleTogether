@@ -10,6 +10,6 @@ server:
 
 jwt:
   secret: dbbAeHubOOc8KaOfYB6XEQoEj1QzRlHgtjNL8PYs1A1tymZvvqkcEU7L1imkKHeDb
-  expiration: 1800000
+  expiration: 1800
 
 
