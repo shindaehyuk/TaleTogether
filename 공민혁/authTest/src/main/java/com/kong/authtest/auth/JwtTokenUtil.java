@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
-
 @Component
 public class JwtTokenUtil {
     public String secretKey;
@@ -25,6 +24,8 @@ public class JwtTokenUtil {
         this.expirationTime = expirationTime;
         this.cryptoAlgorithm = Algorithm.HMAC256(secretkey.getBytes());
     }
+
+    public String getHeaderString(){return HEADER_STRING;}
 
     public JWTVerifier getVerifier(){
         return JWT
