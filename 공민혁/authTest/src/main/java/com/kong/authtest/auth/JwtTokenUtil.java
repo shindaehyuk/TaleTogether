@@ -34,7 +34,7 @@ public class JwtTokenUtil {
                 .build();
     }
 
-    public String getToken(String userId){
+    public String generateAccessToken(String userId){
         Date expires = new Date(new Date().getTime() + expirationTime);
         return JWT.create()
                 .withSubject(userId)
@@ -43,7 +43,7 @@ public class JwtTokenUtil {
                 .sign(cryptoAlgorithm);
     }
 
-    public String getRefreshToken(){
+    public String generateRefreshToken(){
 //        RefreshToken은 약 30일
         int refreshExpiration = 2 * 24 * 30;
         Date expires = new Date(new Date().getTime() + expirationTime * refreshExpiration);
