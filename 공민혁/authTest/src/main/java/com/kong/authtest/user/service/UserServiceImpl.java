@@ -17,7 +17,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public boolean addUser(UserDto userDto) {
         // 아이디 중복 체크.
-        if(userRepository.findUserById() == null){
+        if(userRepository.findUserById(userDto.getId()) == null){
             userRepository.save(User.builder()
                     .id(userDto.getId())
                     .department(userDto.getDepartment())
@@ -28,5 +28,15 @@ public class UserServiceImpl implements UserService{
             return true;
         }
         return false;
+    }
+
+    @Override
+    public User getUserById(String userId) {
+        return userRepository.findUserById(userId);
+    }
+
+    @Override
+    public User getUserByName(String username){
+        return userRepository.findUserByName(username);
     }
 }
