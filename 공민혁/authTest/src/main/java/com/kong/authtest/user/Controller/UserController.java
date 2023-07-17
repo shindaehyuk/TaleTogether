@@ -17,11 +17,12 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class UserController {
 
+    @Autowired
     private final UserService userService;
     private final ObjectMapper objectMapper;
     private final UserRepository userRepository;
 
-    @PostMapping("/join")
+    @PostMapping("join")
     public ResponseEntity<Void> addUser(@RequestBody final UserDto userDto){
         try{
             if(userService.addUser(userDto))
