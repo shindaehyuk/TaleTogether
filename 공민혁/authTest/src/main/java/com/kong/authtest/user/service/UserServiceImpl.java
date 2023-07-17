@@ -3,27 +3,28 @@ package com.kong.authtest.user.service;
 import com.kong.authtest.user.dto.UserDto;
 import com.kong.authtest.user.model.User;
 import com.kong.authtest.user.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service("UserService")
-public class UserServiceImpl implements UserService{
-    UserRepository userRepository;
+@RequiredArgsConstructor
+public class UserServiceImpl implements UserService {
 
-    BCryptPasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
+
+    private final BCryptPasswordEncoder passwordEncoder;
 
     @Override
+
     public boolean addUser(UserDto userDto) {
         // 아이디 중복 체크.
-        if(userRepository.findUserById(userDto.getId()) == null){
+        if (userRepository.findUserByUserId(userDto.getUserId()) == null) {
             userRepository.save(User.builder()
-                    .id(userDto.getId())
-                    .department(userDto.getDepartment())
                     .name(userDto.getName())
                     .password(passwordEncoder.encode(userDto.getPassword()))
-                    .position(userDto.getPosition())
+                    .userId(userDto.getUserId())
                     .build());
             return true;
         }
@@ -31,12 +32,17 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User getUserById(String userId) {
-        return userRepository.findUserById(userId);
+    public User getUserById(int id) {
+        return userRepository.findUserById(id).orElseThrow(() -> new IllegalArgumentException("asdasdsad"));
     }
 
     @Override
-    public User getUserByName(String username){
+    public User getUserByUserId(String UserId) {
+        return userRepository.findUserByUserId(UserId);
+    }
+
+    @Override
+    public User getUserByName(String username) {
         return userRepository.findUserByName(username);
     }
 }

@@ -5,6 +5,7 @@ import com.kong.authtest.user.model.User;
 
 public interface UserService {
     boolean addUser(UserDto userDto);
-    User getUserById(final String userId);
+    User getUserById(final int id);
+    User getUserByUserId(final String userId);
     User getUserByName(String username);
 }
