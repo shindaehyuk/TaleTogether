@@ -3,7 +3,6 @@ package com.kong.authtest.auth;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -18,7 +17,6 @@ public class JwtTokenUtil {
     public static final String HEADER_STRING = "Authorization";
     public static final String ISSUER = "kong.com";
 
-    @Autowired
     public JwtTokenUtil(@Value("${jwt.secret}") String secretkey, @Value("${jwt.expiration}") Integer expirationTime){
         this.secretKey = secretkey;
         this.expirationTime = expirationTime;

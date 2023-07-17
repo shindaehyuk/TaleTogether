@@ -2,8 +2,10 @@ package com.kong.authtest.user.model;
 
 import lombok.*;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Getter
 @Setter
@@ -11,12 +13,15 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @Builder
 @Entity
+@Table(name = "USER")
 public class User {
 
     @Id
-    private String id;
-    private String department;
+    private int id;
     private String name;
     private String password;
-    private String position;
+
+    @Column(name = "user_id")
+    private String userId;
+    private String role;
 }

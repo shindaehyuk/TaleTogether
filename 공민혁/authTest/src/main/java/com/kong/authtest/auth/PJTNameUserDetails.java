@@ -9,15 +9,15 @@ import java.util.Collection;
 
 public class PJTNameUserDetails implements UserDetails {
 
-    private String id;
+    private int id;
+    private String userId;
     private String password;
     private String name;
-
-
     private Collection<GrantedAuthority> authorities = new ArrayList<>();
 
     public PJTNameUserDetails(User user) {
         this.id = user.getId();
+        this.userId = user.getUserId();
         this.password = user.getPassword();
         this.name = user.getName();
     }
