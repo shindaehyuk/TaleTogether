@@ -1,4 +1,4 @@
-package com.kong.authtest;
+package com.kong.backend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

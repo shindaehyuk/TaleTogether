@@ -1,4 +1,4 @@
-package com.kong.authtest.user.repository;
+package com.kong.backend.user.repository;
 
 import lombok.RequiredArgsConstructor;
 

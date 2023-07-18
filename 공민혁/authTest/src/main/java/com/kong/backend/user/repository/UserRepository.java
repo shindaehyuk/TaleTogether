@@ -1,6 +1,6 @@
-package com.kong.authtest.user.repository;
+package com.kong.backend.user.repository;
 
-import com.kong.authtest.user.model.User;
+import com.kong.backend.user.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<User,Integer>, UserRepositoryCustom{

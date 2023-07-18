@@ -1,9 +1,9 @@
-package com.kong.authtest.user.Controller;
+package com.kong.backend.user.Controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kong.authtest.user.dto.UserDto;
-import com.kong.authtest.user.repository.UserRepository;
-import com.kong.authtest.user.service.UserService;
+import com.kong.backend.user.dto.UserDto;
+import com.kong.backend.user.repository.UserRepository;
+import com.kong.backend.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;

@@ -1,4 +1,4 @@
-package com.kong.authtest.user.model;
+package com.kong.backend.user.model;
 
 import lombok.*;
 

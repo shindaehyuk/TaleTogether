@@ -1,11 +1,9 @@
-package com.kong.authtest.user.service;
+package com.kong.backend.user.service;
 
-import com.kong.authtest.user.dto.UserDto;
-import com.kong.authtest.user.model.User;
-import com.kong.authtest.user.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.kong.backend.user.dto.UserDto;
+import com.kong.backend.user.model.User;
+import com.kong.backend.user.repository.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service("UserService")
