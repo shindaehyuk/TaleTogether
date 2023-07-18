@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
-import java.util.Date;
 
 @Component
 public class JwtTokenUtil {
@@ -18,35 +17,44 @@ public class JwtTokenUtil {
     public static final String HEADER_STRING = "Authorization";
     public static final String ISSUER = "kong.com";
 
-    public JwtTokenUtil(@Value("${jwt.secret}") String secretkey, @Value("${jwt.expiration}") Integer expirationTime){
+    public JwtTokenUtil(@Value("${jwt.secret}") String secretkey, @Value("${jwt.expiration}") Integer expirationTime) {
         this.secretKey = secretkey;
         this.expirationTime = expirationTime;
         this.cryptoAlgorithm = Algorithm.HMAC256(secretkey.getBytes());
     }
 
-    public String getHeaderString(){return HEADER_STRING;}
+    public String getHeaderString() {
+        return HEADER_STRING;
+    }
 
-    public JWTVerifier getVerifier(){
+    public String getTokenPrefix() {
+        return TOKEN_PREFIX;
+    }
+
+
+    public JWTVerifier getVerifier() {
         return JWT
                 .require(cryptoAlgorithm)
                 .withIssuer(ISSUER)
                 .build();
     }
 
-    public String generateAccessToken(String userId){
+
+    public String generateAccessToken(String userId) {
         final Instant now = Instant.now();
-        return JWT.create()
+        return TOKEN_PREFIX + JWT.create()
                 .withSubject(userId)
                 .withExpiresAt(now.plusSeconds(expirationTime))
                 .withIssuer(ISSUER)
                 .sign(cryptoAlgorithm);
     }
 
-    public String generateRefreshToken(String userId){
-//        RefreshToken은 약 30일
+    public String generateRefreshToken(String userId) {
+        //RefreshToken은 약 30일
         int refreshExpiration = 2 * 24 * 30;
-        final Instant now = Instant.now();;
-        return JWT.create()
+        final Instant now = Instant.now();
+        ;
+        return TOKEN_PREFIX + JWT.create()
                 .withSubject(userId)
                 .withExpiresAt(now.plusSeconds(expirationTime * refreshExpiration))
                 .withIssuer(ISSUER)

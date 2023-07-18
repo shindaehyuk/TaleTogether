@@ -24,4 +24,15 @@ public class User {
     @Column(name = "user_id")
     private String userId;
     private String role;
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", userId='" + userId + '\'' +
+                ", role='" + role + '\'' +
+                '}';
+    }
 }
