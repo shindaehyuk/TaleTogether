@@ -12,17 +12,26 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useState } from 'react';
 
 const defaultTheme = createTheme();
 
 export default function SignIn() {
+  const [input, setInput] = useState({
+    email: '',
+    password: '',
+  });
+
+  const changeHandler = (e) => {
+    setInput({
+      ...input,
+      [e.target.id]: e.target.value,
+    });
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    console.log(input);
   };
 
   return (
@@ -45,7 +54,7 @@ export default function SignIn() {
             <b>Sign in</b>
           </Typography>
 
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
@@ -55,6 +64,7 @@ export default function SignIn() {
               name="email"
               autoComplete="email"
               autoFocus
+              onChange={changeHandler}
             />
             <TextField
               margin="normal"
@@ -65,20 +75,28 @@ export default function SignIn() {
               type="password"
               id="password"
               autoComplete="current-password"
+              onChange={changeHandler}
             />
+
             <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
-            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 3 }}>
               Sign In
             </Button>
+
             <Grid container>
-              <Grid item xs={4}>
-                <Link href="#" variant="body2">
-                  Forgot password?
+              <Grid item xs={4} sx={{ borderRight: 1, borderColor: 'primary.main' }}>
+                <Link href="#" underline="none" variant="body2">
+                  비밀번호 찾기
                 </Link>
               </Grid>
-              <Grid item xs={8}>
-                <Link href="#" variant="body2">
-                  Don't have an account? Sign Up
+              <Grid item xs={4} sx={{ borderRight: 1, borderColor: 'primary.main' }}>
+                <Link href="#" underline="none" variant="body2">
+                  아이디 찾기
+                </Link>
+              </Grid>
+              <Grid item xs={4}>
+                <Link href="/signup" underline="none">
+                  회원가입
                 </Link>
               </Grid>
             </Grid>
