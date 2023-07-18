@@ -1,6 +1,6 @@
-package com.kong.authtest.auth;
+package com.kong.backend.auth;
 
-import com.kong.authtest.user.model.User;
+import com.kong.backend.user.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

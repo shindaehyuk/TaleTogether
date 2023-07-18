@@ -1,4 +1,4 @@
-package com.kong.authtest.auth;
+package com.kong.backend.auth;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;

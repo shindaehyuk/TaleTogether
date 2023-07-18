@@ -3,7 +3,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/ssafy?serverTimezone=Asia/Seoul
     username: root
-    password: 1234
+    password: twja0930
 
 server:
   port: 8083

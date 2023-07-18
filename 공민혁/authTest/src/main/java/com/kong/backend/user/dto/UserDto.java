@@ -1,4 +1,4 @@
-package com.kong.authtest.user.dto;
+package com.kong.backend.user.dto;
 
 import lombok.Data;
 

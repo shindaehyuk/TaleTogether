@@ -1,7 +1,7 @@
-package com.kong.authtest.user.service;
+package com.kong.backend.user.service;
 
-import com.kong.authtest.user.dto.UserDto;
-import com.kong.authtest.user.model.User;
+import com.kong.backend.user.dto.UserDto;
+import com.kong.backend.user.model.User;
 
 public interface UserService {
     boolean addUser(UserDto userDto);
