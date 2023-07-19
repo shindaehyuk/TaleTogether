@@ -12,32 +12,35 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
-// TODO remove, this demo shouldn't need to reset the theme.
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 
 const defaultTheme = createTheme();
 
 export default function SignUp() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
+  const [input, setInput] = useState({
+    email: '',
+    nickname: '',
+    password: '',
+    checkPassword: '',
+  });
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+
+  const changeHandler = (event) => {
+    setInput({
+      ...input,
+      [event.target.id]: event.target.value,
     });
+  };
+  const onSubmit = (event) => {
+    // event.preventDefault();
+    console.log(event);
   };
 
   return (
@@ -55,66 +58,95 @@ export default function SignUp() {
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
+
           <Typography component="h1" variant="h5">
             <b>Sign up</b>
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+
+          <Box component="form" noValidate onSubmit={handleSubmit(onSubmit)} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
-                  autoComplete="given-name"
-                  name="firstName"
+                  // autoComplete="given-name"
+                  // name="email"
                   required
                   fullWidth
-                  id="firstName"
-                  label="First Name"
+                  // id="email"
+                  label="이메일"
                   autoFocus
+                  onChange={changeHandler}
+                  {...register('email', {
+                    required: true,
+                    pattern: {
+                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/,
+                      message: '이메일형식이 아닙니다.',
+                    },
+                  })}
+                  error={!!errors.email}
+                  helperText={errors.email?.message}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
                   required
                   fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="family-name"
+                  id="nickname"
+                  label="닉네임"
+                  name="nickname"
+                  {...register('nickname', {
+                    required: true,
+                    pattern: {
+                      value: /^[a-zA-Zㄱ-힣0-9-_.]{2,12}$/,
+                      message: '*한글, 영문, 특수문자를 (- _ .) 포함한 4 ~ 12글자',
+                    },
+                  })}
+                  error={!!errors.nickname}
+                  helperText={errors.nickname?.message}
                 />
               </Grid>
               <Grid item xs={12}>
-                <TextField required fullWidth id="email" label="Email Address" name="email" autoComplete="email" />
+                <TextField
+                  fullWidth
+                  label="비밀번호"
+                  type="password"
+                  autoComplete="new-password"
+                  {...register('password', {
+                    required: true,
+                    pattern: {
+                      value: /(?=.*[a-zA-ZS])(?=.*?[#?!@$%^&*-]).{6,24}/,
+                      message: '*문자와 특수문자 조합의 6~24 자리',
+                    },
+                  })}
+                  error={!!errors.password}
+                  helperText={errors.password?.message}
+                />
               </Grid>
               <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
+                  name="checkPassword"
+                  label="비밀번호 확인"
+                  type="checkPassword"
+                  id="checkPassword"
                   autoComplete="new-password"
                 />
               </Grid>
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I want to receive inspiration, marketing promotions and updates via email."
-                />
-              </Grid>
             </Grid>
-            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+
+            <Button type="submit" fullWidth variant="contained" sx={{ mt: 4, mb: 4 }}>
               Sign Up
             </Button>
+
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/login" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>
   );
