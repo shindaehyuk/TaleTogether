@@ -1,6 +1,5 @@
-package com.kong.authtest.user.Controller;
+package com.kong.authtest.user.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kong.authtest.user.dto.UserDto;
 import com.kong.authtest.user.model.User;
 import com.kong.authtest.user.service.UserService;
@@ -20,20 +19,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class UserController {
 
     private final UserService userService;
-    private final ObjectMapper objectMapper;
 
     @PostMapping("/join")
     public ResponseEntity<Void> addUser(@RequestBody final UserDto userDto) {
         try {
             if (userService.addUser(userDto))
                 return ResponseEntity.status(HttpStatus.CREATED.value()).build();
+            else return ResponseEntity.status(HttpStatus.CONFLICT).build();
         } catch (DuplicateKeyException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().build();
         }
-        System.out.println("중복된 아이디이구욘...");
-        return ResponseEntity.internalServerError().build();
     }
 
     @PostMapping("/{userId}")

@@ -27,11 +27,6 @@ public class AuthConfig {
     @Autowired
     JwtAuthenticationProvider jwtAuthenticationProvider;
 
-
-    //private HttpSecurity registerJwtAuthenticationProvider(final HttpSecurity http, final UserService userService){
-    //    http.getSharedObject().
-    //
-    //}
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
