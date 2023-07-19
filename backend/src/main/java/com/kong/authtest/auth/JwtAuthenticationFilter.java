@@ -1,6 +1,7 @@
 package com.kong.authtest.auth;
 
 import com.auth0.jwt.JWTVerifier;
+import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.kong.authtest.user.model.User;
 import com.kong.authtest.user.service.UserService;
@@ -37,20 +38,21 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             try {
                 Authentication authentication = getAuthentication(token);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
-            } catch (Exception ex) {
-                ex.printStackTrace();
+            } catch (JWTDecodeException ex) {
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                response.getWriter().write("Invalid JWT");
+                return;
             }
         }
         chain.doFilter(request, response);
     }
 
-    public Authentication getAuthentication(String token) throws Exception {
+    public Authentication getAuthentication(String token) throws JWTDecodeException {
         if (token != null) {
             JWTVerifier verifier = jwtTokenUtil.getVerifier();
             DecodedJWT decodedJWT = verifier.verify(token.replace(jwtTokenUtil.getTokenPrefix(), ""));
             String userId = decodedJWT.getSubject();
             if (userId != null) {
-                //User user = userService.getUserById(Integer.parseInt(userId));
                 User user = userService.getUserByUserId(userId);
                 if (user != null) {
                     PJTNameUserDetails userDetails = new PJTNameUserDetails(user);
@@ -63,13 +65,5 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
         return null;
     }
-
-    //private String resolveToken(HttpServletRequest request) {
-    //    String bearerToken = request.getHeader(AUTHORIZATION_HEADER);
-    //    if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER_PREFIX)) {
-    //        return bearerToken.substring(7);
-    //    }
-    //    return null;
-    //}
 
 }

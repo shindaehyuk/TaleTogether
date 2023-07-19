@@ -19,7 +19,7 @@ import org.springframework.security.web.authentication.logout.LogoutFilter;
 
 @Configuration
 @EnableWebSecurity
-public class authConfig {
+public class AuthConfig {
 
     @Autowired
     ApplicationContext context;
