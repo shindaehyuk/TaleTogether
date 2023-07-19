@@ -9,7 +9,7 @@ import java.util.Collection;
 
 public class PJTNameUserDetails implements UserDetails {
 
-    private int id;
+    private Long id;
     private String userId;
     private String password;
     private String name;

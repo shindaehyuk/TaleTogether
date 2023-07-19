@@ -7,11 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class TaleDtoRequest {
-    private Long taleId;
+    private Long userId;
 
     public Tale toTale() {
         return Tale.builder()
-                .taleId(this.taleId)
                 .build();
     }
 }

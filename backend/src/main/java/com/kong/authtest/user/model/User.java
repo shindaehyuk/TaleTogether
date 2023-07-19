@@ -1,5 +1,6 @@
 package com.kong.authtest.user.model;
 
+import com.kong.authtest.comment.model.Comment;
 import com.kong.authtest.share.model.Share;
 import com.kong.authtest.tale.model.Tale;
 import lombok.*;
@@ -18,7 +19,7 @@ import java.util.List;
 public class User {
 
     @Id
-    private int id;
+    private Long id;
     private String name;
     private String password;
 
@@ -31,4 +32,7 @@ public class User {
 
     @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.REMOVE)
     private List<Share> shareList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.REMOVE)
+    private List<Comment> commentList = new ArrayList<>();
 }
