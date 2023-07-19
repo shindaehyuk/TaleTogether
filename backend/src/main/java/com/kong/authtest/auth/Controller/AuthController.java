@@ -32,9 +32,6 @@ public class AuthController {
         String password = userDto.getPassword();
         User user = userService.getUserByUserId(userId);
         if(passwordEncoder.matches(password,user.getPassword())){
-            Date date = new Date();
-            System.out.println(date.getTime());
-
             final var ret = new HashMap<String, Object>();
             ret.put("accessToken", jwtTokenUtil.generateAccessToken(userId));
             ret.put("refreshToken", jwtTokenUtil.generateRefreshToken(userId));
@@ -42,4 +39,5 @@ public class AuthController {
         }
         return ResponseEntity.badRequest().build();
     }
+
 }
