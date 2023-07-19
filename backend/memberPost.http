@@ -1,0 +1,8 @@
+POST localhost:8083/users/join
+Content-Type: application/json
+
+{
+  "userId": "qjawls123",
+  "name": "parkbumjin",
+  "password": "qpal123!"
+}

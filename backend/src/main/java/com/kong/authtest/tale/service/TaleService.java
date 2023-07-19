@@ -9,31 +9,25 @@ import com.kong.authtest.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 
 @Service
 @RequiredArgsConstructor
-public class TaleService{
+public class TaleService {
 
     private final TaleRepository taleRepository;
     private final UserRepository userRepository;
-    
-//    이거 user에 id가 Long으로 바뀌면 고쳐질듯
-    public TaleDtoResponse register(Long userId){
-        Tale tale = new TaleDtoRequest().toTale();
-//        User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("member not exist"));
-//        tale.setUser(user);
 
-        return new TaleDtoResponse(taleRepository.save(tale
-                .addUser(userRepository.findById(userId)
-                        .orElseThrow(()->new IllegalArgumentException("id 다시주셈")))));
+    //    이거 user에 id가 Long으로 바뀌면 고쳐질듯
+
+    @Transactional
+    public TaleDtoResponse register(TaleDtoRequest taleDtoRequest) {
+        User user = userRepository.findUserById(taleDtoRequest.getUserId()).orElseThrow();
+        return new TaleDtoResponse(taleRepository.save(new TaleDtoRequest().toTale().addUser(user)));
+
+
     }
-    
-//    public TaleDtoResponse findById(Long id){
-//        return new TaleDtoResponse(taleRepository
-//                .findById(id)
-//                .orElseThrow(() ->
-//                        new IllegalArgumentException("이 놈은 없엉ㅅ ")));
-//    }
 
 
 }

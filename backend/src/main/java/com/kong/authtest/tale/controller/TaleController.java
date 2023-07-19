@@ -17,9 +17,9 @@ public class TaleController {
 
     private final TaleService taleService;
 
-    @PostMapping("/post/{userId}")
-    public ResponseEntity<TaleDtoResponse> register (@PathVariable Long userId){
-        return ResponseEntity.ok(taleService.register(userId));
+    @PostMapping("/post")
+    public ResponseEntity<TaleDtoResponse> register (@RequestBody TaleDtoRequest taleDtoRequest){
+        return ResponseEntity.ok(taleService.register(taleDtoRequest));
     }
 
 }
