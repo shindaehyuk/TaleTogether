@@ -1,5 +1,6 @@
 package com.kong.authtest.tale.dto;
 
+import com.kong.authtest.tale.model.Tale;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -7,6 +8,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TaleDtoRequest {
     private Long taleId;
-    private String story;
-    private Long id;
+
+    public Tale toTale() {
+        return Tale.builder()
+                .taleId(this.taleId)
+                .build();
+    }
 }

@@ -1,11 +1,12 @@
 package com.kong.authtest.user.model;
 
+import com.kong.authtest.share.model.Share;
+import com.kong.authtest.tale.model.Tale;
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -24,4 +25,10 @@ public class User {
     @Column(name = "user_id")
     private String userId;
     private String role;
+
+    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.REMOVE)
+    private List<Tale> taleList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.REMOVE)
+    private List<Share> shareList = new ArrayList<>();
 }
