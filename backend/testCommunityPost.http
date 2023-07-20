@@ -1,6 +1,2 @@
-POST localhost:8083/community/info
+GET localhost:8083/community/info/1
 Content-Type: application/json
-
-{
-  "communityId": 1
-}
