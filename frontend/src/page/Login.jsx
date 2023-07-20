@@ -3,8 +3,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -12,26 +10,28 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useForm } from 'react-hook-form';
+import CircularProgress from '@mui/material/CircularProgress';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const defaultTheme = createTheme();
 
 export default function SignIn() {
-  const [input, setInput] = useState({
-    email: '',
-    password: '',
-  });
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
-  const changeHandler = (e) => {
-    setInput({
-      ...input,
-      [e.target.id]: e.target.value,
-    });
-  };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log(input);
+  const onSubmit = (event) => {
+    setIsLoading(true);
+    setTimeout(() => {
+      navigate('/');
+    }, 2000); // 로그인 후 메인페이지로 이동
   };
 
   return (
@@ -54,33 +54,33 @@ export default function SignIn() {
             <b>Sign in</b>
           </Typography>
 
-          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
+          <Box component="form" noValidate onSubmit={handleSubmit(onSubmit)} sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
+              label="이메일"
               autoFocus
-              onChange={changeHandler}
+              {...register('email', {
+                required: true,
+              })}
+              error={!!errors.email}
             />
             <TextField
               margin="normal"
               required
               fullWidth
-              name="password"
-              label="Password"
+              label="비밀번호"
               type="password"
-              id="password"
-              autoComplete="current-password"
-              onChange={changeHandler}
+              autoFocus
+              {...register('password', {
+                required: true,
+              })}
+              error={!!errors.password}
             />
 
-            <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
-            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 3 }}>
-              Sign In
+            <Button disabled={isLoading} type="submit" fullWidth variant="contained" sx={{ mt: 4, mb: 4 }}>
+              {isLoading ? <CircularProgress size={24} /> : 'Sign up'}
             </Button>
 
             <Grid container>
