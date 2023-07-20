@@ -1,5 +1,7 @@
 package com.kong.authtest.comment.model;
 
+import com.kong.authtest.common.baseEntity.BaseEntity;
+import com.kong.authtest.common.commonValidation.Content;
 import com.kong.authtest.community.model.Community;
 import com.kong.authtest.user.model.User;
 import lombok.AllArgsConstructor;
@@ -14,11 +16,13 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Comment {
+public class Comment extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long commentId;
-    private String content;
+
+    @Embedded
+    private Content content;
 
     @ManyToOne
     @JoinColumn(name = "community_id")

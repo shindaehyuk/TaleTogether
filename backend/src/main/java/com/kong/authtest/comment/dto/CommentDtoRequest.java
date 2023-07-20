@@ -1,6 +1,7 @@
 package com.kong.authtest.comment.dto;
 
 import com.kong.authtest.comment.model.Comment;
+import com.kong.authtest.common.commonValidation.Content;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,7 +14,7 @@ public class CommentDtoRequest {
 
     public Comment toComment(){
         return Comment.builder()
-                .content(this.content)
+                .content(new Content(this.content))
                 .build();
     }
 }

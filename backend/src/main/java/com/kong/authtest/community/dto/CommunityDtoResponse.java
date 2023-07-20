@@ -8,9 +8,11 @@ public class CommunityDtoResponse {
     private Long communityId;
     private String content;
     private Long userId;
+    private String title;
     public CommunityDtoResponse(Community community){
-//        this.communityId = community.getCommunityId();
-        this.content = community.getContent();
+        this.title = community.getTitle();
+        this.communityId = community.getCommunityId();
+        this.content = community.getContent().getContent();
         this.userId = community.getUser().getId();
     }
 }

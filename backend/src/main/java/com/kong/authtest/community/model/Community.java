@@ -1,11 +1,10 @@
 package com.kong.authtest.community.model;
 
 import com.kong.authtest.comment.model.Comment;
+import com.kong.authtest.common.baseEntity.BaseEntity;
+import com.kong.authtest.common.commonValidation.Content;
 import com.kong.authtest.user.model.User;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -13,14 +12,18 @@ import java.util.List;
 
 @Builder
 @Entity
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@Data
-public class Community {
+@Getter
+public class Community extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long communityId;
-    private String content;
+
+
+    @Embedded
+    private Content content;
+    private String title;
 
     @ManyToOne
     private User user;
@@ -28,7 +31,7 @@ public class Community {
     @OneToMany(mappedBy = "community", orphanRemoval = true, cascade = CascadeType.REMOVE)
     private List<Comment> commentList = new ArrayList<>();
 
-    public Community addUser(User user){
+    public Community addUser(User user) {
         this.user = user;
         return this;
     }

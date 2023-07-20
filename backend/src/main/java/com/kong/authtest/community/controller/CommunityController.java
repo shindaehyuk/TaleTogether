@@ -1,6 +1,5 @@
 package com.kong.authtest.community.controller;
 
-import com.kong.authtest.community.dto.CommunityDtoGetRequest;
 import com.kong.authtest.community.dto.CommunityDtoGetResponse;
 import com.kong.authtest.community.dto.CommunityDtoRequest;
 import com.kong.authtest.community.dto.CommunityDtoResponse;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/community")
 @RequiredArgsConstructor
-@Slf4j
 @RestController
 @CrossOrigin("*")
 public class CommunityController {
@@ -24,14 +22,9 @@ public class CommunityController {
         return ResponseEntity.ok(communityService.register(communityDtoRequest));
     }
 
-    @PostMapping("/info")
-    public ResponseEntity<CommunityDtoGetResponse> getCommunityInfo(@RequestBody CommunityDtoGetRequest communityDtoGetRequest){
-        return ResponseEntity.ok(communityService.getCommunityInfo(communityDtoGetRequest));
+    @GetMapping("/info/{communityId}")
+    public ResponseEntity<CommunityDtoGetResponse> getCommunityInfo(@PathVariable Long communityId){
+        return ResponseEntity.ok(communityService.getCommunityInfo(communityId));
     }
 
-    @PostMapping("/com")
-    public ResponseEntity<CommunityDtoResponse> getInfo(@RequestBody CommunityDtoGetRequest communityDtoGetRequest){
-        return ResponseEntity.ok(communityService.getInfo(communityDtoGetRequest));
-
-    }
 }

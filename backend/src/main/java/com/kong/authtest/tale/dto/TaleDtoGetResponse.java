@@ -6,6 +6,7 @@ import com.kong.authtest.tale.model.Tale;
 import lombok.Data;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 public class TaleDtoGetResponse {
@@ -16,5 +17,7 @@ public class TaleDtoGetResponse {
 
     public TaleDtoGetResponse (Tale tale){
         this.taleId = tale.getTaleId();
+        this.storyList = tale.getStoryList().stream().map(StoryDtoResponse::new).collect(Collectors.toList());
+        this.imageList = tale.getImagesList().stream().map(ImagesDtoResponse::new).collect(Collectors.toList());
     }
 }

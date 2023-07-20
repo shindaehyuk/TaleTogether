@@ -22,8 +22,8 @@ public class CommentController {
         return ResponseEntity.ok(commentService.register(commentDtoRequest));
     }
 
-    @PostMapping("/info")
-    public ResponseEntity<CommentDtoResponse> getInfo(@RequestBody CommentDtoGetRequest commentDtoGetRequest){
-        return ResponseEntity.ok(commentService.getInfo(commentDtoGetRequest));
-    }
+//    @PostMapping("/info")
+//    public ResponseEntity<CommentDtoResponse> getInfo(@RequestBody CommentDtoGetRequest commentDtoGetRequest){
+//        return ResponseEntity.ok(commentService.getInfo(commentDtoGetRequest));
+//    }
 }

@@ -9,7 +9,7 @@ public class CommentDtoResponse {
     private Long userId;
     private Long commentId;
     public CommentDtoResponse(Comment comment){
-        this.content = comment.getContent();
+        this.content = comment.getContent().getContent();
         this.userId = comment.getUser().getId();
         this.commentId = comment.getCommentId();
     }

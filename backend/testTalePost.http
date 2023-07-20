@@ -1,6 +1,2 @@
-POST localhost:8083/tale/info
+GET localhost:8083/tale/info/1
 Content-Type: application/json
-
-{
-  "taleId": 1
-}

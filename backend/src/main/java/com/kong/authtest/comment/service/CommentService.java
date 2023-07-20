@@ -30,10 +30,10 @@ public class CommentService {
                                         .orElseThrow(()->new IllegalArgumentException("shareId 문제")))));
     }
 
-    @Transactional
-    public CommentDtoResponse getInfo(CommentDtoGetRequest commentDtoGetRequest){
-        CommentDtoResponse commentDtoResponse = new CommentDtoResponse(commentDtoGetRequest.toComment().addUserAndCommunity(commentRepository.findById(commentDtoGetRequest.getCommentId()).get().getUser(), commentRepository.findById(commentDtoGetRequest.getCommentId()).get().getCommunity()));
-        commentDtoResponse.setContent(commentRepository.findById(commentDtoGetRequest.getCommentId()).get().getContent());
-        return commentDtoResponse;
-    }
+//    @Transactional
+//    public CommentDtoResponse getInfo(CommentDtoGetRequest commentDtoGetRequest){
+//        CommentDtoResponse commentDtoResponse = new CommentDtoResponse(commentDtoGetRequest.toComment().addUserAndCommunity(commentRepository.findById(commentDtoGetRequest.getCommentId()).get().getUser(), commentRepository.findById(commentDtoGetRequest.getCommentId()).get().getCommunity()));
+//        commentDtoResponse.setContent(commentRepository.findById(commentDtoGetRequest.getCommentId()).get().getContent());
+//        return commentDtoResponse;
+//    }
 }
