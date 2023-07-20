@@ -2,7 +2,6 @@ package com.kong.authtest.community.dto;
 
 import com.kong.authtest.comment.dto.CommentDtoResponse;
 import com.kong.authtest.community.model.Community;
-import com.kong.authtest.story.dto.StoryDtoResponse;
 import lombok.Data;
 
 import java.util.List;

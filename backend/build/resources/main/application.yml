@@ -3,7 +3,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/ssafy_web_db?serverTimezone=Asia/Seoul
     username: root
-    password: ssafy
+    password: twja0930
   redis:
     port: 6379
     host: localhost

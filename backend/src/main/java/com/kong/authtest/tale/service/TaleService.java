@@ -1,7 +1,5 @@
 package com.kong.authtest.tale.service;
 
-import com.kong.authtest.images.dto.ImagesDtoResponse;
-import com.kong.authtest.story.dto.StoryDtoResponse;
 import com.kong.authtest.tale.dto.TaleDtoGetResponse;
 import com.kong.authtest.tale.dto.TaleDtoRequest;
 import com.kong.authtest.tale.dto.TaleDtoResponse;
@@ -11,9 +9,6 @@ import com.kong.authtest.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 
 @Service

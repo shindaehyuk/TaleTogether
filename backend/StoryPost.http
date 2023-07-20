@@ -1,8 +1,8 @@
-POST localhost:8083/story
+POST localhost:8083/Page
 Content-Type: application/json
 
 {
   "sequence": 2,
-  "story": "test story",
+  "Page": "test Page",
   "taleId": 1
 }
