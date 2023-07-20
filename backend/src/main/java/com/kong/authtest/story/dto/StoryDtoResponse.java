@@ -6,8 +6,10 @@ import lombok.Data;
 @Data
 public class StoryDtoResponse {
     private String story;
+    private int sequence;
 
     public StoryDtoResponse(Story storyEntity){
         this.story = storyEntity.getStory();
+        this.sequence = storyEntity.getSequence();
     }
 }

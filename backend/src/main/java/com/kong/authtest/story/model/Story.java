@@ -12,12 +12,13 @@ import javax.persistence.*;
 @Entity
 public class Story {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long storyId;
     private String story;
     private int sequence;
 
     @ManyToOne
+    @JoinColumn(name = "tale_id")
     private Tale tale;
 
     public Story addTale(Tale tale){

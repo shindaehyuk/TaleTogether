@@ -8,13 +8,12 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class StoryDtoRequest {
-    private Long storyId;
     private String story;
     private int sequence;
+    private Long taleId;
 
     public Story toStory(){
         return Story.builder()
-                .storyId(this.storyId)
                 .story(this.story)
                 .sequence(this.sequence)
                 .build();

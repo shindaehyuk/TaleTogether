@@ -1,0 +1,6 @@
+POST localhost:8083/community/com
+Content-Type: application/json
+
+{
+  "communityId": 1
+}

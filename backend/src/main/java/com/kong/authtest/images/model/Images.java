@@ -15,12 +15,13 @@ import javax.persistence.*;
 @Builder
 public class Images {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long imageId;
     private String imageName;
     private int sequence;
 
     @ManyToOne
+    @JoinColumn(name = "tale_id")
     private Tale tale;
 
     public Images addTale(Tale tale){

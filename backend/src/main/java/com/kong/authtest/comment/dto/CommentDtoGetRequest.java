@@ -6,14 +6,12 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class CommentDtoRequest {
-    private String content;
-    private Long shareId;
-    private Long userId;
+public class CommentDtoGetRequest {
+    private Long commentId;
 
     public Comment toComment(){
         return Comment.builder()
-                .content(this.content)
+                .commentId(this.commentId)
                 .build();
     }
 }

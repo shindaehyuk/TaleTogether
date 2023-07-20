@@ -1,4 +1,4 @@
-package com.kong.authtest.share.model;
+package com.kong.authtest.community.model;
 
 import com.kong.authtest.comment.model.Comment;
 import com.kong.authtest.user.model.User;
@@ -16,19 +16,19 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Share {
+public class Community {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long shareId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long communityId;
     private String content;
 
     @ManyToOne
     private User user;
 
-    @OneToMany(mappedBy = "share", orphanRemoval = true, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "community", orphanRemoval = true, cascade = CascadeType.REMOVE)
     private List<Comment> commentList = new ArrayList<>();
 
-    public Share addUser(User user){
+    public Community addUser(User user){
         this.user = user;
         return this;
     }

@@ -1,6 +1,6 @@
 package com.kong.authtest.comment.model;
 
-import com.kong.authtest.share.model.Share;
+import com.kong.authtest.community.model.Community;
 import com.kong.authtest.user.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,18 +16,21 @@ import javax.persistence.*;
 @Entity
 public class Comment {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long commentId;
     private String content;
 
     @ManyToOne
-    private Share share;
+    @JoinColumn(name = "community_id")
+    private Community community;
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
-    public Comment addUserAndShare(User user, Share share){
+    public Comment addUserAndCommunity(User user, Community community){
         this.user = user;
-        this.share = share;
+        this.community = community;
         return this;
     }
+
 }

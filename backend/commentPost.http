@@ -1,0 +1,8 @@
+POST localhost:8083/comment
+Content-Type: application/json
+
+{
+  "content": "이거뭐야22",
+  "userId": 1,
+  "shareId": 1
+}

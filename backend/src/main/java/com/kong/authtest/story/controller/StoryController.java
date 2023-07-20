@@ -17,8 +17,8 @@ public class StoryController {
     private final StoryService storyService;
 
     @PostMapping
-    public ResponseEntity<StoryDtoResponse> register (@RequestBody StoryDtoRequest storyDtoRequest, Long taleId){
-        return ResponseEntity.ok(storyService.register(storyDtoRequest, taleId));
+    public ResponseEntity<StoryDtoResponse> register (@RequestBody StoryDtoRequest storyDtoRequest){
+        return ResponseEntity.ok(storyService.register(storyDtoRequest));
     }
 
 }

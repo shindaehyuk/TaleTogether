@@ -1,0 +1,6 @@
+POST localhost:8083/comment/info
+Content-Type: application/json
+
+{
+  "commentId": 1
+}

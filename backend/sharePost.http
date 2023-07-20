@@ -1,0 +1,7 @@
+POST localhost:8083/community
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "content": "이거봐라~동화책이다~"
+}

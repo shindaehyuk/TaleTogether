@@ -1,7 +1,7 @@
 package com.kong.authtest.user.model;
 
 import com.kong.authtest.comment.model.Comment;
-import com.kong.authtest.share.model.Share;
+import com.kong.authtest.community.model.Community;
 import com.kong.authtest.tale.model.Tale;
 import lombok.*;
 
@@ -32,7 +32,7 @@ public class User {
     private List<Tale> taleList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.REMOVE)
-    private List<Share> shareList = new ArrayList<>();
+    private List<Community> communityList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.REMOVE)
     private List<Comment> commentList = new ArrayList<>();

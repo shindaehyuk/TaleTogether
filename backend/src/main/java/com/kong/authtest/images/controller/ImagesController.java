@@ -17,7 +17,7 @@ public class ImagesController {
     private final ImageService imageService;
 
     @PostMapping
-    public ResponseEntity<ImagesDtoResponse> register (@RequestBody ImagesDtoRequest imagesDtoRequest, Long taleId){
-        return ResponseEntity.ok(imageService.register(imagesDtoRequest, taleId));
+    public ResponseEntity<ImagesDtoResponse> register (@RequestBody ImagesDtoRequest imagesDtoRequest){
+        return ResponseEntity.ok(imageService.register(imagesDtoRequest));
     }
 }
