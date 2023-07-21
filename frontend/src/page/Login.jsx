@@ -14,12 +14,15 @@ import { useForm } from 'react-hook-form';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { login } from '../slices/userSlice';
 
 const defaultTheme = createTheme();
 
 export default function SignIn() {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const {
     register,
@@ -29,6 +32,8 @@ export default function SignIn() {
 
   const onSubmit = (event) => {
     setIsLoading(true);
+    dispatch(login());
+
     setTimeout(() => {
       navigate('/');
     }, 2000); // 로그인 후 메인페이지로 이동
@@ -72,7 +77,6 @@ export default function SignIn() {
               fullWidth
               label="비밀번호"
               type="password"
-              autoFocus
               {...register('password', {
                 required: true,
               })}
