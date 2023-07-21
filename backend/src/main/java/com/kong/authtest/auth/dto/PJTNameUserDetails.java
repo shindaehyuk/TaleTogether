@@ -1,4 +1,4 @@
-package com.kong.authtest.auth;
+package com.kong.authtest.auth.dto;
 
 import com.kong.authtest.user.model.User;
 import org.springframework.security.core.GrantedAuthority;

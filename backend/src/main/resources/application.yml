@@ -15,7 +15,5 @@ server:
 jwt:
   secret: dbbAeHubOOc8KaOfYB6XEQoEj1QzRlHgtjNL8PYs1A1tymZvvqkcEU7L1imkKHeDb
   expiration: 1800
-  accessTokenSample: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJiZW9tamluQG5hdmVyLmNvbSIsImV4cCI6MTY4OTY0OTYyNSwiaXNzIjoia29uZy5jb20ifQ.z5jox7T0K-wSTYyDbGsYzbpKTKzSVpz5NYocoostXuw
-  refreshTokenSample: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTIyMzk4MjV9.cF6sj0u15qb7PJSg5JmUw2Xj5dTl04AZ3TVjMLUDUGw
 
 

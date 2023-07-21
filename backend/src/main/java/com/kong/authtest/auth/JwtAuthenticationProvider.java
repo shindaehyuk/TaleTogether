@@ -1,5 +1,7 @@
 package com.kong.authtest.auth;
 
+import com.kong.authtest.auth.dto.PJTNameUserDetails;
+import com.kong.authtest.auth.service.PJTNameUserDetailsService;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

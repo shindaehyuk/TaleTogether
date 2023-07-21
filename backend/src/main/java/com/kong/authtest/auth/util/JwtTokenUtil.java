@@ -1,4 +1,4 @@
-package com.kong.authtest.auth;
+package com.kong.authtest.auth.util;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
@@ -8,6 +8,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
+import java.util.HashMap;
 
 @Component
 public class JwtTokenUtil {
@@ -34,7 +35,6 @@ public class JwtTokenUtil {
         return TOKEN_PREFIX;
     }
 
-
     public JWTVerifier getVerifier() {
         return JWT
                 .require(cryptoAlgorithm)
@@ -42,6 +42,12 @@ public class JwtTokenUtil {
                 .build();
     }
 
+    public HashMap<?, ?> generateTokens(String userId) {
+        final HashMap<String, Object> map = new HashMap<>();
+        map.put("accessToken", generateAccessToken(userId));
+        map.put("refreshToken", generateAndStoreRefreshToken(userId));
+        return map;
+    }
 
     public String generateAccessToken(String userId) {
         final Instant now = Instant.now();
@@ -69,8 +75,20 @@ public class JwtTokenUtil {
                 .sign(cryptoAlgorithm);
     }
 
+    public void storeAccessToken(String token) {
+        redisTemplate.opsForValue().set(token, "logout", expirationTime);
+    }
+
     public void storeRefreshToken(String userId, String token) {
         redisTemplate.opsForValue().set(userId, token);
+    }
+
+    public void deleteRefreshToken(String userId) {
+        redisTemplate.opsForValue().getAndDelete(userId);
+    }
+
+    public String getRefreshToken(String userId) {
+        return (String) redisTemplate.opsForValue().get(userId);
     }
 
 }

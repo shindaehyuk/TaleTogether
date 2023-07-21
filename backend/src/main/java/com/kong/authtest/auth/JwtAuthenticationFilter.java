@@ -3,6 +3,8 @@ package com.kong.authtest.auth;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.kong.authtest.auth.dto.PJTNameUserDetails;
+import com.kong.authtest.auth.util.JwtTokenUtil;
 import com.kong.authtest.user.model.User;
 import com.kong.authtest.user.service.UserService;
 import lombok.RequiredArgsConstructor;

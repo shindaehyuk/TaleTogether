@@ -1,18 +1,16 @@
 package com.kong.authtest.auth.controller;
 
-import com.kong.authtest.auth.JwtTokenUtil;
+import com.kong.authtest.auth.util.JwtTokenUtil;
 import com.kong.authtest.user.dto.UserDto;
 import com.kong.authtest.user.model.User;
 import com.kong.authtest.user.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/auth")
@@ -28,12 +26,20 @@ public class AuthController {
         String password = userDto.getPassword();
         User user = userService.getUserByUserId(userId);
         if (passwordEncoder.matches(password, user.getPassword())) {
-            final var ret = new HashMap<String, Object>();
-            ret.put("accessToken", jwtTokenUtil.generateAccessToken(userId));
-            ret.put("refreshToken", jwtTokenUtil.generateAndStoreRefreshToken(userId));
-            return ResponseEntity.ok().body(ret);
+            return ResponseEntity.ok().body(jwtTokenUtil.generateTokens(userId));
         }
         return ResponseEntity.badRequest().build();
     }
+
+    @GetMapping("/refresh/{userId}")
+    public ResponseEntity<?> refresh(HttpServletRequest request, @PathVariable final String userId) {
+        if (request.getHeader(jwtTokenUtil.getHeaderString()).equals(jwtTokenUtil.getRefreshToken(userId)))
+            return ResponseEntity.ok().body(jwtTokenUtil.generateTokens(userId));
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    }
+
+    //@GetMapping("/logout/{userId}")
+    //public ResponseEntity<?> logout(@PathVariable final String userId) {
+    //}
 
 }

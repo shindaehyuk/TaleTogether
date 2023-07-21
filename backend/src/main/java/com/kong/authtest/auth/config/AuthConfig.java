@@ -2,7 +2,7 @@ package com.kong.authtest.auth.config;
 
 import com.kong.authtest.auth.JwtAuthenticationFilter;
 import com.kong.authtest.auth.JwtAuthenticationProvider;
-import com.kong.authtest.auth.JwtTokenUtil;
+import com.kong.authtest.auth.util.JwtTokenUtil;
 import com.kong.authtest.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
