@@ -1,0 +1,2 @@
+DELETE localhost:8083/tale/delete/3
+Content-Type: application/json

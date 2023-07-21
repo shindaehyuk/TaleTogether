@@ -2,7 +2,7 @@ POST localhost:8083/comment
 Content-Type: application/json
 
 {
-  "content": "이거뭐야",
+  "content": "이거뭐야1",
   "userId": 1,
-  "shareId": 1
+  "commuinityId": 3
 }

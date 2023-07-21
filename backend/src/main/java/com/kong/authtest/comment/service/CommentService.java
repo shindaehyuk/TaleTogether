@@ -1,8 +1,9 @@
 package com.kong.authtest.comment.service;
 
-import com.kong.authtest.comment.dto.CommentDtoGetRequest;
+import com.kong.authtest.comment.dto.CommentDtoPutRequest;
 import com.kong.authtest.comment.dto.CommentDtoRequest;
 import com.kong.authtest.comment.dto.CommentDtoResponse;
+import com.kong.authtest.comment.model.Comment;
 import com.kong.authtest.comment.repository.CommentRepository;
 import com.kong.authtest.community.repository.CommunityRepository;
 import com.kong.authtest.user.repository.UserRepository;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class CommentService {
     private final CommentRepository commentRepository;
     private final UserRepository userRepository;
@@ -26,14 +28,28 @@ public class CommentService {
                         .addUserAndCommunity(
                                 userRepository.findById(commentDtoRequest.getUserId())
                                 .orElseThrow(()-> new IllegalArgumentException("userId 문제")),
-                                communityRepository.findById(commentDtoRequest.getShareId())
+                                communityRepository.findById(commentDtoRequest.getCommuinityId())
                                         .orElseThrow(()->new IllegalArgumentException("shareId 문제")))));
     }
 
-//    @Transactional
-//    public CommentDtoResponse getInfo(CommentDtoGetRequest commentDtoGetRequest){
-//        CommentDtoResponse commentDtoResponse = new CommentDtoResponse(commentDtoGetRequest.toComment().addUserAndCommunity(commentRepository.findById(commentDtoGetRequest.getCommentId()).get().getUser(), commentRepository.findById(commentDtoGetRequest.getCommentId()).get().getCommunity()));
-//        commentDtoResponse.setContent(commentRepository.findById(commentDtoGetRequest.getCommentId()).get().getContent());
-//        return commentDtoResponse;
-//    }
+    public CommentDtoResponse getInfo(Long commentId){
+        System.out.println(commentId);
+        return new CommentDtoResponse(getComment(commentId));
+    }
+
+    @Transactional
+    public CommentDtoResponse modifyComment(CommentDtoPutRequest commentDtoPutRequest){
+        return new CommentDtoResponse(getComment(commentDtoPutRequest.getCommentId())
+                .updateComment(commentDtoPutRequest));
+    }
+
+    @Transactional
+    public void delete(Long commentId){
+        commentRepository.deleteById(commentId);
+    }
+
+    private Comment getComment(Long commentId) {
+        return commentRepository.findById(commentId)
+                .orElseThrow(() -> new IllegalArgumentException("오류ㄷㄷ"));
+    }
 }

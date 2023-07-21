@@ -1,8 +1,0 @@
-POST localhost:8083/tale/post
-Content-Type: application/json
-
-{
-
-  "userId": 1
-
-}

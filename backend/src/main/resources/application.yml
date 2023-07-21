@@ -1,15 +1,16 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/ssafy_web_db?serverTimezone=Asia/Seoul
+    url: jdbc:mysql://localhost:3306/ssafy?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+
     username: root
-    password: twja0930
+    password: ssafy
   redis:
     port: 6379
     host: localhost
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     properties:
       hibernate:
         format_sql: true

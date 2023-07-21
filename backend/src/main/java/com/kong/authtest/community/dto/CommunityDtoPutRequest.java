@@ -10,19 +10,12 @@ import org.springframework.validation.annotation.Validated;
 @Data
 @NoArgsConstructor
 @Validated
-public class CommunityDtoRequest {
+public class CommunityDtoPutRequest {
 
     private String title;
     @NotNull
     private String content;
-    private Long userId;
+    private Long communityId;
     private Long taleId;
 
-
-    public Community toCommunity(){
-        return Community.builder()
-                .title(this.title)
-                .content(new Content(this.content))
-                .build();
-    }
 }

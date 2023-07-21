@@ -1,8 +1,0 @@
-POST localhost:8083/images
-Content-Type: application/json
-
-{
-  "taleId": 1,
-  "sequence": 2,
-  "imageName": "test_image1"
-}

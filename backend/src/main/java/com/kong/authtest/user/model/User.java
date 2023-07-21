@@ -26,7 +26,6 @@ public class User {
 
     @Column(name = "user_id")
     private String userId;
-    private String role;
 
     @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.REMOVE)
     private List<Tale> taleList = new ArrayList<>();

@@ -1,0 +1,3 @@
+GET localhost:8083/page/detail/1
+Content-Type: application/json
+

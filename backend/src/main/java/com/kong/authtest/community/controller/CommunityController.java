@@ -3,10 +3,11 @@ package com.kong.authtest.community.controller;
 import com.kong.authtest.community.dto.CommunityDtoGetResponse;
 import com.kong.authtest.community.dto.CommunityDtoRequest;
 import com.kong.authtest.community.dto.CommunityDtoResponse;
+import com.kong.authtest.community.dto.CommunityDtoPutRequest;
 import com.kong.authtest.community.service.CommunityService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/community")
@@ -25,6 +26,17 @@ public class CommunityController {
     @GetMapping("/info/{communityId}")
     public ResponseEntity<CommunityDtoGetResponse> getCommunityInfo(@PathVariable Long communityId){
         return ResponseEntity.ok(communityService.getCommunityInfo(communityId));
+    }
+
+    @PutMapping("/modify")
+    public ResponseEntity<CommunityDtoResponse> modifyCommunityInfo(@RequestBody CommunityDtoPutRequest communityDtoPutRequest){
+        return ResponseEntity.ok(communityService.modify(communityDtoPutRequest));
+    }
+
+    @DeleteMapping("/delete/{communityId}")
+    public ResponseEntity<Boolean> delete(@PathVariable Long communityId){
+        communityService.delete(communityId);
+        return ResponseEntity.ok(true);
     }
 
 }

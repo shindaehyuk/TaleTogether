@@ -29,5 +29,10 @@ public class TaleService {
         return new TaleDtoGetResponse(taleRepository.findById(taleId).orElseThrow(()-> new IllegalArgumentException("not found")));
     }
 
+    @Transactional
+    public void delete(Long taleId){
+        taleRepository.deleteById(taleId);
+    }
+
 
 }

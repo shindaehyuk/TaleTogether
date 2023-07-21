@@ -27,13 +27,11 @@ public class TaleController {
     public ResponseEntity<TaleDtoGetResponse> getTaleResponse(@PathVariable Long taleId){
         return ResponseEntity.ok(taleService.getTaleInfo(taleId));
     }
-//
-//    @DeleteMapping
-//    public void deleteTale(@RequestBody TaleDtoGetRequest taleDtoGetRequest){
-//         if(deleteTale(taleDtoGetRequest)){
-//             System.out.println("success");
-//         }else {
-//             System.out.println("fail");
-//         }
-//    }
+
+    @DeleteMapping("/delete/{taleId}")
+    public ResponseEntity<Boolean> delete(@PathVariable Long taleId){
+        taleService.delete(taleId);
+        return ResponseEntity.ok(true);
+    }
+
 }

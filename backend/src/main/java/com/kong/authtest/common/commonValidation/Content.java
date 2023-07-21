@@ -37,8 +37,5 @@ public class Content {
         if (content.length() <= 0 || content.length() > 500) {
             throw new IllegalArgumentException("글의 길이는 500 자 이상 불가능 합니다");
         }
-
     }
-
-
 }

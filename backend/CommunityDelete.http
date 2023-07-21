@@ -1,0 +1,2 @@
+DELETE localhost:8083/community/delete/3
+Content-Type: application/json

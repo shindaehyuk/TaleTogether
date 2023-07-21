@@ -1,5 +1,6 @@
 package com.kong.authtest.page.service;
 
+import com.kong.authtest.page.dto.PageDtoPutRequest;
 import com.kong.authtest.page.dto.PageDtoRequest;
 import com.kong.authtest.page.dto.PageDtoResponse;
 import com.kong.authtest.page.model.Page;
@@ -20,15 +21,25 @@ public class PageService {
     @Transactional
     public PageDtoResponse register(PageDtoRequest pageDtoRequest){
         Page page = pageDtoRequest.toPage();
-        page.setSequence(findById(pageDtoRequest).
+        page.addSequence(findById(pageDtoRequest).
                         getPageList().size());
         return new PageDtoResponse(pageRepository.save(page
                 .addTale(findById(pageDtoRequest))));
     }
 
     public PageDtoResponse detail(Long postId){
-            return new PageDtoResponse(pageRepository.findById(postId).
-                    orElseThrow(() -> new IllegalArgumentException("not found")));
+            return new PageDtoResponse(getPage(postId));
+    }
+
+    @Transactional
+    public PageDtoResponse modify(PageDtoPutRequest pageDtoPutRequest){
+        return new PageDtoResponse(getPage(pageDtoPutRequest.getPageId())
+                .updatePage(pageDtoPutRequest));
+    }
+
+    @Transactional
+    public void delete(Long pageId){
+        pageRepository.deleteById(pageId);
     }
 
     private Tale findById(PageDtoRequest PageDtoRequest) {
@@ -37,5 +48,9 @@ public class PageService {
                         new IllegalArgumentException("taleId 잘못줬음"));
     }
 
+    private Page getPage(Long postId) {
+        return pageRepository.findById(postId).
+                orElseThrow(() -> new IllegalArgumentException("not found"));
+    }
 
 }

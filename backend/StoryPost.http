@@ -1,8 +1,0 @@
-POST localhost:8083/Page
-Content-Type: application/json
-
-{
-  "sequence": 2,
-  "Page": "test Page",
-  "taleId": 1
-}

@@ -1,18 +1,16 @@
 package com.kong.authtest.comment.model;
 
+import com.kong.authtest.comment.dto.CommentDtoPutRequest;
 import com.kong.authtest.common.baseEntity.BaseEntity;
 import com.kong.authtest.common.commonValidation.Content;
 import com.kong.authtest.community.model.Community;
 import com.kong.authtest.user.model.User;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Builder
-@Data
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -34,6 +32,11 @@ public class Comment extends BaseEntity {
     public Comment addUserAndCommunity(User user, Community community){
         this.user = user;
         this.community = community;
+        return this;
+    }
+
+    public Comment updateComment(CommentDtoPutRequest commentDtoPutRequest){
+        this.content = new Content(commentDtoPutRequest.getContent());
         return this;
     }
 

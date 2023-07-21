@@ -2,6 +2,8 @@ POST localhost:8083/community
 Content-Type: application/json
 
 {
+  "title": "자랑글",
+  "content": "자랑글입니다",
   "userId": 1,
-  "content": "이거봐라~동화책이다~"
+  "taleId": 3
 }
