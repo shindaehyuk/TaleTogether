@@ -15,7 +15,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { login } from '../slices/userSlice';
+import { login } from '../redux/slices/userSlice';
 
 const defaultTheme = createTheme();
 

@@ -16,17 +16,12 @@ export default function Nav() {
           <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            News
-          </Typography>
-          <Button href="/login" color="inherit">
-            Login
-          </Button>
-          <Button href="/login">login{/* <Link to="/">메인페이지</Link> */}</Button>
+
           <Link to="/">메인페이지</Link>
           <Link to="/login">로그인</Link>
           <Link to="/signup">회원가입</Link>
-          <Link to="/mypage">마이페이지</Link>
+          {/* <Link to="/mypage">마이페이지</Link> */}
+          <Link to="/community">커뮤니티</Link>
         </Toolbar>
       </AppBar>
     </Box>
