@@ -18,10 +18,10 @@ export default function Nav() {
           </IconButton>
 
           <Link to="/">메인페이지</Link>
-          <Link to="/login">로그인</Link>
-          <Link to="/signup">회원가입</Link>
           {/* <Link to="/mypage">마이페이지</Link> */}
           <Link to="/community">커뮤니티</Link>
+          <Link to="/dashboard">대시보드</Link>
+          <Link to="/admin">로그인</Link>
         </Toolbar>
       </AppBar>
     </Box>
