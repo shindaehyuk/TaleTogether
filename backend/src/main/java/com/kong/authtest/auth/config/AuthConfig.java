@@ -1,10 +1,12 @@
 package com.kong.authtest.auth.config;
 
+import com.auth0.jwt.algorithms.Algorithm;
 import com.kong.authtest.auth.JwtAuthenticationFilter;
 import com.kong.authtest.auth.JwtAuthenticationProvider;
 import com.kong.authtest.auth.util.JwtTokenUtil;
 import com.kong.authtest.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -40,6 +42,11 @@ public class AuthConfig {
         return authenticationManagerBuilder.build();
     }
 
+
+    @Bean
+    Algorithm cryptoAlgorithm(@Value("") final String secretKey) {
+        return Algorithm.HMAC256(secretKey);
+    }
     //@Bean
     //public AuthenticationManager authenticationManager(
     //        AuthenticationConfiguration authenticationConfiguration

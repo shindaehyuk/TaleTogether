@@ -35,7 +35,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
-        String token = request.getHeader(jwtTokenUtil.getHeaderString());
+        String token = request.getHeader(JwtTokenUtil.HEADER_STRING);
         if (token != null) {
             try {
                 Authentication authentication = getAuthentication(token);
@@ -52,7 +52,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     public Authentication getAuthentication(String token) throws JWTDecodeException {
         if (token != null) {
             JWTVerifier verifier = jwtTokenUtil.getVerifier();
-            DecodedJWT decodedJWT = verifier.verify(token.replace(jwtTokenUtil.getTokenPrefix(), ""));
+            DecodedJWT decodedJWT = verifier.verify(token.replace(JwtTokenUtil.TOKEN_PREFIX, ""));
             String userId = decodedJWT.getSubject();
             if (userId != null) {
                 User user = userService.getUserByUserId(userId);
