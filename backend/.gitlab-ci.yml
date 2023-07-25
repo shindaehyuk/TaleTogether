@@ -1,0 +1,64 @@
+image: docker:latest
+
+services:
+  - docker:dind
+
+variables:
+  DOCKER_DRIVER: overlay2
+  DOCKER_HOST: "tcp://docker:2375"
+
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  script:
+    - docker login -u xodnjs8287 -p xodnjs783!
+    - docker build -t your_registry_username/test:latest .
+    - docker push your_registry_username/test:latest
+
+deploy:
+  stage: deploy
+  before_script:
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    - echo MIIEogIBAAKCAQEAgsPofmeM4aHLc+2NO4HZj1X1aBB7gvlPN7J+lJW9/WyrO0NR
+      J4PWVVtNXF084DNkkd+dsg8w9p2JKoXpT8qAjjZvWvptaDOPxGMTr2Rg9Nr5XWFn
+      uyb7l+ugQSEgWbGem0k0whT1FkdZ+eEKAqZzVziVxpmBSzppVo6BZOyScTkCw+jM
+      bH/s71hl37HI+dDMfvlBL1DA3XhKiVIobYoJ4aM9YXusWzdo1pgHoY+/hG38Jzk7
+      ws489VbMKScQ2sxzwq9ypHMwghGIO3r9KXdzWQTsT7zN0/ie0cNJs/q4LaFO7hRU
+      EqkQnTKIP6mEksMEG4KWZpBYxg4bjie0NHTXGQIDAQABAoIBAALeAtIKuTcVUh23
+      nrooTbnr25atjdfAWbFR856UbfcJk/OXtUbViDSU7OxSiwwrdFAShCWsWZl+uMw6
+      5XO/b/QuU2C+TvnS75sRxRO6crnLt14Jzbl30Fpzay8iZ9Avqdej0klTJlCXvexR
+      t+N4/NxzvCz/nqskm7yvIT0yRr++xS486VO8eGJXeGXcOyenQ7mA7vByj9SXa9kB
+      882kS1aWzfiYPPIFadFv/UtTwr2Chfr45qvKtuS6RZa/sB5JjePNblaNb2/7rnyI
+      oLes3oAwxrRYsoYdHXepEDI3s6Vw7BZa0TTVEiilHHZwfs1GuUe8SH8g7Nf4em6w
+      /fgGNeUCgYEA0GwHJy4gNgJx9Qbm2IA2nS28xTkG8lKXK+6565uSscp7BzN1x3iX
+      riNsCeGTO81IbVOjsmsNBbIfMIauQSVOiV09XIcyhv7abNLr5HimEX1M5IsPNMnk
+      uY+G7YhRBLqsdgdrOL7onCSP++mDSBh0aWkbt+zNSSUjcL2t+AyCpGcCgYEAoJ2z
+      DEbIcdZNGdntf177vjvrWPoeSfjuOW2PAezZayxU08U79IQkH2FvjrTubcFBFWs1
+      wYOwWQg4cTtGPaGY9nJksz6bV31QrUYn50oZgE+k/LOBFWvEhAeHvho49Pt+0Ywt
+      jLE7BeQwVecriagtA13b3x1n2o8LX/Yq4COjeH8CgYAdoh5qPa6qvzJAqliME76w
+      Hl6mk/Me5QtFXc3lZ9s1mBph7bkjQUwfoD2uMfpjGE7h7HBr37icRLUWiy+fZ5SB
+      B1bAHyDZ/MZFjr+nXlgOSIh0PilNUh9JGtUOVMFgMMJwjaF7Efm0qaYnJQ5bY865
+      Zg5g2jRd3//n+bAQgobYpQKBgBXFKkaotXSQmoS9gC56fl7LmlvGEyLtpcSM8AxP
+      wSyApsLJghXjb039k/Rg28xunFa94FxpcBaxQY0/fobOB4CoArQ08TNLngrOboww
+      BALbSL6jygRQRiOrLZ/7x+qUyBy5BleCkkB7LH4IRmNzMx64sxurza7XIrCQGkGl
+      MvwbAoGAUxAXZPPg3LMjx3gUyQm6geJFvtAauLNeLlG/qN2zPmliktVMrHiOsUg5
+      AxXMiIDRau7/DeeKor/3DTEQ5emWSXvT6PemwBZfEHNCYplZkWsLp0josfLWbJyB
+      w4yhsKXhRD7gKQCnCuZScWex/ZdAyk7vOuns8tviYu3uDfzKznc= | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - echo # i9c110.p.ssafy.io:22 SSH-2.0-OpenSSH_8.2p1 Ubuntu-4ubuntu0.8
+      i9c110.p.ssafy.io ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBCvlAXs9sMh2HHCJGE5qd9JcMImVbuifHkjiPWUupB0JSDKm7CnNVlprqDJ5JXGkuLQvH7yuVI2qwV3TewwekIA=
+      # i9c110.p.ssafy.io:22 SSH-2.0-OpenSSH_8.2p1 Ubuntu-4ubuntu0.8
+      i9c110.p.ssafy.io ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC4tXD3p8PcdHMBFO2mmphEBrECbcloHbpCZUJnm69pAdiPl0JKVZiO9YHo4vjN4+bilNpfRReMOaIUYqREvpCFq7ZOx4I9qbQwzHCJBgJKQJ3xnIqfeBLs3RnEuUwE0mnwkdKNQCHJgI+W10UM2LCYtXx5wV/HSla1/CpwBKHPEcmpOMSe0g8AwzZJwwLWcoamnvlUZWa1hai5+YOr+nIcJet1DmdIRrTG/KL7ZaUG3TVeEzViNdvngLoNDbignTltdr7qRG7xBM/3Xe4li7kJN/VUnQFCLASnM49hab8fZxGrhV2kjUAsCMGhslCThepKlnPxEdKfZeCZbiDhNuEjxKpBD9RezR1couFIU/ZmvPlrc7nQ3XrE4o2kZ4obnBrR82U03G4d8kuHwkgRvyHaB3asyNTaBqFNBkbaJayJBmA1D3LNd4WqPCKuhDoYUxVamwCgf8f1pTHRdgvq48heeSsbVprMMmVShz1+Xo6/g50IdRvG6t2af+I1opU7Ikk=
+      # i9c110.p.ssafy.io:22 SSH-2.0-OpenSSH_8.2p1 Ubuntu-4ubuntu0.8
+      i9c110.p.ssafy.io ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOBfPj4ycLrC3GDK1fHNC7abkVmbU1mYuvZglUMMocPV
+      # i9c110.p.ssafy.io:22 SSH-2.0-OpenSSH_8.2p1 Ubuntu-4ubuntu0.8
+      # i9c110.p.ssafy.io:22 SSH-2.0-OpenSSH_8.2p1 Ubuntu-4ubuntu0.8
+      >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+  script:
+    - ssh -o StrictHostKeyChecking=no ubuntu@i9c110.p.ssafy.io "docker pull your_registry_username/test:latest && docker-compose up -d"
