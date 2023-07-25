@@ -21,7 +21,7 @@ public class Page extends BaseEntity {
     @Embedded
     private Content content;
     private String image;
-    private int sequence;
+    private int sequence = 1;
 
     @ManyToOne
     @JoinColumn(name = "tale_id")
