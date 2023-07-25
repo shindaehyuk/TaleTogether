@@ -21,7 +21,8 @@ build:
 deploy:
   stage: deploy
   before_script:
-    - which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )
+    - which ssh-agent
+    - if [ $? -ne 0 ]; then apt-get update -y && apt-get install openssh-client -y; fi
     - eval $(ssh-agent -s)
     - echo MIIEogIBAAKCAQEAgsPofmeM4aHLc+2NO4HZj1X1aBB7gvlPN7J+lJW9/WyrO0NR
       J4PWVVtNXF084DNkkd+dsg8w9p2JKoXpT8qAjjZvWvptaDOPxGMTr2Rg9Nr5XWFn
@@ -50,15 +51,13 @@ deploy:
       w4yhsKXhRD7gKQCnCuZScWex/ZdAyk7vOuns8tviYu3uDfzKznc= | tr -d '\r' | ssh-add -
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
-    - echo # i9c110.p.ssafy.io:22 SSH-2.0-OpenSSH_8.2p1 Ubuntu-4ubuntu0.8
-      i9c110.p.ssafy.io ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBCvlAXs9sMh2HHCJGE5qd9JcMImVbuifHkjiPWUupB0JSDKm7CnNVlprqDJ5JXGkuLQvH7yuVI2qwV3TewwekIA=
+    - - echo "i9c110.p.ssafy.io ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBCvlAXs9sMh2HHCJGE5qd9JcMImVbuifHkjiPWUupB0JSDKm7CnNVlprqDJ5JXGkuLQvH7yuVI2qwV3TewwekIA=" >> ~/.ssh/known_hosts
+
       # i9c110.p.ssafy.io:22 SSH-2.0-OpenSSH_8.2p1 Ubuntu-4ubuntu0.8
-      i9c110.p.ssafy.io ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC4tXD3p8PcdHMBFO2mmphEBrECbcloHbpCZUJnm69pAdiPl0JKVZiO9YHo4vjN4+bilNpfRReMOaIUYqREvpCFq7ZOx4I9qbQwzHCJBgJKQJ3xnIqfeBLs3RnEuUwE0mnwkdKNQCHJgI+W10UM2LCYtXx5wV/HSla1/CpwBKHPEcmpOMSe0g8AwzZJwwLWcoamnvlUZWa1hai5+YOr+nIcJet1DmdIRrTG/KL7ZaUG3TVeEzViNdvngLoNDbignTltdr7qRG7xBM/3Xe4li7kJN/VUnQFCLASnM49hab8fZxGrhV2kjUAsCMGhslCThepKlnPxEdKfZeCZbiDhNuEjxKpBD9RezR1couFIU/ZmvPlrc7nQ3XrE4o2kZ4obnBrR82U03G4d8kuHwkgRvyHaB3asyNTaBqFNBkbaJayJBmA1D3LNd4WqPCKuhDoYUxVamwCgf8f1pTHRdgvq48heeSsbVprMMmVShz1+Xo6/g50IdRvG6t2af+I1opU7Ikk=
-      # i9c110.p.ssafy.io:22 SSH-2.0-OpenSSH_8.2p1 Ubuntu-4ubuntu0.8
-      i9c110.p.ssafy.io ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOBfPj4ycLrC3GDK1fHNC7abkVmbU1mYuvZglUMMocPV
-      # i9c110.p.ssafy.io:22 SSH-2.0-OpenSSH_8.2p1 Ubuntu-4ubuntu0.8
-      # i9c110.p.ssafy.io:22 SSH-2.0-OpenSSH_8.2p1 Ubuntu-4ubuntu0.8
-      >> ~/.ssh/known_hosts
+      - |
+        echo "i9c110.p.ssafy.io ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC4tXD3p8PcdHMBFO2mmphEBrECbcloHbpCZUJnm69pAdiPl0JKVZiO9YHo4vjN4+bilNpfRReMOaIUYqREvpCFq7ZOx4I9qbQwzHCJBgJKQJ3xnIqfeBLs3RnEuUwE0mnwkdKNQCHJgI+W10UM2LCYtXx5wV/HSla1/CpwBKHPEcmpOMSe0g8AwzZJwwLWcoamnvlUZWa1hai5+YOr+nIcJet1DmdIRrTG/KL7ZaUG3TVeEzViNdvngLoNDbignTltdr7qRG7xBM/3Xe4li7kJN/VUnQFCLASnM49hab8fZxGrhV2kjUAsCMGhslCThepKlnPxEdKfZeCZbiDhNuEjxKpBD9RezR1couFIU/ZmvPlrc7nQ3XrE4o2kZ4obnBrR82U03G4d8kuHwkgRvyHaB3asyNTaBqFNBkbaJayJBmA1D3LNd4WqPCKuhDoYUxVamwCgf8f1pTHRdgvq48heeSsbVprMMmVShz1+Xo6/g50IdRvG6t2af+I1opU7Ikk=" >> ~/.ssh/known_hosts
+        echo "i9c110.p.ssafy.io ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOBfPj4ycLrC3GDK1fHNC7abkVmbU1mYuvZglUMMocPV" >> ~/.ssh/known_hosts
+
     - chmod 644 ~/.ssh/known_hosts
   script:
     - ssh -o StrictHostKeyChecking=no ubuntu@i9c110.p.ssafy.io docker pull xodnjs8287/test:latest && docker-compose up -d
