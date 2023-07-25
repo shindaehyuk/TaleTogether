@@ -1,0 +1,33 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/ssafy?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+
+    username: root
+    password: twja0930
+  redis:
+    port: 6379
+    host: localhost
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+
+server:
+  port: 8083
+
+
+jwt:
+  secret: dbbAeHubOOc8KaOfYB6XEQoEj1QzRlHgtjNL8PYs1A1tymZvvqkcEU7L1imkKHeDb
+  expiration: 1800
+  accessTokenSample: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJiZW9tamluQG5hdmVyLmNvbSIsImV4cCI6MTY4OTY0OTYyNSwiaXNzIjoia29uZy5jb20ifQ.z5jox7T0K-wSTYyDbGsYzbpKTKzSVpz5NYocoostXuw
+  refreshTokenSample: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTIyMzk4MjV9.cF6sj0u15qb7PJSg5JmUw2Xj5dTl04AZ3TVjMLUDUGw
+

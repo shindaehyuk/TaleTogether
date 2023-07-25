@@ -1,0 +1,2 @@
+GET localhost:8083/community/info/1
+Content-Type: application/json
