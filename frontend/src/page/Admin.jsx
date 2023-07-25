@@ -6,7 +6,8 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Login from '../components/admin/Login';
 import Signup from '../components/admin/Signup';
-import { Height } from '@mui/icons-material';
+import Container from '@mui/material/Container';
+import { grey } from '@mui/material/colors';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -49,28 +50,32 @@ export default function Admin() {
   };
 
   return (
-    <Box sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex', height: '100vh' }}>
-      <Tabs
-        orientation="vertical"
-        variant="scrollable"
-        value={value}
-        onChange={handleChange}
-        aria-label="Vertical tabs example"
-        sx={{ borderRight: 1, borderColor: 'divider' }}
-      >
-        <Tab label="Item One" {...a11yProps(0)} />
-        <Tab label="Item Two" {...a11yProps(1)} />
-        <Tab label="Item Three" {...a11yProps(2)} />
-      </Tabs>
-      <TabPanel value={value} index={0}>
-        <Login></Login>
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        <Signup></Signup>
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        Item Three
-      </TabPanel>
-    </Box>
+    <>
+      <Box sx={{ width: '100%', height: '80%', bgcolor: 'grey' }}>세상에</Box>
+      {/* <Box sx={{ justifyContent: 'space-between', flexGrow: 1, bgcolor: 'grey', m: 10 }}>
+        <Tabs value={value} onChange={handleChange} sx={{ borderColor: 'divider' }}>
+          <Tab label="Item One" {...a11yProps(0)} />
+          <Tab label="Item Two" {...a11yProps(1)} />
+        </Tabs>
+        <TabPanel value={value} index={0}>
+          <Login></Login>
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          <Signup></Signup>
+        </TabPanel>
+      </Box>
+      <Box sx={{ justifyContent: 'space-between', flexGrow: 1, bgcolor: 'blue', my: 5 }}>
+        <Tabs value={value} onChange={handleChange} sx={{ borderColor: 'divider' }}>
+          <Tab label="Item One" {...a11yProps(0)} />
+          <Tab label="Item Two" {...a11yProps(1)} />
+        </Tabs>
+        <TabPanel value={value} index={0}>
+          <Login></Login>
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          <Signup></Signup>
+        </TabPanel>
+      </Box> */}
+    </>
   );
 }
