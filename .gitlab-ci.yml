@@ -21,7 +21,7 @@ build:
 deploy:
   stage: deploy
   before_script:
-    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )
     - eval $(ssh-agent -s)
     - echo MIIEogIBAAKCAQEAgsPofmeM4aHLc+2NO4HZj1X1aBB7gvlPN7J+lJW9/WyrO0NR
       J4PWVVtNXF084DNkkd+dsg8w9p2JKoXpT8qAjjZvWvptaDOPxGMTr2Rg9Nr5XWFn
