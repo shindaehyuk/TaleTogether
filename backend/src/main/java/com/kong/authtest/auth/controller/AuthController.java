@@ -1,5 +1,6 @@
 package com.kong.authtest.auth.controller;
 
+import com.kong.authtest.auth.service.AuthService;
 import com.kong.authtest.auth.service.RedisService;
 import com.kong.authtest.auth.service.TokenService;
 import com.kong.authtest.auth.util.JwtTokenUtil;
@@ -13,36 +14,35 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
 public class AuthController {
-    private final PasswordEncoder passwordEncoder;
-    private final UserService userService;
-    private final TokenService tokenService;
-    private final RedisService redisService;
+    private final AuthService authService;
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody final UserDto userDto) {
-        String userId = userDto.getUserId();
-        String password = userDto.getPassword();
-        User user = userService.getUserByUserId(userId);
-        if (passwordEncoder.matches(password, user.getPassword())) {
-            return ResponseEntity.ok().body(tokenService.generateTokens(userId));
-        }
+        HashMap<String, Object> token = authService.login(userDto);
+        if (token != null)
+            return ResponseEntity.ok().body(token);
         return ResponseEntity.badRequest().build();
     }
 
     @GetMapping("/refresh/{userId}")
     public ResponseEntity<?> refresh(HttpServletRequest request, @PathVariable final String userId) {
-        if (request.getHeader(JwtTokenUtil.HEADER_STRING).equals(redisService.getToken(userId)))
-            return ResponseEntity.ok().body(tokenService.generateTokens(userId));
+        HashMap<String, Object> token = authService.refresh(request.getHeader(JwtTokenUtil.HEADER_STRING), userId);
+        if (token != null)
+            return ResponseEntity.ok().body(token);
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
-    //@GetMapping("/logout/{userId}")
-    //public ResponseEntity<?> logout(@PathVariable final String userId) {
-    //}
+    @GetMapping("/logout/{userId}")
+    public ResponseEntity<?> logout(HttpServletRequest request, @PathVariable final String userId) {
+        authService.logout(request.getHeader(JwtTokenUtil.HEADER_STRING), userId);
+        return ResponseEntity.ok().build();
+
+    }
 
 }

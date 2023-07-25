@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+import java.util.concurrent.TimeUnit;
+
 @Service
 @RequiredArgsConstructor
 public class RedisService {
@@ -19,7 +22,9 @@ public class RedisService {
     }
 
     public void storeAccessToken(String token) {
-        redisTemplate.opsForValue().set(token, "logout", expiration);
+        String msg = "logout";
+        redisTemplate.opsForValue().set(token, msg);
+        redisTemplate.expire(token, expiration, TimeUnit.SECONDS);
     }
 
     public void storeRefreshToken(String userId, String token) {
