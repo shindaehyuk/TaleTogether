@@ -1,0 +1,2 @@
+GET  http://3.34.189.22:8083/test/cicd
+Content-Type: application/json

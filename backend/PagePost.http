@@ -1,8 +1,8 @@
-POST localhost:8083/page
+POST  http://3.34.189.22:8083/page
 Content-Type: application/json
 
 {
   "content": "test1",
   "image": "test1",
-  "taleId": 3
+  "taleId": 1
 }
