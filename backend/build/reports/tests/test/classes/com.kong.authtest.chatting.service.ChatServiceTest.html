@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - ChatServiceTest</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>ChatServiceTest</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/com.kong.authtest.chatting.service.html">com.kong.authtest.chatting.service</a> &gt; ChatServiceTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">1</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.009s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">testProcessChatMessage()</td>
+<td class="success">0.009s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>2023-07-25 10:45:13.692  INFO 4072 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.kong.authtest.chatting.service.ChatServiceTest], using SpringBootContextLoader
+2023-07-25 10:45:13.692  INFO 4072 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [com.kong.authtest.chatting.service.ChatServiceTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+2023-07-25 10:45:13.692  INFO 4072 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.kong.authtest.chatting.service.ChatServiceTest]: ChatServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-07-25 10:45:13.697  INFO 4072 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.kong.authtest.AuthTestApplication for test class com.kong.authtest.chatting.service.ChatServiceTest
+2023-07-25 10:45:13.698  INFO 4072 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener, org.springframework.security.test.context.support.ReactorContextTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+2023-07-25 10:45:13.698  INFO 4072 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@347042e7, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@11c929a2, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@3408c95b, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@16c30e11, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@20120154, org.springframework.test.context.support.DirtiesContextTestExecutionListener@78ceb8cd, org.springframework.test.context.transaction.TransactionalTestExecutionListener@afee49e, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@4c3d056, org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener@346b793b, org.springframework.test.context.event.EventPublishingTestExecutionListener@396ea7ab, org.springframework.security.test.context.support.ReactorContextTestExecutionListener@44496e0c, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@5e9257b3, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@315f5ffb, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@7d40f584, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@72f6cd2e, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@3e15330c, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@757e13b2]
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::               (v2.7.13)
+
+2023-07-25 10:45:13.715  INFO 4072 --- [    Test worker] c.k.a.chatting.service.ChatServiceTest   : Starting ChatServiceTest using Java 11.0.19 on DESKTOP-1JVI7QI with PID 4072 (started by SSAFY in C:\Users\SSAFY\IdeaProjects\S09P12C110\backend)
+2023-07-25 10:45:13.716  INFO 4072 --- [    Test worker] c.k.a.chatting.service.ChatServiceTest   : The following 1 profile is active: &quot;test&quot;
+2023-07-25 10:45:13.927  INFO 4072 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-07-25 10:45:13.927  INFO 4072 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-07-25 10:45:13.953  INFO 4072 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 25 ms. Found 5 JPA repository interfaces.
+2023-07-25 10:45:13.956  INFO 4072 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-07-25 10:45:13.956  INFO 4072 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2023-07-25 10:45:13.965  INFO 4072 --- [    Test worker] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.kong.authtest.comment.repository.CommentRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2023-07-25 10:45:13.965  INFO 4072 --- [    Test worker] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.kong.authtest.community.repository.CommunityRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2023-07-25 10:45:13.965  INFO 4072 --- [    Test worker] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.kong.authtest.page.repository.PageRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2023-07-25 10:45:13.965  INFO 4072 --- [    Test worker] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.kong.authtest.tale.repository.TaleRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2023-07-25 10:45:13.965  INFO 4072 --- [    Test worker] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.kong.authtest.user.repository.UserRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2023-07-25 10:45:13.965  INFO 4072 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 9 ms. Found 0 Redis repository interfaces.
+2023-07-25 10:45:14.065  INFO 4072 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-07-25 10:45:14.071  INFO 4072 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Starting...
+2023-07-25 10:45:14.079  INFO 4072 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Start completed.
+2023-07-25 10:45:14.080  INFO 4072 --- [    Test worker] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2023-07-25 10:45:14.165  INFO 4072 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-07-25 10:45:14.165  INFO 4072 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-07-25 10:45:14.433  WARN 4072 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-07-25 10:45:14.685  INFO 4072 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@18aa9b83, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@265b52b7, org.springframework.security.web.context.SecurityContextPersistenceFilter@5fb65af5, org.springframework.security.web.header.HeaderWriterFilter@5a8bcae1, org.springframework.web.filter.CorsFilter@7e58471, com.kong.authtest.auth.JwtAuthenticationFilter@7d0bca3d, org.springframework.security.web.authentication.logout.LogoutFilter@4f1dd46b, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@166a81d9, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@12329d37, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@22ce83d6, org.springframework.security.web.session.SessionManagementFilter@6a6b5f00, org.springframework.security.web.access.ExceptionTranslationFilter@247dad0f, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@2591343]
+2023-07-25 10:45:14.978  INFO 4072 --- [    Test worker] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2023-07-25 10:45:14.978  INFO 4072 --- [    Test worker] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@1d57b043]]
+2023-07-25 10:45:14.979  INFO 4072 --- [    Test worker] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2023-07-25 10:45:14.981  INFO 4072 --- [    Test worker] c.k.a.chatting.service.ChatServiceTest   : Started ChatServiceTest in 1.28 seconds (JVM running for 9.685)
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 8.1.1</a> at 2023. 7. 25. 오전 10:45:15</p>
+</div>
+</div>
+</body>
+</html>
