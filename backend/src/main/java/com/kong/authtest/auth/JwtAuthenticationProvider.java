@@ -16,12 +16,11 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        System.out.println("authenticate가 실행이 됩니까?");
         final String username = authentication.getPrincipal().toString();
         final String password = authentication.getCredentials().toString();
 
         final PJTNameUserDetails user = userDetailsService.loadUserByUsername(username);
-        // 인증 오류 발생
+        // 인증 오류 발생시 exception throw
         if (user == null || !user.getPassword().equals(password)) {
             throw new BadCredentialsException("id or password Wrong");
         }

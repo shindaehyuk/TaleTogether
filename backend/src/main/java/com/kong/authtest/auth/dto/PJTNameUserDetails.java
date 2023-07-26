@@ -9,11 +9,11 @@ import java.util.Collection;
 
 public class PJTNameUserDetails implements UserDetails {
 
-    private int id;
-    private String userId;
-    private String password;
-    private String name;
-    private Collection<GrantedAuthority> authorities = new ArrayList<>();
+    private final int id;
+    private final String userId;
+    private final String password;
+    private final String name;
+    private final Collection<GrantedAuthority> authorities = new ArrayList<>();
 
     public PJTNameUserDetails(User user) {
         this.id = user.getId();

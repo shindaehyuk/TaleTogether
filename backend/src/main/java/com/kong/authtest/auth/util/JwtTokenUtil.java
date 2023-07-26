@@ -28,6 +28,7 @@ public class JwtTokenUtil {
                 .build();
     }
 
+    // userId를 Subject로 expiration을 가진 토큰 생성
     public String generateToken(String userId, int expiration) {
         final Instant now = Instant.now();
         return JwtTokenUtil.TOKEN_PREFIX + JWT.create()

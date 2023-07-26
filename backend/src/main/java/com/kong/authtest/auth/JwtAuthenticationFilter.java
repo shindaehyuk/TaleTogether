@@ -38,11 +38,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String token = request.getHeader(JwtTokenUtil.HEADER_STRING);
         if (token != null) {
             try {
-                logger.info(redisService.getToken(token));
                 // 이미 로그아웃 된 상태면 접속 못하게함.
                 if ("logout".equals(redisService.getToken(token))) {
                     logger.info("logout되어 만료된 토큰입니다.");
-                    throw new Exception();
+                    throw new JWTDecodeException("logout되어 만료된 토큰입니다.");
                 }
                 Authentication authentication = getAuthentication(token);
                 // securityContextHolder에 로그인한 인증 정보 넣음.

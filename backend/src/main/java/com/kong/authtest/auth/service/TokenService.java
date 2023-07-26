@@ -19,11 +19,11 @@ public class TokenService {
     @Value("${jwt.expiration}")
     private int expiration;
 
+    // access, refresh 토큰 생성, 반환
     public HashMap<String, Object> generateTokens(String userId) {
         final HashMap<String, Object> map = new HashMap<>();
         map.put("accessToken", generateAcessToken(userId));
         map.put("refreshToken", generateRefreshToken(userId));
-
         return map;
     }
 

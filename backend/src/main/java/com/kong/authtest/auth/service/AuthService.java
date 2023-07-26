@@ -36,6 +36,7 @@ public class AuthService {
         return null;
     }
 
+    // logout한 user의 refreshToken을 지우고, AccessToken을 redis에 등록해 로그아웃된 계정의 토큰으로 로그인 및 토큰발급 방지 
     public void logout(final String token, final String userId) {
         redisService.deleteToken(userId);
         redisService.storeAccessToken(token);

@@ -34,6 +34,7 @@ public class AuthConfig {
         return new BCryptPasswordEncoder();
     }
 
+    // custom authenticationProvider를 authetnicationManager를 통해 Bean 주입
     @Bean
     AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
         AuthenticationManagerBuilder authenticationManagerBuilder =
@@ -42,19 +43,8 @@ public class AuthConfig {
         return authenticationManagerBuilder.build();
     }
 
-
     @Bean
-    Algorithm cryptoAlgorithm(@Value("") final String secretKey) {
-        return Algorithm.HMAC256(secretKey);
-    }
-    //@Bean
-    //public AuthenticationManager authenticationManager(
-    //        AuthenticationConfiguration authenticationConfiguration
-    //) throws Exception {
-    //    return authenticationConfiguration.getAuthenticationManager();
-    //}
-
-    @Bean
+    // join 과 login을 제외한 모든 요청에 인증(custom filter를 거치게) 사용.
     public SecurityFilterChain filterChain(
             @Autowired HttpSecurity http,
             @Autowired UserService userService,
