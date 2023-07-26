@@ -1,11 +1,18 @@
 build:
+  image: docker:latest
+  services:
+    - docker:dind
+  before_script:
+    - docker info
   stage: build
   tags:
     - test
+
   script:
     - docker login -u $DOCKER_REGISTRY_USER -p $DOCKER_REGISTRY_PASSWORD
     - docker build -t xodnjs8287/test:latest .
     - docker push xodnjs8287/test:latest
+    
 
 deploy:
   stage: deploy

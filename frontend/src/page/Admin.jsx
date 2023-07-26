@@ -6,24 +6,21 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Login from '../components/admin/Login';
 import Signup from '../components/admin/Signup';
+import { styled } from '@mui/material/styles';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
   return (
-    <div
+    <span
       role="tabpanel"
       hidden={value !== index}
       id={`vertical-tabpanel-${index}`}
       aria-labelledby={`vertical-tab-${index}`}
       {...other}
     >
-      {value === index && (
-        <Box>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
+      {value === index && <Box>{children}</Box>}
+    </span>
   );
 }
 
@@ -54,9 +51,9 @@ export default function Admin() {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          width: '80%',
-          height: '80%',
-          bgcolor: '#e9edc9',
+          width: '70%',
+          height: '70%',
+          bgcolor: '#ccd5ae',
           borderRadius: '61px',
           boxShadow: 5,
         }}
@@ -71,14 +68,14 @@ export default function Admin() {
             borderRadius: '61px',
           }}
         ></Box>
-        <Box sx={{ height: '100%', flexGrow: 1, bgcolor: '#e9edc9' }}>
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            sx={{ display: 'flex', borderColor: 'divider', justifyContent: 'center' }}
-          >
-            <Tab label="Login" {...a11yProps(0)} />
-            <Tab label="Signup" {...a11yProps(1)} />
+        <Box sx={{ height: '100%', flexGrow: 1, borderRadius: '61px' }}>
+          <Typography variant="h4" color="black" sx={{ marginY: 1 }}>
+            Tale Together
+          </Typography>
+
+          <Tabs value={value} onChange={handleChange} centered>
+            <Tab label="Login" {...a11yProps(0)} sx={{ marginRight: 5 }} />
+            <Tab label="Signup" {...a11yProps(1)} sx={{ marginLeft: 5 }} />
           </Tabs>
           <TabPanel value={value} index={0}>
             <Login></Login>

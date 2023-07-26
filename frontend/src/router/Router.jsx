@@ -9,11 +9,11 @@ function Router() {
   return (
     <>
       <Routes>
-        <Route path="/" Component={Main} />
         <Route path="/mypage" Component={Mypage} />
         <Route path="/community" Component={Community} />
         <Route path="/dashboard" Component={Dashboard} />
         <Route path="/admin" Component={Admin} />
+        <Route path="/main" Component={Main} />
       </Routes>
     </>
   );

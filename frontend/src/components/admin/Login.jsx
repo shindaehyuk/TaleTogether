@@ -16,6 +16,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { login } from '../../redux/slices/userSlice';
+import LoginAxios from '../../api/auth/LoginAxios';
 
 const defaultTheme = createTheme();
 
@@ -33,9 +34,10 @@ export default function SignIn() {
   const onSubmit = (event) => {
     setIsLoading(true);
     dispatch(login());
+    LoginAxios(event);
 
     setTimeout(() => {
-      navigate('/');
+      navigate('/main');
     }, 2000); // 로그인 후 메인페이지로 이동
   };
 
@@ -45,20 +47,12 @@ export default function SignIn() {
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            // marginTop: 8,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar>
-
-          <Typography component="h1" variant="h5">
-            <b>Sign in</b>
-          </Typography>
-
           <Box component="form" noValidate onSubmit={handleSubmit(onSubmit)} sx={{ mt: 1 }}>
             <TextField
               margin="normal"
@@ -70,6 +64,7 @@ export default function SignIn() {
                 required: true,
               })}
               error={!!errors.email}
+              sx={{ backgroundColor: '#faedcd', borderRadius: '5px' }}
             />
             <TextField
               margin="normal"
@@ -81,29 +76,25 @@ export default function SignIn() {
                 required: true,
               })}
               error={!!errors.password}
+              sx={{ backgroundColor: '#faedcd', borderRadius: '5px' }}
             />
-
-            <Button disabled={isLoading} type="submit" fullWidth variant="contained" sx={{ mt: 4, mb: 4 }}>
-              {isLoading ? <CircularProgress size={24} /> : 'Sign up'}
-            </Button>
-
             <Grid container>
-              <Grid item xs={4} sx={{ borderRight: 1, borderColor: 'primary.main' }}>
+              <Grid item xs={12} sx={{ color: 'black' }}>
                 <Link href="#" underline="none" variant="body2">
-                  비밀번호 찾기
-                </Link>
-              </Grid>
-              <Grid item xs={4} sx={{ borderRight: 1, borderColor: 'primary.main' }}>
-                <Link href="#" underline="none" variant="body2">
-                  아이디 찾기
-                </Link>
-              </Grid>
-              <Grid item xs={4}>
-                <Link href="/signup" underline="none">
-                  회원가입
+                  <b>비밀번호 재설정</b>
                 </Link>
               </Grid>
             </Grid>
+            <Button
+              disabled={isLoading}
+              type="submit"
+              fullWidth
+              variant="contained"
+              // color="#faedcd"
+              sx={{ mt: 4, mb: 4, backgroundColor: '#faedcd', color: 'black' }}
+            >
+              {isLoading ? <CircularProgress size={24} /> : 'Sign in'}
+            </Button>
           </Box>
         </Box>
       </Container>
