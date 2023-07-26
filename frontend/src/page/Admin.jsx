@@ -6,8 +6,6 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Login from '../components/admin/Login';
 import Signup from '../components/admin/Signup';
-import Container from '@mui/material/Container';
-import { grey } from '@mui/material/colors';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -21,7 +19,7 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 3 }}>
+        <Box>
           <Typography>{children}</Typography>
         </Box>
       )}
@@ -51,31 +49,45 @@ export default function Admin() {
 
   return (
     <>
-      <Box sx={{ width: '100%', height: '80%', bgcolor: 'grey' }}>세상에</Box>
-      {/* <Box sx={{ justifyContent: 'space-between', flexGrow: 1, bgcolor: 'grey', m: 10 }}>
-        <Tabs value={value} onChange={handleChange} sx={{ borderColor: 'divider' }}>
-          <Tab label="Item One" {...a11yProps(0)} />
-          <Tab label="Item Two" {...a11yProps(1)} />
-        </Tabs>
-        <TabPanel value={value} index={0}>
-          <Login></Login>
-        </TabPanel>
-        <TabPanel value={value} index={1}>
-          <Signup></Signup>
-        </TabPanel>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          width: '80%',
+          height: '80%',
+          bgcolor: '#e9edc9',
+          borderRadius: '61px',
+          boxShadow: 5,
+        }}
+      >
+        <Box
+          sx={{
+            width: '70%',
+            height: '100%',
+            backgroundImage: "url('./assets/Framebg.png')",
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: 'cover',
+            borderRadius: '61px',
+          }}
+        ></Box>
+        <Box sx={{ height: '100%', flexGrow: 1, bgcolor: '#e9edc9' }}>
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            sx={{ display: 'flex', borderColor: 'divider', justifyContent: 'center' }}
+          >
+            <Tab label="Login" {...a11yProps(0)} />
+            <Tab label="Signup" {...a11yProps(1)} />
+          </Tabs>
+          <TabPanel value={value} index={0}>
+            <Login></Login>
+          </TabPanel>
+          <TabPanel value={value} index={1}>
+            <Signup></Signup>
+          </TabPanel>
+        </Box>
       </Box>
-      <Box sx={{ justifyContent: 'space-between', flexGrow: 1, bgcolor: 'blue', my: 5 }}>
-        <Tabs value={value} onChange={handleChange} sx={{ borderColor: 'divider' }}>
-          <Tab label="Item One" {...a11yProps(0)} />
-          <Tab label="Item Two" {...a11yProps(1)} />
-        </Tabs>
-        <TabPanel value={value} index={0}>
-          <Login></Login>
-        </TabPanel>
-        <TabPanel value={value} index={1}>
-          <Signup></Signup>
-        </TabPanel>
-      </Box> */}
     </>
   );
 }

@@ -51,7 +51,6 @@ export default function SignUp() {
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -148,13 +147,13 @@ export default function SignUp() {
               {isLoading ? <CircularProgress size={24} /> : 'Sign up'}
             </Button>
 
-            <Grid container justifyContent="flex-end">
+            {/* <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="/login" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>
-            </Grid>
+            </Grid> */}
           </Box>
         </Box>
       </Container>

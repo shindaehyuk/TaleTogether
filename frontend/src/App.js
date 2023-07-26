@@ -10,7 +10,17 @@ function App() {
       <div className="App">
         <header>{/* <Nav></Nav> */}</header>
         <div>
-          <Container maxWidth="xl" sx={{ display: 'flex', bgcolor: 'gold', height: '100vh' }}>
+          <Container
+            maxWidth="xl"
+            sx={{
+              alignContent: 'center',
+              justifyContent: 'center',
+              alignItems: 'center',
+              bgcolor: '#fefae0',
+              display: 'flex',
+              height: '100vh',
+            }}
+          >
             <Router></Router>
           </Container>
         </div>
