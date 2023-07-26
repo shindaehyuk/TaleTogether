@@ -1,6 +1,11 @@
 services:
   - docker:dind
 
+test_dind_connection:
+  script:
+    - docker info
+
+
 variables:
   DOCKER_HOST: tcp://docker:2375
   DOCKER_DRIVER: overlay2
