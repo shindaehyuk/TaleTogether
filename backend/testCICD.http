@@ -1,2 +1,2 @@
 GET  http://3.34.189.22:808 3/test/cicd
-Content-Type: application/json
+Content-Type: application/jsons
