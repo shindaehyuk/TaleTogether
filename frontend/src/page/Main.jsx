@@ -1,44 +1,13 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import { useState } from 'react';
-import styled from 'styled-components';
-
-const TabMenu = styled.ul`
-  display: flex;
-  flex-direction: row;
-  .submenu {
-    width:8rem;
-    height: 4rem;
-    background-color: #D4A373;
-    border-radius: 61px;
-    cursor: pointer;
-  }
-
-  .focused {
-   //선택된 Tabmenu 에만 적용되는 CSS를 구현
-    background-color: #FAEDCD;
-  }
-
-  & div.desc {
-    text-align: center;
-  }
-`;
-
+import CommunityButton from '../components/main/CommunityButton';
+import GameButton from '../components/main/GameButton';
+import MainButton from '../components/main/MainButton';
+import MyButton from '../components/main/MypageButton';
+import '../components/main/Button.css'
 
 export default function Main() {
-  const [currentTab, clickTab] = useState(0);
-
-  const menuArr = [
-    { name: 'Tab1', content: '메인페이지' },
-    { name: 'Tab2', content: '시작하기' },
-    { name: 'Tab3', content: '커뮤니티' },
-    { name: 'Tab4', content: '마이페이지' },
-  ];
-
-  const selectMenuHandler = (index) => {
-    clickTab(index);
-  };
-
+  
   return (
     <>
       <Box sx={{ 
@@ -63,16 +32,14 @@ export default function Main() {
           alignItems: 'center',
           }}
         >
-          <TabMenu>
-            {menuArr.map((el,index) => (
-                <Box component="div" className={index === currentTab ? "submenu focused" : "submenu" }
-                onClick={() => selectMenuHandler(index)}>{el.content}</Box>
-              ))}
-          </TabMenu>
+            <CommunityButton></CommunityButton>
+            <GameButton></GameButton>
+            <MainButton state="isActive"></MainButton>
+            <MyButton></MyButton>
         </Box>
         <Box sx={{ 
           width:'95%', 
-          height: '90%', 
+          height: '85%', 
           bgcolor: '#FAEDCD',
           borderRadius: '61px',
           }}

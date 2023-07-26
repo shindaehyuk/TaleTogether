@@ -4,7 +4,8 @@ import Carousel from '../components/mypage/Carousel';
 function MyPage() {
 
   return (
-    <Carousel></Carousel>
+    // <Carousel></Carousel>
+    <p>마이페이지다</p>
   );
 }
 
