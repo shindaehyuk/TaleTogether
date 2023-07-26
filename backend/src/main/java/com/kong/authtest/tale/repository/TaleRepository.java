@@ -1,4 +1,7 @@
 package com.kong.authtest.tale.repository;
 
-public interface TaleRepository {
+import com.kong.authtest.tale.model.Tale;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface TaleRepository extends JpaRepository<Tale, Long> {
 }

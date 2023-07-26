@@ -1,0 +1,8 @@
+POST http://3.34.189.22:8083/users/join
+Content-Type: application/json
+
+{
+  "userId": "qjawls123",
+  "name": "parkbumjin",
+  "password": "qpal123!"
+}

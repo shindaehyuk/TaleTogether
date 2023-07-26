@@ -1,0 +1,9 @@
+PUT localhost:8083/page/modfiy
+Content-Type: application/json
+
+{
+  "image": "image modify",
+  "content": "content modify",
+  "sequence": 1,
+  "pageId": 1
+}

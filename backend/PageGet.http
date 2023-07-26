@@ -1,0 +1,3 @@
+GET  http://3.34.189.22:8083/page/detail/2
+Content-Type: application/json
+

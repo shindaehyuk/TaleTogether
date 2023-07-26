@@ -1,0 +1,9 @@
+PUT localhost:8083/community/modify
+Content-Type: application/json
+
+{
+  "taleId": 1,
+  "content": "testmodify",
+  "title": "testmodify title",
+  "communityId": 1
+}

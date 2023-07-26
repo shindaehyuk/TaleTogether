@@ -1,21 +1,36 @@
 package com.kong.authtest.tale.model;
 
+import com.kong.authtest.common.baseEntity.BaseEntity;
+import com.kong.authtest.community.model.Community;
+import com.kong.authtest.page.model.Page;
+import com.kong.authtest.user.model.User;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
-@Data
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
 @Entity
-public class Tale {
+public class Tale extends BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long taleId;
-    private String story;
-    private int id;
+
+    @ManyToOne
+    private User user;
+
+    @OneToMany(mappedBy = "tale", orphanRemoval = true, cascade = CascadeType.REMOVE)
+    private List<Page> pageList = new ArrayList<>();
+
+    @OneToOne(mappedBy = "tale", orphanRemoval = true, cascade = CascadeType.REMOVE)
+    private Community community;
+
+    public Tale addUser(User user){
+        this.user = user;
+        return this;
+    }
 }

@@ -1,0 +1,23 @@
+version: '2'
+services:
+  db:
+    image: mysql:latest
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: twja0930
+      MYSQL_DATABASE: ssafy
+      TZ: 'Asia/Seoul'
+    ports:
+      - "3306:3306"
+
+  myapp:
+    image: test
+    restart: on-failure
+    network_mode: host
+    build:
+      context: .
+      dockerfile: Dockerfiles
+    depends_on:
+      - db
+volumes:
+  db-data:
