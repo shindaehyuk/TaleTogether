@@ -1,35 +1,32 @@
 services:
-    - docker:dind
-    
+  - docker:dind
 
 variables:
   DOCKER_HOST: tcp://docker:2375
+  DOCKER_DRIVER: overlay2
+
+stages:
+  - build
+  - deploy
 
 build:
-  image: docker:24.0.4
-
-  before_script:
-    - docker info
+  image: docker:latest
   stage: build
   tags:
     - test
-
+  before_script:
+    - docker info
   script:
     - docker login -u $DOCKER_REGISTRY_USER -p $DOCKER_REGISTRY_PASSWORD
     - docker build -t xodnjs8287/test:latest .
     - docker push xodnjs8287/test:latest
-    
 
 deploy:
   stage: deploy
   tags:
     - test
   before_script:
-    - export DOCKER_HOST=tcp://docker:2375
-    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-
-    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
-    - docker info
+    - which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )
     - eval $(ssh-agent -s)
     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
     - mkdir -p ~/.ssh
