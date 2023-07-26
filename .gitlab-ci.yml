@@ -19,8 +19,8 @@ deploy:
   tags:
     - test
   before_script:
-    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
     - export DOCKER_HOST=tcp://docker:2375
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
     - docker info
     - eval $(ssh-agent -s)
     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
