@@ -7,6 +7,9 @@ spring:
     password: twja0930
   redis:
     port: 6379
+<<<<<<< HEAD
+    host: i9c110.p.ssafy.io
+=======
     host: localhost
   jpa:
     hibernate:
@@ -19,6 +22,7 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+>>>>>>> 46f6ed9c5d1fe8e363dc1c19787bfa25e2cde5d9
 
 
 server:
@@ -28,6 +32,4 @@ server:
 jwt:
   secret: dbbAeHubOOc8KaOfYB6XEQoEj1QzRlHgtjNL8PYs1A1tymZvvqkcEU7L1imkKHeDb
   expiration: 1800
-  accessTokenSample: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJiZW9tamluQG5hdmVyLmNvbSIsImV4cCI6MTY4OTY0OTYyNSwiaXNzIjoia29uZy5jb20ifQ.z5jox7T0K-wSTYyDbGsYzbpKTKzSVpz5NYocoostXuw
-  refreshTokenSample: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTIyMzk4MjV9.cF6sj0u15qb7PJSg5JmUw2Xj5dTl04AZ3TVjMLUDUGw
 

@@ -1,10 +1,12 @@
 package com.kong.authtest.auth.config;
 
+import com.auth0.jwt.algorithms.Algorithm;
 import com.kong.authtest.auth.JwtAuthenticationFilter;
 import com.kong.authtest.auth.JwtAuthenticationProvider;
-import com.kong.authtest.auth.JwtTokenUtil;
+import com.kong.authtest.auth.util.JwtTokenUtil;
 import com.kong.authtest.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,16 +29,12 @@ public class AuthConfig {
     @Autowired
     JwtAuthenticationProvider jwtAuthenticationProvider;
 
-
-    //private HttpSecurity registerJwtAuthenticationProvider(final HttpSecurity http, final UserService userService){
-    //    http.getSharedObject().
-    //
-    //}
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+    // custom authenticationProvider를 authetnicationManager를 통해 Bean 주입
     @Bean
     AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
         AuthenticationManagerBuilder authenticationManagerBuilder =
@@ -45,14 +43,8 @@ public class AuthConfig {
         return authenticationManagerBuilder.build();
     }
 
-    //@Bean
-    //public AuthenticationManager authenticationManager(
-    //        AuthenticationConfiguration authenticationConfiguration
-    //) throws Exception {
-    //    return authenticationConfiguration.getAuthenticationManager();
-    //}
-
     @Bean
+    // join 과 login을 제외한 모든 요청에 인증(custom filter를 거치게) 사용.
     public SecurityFilterChain filterChain(
             @Autowired HttpSecurity http,
             @Autowired UserService userService,

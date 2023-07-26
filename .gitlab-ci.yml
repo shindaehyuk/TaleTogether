@@ -1,0 +1,23 @@
+build:
+  stage: build
+  tags:
+    - test
+  script:
+    - docker login -u $DOCKER_REGISTRY_USER -p $DOCKER_REGISTRY_PASSWORD
+    - docker build -t xodnjs8287/test:latest .
+    - docker push xodnjs8287/test:latest
+
+deploy:
+  stage: deploy
+  tags:
+    - test
+  before_script:
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - echo "$SSH_KNOWN_HOSTS" >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+  script:
+    - ssh -o StrictHostKeyChecking=no ubuntu@i9c110.p.ssafy.io docker pull xodnjs8287/test:latest && docker-compose up -d
