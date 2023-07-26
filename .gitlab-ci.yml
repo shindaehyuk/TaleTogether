@@ -1,5 +1,5 @@
 build:
-  image: docker:latest
+  image: docker:24.0.4
   services:
     - docker:dind
   before_script:
