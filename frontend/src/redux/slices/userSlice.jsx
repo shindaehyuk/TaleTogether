@@ -9,7 +9,7 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     login: (state) => {
-      state.userState = true;
+      state.userState = !state.userState;
     },
   },
 });

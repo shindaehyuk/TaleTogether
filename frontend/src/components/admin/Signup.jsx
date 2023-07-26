@@ -71,6 +71,7 @@ export default function SignUp() {
               <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <TextField
+                    className="animate__animated animate__fadeIn animate__delay-0.2s"
                     size="small"
                     required
                     fullWidth
@@ -92,6 +93,7 @@ export default function SignUp() {
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
+                    className="animate__animated animate__fadeIn animate__delay-0.4s"
                     size="small"
                     required
                     fullWidth
@@ -112,6 +114,7 @@ export default function SignUp() {
                 </Grid>
                 <Grid item xs={6}>
                   <TextField
+                    className="animate__animated animate__fadeIn animate__delay-0.6s"
                     size="small"
                     fullWidth
                     label="비밀번호"
@@ -133,6 +136,7 @@ export default function SignUp() {
                 </Grid>
                 <Grid item xs={6}>
                   <TextField
+                    className="animate__animated animate__fadeIn animate__delay-0.8s"
                     size="small"
                     required
                     fullWidth
