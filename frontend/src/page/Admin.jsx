@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Login from '../components/admin/Login';
 import Signup from '../components/admin/Signup';
-import { styled } from '@mui/material/styles';
+import 'animate.css';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -69,7 +69,12 @@ export default function Admin() {
           }}
         ></Box>
         <Box sx={{ height: '100%', flexGrow: 1, borderRadius: '61px' }}>
-          <Typography variant="h4" color="black" sx={{ marginY: 1 }}>
+          <Typography
+            className="animate__animated animate__jackInTheBox animate__delay-0.5s"
+            variant="h4"
+            color="black"
+            sx={{ marginY: 1 }}
+          >
             Tale Together
           </Typography>
 
