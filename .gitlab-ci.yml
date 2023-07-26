@@ -1,7 +1,12 @@
+services:
+    - docker:dind
+
+variables:
+  DOCKER_HOST: tcp://docker:2375
+
 build:
   image: docker:24.0.4
-  services:
-    - docker:dind
+
   before_script:
     - docker info
   stage: build
