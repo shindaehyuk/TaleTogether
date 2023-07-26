@@ -1,7 +1,26 @@
+services:
+  - docker:dind
+
+test_dind_connection:
+  script:
+    - docker info
+
+
+variables:
+  DOCKER_HOST: tcp://docker:2375
+  DOCKER_DRIVER: overlay2
+
+stages:
+  - build
+  - deploy
+  
 build:
+  image: docker:latest
   stage: build
   tags:
     - test
+  before_script:
+    - docker info
   script:
     - docker login -u $DOCKER_REGISTRY_USER -p $DOCKER_REGISTRY_PASSWORD
     - docker build -t xodnjs8287/test:latest .
@@ -12,7 +31,7 @@ deploy:
   tags:
     - test
   before_script:
-    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )
     - eval $(ssh-agent -s)
     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
     - mkdir -p ~/.ssh
