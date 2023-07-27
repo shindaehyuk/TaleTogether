@@ -31,13 +31,13 @@ export default function SignUp() {
   } = useForm();
 
   const emailCheck = () => {
-    setIdCheck(true);
+    // setIdCheck(true);
     console.log(watch('email', false));
   };
 
   const onSubmit = (data) => {
     setIsLoading(true);
-    SignupAxios(data);
+    // SignupAxios(data);
 
     setTimeout(() => {
       setIsLoading(false);

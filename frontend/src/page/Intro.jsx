@@ -7,10 +7,10 @@ import MyButton from '../components/main/MypageButton';
 import '../components/main/Button.css';
 import { Link } from 'react-router-dom';
 
-export default function Mypage() {
+export default function Intro() {
   return (
     <>
-      <h1>마이페이지</h1>
+      <h1>인트로</h1>
       {/* <Box
         sx={{
           display: 'flex',
@@ -41,17 +41,20 @@ export default function Mypage() {
           <Link to="/game">
             <GameButton></GameButton>
           </Link>
-          <Link to="/main">
-            <MainButton></MainButton>
+          <MainButton state="Active"></MainButton>
+          <Link to="/mypage">
+            <MyButton></MyButton>
           </Link>
-          <MyButton state="Active"></MyButton>
         </Box>
         <Box
           sx={{
-            width: '95%',
-            height: '85%',
-            bgcolor: '#FAEDCD',
+            width: '90%',
+            height: '90%',
+            backgroundImage: "url('./assets/Layerbg.png')",
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: 'cover',
             borderRadius: '61px',
+            backgroundPosition: 'center', // 이미지를 가운데에 맞춰 보이도록 설정
           }}
         ></Box>
       </Box> */}

@@ -8,6 +8,7 @@ import Game from '../page/Game';
 
 import PrivateRoute from '../components/route/PrivateRoute';
 import PublicRoute from '../components/route/PublicRoute';
+import Test from '../page/Test';
 
 function Router() {
   return (
@@ -26,9 +27,10 @@ function Router() {
         </Route> */}
         <Route path="/main" Component={Main} />
         <Route path="/mypage" Component={Mypage} />
-        <Route path="/mypage" Component={Mypage} />
+        <Route path="/game" Component={Game} />
         <Route path="/community" Component={Community} />
         <Route path="/" Component={Admin} />
+        <Route path="/test" Component={Test} />
       </Routes>
     </>
   );

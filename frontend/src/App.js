@@ -15,7 +15,7 @@ function App() {
         <div className="App">
           <div>
             <Container
-              maxWidth="xl"
+              maxWidth="100vw"
               sx={{
                 alignContent: 'center',
                 justifyContent: 'center',

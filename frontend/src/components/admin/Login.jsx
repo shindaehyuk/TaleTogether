@@ -32,7 +32,7 @@ export default function SignIn() {
   const onSubmit = (event) => {
     setIsLoading(true);
     dispatch(login());
-    LoginAxios(event);
+    // LoginAxios(event);
 
     setTimeout(() => {
       navigate('/main');
