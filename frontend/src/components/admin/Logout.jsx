@@ -1,13 +1,14 @@
-import { Button } from '@mui/material';
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import { Button } from "@mui/material";
+import React from "react";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { logout } from "../../redux/slices/userSlice";
 
 function Logout() {
-  return (
-    <>
-      <Button>로그아웃</Button>
-    </>
-  );
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(logout());
+  });
 }
 
 export default Logout;

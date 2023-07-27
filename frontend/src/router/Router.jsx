@@ -1,14 +1,14 @@
-import { Routes, Route } from 'react-router-dom';
-import Main from '../page/Main';
-import Mypage from '../page/Mypage';
-import Community from '../page/Community';
-import Admin from '../page/Admin';
+import { Routes, Route } from "react-router-dom";
+import Main from "../page/Main";
+import Mypage from "../components/mypage/Mypage";
+import Community from "../components/community/Community";
+import Admin from "../page/Admin";
 
-import Game from '../page/Game';
+import Game from "../components/game/Game";
 
-import PrivateRoute from '../components/route/PrivateRoute';
-import PublicRoute from '../components/route/PublicRoute';
-import Test from '../page/Test';
+import PrivateRoute from "../components/route/PrivateRoute";
+import PublicRoute from "../components/route/PublicRoute";
+import Test from "../page/Test";
 
 function Router() {
   return (

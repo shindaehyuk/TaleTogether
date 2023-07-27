@@ -1,16 +1,15 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import CommunityButton from '../components/main/CommunityButton';
-import GameButton from '../components/main/GameButton';
-import MainButton from '../components/main/MainButton';
-import MyButton from '../components/main/MypageButton';
-import '../components/main/Button.css';
-import { Link } from 'react-router-dom';
+import * as React from "react";
+import Box from "@mui/material/Box";
+import CommunityButton from "../main/CommunityButton";
+import GameButton from "../main/GameButton";
+import MainButton from "../main/MainButton";
+import MyButton from "../main/MypageButton";
+import { Link } from "react-router-dom";
 
-export default function Mypage() {
+export default function Game() {
   return (
     <>
-      <h1>마이페이지</h1>
+      <h1>게임</h1>
       {/* <Box
         sx={{
           display: 'flex',
@@ -38,13 +37,13 @@ export default function Mypage() {
           <Link to="/community">
             <CommunityButton></CommunityButton>
           </Link>
-          <Link to="/game">
-            <GameButton></GameButton>
-          </Link>
+          <GameButton state="Active"></GameButton>
           <Link to="/main">
             <MainButton></MainButton>
           </Link>
-          <MyButton state="Active"></MyButton>
+          <Link to="/mypage">
+            <MyButton></MyButton>
+          </Link>
         </Box>
         <Box
           sx={{
