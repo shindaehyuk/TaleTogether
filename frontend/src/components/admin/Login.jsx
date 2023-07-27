@@ -18,8 +18,6 @@ import { useDispatch } from 'react-redux';
 import { login } from '../../redux/slices/userSlice';
 import LoginAxios from '../../api/auth/LoginAxios';
 
-const defaultTheme = createTheme();
-
 export default function SignIn() {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
@@ -42,64 +40,64 @@ export default function SignIn() {
   };
 
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            // marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
-          <Box component="form" noValidate onSubmit={handleSubmit(onSubmit)} sx={{ mt: 1 }}>
-            <TextField
-              className="animate__animated animate__fadeIn animate__delay-0.2s"
-              margin="normal"
-              required
-              fullWidth
-              label="이메일"
-              autoFocus
-              {...register('email', {
-                required: true,
-              })}
-              error={!!errors.email}
-              sx={{ backgroundColor: '#faedcd', borderRadius: '5px' }}
-            />
-            <TextField
-              className="animate__animated animate__fadeIn animate__delay-0.4s"
-              margin="normal"
-              required
-              fullWidth
-              label="비밀번호"
-              type="password"
-              {...register('password', {
-                required: true,
-              })}
-              error={!!errors.password}
-              sx={{ backgroundColor: '#faedcd', borderRadius: '5px' }}
-            />
-            <Grid container>
-              <Grid item xs={12} sx={{ color: 'black' }}>
-                <Link href="#" underline="none" variant="body2">
-                  <b>비밀번호 재설정</b>
-                </Link>
-              </Grid>
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <Box component="form" noValidate onSubmit={handleSubmit(onSubmit)} sx={{ mt: 3 }}>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <TextField
+                className="animate__animated animate__fadeIn animate__delay-0.2s"
+                required
+                fullWidth
+                label="이메일"
+                autoFocus
+                {...register('email', {
+                  required: true,
+                })}
+                error={!!errors.email}
+                sx={{ backgroundColor: '#faedcd', borderRadius: '5px' }}
+              />
             </Grid>
-            <Button
-              disabled={isLoading}
-              type="submit"
-              fullWidth
-              variant="contained"
-              // color="#faedcd"
-              sx={{ mt: 4, mb: 4, backgroundColor: '#faedcd', color: 'black' }}
-            >
-              {isLoading ? <CircularProgress size={24} /> : 'Sign in'}
-            </Button>
-          </Box>
+            <Grid item xs={12}>
+              <TextField
+                className="animate__animated animate__fadeIn animate__delay-0.4s"
+                required
+                fullWidth
+                label="비밀번호"
+                type="password"
+                {...register('password', {
+                  required: true,
+                })}
+                error={!!errors.password}
+                sx={{ backgroundColor: '#faedcd', borderRadius: '5px' }}
+              />
+            </Grid>
+
+            <Grid item xs={12} sx={{ color: 'black' }}>
+              <Link href="#" underline="none" variant="body2">
+                <b>비밀번호 재설정</b>
+              </Link>
+            </Grid>
+          </Grid>
+
+          <Button
+            disabled={isLoading}
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 4, mb: 4, backgroundColor: '#faedcd', color: 'black' }}
+          >
+            {isLoading ? <CircularProgress size={24} /> : 'Sign in'}
+          </Button>
         </Box>
-      </Container>
-    </ThemeProvider>
+      </Box>
+    </Container>
   );
 }

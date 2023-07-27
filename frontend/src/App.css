@@ -36,3 +36,10 @@
     transform: rotate(360deg);
   }
 }
+
+@font-face {
+  font-family: 'omyu_pretty';
+  src: url('./fonts/오뮤_다예쁨체.ttf') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}

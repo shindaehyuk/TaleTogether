@@ -2,7 +2,6 @@ import { Routes, Route } from 'react-router-dom';
 import Main from '../page/Main';
 import Mypage from '../page/Mypage';
 import Community from '../page/Community';
-// import Dashboard from '../page/Dashboard';
 import Admin from '../page/Admin';
 
 import Game from '../page/Game';
