@@ -71,21 +71,21 @@ export default function Admin() {
         <Box sx={{ height: '100%', flexGrow: 1, borderRadius: '61px' }}>
           <Typography
             className="animate__animated animate__jackInTheBox animate__delay-0.5s"
-            variant="h4"
+            variant="h3"
             color="black"
             sx={{ marginY: 1 }}
           >
             Tale Together
           </Typography>
-
           <Tabs value={value} onChange={handleChange} centered>
-            <Tab label="Login" {...a11yProps(0)} sx={{ marginRight: 5 }} />
-            <Tab label="Signup" {...a11yProps(1)} sx={{ marginLeft: 5 }} />
+            <Tab label="Login" {...a11yProps(0)} sx={{}} />
+            <Tab label="Signup" {...a11yProps(1)} sx={{}} />
           </Tabs>
           <TabPanel value={value} index={0}>
             <Login></Login>
           </TabPanel>
           <TabPanel value={value} index={1}>
+            {/* <Login></Login> */}
             <Signup></Signup>
           </TabPanel>
         </Box>
