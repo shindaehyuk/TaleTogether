@@ -5,6 +5,7 @@ import GameButton from '../components/main/GameButton';
 import MainButton from '../components/main/MainButton';
 import MyButton from '../components/main/MypageButton';
 import '../components/main/Button.css'
+import { Link } from 'react-router-dom';
 
 export default function Main() {
   
@@ -32,10 +33,10 @@ export default function Main() {
           alignItems: 'center',
           }}
         >
-            <CommunityButton></CommunityButton>
-            <GameButton></GameButton>
-            <MainButton state="isActive"></MainButton>
-            <MyButton></MyButton>
+          <Link to='/community'><CommunityButton></CommunityButton></Link>
+          <Link to='/game'><GameButton></GameButton></Link>
+          <MainButton state="Active"></MainButton>
+          <Link to='/mypage'><MyButton></MyButton></Link>
         </Box>
         <Box sx={{ 
           width:'95%', 
