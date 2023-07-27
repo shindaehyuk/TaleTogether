@@ -7,7 +7,7 @@ test_dind_connection:
 
 
 variables:
-  DOCKER_HOST: tcp://dokcer:2375
+  DOCKER_HOST: tcp://docker:2375
   DOCKER_DRIVER: overlay2
 
 stages:
