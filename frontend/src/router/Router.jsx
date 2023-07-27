@@ -2,20 +2,34 @@ import { Routes, Route } from 'react-router-dom';
 import Main from '../page/Main';
 import Mypage from '../page/Mypage';
 import Community from '../page/Community';
-import Dashboard from '../page/Dashboard';
+// import Dashboard from '../page/Dashboard';
 import Admin from '../page/Admin';
+
 import Game from '../page/Game';
+
+import PrivateRoute from '../components/route/PrivateRoute';
+import PublicRoute from '../components/route/PublicRoute';
 
 function Router() {
   return (
     <>
       <Routes>
+        {/* <Route Component={PrivateRoute}>
+          <Route path="/main" Component={Main} />
+          <Route path="/mypage" Component={Mypage} />
+          <Route path="/mypage" Component={Mypage} />
+          <Route path="/community" Component={Community} />
+        </Route>
+
+        <Route Component={PublicRoute}>
+          <Route path="/" Component={Admin} />
+          
+        </Route> */}
+        <Route path="/main" Component={Main} />
+        <Route path="/mypage" Component={Mypage} />
         <Route path="/mypage" Component={Mypage} />
         <Route path="/community" Component={Community} />
-        <Route path="/dashboard" Component={Dashboard} />
         <Route path="/" Component={Admin} />
-        <Route path="/main" Component={Main} />
-        <Route path="/game" Component={Game} />
       </Routes>
     </>
   );

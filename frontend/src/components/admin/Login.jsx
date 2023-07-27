@@ -55,6 +55,7 @@ export default function SignIn() {
         >
           <Box component="form" noValidate onSubmit={handleSubmit(onSubmit)} sx={{ mt: 1 }}>
             <TextField
+              className="animate__animated animate__fadeIn animate__delay-0.2s"
               margin="normal"
               required
               fullWidth
@@ -67,6 +68,7 @@ export default function SignIn() {
               sx={{ backgroundColor: '#faedcd', borderRadius: '5px' }}
             />
             <TextField
+              className="animate__animated animate__fadeIn animate__delay-0.4s"
               margin="normal"
               required
               fullWidth
