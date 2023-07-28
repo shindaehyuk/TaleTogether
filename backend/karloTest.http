@@ -1,0 +1,7 @@
+POST http://localhost:8083/create-image
+Content-Type: application/json
+
+{
+  "prompt": " new korea ",
+  "negative_prompt": "low quality, low contrast, draft, amateur, cut off, cropped, frame, scary"
+}

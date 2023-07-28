@@ -4,19 +4,17 @@ spring:
     url: jdbc:mysql://localhost:3306/ssafy?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
 
     username: root
-<<<<<<< HEAD
-    password: 1234
-  redis:
-    port: 6379
-    host: i9c110.p.ssafy.io
-=======
     password: twja0930
   redis:
     port: 6379
+#<<<<<<< HEAD
+#    host: i9c110.p.ssafy.io
+#=======
     host: localhost
   jpa:
     hibernate:
       ddl-auto: update
+
     properties:
       hibernate:
         format_sql: true
@@ -24,7 +22,6 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
->>>>>>> 46f6ed9c5d1fe8e363dc1c19787bfa25e2cde5d9
 
 
 server:
