@@ -1,5 +1,3 @@
-import { Button } from "@mui/material";
-import React from "react";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { logout } from "../../redux/slices/userSlice";

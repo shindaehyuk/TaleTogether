@@ -1,14 +1,14 @@
-import * as React from 'react';
-import PropTypes from 'prop-types';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Box from '@mui/material/Box';
-import 'animate.css';
-import Intro from '../components/main/Intro';
-import Community from '../components/community/Community';
-import Game from '../components/game/Game';
-import Mypage from '../components/mypage/Mypage';
-import { useEffect } from 'react';
+import * as React from "react";
+import PropTypes from "prop-types";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Box from "@mui/material/Box";
+import "animate.css";
+import Intro from "../components/main/Intro";
+import Community from "../components/community/Community";
+import Game from "../components/game/Game";
+import Mypage from "../components/mypage/Mypage";
+import { useEffect } from "react";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -21,7 +21,9 @@ function TabPanel(props) {
       aria-labelledby={`vertical-tab-${index}`}
       {...other}
     >
-      {value === index && <Box sx={{ width: '100%', height: '100%' }}>{children}</Box>}
+      {value === index && (
+        <Box sx={{ width: "100%", height: "100%" }}>{children}</Box>
+      )}
     </span>
   );
 }
@@ -35,7 +37,7 @@ TabPanel.propTypes = {
 function a11yProps(index) {
   return {
     id: `vertical-tab-${index}`,
-    'aria-controls': `vertical-tabpanel-${index}`,
+    "aria-controls": `vertical-tabpanel-${index}`,
   };
 }
 
@@ -54,65 +56,65 @@ const TabComponent = () => {
     <>
       <Box
         sx={{
-          display: 'flex',
-          width: '90%',
+          display: "flex",
+          width: "90%",
         }}
       >
         <Tabs
           value={value}
           onChange={handleChange}
-          textColor="secondary"
-          indicatorColor="secondary"
+          // textColor="secondary"
+          // indicatorColor="secondary"
           aria-label="secondary tabs example"
-          sx={{ width: '50%' }}
+          sx={{ width: "50%" }}
         >
           <Tab
             label="main"
             {...a11yProps(0)}
             sx={{
-              borderTopLeftRadius: '20px',
-              borderTopRightRadius: '20px',
-              backgroundColor: value === 0 ? '#faedcd' : '#d4a373', // 선택된 탭일 때 배경 색상을 변경
-              width: '25%',
+              borderTopLeftRadius: "20px",
+              borderTopRightRadius: "20px",
+              backgroundColor: value === 0 ? "#faedcd" : "#d4a373", // 선택된 탭일 때 배경 색상을 변경
+              width: "25%",
             }}
           />
           <Tab
             label="community"
             {...a11yProps(1)}
             sx={{
-              borderTopLeftRadius: '20px',
-              borderTopRightRadius: '20px',
-              backgroundColor: value === 1 ? '#faedcd' : '#d4a373',
-              width: '25%',
+              borderTopLeftRadius: "20px",
+              borderTopRightRadius: "20px",
+              backgroundColor: value === 1 ? "#faedcd" : "#d4a373",
+              width: "25%",
             }}
           />
           <Tab
             label="game"
             {...a11yProps(2)}
             sx={{
-              borderTopLeftRadius: '20px',
-              borderTopRightRadius: '20px',
-              backgroundColor: value === 2 ? '#faedcd' : '#d4a373',
-              width: '25%',
+              borderTopLeftRadius: "20px",
+              borderTopRightRadius: "20px",
+              backgroundColor: value === 2 ? "#faedcd" : "#d4a373",
+              width: "25%",
             }}
           />
           <Tab
             label="mypage"
             {...a11yProps(3)}
             sx={{
-              borderTopLeftRadius: '20px',
-              borderTopRightRadius: '20px',
-              backgroundColor: value === 3 ? '#faedcd' : '#d4a373',
-              width: '25%',
+              borderTopLeftRadius: "20px",
+              borderTopRightRadius: "20px",
+              backgroundColor: value === 3 ? "#faedcd" : "#d4a373",
+              width: "25%",
             }}
           />
         </Tabs>
       </Box>
       <Box
         sx={{
-          width: '90%',
-          height: '90%',
-          backgroundColor: '#faedcd',
+          width: "90%",
+          height: "90%",
+          backgroundColor: "#faedcd",
         }}
       >
         <TabPanel value={value} index={0}>

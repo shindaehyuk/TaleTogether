@@ -1,22 +1,16 @@
-import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import { Alert, Snackbar } from '@mui/material';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import CircularProgress from '@mui/material/CircularProgress';
-import { useForm } from 'react-hook-form';
-import { useState } from 'react';
-import SignupAxios from '../../api/auth/SignupAxios';
-import IdcheckAxios from '../../api/auth/IdcheckAxios';
-
-const defaultTheme = createTheme();
+import * as React from "react";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import { Alert, Snackbar } from "@mui/material";
+import Container from "@mui/material/Container";
+import CircularProgress from "@mui/material/CircularProgress";
+import { useForm } from "react-hook-form";
+import { useState } from "react";
+import SignupAxios from "../../api/auth/SignupAxios";
+import IdcheckAxios from "../../api/auth/IdcheckAxios";
 
 export default function SignUp() {
   const [isLoading, setIsLoading] = useState(false);
@@ -32,7 +26,7 @@ export default function SignUp() {
 
   const emailCheck = () => {
     // setIdCheck(true);
-    console.log(watch('email', false));
+    console.log(watch("email", false));
   };
 
   const onSubmit = (data) => {
@@ -55,97 +49,107 @@ export default function SignUp() {
         <CssBaseline />
         <Box
           sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
           }}
         >
-          <Snackbar open={open} autoHideDuration={4000} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
-            <Alert severity="success" sx={{ width: '100%' }}>
+          <Snackbar
+            open={open}
+            autoHideDuration={4000}
+            anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          >
+            <Alert severity="success" sx={{ width: "100%" }}>
               회원가입이 완료되었습니다. 로그인 페이지로 이동합니다.
             </Alert>
           </Snackbar>
 
-          <Box component="form" noValidate onSubmit={handleSubmit(onSubmit)} sx={{ mt: 3 }}>
+          <Box
+            component="form"
+            noValidate
+            onSubmit={handleSubmit(onSubmit)}
+            sx={{}}
+          >
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
-                  className="animate__animated animate__fadeIn animate__delay-0.2s"
+                  className="animate__animated animate__fadeIn animate__delay-0.3s"
                   size="small"
                   required
                   fullWidth
                   label="이메일"
                   autoFocus
-                  {...register('email', {
+                  {...register("email", {
                     required: true,
                     pattern: {
                       value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                      message: '이메일형식이 아닙니다.',
+                      message: "이메일형식이 아닙니다.",
                     },
                   })}
                   error={!!errors.email}
                   helperText={errors.email?.message}
                   InputProps={{
-                    sx: { backgroundColor: '#faedcd', borderRadius: '5px' },
+                    sx: { backgroundColor: "#faedcd", borderRadius: "5px" },
                   }}
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  className="animate__animated animate__fadeIn animate__delay-0.4s"
+                  className="animate__animated animate__fadeIn animate__delay-0.6s"
                   size="small"
                   required
                   fullWidth
                   label="닉네임"
-                  {...register('nickname', {
+                  {...register("nickname", {
                     required: true,
                     pattern: {
                       value: /^[a-zA-Zㄱ-힣0-9-_.]{2,12}$/,
-                      message: '*한글, 영문, 특수문자를 (- _ .) 포함한 2 ~ 12글자',
+                      message:
+                        "*한글, 영문, 특수문자를 (- _ .) 포함한 2 ~ 12글자",
                     },
                   })}
                   error={!!errors.nickname}
                   helperText={errors.nickname?.message}
                   InputProps={{
-                    sx: { backgroundColor: '#faedcd', borderRadius: '5px' },
+                    sx: { backgroundColor: "#faedcd", borderRadius: "5px" },
                   }}
                 />
               </Grid>
               <Grid item xs={6}>
                 <TextField
-                  className="animate__animated animate__fadeIn animate__delay-0.6s"
+                  className="animate__animated animate__fadeIn animate__delay-0.9s"
                   size="small"
                   fullWidth
                   label="비밀번호"
                   type="password"
                   required
-                  {...register('password', {
+                  {...register("password", {
                     required: true,
                     pattern: {
                       value: /(?=.*[a-zA-ZS])(?=.*?[#?!@$%^&*-]).{6,24}/,
-                      message: '*문자와 특수문자 조합의 6~24 자리',
+                      message: "*문자와 특수문자 조합의 6~24 자리",
                     },
                   })}
                   error={!!errors.password}
                   helperText={errors.password?.message}
                   InputProps={{
-                    sx: { backgroundColor: '#faedcd', borderRadius: '5px' },
+                    sx: { backgroundColor: "#faedcd", borderRadius: "5px" },
                   }}
                 />
               </Grid>
               <Grid item xs={6}>
                 <TextField
-                  className="animate__animated animate__fadeIn animate__delay-0.8s"
+                  className="animate__animated animate__fadeIn animate__delay-0.9s"
                   size="small"
                   required
                   fullWidth
                   type="password"
                   label="비밀번호 확인"
-                  {...register('checkpw', {
+                  {...register("checkpw", {
                     required: true,
                     validate: (value) => {
-                      if (value !== watch('password')) {
-                        return '비밀번호가 같지 않습니다.';
+                      if (value !== watch("password")) {
+                        return "비밀번호가 같지 않습니다.";
                       }
                       return true;
                     },
@@ -153,12 +157,13 @@ export default function SignUp() {
                   error={!!errors.checkpw}
                   helperText={errors.checkpw?.message}
                   InputProps={{
-                    sx: { backgroundColor: '#faedcd', borderRadius: '5px' },
+                    sx: { backgroundColor: "#faedcd", borderRadius: "5px" },
                   }}
                 />
               </Grid>
               <Grid item xs={6}>
                 <Button
+                  className="animate__animated animate__fadeIn animate__delay-1.2s"
                   onClick={emailCheck}
                   disabled={idCheck}
                   type="submit"
@@ -166,12 +171,19 @@ export default function SignUp() {
                   variant="contained"
                   sx={{ mt: 2 }}
                 >
-                  {idCheck ? '아이디 사용가능' : '아이디 중복검사'}
+                  {idCheck ? "아이디 사용가능" : "아이디 중복검사"}
                 </Button>
               </Grid>
               <Grid item xs={6}>
-                <Button disabled={isLoading} type="submit" fullWidth variant="contained" sx={{ mt: 2 }}>
-                  {isLoading ? <CircularProgress size={24} /> : 'Sign up'}
+                <Button
+                  className="animate__animated animate__fadeIn animate__delay-1.2s"
+                  disabled={isLoading}
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 2 }}
+                >
+                  {isLoading ? <CircularProgress size={24} /> : "Sign up"}
                 </Button>
               </Grid>
             </Grid>
