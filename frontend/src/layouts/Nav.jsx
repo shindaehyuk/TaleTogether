@@ -21,7 +21,7 @@ function TabPanel(props) {
       aria-labelledby={`vertical-tab-${index}`}
       {...other}
     >
-      {value === index && <Box sx={{ width: '100%', height: '100%' }}>{children}</Box>}
+      {value === index && <Box sx={{ display: 'flex', width: '100%', height: '100%' }}>{children}</Box>}
     </span>
   );
 }
@@ -56,7 +56,6 @@ const TabComponent = () => {
         sx={{
           display: 'flex',
           width: '95%',
-          // paddingX: '40px',
         }}
       >
         <Tabs
