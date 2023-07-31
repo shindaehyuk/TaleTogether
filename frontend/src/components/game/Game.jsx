@@ -1,57 +1,121 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import './Game.css';
+import * as React from "react";
+import Box from "@mui/material/Box";
+
+import "./Game.css";
+import Button from "@mui/material/Button";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
 
 export default function Game() {
+  const theme = createTheme({
+    palette: {
+      white: {
+        main: "#FFFFFF",
+      },
+    },
+    typography: {
+      fontFamily: ["omyu_pretty"],
+    },
+  });
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+  };
   return (
     <>
       <Box
         sx={{
-          display: 'flex',
-          width: '100%',
-          height: '100%',
-          justifyContent: 'center',
-          alignItems: 'center',
+          display: "flex",
+          width: "100%",
+          height: "100%",
+          justifyContent: "center",
+          alignItems: "center",
         }}
       >
         <Box
           className="Box"
           sx={{
-            width: '400px',
-            height: '400px',
-            margin: '10%',
+            width: "450px",
+            height: "450px",
+            margin: "10%",
             backgroundImage: "url('../../assets/joinFox.png')",
-            backgroundRepeat: 'no-repeat',
-            backgroundSize: 'cover',
-            borderRadius: '20px',
-            backgroundPosition: 'center', // 이미지를 가운데에 맞춰 보이도록 설정
+            backgroundSize: "cover",
+            borderRadius: "20px",
             boxShadow: 5,
           }}
         >
-          <p class="title">card title</p>
+          <p class="title">같이하기</p>
           <div class="overlay"></div>
           <div class="button">
-            <a href="#"> BUTTON </a>
+            <ThemeProvider theme={theme}>
+              <Button
+                onClick={handleOpen}
+                variant="outlined"
+                color="white"
+                sx={{ width: "50%", height: "20%", fontSize: "20px" }}
+              >
+                <Typography variant="h4">코드 입력하기</Typography>
+              </Button>
+              <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+              >
+                <Box sx={style}>
+                  <Typography
+                    id="modal-modal-title"
+                    variant="h6"
+                    component="h2"
+                  >
+                    코드를 입력하세요
+                  </Typography>
+                  <form action="">
+                    <input type="text" />
+                    <button type="submit">입장</button>
+                  </form>
+                </Box>
+              </Modal>
+            </ThemeProvider>
           </div>
         </Box>
         <Box
           className="Box"
           sx={{
-            width: '400px',
-            height: '400px',
-            margin: '10%',
+            width: "450px",
+            height: "450px",
+            margin: "10%",
             backgroundImage: "url('../../assets/makeFox.png')",
-            backgroundRepeat: 'no-repeat',
-            backgroundSize: 'cover',
-            borderRadius: '20px',
-            backgroundPosition: 'center', // 이미지를 가운데에 맞춰 보이도록 설정
+            backgroundSize: "cover",
+            borderRadius: "20px",
             boxShadow: 5,
           }}
         >
-          <p class="title">card title</p>
+          <p class="title">방만들기</p>
           <div class="overlay"></div>
           <div class="button">
-            <a href="#"> BUTTON </a>
+            <ThemeProvider theme={theme}>
+              <Button
+                variant="outlined"
+                color="white"
+                sx={{ width: "50%", height: "20%", fontSize: "20px" }}
+              >
+                <Typography variant="h4">게임시작</Typography>
+              </Button>
+            </ThemeProvider>
           </div>
         </Box>
       </Box>
