@@ -22,7 +22,7 @@ export default function Intro() {
       >
         <Box
           sx={{
-            width: '100%',
+            width: '80%',
             height: '56.25%',
             overflow: 'hidden',
             backgroundImage: "url('../../assets/Layerbg2.png')",
