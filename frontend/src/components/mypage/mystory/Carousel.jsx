@@ -18,6 +18,7 @@ function NextArrow(props) {
   );
 }
 
+
 // 다음 화살표 디자인
 function PrevArrow(props) {
   const { className, style, onClick } = props;
@@ -31,13 +32,13 @@ function PrevArrow(props) {
 }
 
 //이미지 파일 받아올 곳
-const imagePaths = [  
-  "../../assets/snoopy.png",
-  "../../assets/mine.png",
-  "../../assets/mypage.png",
-  "../../assets/snoopy.png",
-  "../../assets/mine.png",
-  "../../assets/mypage.png",
+const imagePaths = [
+  '../../assets/snoopy.png',
+  '../../assets/mine.png',
+  '../../assets/mypage.png',
+  '../../assets/snoopy.png',
+  '../../assets/mine.png',
+  '../../assets/mypage.png',
 ];
 
 const Carousel = () => {

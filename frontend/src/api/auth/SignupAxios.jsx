@@ -1,13 +1,12 @@
 import axios from 'axios';
-import React from 'react';
 
 async function SignupAxios(props) {
   try {
     // POST 요청은 body에 실어 보냄
-    const res = await axios.post('/user', {
-      id: props.email,
+    const res = await axios.post('http://i9c110.p.ssafy.io:8083/users/join', {
+      userId: props.email,
       name: props.nickname,
-      password: props.pasword,
+      password: props.password,
     });
     console.log(res);
     return res;
