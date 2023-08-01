@@ -1,0 +1,8 @@
+POST http://localhost:8083/users/join
+Content-Type: application/json
+
+{
+  "userId": "qjawls1234@naver.com",
+  "name": "qkr qjawls",
+  "password": "qjawls1234!"
+}

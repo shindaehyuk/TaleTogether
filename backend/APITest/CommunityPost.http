@@ -5,5 +5,5 @@ Content-Type: application/json
   "title": "자랑글",
   "content": "자랑글입니다",
   "userId": 1,
-  "taleId": 3
+  "taleId": 1
 }

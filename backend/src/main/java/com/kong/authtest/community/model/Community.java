@@ -4,6 +4,7 @@ import com.kong.authtest.comment.model.Comment;
 import com.kong.authtest.common.baseEntity.BaseEntity;
 import com.kong.authtest.common.commonValidation.Content;
 import com.kong.authtest.community.dto.CommunityDtoPutRequest;
+import com.kong.authtest.likes.model.Likes;
 import com.kong.authtest.tale.model.Tale;
 import com.kong.authtest.user.model.User;
 import lombok.*;
@@ -36,6 +37,9 @@ public class Community extends BaseEntity {
 
     @OneToMany(mappedBy = "community", orphanRemoval = true, cascade = CascadeType.REMOVE)
     private List<Comment> commentList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "community", orphanRemoval = true, cascade = CascadeType.REMOVE)
+    private List<Likes> likesList = new ArrayList<>();
 
     public Community addUser(User user) {
         this.user = user;
