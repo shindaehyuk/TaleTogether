@@ -14,9 +14,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Optional;
-
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -60,16 +57,10 @@ public class CommunityService {
                 .orElseThrow(() -> new IllegalArgumentException("taleId 문제"));
     }
 
-    private Community findCommunityById(String userId) {
-        User user = userRepository.findUserByUserId(userId).get();
-        List<Community> communityList = user.getCommunityList();
+    private Community findCommunityById(Long communityId) {
 
-        Optional<Community> any = communityList.stream().filter(it -> it.getUser().getUserId().equals(userId))
-                .;
-        Community community = any.get();
-
-        Community community1 = communityRepository.findById(community.getCommunityId()).get();
-
-
+        return communityRepository
+                .findById(communityId)
+                .orElseThrow(() -> new IllegalArgumentException("not found"));
     }
 }
