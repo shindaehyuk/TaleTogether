@@ -2,41 +2,29 @@ import React from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import './Carousel.css'
+import './Carousel.css';
 import ActionAreaCard from './Card';
 
 // 이전 화살표 디자인
-function SampleNextArrow(props) {  
+function SampleNextArrow(props) {
   const { className, style, onClick } = props;
-  return (
-    <div
-      className={className}
-      style={{ ...style, display: "block", background: "red" }}
-      onClick={onClick}
-    />
-  );
+  return <div className={className} style={{ ...style, display: 'block', background: 'red' }} onClick={onClick} />;
 }
 
 // 다음 화살표 디자인
 function SamplePrevArrow(props) {
   const { className, style, onClick } = props;
-  return (
-    <div
-      className={className}
-      style={{ ...style, display: "block", background: "green" }}
-      onClick={onClick}
-    />
-  );
+  return <div className={className} style={{ ...style, display: 'block', background: 'green' }} onClick={onClick} />;
 }
 
 //이미지 파일 받아올 곳
-const imagePaths = [  
-  "../../assets/snoopy.png",
-  "../../assets/mine.png",
-  "../../assets/mypage.png",
-  "../../assets/snoopy.png",
-  "../../assets/mine.png",
-  "../../assets/mypage.png",
+const imagePaths = [
+  '../../assets/snoopy.png',
+  '../../assets/mine.png',
+  '../../assets/mypage.png',
+  '../../assets/snoopy.png',
+  '../../assets/mine.png',
+  '../../assets/mypage.png',
 ];
 
 const Carousel = () => {

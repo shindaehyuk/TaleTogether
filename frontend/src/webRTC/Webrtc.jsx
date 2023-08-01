@@ -11,7 +11,7 @@ const APPLICATION_SERVER_URL =
 class Webrtc extends Component {
   constructor(props) {
     super(props);
-
+    console.log(this.joinSession)
     // These properties are in the state's component in order to re-render the HTML whenever their values change
     this.state = {
       mySessionId: "SessionA",
