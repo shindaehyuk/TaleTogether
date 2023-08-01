@@ -1,10 +1,13 @@
 import Button from "@mui/material/Button";
 import "./Community.css";
+import PostForm from "./PostForm";
+import PostList from "./PostList";
+import { useState } from "react";
 
-function NavBar() {
+function NavBar({ onButtonClick }) {
   return (
-    <div className="Nav">
-      <Button className="button" variant="text">
+    <div>
+      <Button className="button-create" variant="text" onClick={onButtonClick}>
         작성하기
       </Button>
       <hr />
@@ -12,23 +15,25 @@ function NavBar() {
   );
 }
 
-// function Article(props) {
-//   return  <div>
-//     <h2>{props.title}</h2>
-//     <p>{props.content}</p>
-//   </div>
-// }
 
 function Community() {
-// let content = null
-// const mode = 'Default'
-// if (mode === 'Default') {
-//   content = <Article title=""></Article>
-// }
+  let content = null;
+  const [mode, setMode] = useState("default");
+
+  const setCreate = () => {
+    setMode("create");
+  };
+
+  if (mode === "default") {
+    content = <PostList />;
+  } else if (mode === "create") {
+    content = <PostForm />;
+  }
 
   return (
     <div>
-      <NavBar></NavBar>
+      <NavBar onButtonClick={setCreate}></NavBar>
+      {content}
     </div>
   );
 }

@@ -1,14 +1,19 @@
-.button {
-  background-color: #d4a373;
-  border-radius: 61px;
-  cursor: pointer;
-  color: black;
-  margin-left: 80%;
-  margin-top: 2%; 
-  width: 100px;
-}
-
-hr {
-  margin-right: 5%;
-  margin-left: 5%;
-}
+.button-create {
+    background-color: #d4a373;
+    border-radius: 61px;
+    cursor: pointer;
+    color: black;
+    margin-left: 73%;
+    margin-top: 2%; 
+    width: 100px;
+  }
+  
+  hr {
+    margin-right: 5%;
+    margin-left: 5%;
+  }
+  
+  .Nav {
+    display: flex;
+    justify-content: space-between;
+  }
