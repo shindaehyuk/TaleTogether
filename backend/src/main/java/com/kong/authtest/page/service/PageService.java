@@ -19,26 +19,26 @@ public class PageService {
     private final TaleRepository taleRepository;
 
     @Transactional
-    public PageDtoResponse register(PageDtoRequest pageDtoRequest){
+    public PageDtoResponse register(PageDtoRequest pageDtoRequest) {
         Page page = pageDtoRequest.toPage();
         page.addSequence(findById(pageDtoRequest).
-                        getPageList().size());
+                getPageList().size() + 1);
         return new PageDtoResponse(pageRepository.save(page
                 .addTale(findById(pageDtoRequest))));
     }
 
-    public PageDtoResponse detail(Long postId){
-            return new PageDtoResponse(getPage(postId));
+    public PageDtoResponse detail(Long postId) {
+        return new PageDtoResponse(getPage(postId));
     }
 
     @Transactional
-    public PageDtoResponse modify(PageDtoPutRequest pageDtoPutRequest){
+    public PageDtoResponse modify(PageDtoPutRequest pageDtoPutRequest) {
         return new PageDtoResponse(getPage(pageDtoPutRequest.getPageId())
                 .updatePage(pageDtoPutRequest));
     }
 
     @Transactional
-    public void delete(Long pageId){
+    public void delete(Long pageId) {
         pageRepository.deleteById(pageId);
     }
 

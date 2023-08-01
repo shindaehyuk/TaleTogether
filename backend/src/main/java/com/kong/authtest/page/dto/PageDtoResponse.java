@@ -9,7 +9,7 @@ public class PageDtoResponse {
     private String image;
     private int sequence;
 
-    public PageDtoResponse(Page page){
+    public PageDtoResponse(Page page) {
         this.content = page.getContent().getContent();
         this.sequence = page.getSequence();
         this.image = page.getImage();

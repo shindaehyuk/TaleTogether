@@ -8,8 +8,7 @@ public class TaleDtoResponse {
     private Long taleId;
 
 
-
-    public TaleDtoResponse (Tale tale){
+    public TaleDtoResponse(Tale tale) {
         this.taleId = tale.getTaleId();
     }
 }

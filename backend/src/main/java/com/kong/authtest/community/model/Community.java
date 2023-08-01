@@ -22,9 +22,9 @@ public class Community extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long communityId;
 
-
     @Embedded
     private Content content;
+
     private String title;
 
     @ManyToOne
@@ -42,12 +42,12 @@ public class Community extends BaseEntity {
         return this;
     }
 
-    public Community addTale(Tale tale){
+    public Community addTale(Tale tale) {
         this.tale = tale;
         return this;
     }
 
-    public Community updateCommunity(CommunityDtoPutRequest communityDtoPutRequest){
+    public Community updateCommunity(CommunityDtoPutRequest communityDtoPutRequest) {
         this.content = new Content(communityDtoPutRequest.getContent());
         this.title = communityDtoPutRequest.getTitle();
         return this;

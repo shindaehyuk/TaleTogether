@@ -14,7 +14,7 @@ public class CommunityDtoGetResponse {
     private String title;
     private List<CommentDtoResponse> commentList;
 
-    public CommunityDtoGetResponse(Community community){
+    public CommunityDtoGetResponse(Community community) {
         this.title = community.getTitle();
         this.content = community.getContent().getContent();
         this.communityId = community.getCommunityId();

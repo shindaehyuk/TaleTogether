@@ -1,3 +1,7 @@
+
+chatgpt:
+  api-key: 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
+
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver

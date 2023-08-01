@@ -29,7 +29,7 @@ public class Tale extends BaseEntity {
     @OneToOne(mappedBy = "tale", orphanRemoval = true, cascade = CascadeType.REMOVE)
     private Community community;
 
-    public Tale addUser(User user){
+    public Tale addUser(User user) {
         this.user = user;
         return this;
     }

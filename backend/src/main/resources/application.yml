@@ -1,3 +1,6 @@
+chatgpt:
+  api-key: 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
+
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -7,9 +10,9 @@ spring:
     password: twja0930
   redis:
     port: 6379
-#<<<<<<< HEAD
-#    host: i9c110.p.ssafy.io
-#=======
+    #<<<<<<< HEAD
+    #    host: i9c110.p.ssafy.io
+    #=======
     host: localhost
   jpa:
     hibernate:

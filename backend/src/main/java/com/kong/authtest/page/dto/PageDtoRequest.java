@@ -11,7 +11,8 @@ public class PageDtoRequest {
     private String content;
     private String image;
     private Long taleId;
-    public Page toPage(){
+
+    public Page toPage() {
         return Page.builder()
                 .content(new Content(this.content))
                 .image(this.image)

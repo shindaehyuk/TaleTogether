@@ -1,9 +1,9 @@
 package com.kong.authtest.community.service;
 
 import com.kong.authtest.community.dto.CommunityDtoGetResponse;
+import com.kong.authtest.community.dto.CommunityDtoPutRequest;
 import com.kong.authtest.community.dto.CommunityDtoRequest;
 import com.kong.authtest.community.dto.CommunityDtoResponse;
-import com.kong.authtest.community.dto.CommunityDtoPutRequest;
 import com.kong.authtest.community.model.Community;
 import com.kong.authtest.community.repository.CommunityRepository;
 import com.kong.authtest.tale.model.Tale;
@@ -13,6 +13,9 @@ import com.kong.authtest.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -42,7 +45,7 @@ public class CommunityService {
     }
 
     @Transactional
-    public void delete(Long communityId){
+    public void delete(Long communityId) {
         communityRepository.deleteById(communityId);
     }
 
@@ -57,7 +60,16 @@ public class CommunityService {
                 .orElseThrow(() -> new IllegalArgumentException("taleId 문제"));
     }
 
-    private Community findCommunityById(Long communityId) {
-        return communityRepository.findById(communityId).orElseThrow(() -> new IllegalArgumentException("not found"));
+    private Community findCommunityById(String userId) {
+        User user = userRepository.findUserByUserId(userId).get();
+        List<Community> communityList = user.getCommunityList();
+
+        Optional<Community> any = communityList.stream().filter(it -> it.getUser().getUserId().equals(userId))
+                .;
+        Community community = any.get();
+
+        Community community1 = communityRepository.findById(community.getCommunityId()).get();
+
+
     }
 }

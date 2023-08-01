@@ -13,7 +13,7 @@ public class TaleDtoGetResponse {
     private List<PageDtoResponse> PageList;
 
 
-    public TaleDtoGetResponse (Tale tale){
+    public TaleDtoGetResponse(Tale tale) {
         this.taleId = tale.getTaleId();
         this.PageList = tale.getPageList().stream().map(PageDtoResponse::new).collect(Collectors.toList());
     }

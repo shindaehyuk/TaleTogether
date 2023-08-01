@@ -32,12 +32,12 @@ public class Page extends BaseEntity {
         return this;
     }
 
-    public Page addSequence(int sequence){
+    public Page addSequence(int sequence) {
         this.sequence = sequence;
         return this;
     }
 
-    public Page updatePage(PageDtoPutRequest pageDtoPutRequest){
+    public Page updatePage(PageDtoPutRequest pageDtoPutRequest) {
         this.content = new Content(pageDtoPutRequest.getContent());
         this.sequence = pageDtoPutRequest.getSequence();
         this.image = pageDtoPutRequest.getImage();
