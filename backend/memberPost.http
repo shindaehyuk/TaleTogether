@@ -1,4 +1,4 @@
-POST http://3.34.189.22:8083/users/join
+POST http://i9c110.p.ssafy.io:8083/users/join
 Content-Type: application/json
 
 {
@@ -6,3 +6,14 @@ Content-Type: application/json
   "name": "parkbumjin",
   "password": "qpal123!"
 }
+
+###
+
+POST http://i9c110.p.ssafy.io:8083/auth/login
+Content-Type: application/json
+
+{
+  "userId": "qjawls123",
+  "password": "qpal123!"
+}
+

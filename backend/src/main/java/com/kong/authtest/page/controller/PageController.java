@@ -34,13 +34,13 @@ public class PageController {
 
     @PutMapping("/modfiy")
     @ApiOperation(value = "page 정보를 수정하기위한 API", notes = "page정보를 수정하기 위해, image, content, sequence, pageId가 필요하다.", response = PageDtoResponse.class)
-    public ResponseEntity<PageDtoResponse> modify(@RequestBody PageDtoPutRequest pageDtoPutRequest){
+    public ResponseEntity<PageDtoResponse> modify(@RequestBody PageDtoPutRequest pageDtoPutRequest) {
         return ResponseEntity.ok(pageService.modify(pageDtoPutRequest));
     }
 
     @DeleteMapping("/delete/{pageId}")
     @ApiOperation(value = "page 정보를 삭제하기 위한 API", notes = "page 정보를 삭제하기 위해 pageId가 필요하다.", response = Boolean.class)
-    public ResponseEntity<Boolean> delete(@PathVariable Long pageId){
+    public ResponseEntity<Boolean> delete(@PathVariable Long pageId) {
         pageService.delete(pageId);
         return ResponseEntity.ok(true);
     }

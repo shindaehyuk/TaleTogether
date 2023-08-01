@@ -20,31 +20,31 @@ public class CommentService {
     private final CommunityRepository communityRepository;
 
     @Transactional
-    public CommentDtoResponse register(CommentDtoRequest commentDtoRequest){
+    public CommentDtoResponse register(CommentDtoRequest commentDtoRequest) {
         return new CommentDtoResponse(
                 commentRepository
                         .save(commentDtoRequest
-                        .toComment()
-                        .addUserAndCommunity(
-                                userRepository.findById(commentDtoRequest.getUserId())
-                                .orElseThrow(()-> new IllegalArgumentException("userId 문제")),
-                                communityRepository.findById(commentDtoRequest.getCommuinityId())
-                                        .orElseThrow(()->new IllegalArgumentException("shareId 문제")))));
+                                .toComment()
+                                .addUserAndCommunity(
+                                        userRepository.findById(commentDtoRequest.getUserId())
+                                                .orElseThrow(() -> new IllegalArgumentException("userId 문제")),
+                                        communityRepository.findById(commentDtoRequest.getCommunityId())
+                                                .orElseThrow(() -> new IllegalArgumentException("shareId 문제")))));
     }
 
-    public CommentDtoResponse getInfo(Long commentId){
+    public CommentDtoResponse getInfo(Long commentId) {
         System.out.println(commentId);
         return new CommentDtoResponse(getComment(commentId));
     }
 
     @Transactional
-    public CommentDtoResponse modifyComment(CommentDtoPutRequest commentDtoPutRequest){
+    public CommentDtoResponse modifyComment(CommentDtoPutRequest commentDtoPutRequest) {
         return new CommentDtoResponse(getComment(commentDtoPutRequest.getCommentId())
                 .updateComment(commentDtoPutRequest));
     }
 
     @Transactional
-    public void delete(Long commentId){
+    public void delete(Long commentId) {
         commentRepository.deleteById(commentId);
     }
 

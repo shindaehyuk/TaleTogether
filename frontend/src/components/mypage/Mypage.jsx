@@ -1,59 +1,35 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-import CommunityButton from "../main/CommunityButton";
-import GameButton from "../main/GameButton";
-import MainButton from "../main/MainButton";
-import MyButton from "../main/MypageButton";
-import { Link } from "react-router-dom";
+import React from 'react';
+import Carousel from './Carousel'; // Carousel 컴포넌트 파일 경로
+import { Grid } from '@mui/material';
+import { Box } from '@mui/material';
 
-export default function Mypage() {
+const MyPage = () => {
   return (
     <>
-      <h1>마이페이지</h1>
-      {/* <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          width: '95%',
-          height: '95%',
-          flexGrow: 1,
-          bgcolor: '#CCD5AE',
-          borderRadius: '61px',
-          justifyContent: 'center',
-          alignItems: 'center',
-          boxShadow: 5,
-        }}
-      >
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'row',
-            width: '95%',
-            height: '2rem',
-            mt: '1rem',
-            alignItems: 'center',
-          }}
+      <h1>My Page</h1>
+      <Grid container spacing={1}>
+        <Grid
+          container
+          item xs={4}
+          justifyContent="center"
         >
-          <Link to="/community">
-            <CommunityButton></CommunityButton>
-          </Link>
-          <Link to="/game">
-            <GameButton></GameButton>
-          </Link>
-          <Link to="/main">
-            <MainButton></MainButton>
-          </Link>
-          <MyButton state="Active"></MyButton>
-        </Box>
-        <Box
-          sx={{
-            width: '95%',
-            height: '85%',
-            bgcolor: '#FAEDCD',
-            borderRadius: '61px',
-          }}
-        ></Box>
-      </Box> */}
+          <Box
+            sx={{
+              backgroundColor: "#CCD5AE",
+              border: "1px solid black",
+              width: "70%",
+              height: "55%",
+            }}
+            >
+
+          </Box>
+        </Grid>
+        <Grid item xs={8}>
+          <Carousel />
+        </Grid>
+      </Grid>
     </>
   );
-}
+};
+
+export default MyPage;

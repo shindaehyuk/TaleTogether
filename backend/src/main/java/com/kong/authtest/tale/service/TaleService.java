@@ -25,12 +25,12 @@ public class TaleService {
         return new TaleDtoResponse(taleRepository.save(new TaleDtoRequest().toTale().addUser(user)));
     }
 
-    public TaleDtoGetResponse getTaleInfo(Long taleId){
-        return new TaleDtoGetResponse(taleRepository.findById(taleId).orElseThrow(()-> new IllegalArgumentException("not found")));
+    public TaleDtoGetResponse getTaleInfo(Long taleId) {
+        return new TaleDtoGetResponse(taleRepository.findById(taleId).orElseThrow(() -> new IllegalArgumentException("not found")));
     }
 
     @Transactional
-    public void delete(Long taleId){
+    public void delete(Long taleId) {
         taleRepository.deleteById(taleId);
     }
 

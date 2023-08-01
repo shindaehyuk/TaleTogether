@@ -5,7 +5,6 @@ import com.kong.authtest.karlo.dto.KarloRequest;
 import com.kong.authtest.karlo.dto.KarloResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import nonapi.io.github.classgraph.json.JSONUtils;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -19,17 +18,16 @@ import static org.springframework.http.HttpHeaders.CONTENT_TYPE;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-
 public class KarloService {
 
     private static final String API_KEY = "KakaoAK 28d07bc48030ec0d9213f4223cfd3298";
 
-    private RestTemplate restTemplate = new RestTemplate();
+    private final RestTemplate restTemplate = new RestTemplate();
 
-    private HashMap<String, String> params = new HashMap<>();
+    private final HashMap<String, String> params = new HashMap<>();
 
 
-    public KarloResponse createImage(KarloRequest karloRequest) throws Exception {
+    public KarloResponse createImage(KarloRequest karloRequest) {
 
         params.put("prompt", karloRequest.getPrompt());
         params.put("negative_prompt", karloRequest.getNegative_prompt());

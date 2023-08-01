@@ -5,7 +5,10 @@ import com.kong.authtest.common.baseEntity.BaseEntity;
 import com.kong.authtest.common.commonValidation.Content;
 import com.kong.authtest.community.model.Community;
 import com.kong.authtest.user.model.User;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -29,13 +32,13 @@ public class Comment extends BaseEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public Comment addUserAndCommunity(User user, Community community){
+    public Comment addUserAndCommunity(User user, Community community) {
         this.user = user;
         this.community = community;
         return this;
     }
 
-    public Comment updateComment(CommentDtoPutRequest commentDtoPutRequest){
+    public Comment updateComment(CommentDtoPutRequest commentDtoPutRequest) {
         this.content = new Content(commentDtoPutRequest.getContent());
         return this;
     }

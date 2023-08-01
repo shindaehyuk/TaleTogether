@@ -1,16 +1,11 @@
 package com.kong.authtest.auth.controller;
 
 import com.kong.authtest.auth.service.AuthService;
-import com.kong.authtest.auth.service.RedisService;
-import com.kong.authtest.auth.service.TokenService;
 import com.kong.authtest.auth.util.JwtTokenUtil;
 import com.kong.authtest.user.dto.UserDto;
-import com.kong.authtest.user.model.User;
-import com.kong.authtest.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;

@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 public class CommentDtoGetRequest {
     private Long commentId;
 
-    public Comment toComment(){
+    public Comment toComment() {
         return Comment.builder()
                 .commentId(this.commentId)
                 .build();

@@ -21,7 +21,6 @@ function App() {
                 justifyContent: 'center',
                 alignItems: 'center',
                 bgcolor: '#fefae0',
-                // bgcolor: '#CCD5AE',
                 display: 'flex',
                 height: '100vh',
                 paddingY: '24px',

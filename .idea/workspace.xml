@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9649107a-f65a-4b89-8c51-d6b4a1cf7e35" name="Changes" comment="feat : ci/cd" />
+    <list default="true" id="9649107a-f65a-4b89-8c51-d6b4a1cf7e35" name="Changes" comment="feat : ci/cd">
+      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/auth/config/AuthConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/auth/config/AuthConfig.class" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -61,6 +63,7 @@
       <workItem from="1690347510741" duration="86000" />
       <workItem from="1690353366846" duration="10000" />
       <workItem from="1690504355051" duration="42000" />
+      <workItem from="1690762229689" duration="9000" />
     </task>
     <task id="LOCAL-00001" summary="feat : ci/cd">
       <option name="closed" value="true" />

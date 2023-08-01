@@ -2,17 +2,17 @@ package com.kong.authtest.auth.service;
 
 import com.kong.authtest.auth.dto.PJTNameUserDetails;
 import com.kong.authtest.user.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class PJTNameUserDetailsService implements UserDetailsService {
 
-    @Autowired
-    UserService userService;
+    private final UserService userService;
 
     @Override
     public PJTNameUserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

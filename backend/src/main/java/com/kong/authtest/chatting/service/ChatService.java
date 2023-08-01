@@ -17,7 +17,7 @@ public class ChatService {
         ChatMessage chatMessage = new ChatMessage();
         chatMessage.setContent(messageDto.getContent());
 
-        User user = userRepository.findUserByName(messageDto.getUserName());
+        User user = userRepository.findUserByName(messageDto.getUserName()).orElseThrow();
         chatMessage.setSender(user);
 
         return chatMessage;  // 실제로 데이터베이스에 저장하려면 저장 로직도 추가되어야 합니다.

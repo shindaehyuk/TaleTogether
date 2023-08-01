@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
 
     @GetMapping("/test/cicd")
-    public String test(){
+    public String test() {
         return "test";
     }
 }

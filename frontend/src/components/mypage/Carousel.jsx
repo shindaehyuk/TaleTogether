@@ -1,65 +1,78 @@
-import "./Carousel.css";
-import { useEffect, useRef, useState } from "react";
+import React from 'react';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import './Carousel.css'
+import ActionAreaCard from './Card';
 
-function Carousel() {
-  const container_Carousel = useRef();
-  const [nowX, setNowX] = useState(0);
-  useEffect(() => {
-    container_Carousel.current.style.transform = `translateX(${nowX}vw)`;
-  }, [nowX]);
-  // useState 말고 useEffect를 이용해야할듯.
-  const clickLeftButton = () => {
-    // setNowX(nowX + 20);
-    setNowX((prop) => prop + 20);
-    console.log(`it's work ${nowX}`);
-  };
-  const clickRightButton = () => {
-    setNowX(nowX - 20);
-    console.log(`it's work ${nowX}`);
-  };
+// 이전 화살표 디자인
+function SampleNextArrow(props) {  
+  const { className, style, onClick } = props;
   return (
-    <div className="body" style={{ overflow: "hidden" }}>
-      <div>{nowX}</div>
-      <label className="left" onClick={clickLeftButton}>
-        left
-      </label>
-      <label className="right" onClick={clickRightButton}>
-        right
-      </label>
-      <div className="container_Carousel" ref={container_Carousel}>
-        <div className="inner">
-          <img src={"assets/mine.png"} alt="" />
-        </div>
-        <div className="inner">
-          <img src={"assets/snoopy.png"} alt="" />
-        </div>
-        <div className="inner">
-          <img src={"assets/mine.png"} alt="" />
-        </div>
-        <div className="inner">
-          <img src={"assets/snoopy.png"} alt="" />
-        </div>
-        <div className="inner">
-          <img src={"assets/mine.png"} alt="" />
-        </div>
-        <div className="inner">
-          <img src={"assets/snoopy.png"} alt="" />
-        </div>
-        <div className="inner">
-          <img src={"assets/mine.png"} alt="" />
-        </div>
-        <div className="inner">
-          <img src={"assets/snoopy.png"} alt="" />
-        </div>
-        <div className="inner">
-          <img src={"assets/mine.png"} alt="" />
-        </div>
-        <div className="inner">
-          <img src={"assets/snoopy.png"} alt="" />
-        </div>
-      </div>
-    </div>
+    <div
+      className={className}
+      style={{ ...style, display: "block", background: "red" }}
+      onClick={onClick}
+    />
   );
 }
+
+// 다음 화살표 디자인
+function SamplePrevArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{ ...style, display: "block", background: "green" }}
+      onClick={onClick}
+    />
+  );
+}
+
+//이미지 파일 받아올 곳
+const imagePaths = [  
+  "../../assets/snoopy.png",
+  "../../assets/mine.png",
+  "../../assets/mypage.png",
+  "../../assets/snoopy.png",
+  "../../assets/mine.png",
+  "../../assets/mypage.png",
+];
+
+const Carousel = () => {
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3, // 한 번에 보여질 슬라이드 수
+    slidesToScroll: 1, // 한 번에 스크롤될 슬라이드 수
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+        },
+      },
+    ],
+  };
+
+  return (
+    <div>
+      <Slider {...settings}>
+        {imagePaths.map((imagePath, index) => (
+          <ActionAreaCard key={index} src={imagePath} alt={`Image ${index + 1}`} />
+        ))}
+      </Slider>
+    </div>
+  );
+};
 
 export default Carousel;

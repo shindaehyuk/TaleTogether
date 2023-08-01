@@ -19,7 +19,7 @@ public class CommunityDtoRequest {
     private Long taleId;
 
 
-    public Community toCommunity(){
+    public Community toCommunity() {
         return Community.builder()
                 .title(this.title)
                 .content(new Content(this.content))

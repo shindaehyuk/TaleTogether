@@ -16,12 +16,13 @@ import java.util.Map;
 @Slf4j
 public class JsonUtil {
 
-    private JsonUtil() {}
+    private static final ObjectMapper objectMapper = customObjectMapper();
 
-    private static ObjectMapper objectMapper = customObjectMapper();
+    private JsonUtil() {
+    }
 
     public static <T> String toJson(T data) {
-        if(data == null) return null;
+        if (data == null) return null;
         try {
             return objectMapper().valueToTree(data).toString();
         } catch (Exception e) {
@@ -52,7 +53,7 @@ public class JsonUtil {
         List<T> results = new ArrayList<>();
         try {
             JsonNode jsonNode = fromJson(json, JsonNode.class);
-            if(!jsonNode.isArray()) {
+            if (!jsonNode.isArray()) {
                 log.info("[UPBIT-EXCEPTION] 배열로 안넘어옴");
             }
 

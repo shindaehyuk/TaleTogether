@@ -1,19 +1,12 @@
 package com.kong.authtest.karlo.service;
 
 
-
-
-
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Arrays;
 import java.util.Optional;
-import org.apache.commons.lang3.StringUtils;
 
 public interface EnumInterface {
-
-    String getType();
-
-    String getName();
 
     static <T extends EnumInterface> T find(String type, T[] values) {
         T findValue = findToNull(type, values);
@@ -35,5 +28,9 @@ public interface EnumInterface {
                 .findFirst()
                 .orElse(null);
     }
+
+    String getType();
+
+    String getName();
 
 }

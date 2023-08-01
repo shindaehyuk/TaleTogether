@@ -1,13 +1,10 @@
 package com.kong.authtest.auth.service;
 
-import com.kong.authtest.auth.util.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -32,7 +29,7 @@ public class RedisService {
     public void storeRefreshToken(String userId, String token) {
         redisTemplate.opsForValue().set(userId, token);
     }
-    
+
     public void deleteToken(String userId) {
         redisTemplate.opsForValue().getAndDelete(userId);
     }

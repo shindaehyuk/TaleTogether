@@ -2,6 +2,26 @@ POST http://localhost:8083/create-image
 Content-Type: application/json
 
 {
-  "prompt": " new korea ",
+  "prompt": "high quality, painting.  Harry and James in the spaceship ",
   "negative_prompt": "low quality, low contrast, draft, amateur, cut off, cropped, frame, scary"
+}
+
+###
+
+POST http://localhost:8083/create-chat
+Content-Type: application/json
+
+{
+  "model": "gpt-3.5-turbo",
+
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a helpful assistant."
+    },
+    {
+      "role": "user",
+      "content": "여태까지 내용을 동화책으로 만들고 턴을 종료해줘"
+    }
+  ]
 }

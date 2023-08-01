@@ -10,7 +10,8 @@ public class CommunityDtoResponse {
     private Long userId;
     private String title;
     private Long taleId;
-    public CommunityDtoResponse(Community community){
+
+    public CommunityDtoResponse(Community community) {
         this.title = community.getTitle();
         this.communityId = community.getCommunityId();
         this.content = community.getContent().getContent();

@@ -8,7 +8,8 @@ public class CommentDtoResponse {
     private String content;
     private Long userId;
     private Long commentId;
-    public CommentDtoResponse(Comment comment){
+
+    public CommentDtoResponse(Comment comment) {
         this.content = comment.getContent().getContent();
         this.userId = comment.getUser().getId();
         this.commentId = comment.getCommentId();
