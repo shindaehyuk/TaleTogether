@@ -48,7 +48,7 @@ public class CommunityService {
 
 
     private User getUser(CommunityDtoRequest communityDtoRequest) {
-        return userRepository.findById(communityDtoRequest.getUserId())
+        return userRepository.findUserByUserId(communityDtoRequest.getUserId())
                 .orElseThrow(() -> new IllegalArgumentException("id 실수?"));
     }
 

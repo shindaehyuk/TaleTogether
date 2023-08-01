@@ -12,10 +12,11 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 public class CommunityDtoRequest {
 
+    @NotNull
     private String title;
     @NotNull
     private String content;
-    private Long userId;
+    private String userId;
     private Long taleId;
 
 

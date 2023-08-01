@@ -1,9 +1,9 @@
-POST http://i9c110.p.ssafy.io:8083/users/join
+POST http://localhost:8083/users/join
 Content-Type: application/json
 
 {
-  "userId": "qjawls123",
-  "name": "parkbumjin",
+  "userId": "qjawls123@naver.com",
+  "name": "park bumjin",
   "password": "qpal123!"
 }
 
@@ -17,3 +17,6 @@ Content-Type: application/json
   "password": "qpal123!"
 }
 
+###
+GET http://localhost:8083/users/qjawls123@naver.com
+Content-Type: application/json

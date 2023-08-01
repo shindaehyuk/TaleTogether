@@ -26,7 +26,7 @@ public class CommentService {
                         .save(commentDtoRequest
                                 .toComment()
                                 .addUserAndCommunity(
-                                        userRepository.findById(commentDtoRequest.getUserId())
+                                        userRepository.findUserByUserId(commentDtoRequest.getUserId())
                                                 .orElseThrow(() -> new IllegalArgumentException("userId 문제")),
                                         communityRepository.findById(commentDtoRequest.getCommunityId())
                                                 .orElseThrow(() -> new IllegalArgumentException("shareId 문제")))));
