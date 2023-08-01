@@ -13,6 +13,7 @@ public class CommunityDtoGetResponse {
     private String content;
     private String title;
     private List<CommentDtoResponse> commentList;
+    private Long likes;
 
     public CommunityDtoGetResponse(Community community) {
         this.title = community.getTitle();

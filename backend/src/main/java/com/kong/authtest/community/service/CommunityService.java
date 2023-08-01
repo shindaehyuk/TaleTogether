@@ -6,6 +6,7 @@ import com.kong.authtest.community.dto.CommunityDtoRequest;
 import com.kong.authtest.community.dto.CommunityDtoResponse;
 import com.kong.authtest.community.model.Community;
 import com.kong.authtest.community.repository.CommunityRepository;
+import com.kong.authtest.likes.service.LikesService;
 import com.kong.authtest.tale.model.Tale;
 import com.kong.authtest.tale.repository.TaleRepository;
 import com.kong.authtest.user.model.User;
@@ -22,6 +23,7 @@ public class CommunityService {
     private final CommunityRepository communityRepository;
     private final UserRepository userRepository;
     private final TaleRepository taleRepository;
+    private final LikesService likesService;
 
     //    이것도 user의 id가 Long 형태로 바뀌어야 함
     @Transactional
@@ -32,7 +34,9 @@ public class CommunityService {
     }
 
     public CommunityDtoGetResponse getCommunityInfo(Long communityId) {
-        return new CommunityDtoGetResponse(findCommunityById(communityId));
+        CommunityDtoGetResponse communityDtoGetResponse = new CommunityDtoGetResponse(findCommunityById(communityId));
+        communityDtoGetResponse.setLikes(likesService.getLikesCount(communityId));
+        return communityDtoGetResponse;
     }
 
     public CommunityDtoResponse modify(CommunityDtoPutRequest communityDtoPutRequest) {
