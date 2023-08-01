@@ -1,0 +1,53 @@
+.Box {
+  position: relative;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  background: rgba(0, 0, 0, 0);
+  transition: background 0.5s ease;
+}
+
+.Box:hover .overlay {
+  display: block;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.title {
+  position: absolute;
+  width: 100%;
+  top: 375px;
+  font-weight: 700;
+  font-size: 50px;
+  border-radius: 20px;
+  text-align: center;
+  text-transform: uppercase;
+  color: black;
+  z-index: 1;
+  transition: top 0.5s ease;
+  font-family: "omyu_pretty";
+  background-color: #ccd5ae;
+}
+
+.Box:hover .title {
+  top: 0;
+}
+
+.button {
+  position: absolute;
+  width: 450px;
+  left: 0;
+  top: 225px;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.Box:hover .button {
+  opacity: 1;
+}

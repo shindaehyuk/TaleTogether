@@ -1,12 +1,12 @@
-import "./App.css";
-import { BrowserRouter } from "react-router-dom";
-import Router from "./router/Router";
-import { Container, ThemeProvider, createTheme } from "@mui/material";
+import './App.css';
+import { BrowserRouter } from 'react-router-dom';
+import Router from './router/Router';
+import { Container, ThemeProvider, createTheme } from '@mui/material';
 
 function App() {
   const theme = createTheme({
     typography: {
-      fontFamily: ["omyu_pretty"],
+      fontFamily: ['omyu_pretty'],
     },
   });
   return (
@@ -17,13 +17,13 @@ function App() {
             <Container
               maxWidth="100vw"
               sx={{
-                alignContent: "center",
-                justifyContent: "center",
-                alignItems: "center",
-                bgcolor: "#fefae0",
-                display: "flex",
-                height: "100vh",
-                paddingY: "24px",
+                alignContent: 'center',
+                justifyContent: 'center',
+                alignItems: 'center',
+                bgcolor: '#fefae0',
+                display: 'flex',
+                height: '100vh',
+                paddingY: '24px',
               }}
             >
               <Router></Router>

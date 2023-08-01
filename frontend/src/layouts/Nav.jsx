@@ -22,7 +22,9 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ width: "100%", height: "100%" }}>{children}</Box>
+        <Box sx={{ display: "flex", width: "100%", height: "100%" }}>
+          {children}
+        </Box>
       )}
     </span>
   );
@@ -57,14 +59,14 @@ const TabComponent = () => {
       <Box
         sx={{
           display: "flex",
-          width: "90%",
+          width: "95%",
         }}
       >
         <Tabs
           value={value}
           onChange={handleChange}
-          // textColor="secondary"
-          // indicatorColor="secondary"
+          textColor="light"
+          indicatorColor="light"
           aria-label="secondary tabs example"
           sx={{ width: "50%" }}
         >
@@ -112,9 +114,13 @@ const TabComponent = () => {
       </Box>
       <Box
         sx={{
-          width: "90%",
-          height: "90%",
+          width: "95%",
+          height: "85%",
           backgroundColor: "#faedcd",
+          borderBottomLeftRadius: "40px",
+          borderBottomRightRadius: "40px",
+          borderTopRightRadius: "40px",
+          boxShadow: 5,
         }}
       >
         <TabPanel value={value} index={0}>
