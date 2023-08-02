@@ -158,3 +158,4 @@ gradle-app.setting
 *.hprof
 
 # End of https://www.toptal.com/developers/gitignore/api/gradle,java,intellij+all,react
+backend/build/classes/java/main/com/kong/authtest/auth/config/AuthConfig.class
