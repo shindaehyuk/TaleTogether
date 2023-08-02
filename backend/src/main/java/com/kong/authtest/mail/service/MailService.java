@@ -53,7 +53,7 @@ public class MailService {
         msgg += "</div>";
         messageHelper.setText(msgg, true);
 
-        messageHelper.setFrom("taletogether@naver.com", "TaleTogether");
+        messageHelper.setFrom("rhks1132dn@naver.com", "TaleTogether");
         return new MimeMailMessage(messageHelper.getMimeMessage());
     }
 

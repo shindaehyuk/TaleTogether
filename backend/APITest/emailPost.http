@@ -1,6 +1,7 @@
-POST https://localhost:8083/mail/send
+POST http://localhost:8083/mail/send
 Content-Type: application/json
 
 {
-  "email": "rhks1132ek@naver.com"
+  "email": "rhks1132ek@naver.com",
+  "code": ""
 }

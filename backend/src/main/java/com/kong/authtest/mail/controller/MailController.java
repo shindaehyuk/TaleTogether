@@ -17,8 +17,8 @@ public class MailController {
     private final MailService mailService;
 
     @PostMapping("/send")
-    public ResponseEntity<String> sendMail(@RequestParam("email") String email) throws  Exception{
-        String code = mailService.sendMail(email);
+    public ResponseEntity<String> sendMail(@RequestBody MailConfirmDto mailConfirmDto) throws  Exception{
+        String code = mailService.sendMail(mailConfirmDto.getEmail());
         System.out.println("인증코드 : " + code);
         return ResponseEntity.ok(code);
     }
