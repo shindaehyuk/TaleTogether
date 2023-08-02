@@ -2,6 +2,6 @@ POST http://localhost:8083/likes/add
 Content-Type: application/json
 
 {
-  "userId" : "qjawls1234@naver.com",
+  "userId" : "xodnjs8287@naver.com",
   "communityId": 1
 }

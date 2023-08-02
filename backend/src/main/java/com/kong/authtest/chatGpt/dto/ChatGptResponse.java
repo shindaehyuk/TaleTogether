@@ -28,7 +28,6 @@ public class ChatGptResponse {
         private Message message;
         private String finish_reason;
 
-        // Getters, Setters and other methods...
     }
 
 

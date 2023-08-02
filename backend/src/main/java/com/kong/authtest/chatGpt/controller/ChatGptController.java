@@ -3,6 +3,8 @@ package com.kong.authtest.chatGpt.controller;
 
 import com.kong.authtest.chatGpt.dto.ChatGptRequest;
 import com.kong.authtest.chatGpt.dto.ChatGptResponse;
+import com.kong.authtest.chatGpt.dto.ChatGptUserChoiceRequest;
+import com.kong.authtest.chatGpt.dto.UserChoiceRequest;
 import com.kong.authtest.chatGpt.service.ChatGptService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,9 +21,10 @@ public class ChatGptController {
     private final ChatGptService chatGptService;
 
     @PostMapping("/create-chat")
-    public ResponseEntity<ChatGptResponse> createChat(@RequestBody ChatGptRequest chatGptRequest) {
+    public ResponseEntity<ChatGptResponse> createChat(@RequestBody ChatGptUserChoiceRequest chatGptRequest
+                                                      ) {
 
-        ChatGptResponse response = chatGptService.createChat(chatGptRequest);
+        ChatGptResponse response = chatGptService.createChat(chatGptRequest.getUserChoiceRequest(),chatGptRequest.getChatGptRequest());
 
         return ResponseEntity.ok(response);
     }

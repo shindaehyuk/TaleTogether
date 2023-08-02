@@ -2,6 +2,7 @@ package com.kong.authtest.karlo.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.math.BigInteger;
@@ -23,7 +24,7 @@ public class KarloResponse {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    static class Image {
+    public static class Image {
 
         private String id;
         private BigInteger seed;

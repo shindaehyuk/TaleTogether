@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Data
 @AllArgsConstructor
@@ -16,6 +17,8 @@ public class ChatGptRequest {
     private String model;
 
     private List<Messages> messages = new ArrayList<>();
+
+
 
     @Data
     @AllArgsConstructor

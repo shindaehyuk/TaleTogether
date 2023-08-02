@@ -2,7 +2,7 @@ POST http://localhost:8083/users/join
 Content-Type: application/json
 
 {
-  "userId": "qjawls123@naver.com",
+  "userId": "xodnjs8287@naver.com",
   "name": "park bumjin",
   "password": "qpal123!"
 }
