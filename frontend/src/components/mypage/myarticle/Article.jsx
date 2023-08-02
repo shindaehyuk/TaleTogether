@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import Scroll from "./Scroll";
 
 function Article() {
   const imagePaths = [  
@@ -10,20 +10,19 @@ function Article() {
     "../../assets/mypage.png",
   ];
 
-  const story = [
-    "옛날옛날",
-    "이거 뭐임?",
-    "이 사이트 재미있어요"
+  const stories = [
+    "재미있어요",
+    "무서워요",
+    "집에갈래요",
+    "오늘 점심",
+    "뭐먹지",
+    "저녁은?"
   ]
-
+  
+  
     return (
       <>
-        <hr />
-          {imagePaths.map((image, index) => (
-            <div>
-              <Box></Box>
-            </div>
-          ))}
+        <Scroll imagePaths={imagePaths} stories={stories}></Scroll>
       </>
     );
   }
