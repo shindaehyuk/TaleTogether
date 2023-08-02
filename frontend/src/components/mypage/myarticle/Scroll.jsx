@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import './Article.css'
-import { Box } from '@mui/material';
+import { Box, hexToRgb } from '@mui/material';
 
 
 
 const Scroll = ({imagePaths, stories}) => {
-    const [articles, setArticles] = useState([]);
-
-    for (let i = 0; i < stories.length; i++) {
-        articles.push({'image': imagePaths[i], 'story': stories[i]});
-    }
+    const Articles = stories.map((story, index) => ({
+        image: imagePaths[index],
+        story: story,
+      }));
 
   return (
     <Box className="no-scroll" 
@@ -21,15 +20,24 @@ const Scroll = ({imagePaths, stories}) => {
         margin: '2em'
         }}
     >
-        {articles.map((article, index) => (
-            <div key={`article${index}`}
-            style={{
+        
+        {Articles.map((article, index) => (
+            <>
+            <Box key={`article${index}`}
+            sx={{
+                width: '100%',
+                height: '50%',
                 display: 'flex',
                 justifyContent: 'flex-start'
             }}>
                 <p>{article.story}</p>
-                <img src={article.image} alt={`image${index+1}`} style={{ marginLeft: 'auto'}}/>
-            </div>
+                {(article.image&&
+                <img src={article.image} style={{ marginLeft: 'auto'}}/>
+                )}
+                
+            </Box>
+            <hr />
+            </>
         ))}
     </Box>
   );
