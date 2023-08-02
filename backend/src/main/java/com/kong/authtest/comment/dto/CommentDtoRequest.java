@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class CommentDtoRequest {
     private String content;
     private Long communityId;
-    private Long userId;
+    private String userId;
 
     public Comment toComment() {
         return Comment.builder()

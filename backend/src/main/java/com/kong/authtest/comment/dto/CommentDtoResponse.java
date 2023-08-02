@@ -6,12 +6,12 @@ import lombok.Data;
 @Data
 public class CommentDtoResponse {
     private String content;
-    private Long userId;
+    private String userId;
     private Long commentId;
 
     public CommentDtoResponse(Comment comment) {
         this.content = comment.getContent().getContent();
-        this.userId = comment.getUser().getId();
+        this.userId = comment.getUser().getUserId();
         this.commentId = comment.getCommentId();
     }
 }

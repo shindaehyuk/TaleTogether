@@ -6,6 +6,7 @@ import com.kong.authtest.community.dto.CommunityDtoRequest;
 import com.kong.authtest.community.dto.CommunityDtoResponse;
 import com.kong.authtest.community.model.Community;
 import com.kong.authtest.community.repository.CommunityRepository;
+import com.kong.authtest.likes.service.LikesService;
 import com.kong.authtest.tale.model.Tale;
 import com.kong.authtest.tale.repository.TaleRepository;
 import com.kong.authtest.user.model.User;
@@ -13,9 +14,6 @@ import com.kong.authtest.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -25,6 +23,7 @@ public class CommunityService {
     private final CommunityRepository communityRepository;
     private final UserRepository userRepository;
     private final TaleRepository taleRepository;
+    private final LikesService likesService;
 
     //    이것도 user의 id가 Long 형태로 바뀌어야 함
     @Transactional
@@ -35,7 +34,9 @@ public class CommunityService {
     }
 
     public CommunityDtoGetResponse getCommunityInfo(Long communityId) {
-        return new CommunityDtoGetResponse(findCommunityById(communityId));
+        CommunityDtoGetResponse communityDtoGetResponse = new CommunityDtoGetResponse(findCommunityById(communityId));
+        communityDtoGetResponse.setLikes(likesService.getLikesCount(communityId));
+        return communityDtoGetResponse;
     }
 
     public CommunityDtoResponse modify(CommunityDtoPutRequest communityDtoPutRequest) {
@@ -51,7 +52,7 @@ public class CommunityService {
 
 
     private User getUser(CommunityDtoRequest communityDtoRequest) {
-        return userRepository.findById(communityDtoRequest.getUserId())
+        return userRepository.findUserByUserId(communityDtoRequest.getUserId())
                 .orElseThrow(() -> new IllegalArgumentException("id 실수?"));
     }
 
@@ -60,16 +61,10 @@ public class CommunityService {
                 .orElseThrow(() -> new IllegalArgumentException("taleId 문제"));
     }
 
-    private Community findCommunityById(String userId) {
-        User user = userRepository.findUserByUserId(userId).get();
-        List<Community> communityList = user.getCommunityList();
+    private Community findCommunityById(Long communityId) {
 
-        Optional<Community> any = communityList.stream().filter(it -> it.getUser().getUserId().equals(userId))
-                .;
-        Community community = any.get();
-
-        Community community1 = communityRepository.findById(community.getCommunityId()).get();
-
-
+        return communityRepository
+                .findById(communityId)
+                .orElseThrow(() -> new IllegalArgumentException("not found"));
     }
 }

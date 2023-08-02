@@ -1,31 +1,171 @@
-import React from 'react';
-import Carousel from './Carousel'; // Carousel 컴포넌트 파일 경로
+import Carousel from './mystory/Carousel';
+import Article from './myarticle/Article';
+import Like from './mylike/Like';
+import MyStatus from './myupdate/MyStatus';
 import { Grid } from '@mui/material';
 import { Box } from '@mui/material';
+import * as React from 'react';
+import PropTypes from 'prop-types';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+
+
+
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <span
+      role="tabpanel"
+      hidden={value !== index}
+      id={`vertical-tabpanel-${index}`}
+      aria-labelledby={`vertical-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ width: "100%", height: "100%" }}>
+          {children}
+        </Box>
+      )}
+    </span>
+  );
+}
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
+};
+
+function a11yProps(index) {
+  return {
+    id: `vertical-tab-${index}`,
+    "aria-controls": `vertical-tabpanel-${index}`,
+  };
+}
+
 
 const MyPage = () => {
+
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+
   return (
     <>
-      <h1>My Page</h1>
-      <Grid container spacing={1}>
-        <Grid
-          container
-          item xs={4}
+      <Grid 
+        container 
+        spacing={1}
+        justifyContent="center"
+
+      >
+        <Grid container item xs={4}           
           justifyContent="center"
+          alignItems="center"
+          marginTop="30px"
         >
           <Box
             sx={{
+              display: "flex",
               backgroundColor: "#CCD5AE",
-              border: "1px solid black",
-              width: "70%",
-              height: "55%",
+              borderRadius: "20px",
+              width: "60%",
+              height: "130%",
+              alignItems: "center",
+              justifyContent: "center"
             }}
+          >
+            <Tabs     
+              orientation="vertical"     
+              variant="scrollable"
+              value={value}
+              onChange={handleChange}
+              textColor="light"
+              indicatorColor="light"
+              aria-label="secondary tabs example"
+              sx={{ width: "50%" }}
             >
-
+              <Tab
+                label="내 동화"
+                {...a11yProps(0)}
+                sx={{
+                  display: "flex",
+                  width: "100%",
+                  height: "10%",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  borderRadius: "20px",
+                  marginTop: "21px",
+                  marginBottom: "21px",
+                  backgroundColor: value === 0 ? "#faedcd" : "#d4a373", // 선택된 탭일 때 배경 색상을 변경
+                }}
+              />
+              <Tab
+                label="나의 글"
+                {...a11yProps(1)}
+                sx={{
+                  display: "flex",
+                  width: "100%",
+                  height: "10%",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  borderRadius: "20px",
+                  marginTop: "21px",
+                  marginBottom: "21px",
+                  backgroundColor: value === 1 ? "#faedcd" : "#d4a373",
+                }}
+              />
+              <Tab
+                label="좋아요"
+                {...a11yProps(2)}
+                sx={{
+                  display: "flex",
+                  width: "100%",
+                  height: "10%",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  borderRadius: "20px",
+                  marginTop: "21px",
+                  marginBottom: "21px",
+                  backgroundColor: value === 2 ? "#faedcd" : "#d4a373",
+                }}
+              />
+              <Tab
+                label="정보수정"
+                {...a11yProps(3)}
+                sx={{
+                  display: "flex",
+                  width: "100%",
+                  height: "10%",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  borderRadius: "20px",
+                  marginTop: "21px",
+                  backgroundColor: value === 3 ? "#faedcd" : "#d4a373",
+                }}
+              />
+            </Tabs>
           </Box>
         </Grid>
-        <Grid item xs={8}>
-          <Carousel />
+        <Grid item xs={8}
+          justifyContent="center"
+          alignItems="center"
+        >
+          <TabPanel value={value} index={0}>
+            <Carousel></Carousel>
+          </TabPanel>
+          <TabPanel value={value} index={1}>
+            <Article></Article>
+          </TabPanel>
+          <TabPanel value={value} index={2}>
+            <Like></Like>
+          </TabPanel>
+          <TabPanel value={value} index={3}>
+            <MyStatus></MyStatus>
+          </TabPanel>
         </Grid>
       </Grid>
     </>

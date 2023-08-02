@@ -21,7 +21,7 @@ public class TaleService {
 
     @Transactional
     public TaleDtoResponse register(TaleDtoRequest taleDtoRequest) {
-        User user = userRepository.findUserById(taleDtoRequest.getUserId()).orElseThrow();
+        User user = userRepository.findUserByUserId(taleDtoRequest.getUserId()).orElseThrow();
         return new TaleDtoResponse(taleRepository.save(new TaleDtoRequest().toTale().addUser(user)));
     }
 
