@@ -25,7 +25,7 @@ export default function Game() {
   const entranceHandler = (e) => {
     e.preventDefault();
     console.log(code);
-    navigate('/webrtc', { state: code });
+    // navigate('/webrtc', { state: code });
   };
 
   const codeHandler = (e) => {
