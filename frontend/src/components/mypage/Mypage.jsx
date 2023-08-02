@@ -58,14 +58,15 @@ const MyPage = () => {
     <>
       <Grid 
         container 
-        spacing={1}
-        justifyContent="center"
-
+        width="100%"
+        height="100%"    
       >
-        <Grid container item xs={4}           
-          justifyContent="center"
-          alignItems="center"
-          marginTop="30px"
+        <Grid item xs={4} 
+        container 
+        justifyContent="center"
+        alignItems="center"
+        width="100%"
+        height="100%"
         >
           <Box
             sx={{
@@ -73,7 +74,7 @@ const MyPage = () => {
               backgroundColor: "#CCD5AE",
               borderRadius: "20px",
               width: "60%",
-              height: "130%",
+              height: "90%",
               alignItems: "center",
               justifyContent: "center"
             }}
@@ -98,8 +99,8 @@ const MyPage = () => {
                   justifyContent: "center",
                   alignItems: "center",
                   borderRadius: "20px",
-                  marginTop: "21px",
-                  marginBottom: "21px",
+                  marginTop: "20px",
+                  marginBottom: "20px",
                   backgroundColor: value === 0 ? "#faedcd" : "#d4a373", // 선택된 탭일 때 배경 색상을 변경
                 }}
               />
@@ -113,8 +114,8 @@ const MyPage = () => {
                   justifyContent: "center",
                   alignItems: "center",
                   borderRadius: "20px",
-                  marginTop: "21px",
-                  marginBottom: "21px",
+                  marginTop: "20px",
+                  marginBottom: "20px",
                   backgroundColor: value === 1 ? "#faedcd" : "#d4a373",
                 }}
               />
@@ -128,8 +129,8 @@ const MyPage = () => {
                   justifyContent: "center",
                   alignItems: "center",
                   borderRadius: "20px",
-                  marginTop: "21px",
-                  marginBottom: "21px",
+                  marginTop: "20px",
+                  marginBottom: "20px",
                   backgroundColor: value === 2 ? "#faedcd" : "#d4a373",
                 }}
               />
@@ -143,7 +144,8 @@ const MyPage = () => {
                   justifyContent: "center",
                   alignItems: "center",
                   borderRadius: "20px",
-                  marginTop: "21px",
+                  marginTop: "20px",
+                  marginBottom: "20px",
                   backgroundColor: value === 3 ? "#faedcd" : "#d4a373",
                 }}
               />
@@ -151,8 +153,10 @@ const MyPage = () => {
           </Box>
         </Grid>
         <Grid item xs={8}
-          justifyContent="center"
+          width="100%"
+          height="100%"
           alignItems="center"
+          
         >
           <TabPanel value={value} index={0}>
             <Carousel></Carousel>

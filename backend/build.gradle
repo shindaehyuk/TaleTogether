@@ -48,6 +48,8 @@ dependencies {
     // spring mail
 // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-mail
     implementation 'org.springframework.boot:spring-boot-starter-mail'
+    // deepl
+    implementation 'com.deepl.api:deepl-java:1.3.0'
 }
 
 tasks.named('test') {

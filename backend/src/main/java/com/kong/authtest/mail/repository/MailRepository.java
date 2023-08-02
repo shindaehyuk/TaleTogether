@@ -6,8 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface MailRepository extends JpaRepository<Mail, Long> {
-    Optional<Mail> deleteByCodeAndEmail(String code, String email);
-    Boolean existsByCode(String code);
+    Boolean existsMailByEmail(String email);
+    Boolean existsMailByCodeAndEmail(String code, String email);
+    Mail findMailByEmail(String email);
 
-    Boolean existsByCodeAndEmail(String code, String email);
+    Mail findMailByCodeAndEmail(String code, String email);
 }
