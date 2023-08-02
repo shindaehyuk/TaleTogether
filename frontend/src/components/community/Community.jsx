@@ -1,9 +1,23 @@
+import React, { useState } from "react";
+import PostForm from "./PostForm";
+import PostList from "./PostList";
+
 function Community() {
-  return (
-    <>
-      <h1>커뮤니티</h1>
-    </>
-  );
+  const [mode, setMode] = useState("default");
+  const [list, setList] = useState([]);
+
+  const setCreate = () => {
+    setMode("create");
+  };
+
+  const content =
+    mode === "default" ? (
+      <PostList onButtonClick={setCreate} list={list} />
+    ) : (
+      <PostForm list={list} setList={setList} modeChanger={() => setMode("default")} />
+    );
+
+  return <div>{content}</div>;
 }
 
 export default Community;
