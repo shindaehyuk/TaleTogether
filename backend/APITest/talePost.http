@@ -2,5 +2,5 @@ POST localhost:8083/tale
 Content-Type: application/json
 
 {
-  "userId": 1
+  "userId": "qjawls123@naver.com"
 }

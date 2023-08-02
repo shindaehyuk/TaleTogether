@@ -1,13 +1,16 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
+import { useState } from 'react';
 
 import './Game.css';
 import Button from '@mui/material/Button';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import { useNavigate } from 'react-router-dom';
 
 export default function Game() {
+  const navigate = useNavigate();
   const theme = createTheme({
     palette: {
       white: {
@@ -19,9 +22,20 @@ export default function Game() {
     },
   });
 
+  const entranceHandler = (e) => {
+    e.preventDefault();
+    console.log(code);
+    navigate('/webrtc', { state: code });
+  };
+
+  const codeHandler = (e) => {
+    setCode(e.target.value);
+  };
+
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [code, setCode] = useState('');
 
   const style = {
     position: 'absolute',
@@ -34,6 +48,7 @@ export default function Game() {
     boxShadow: 24,
     p: 4,
   };
+
   return (
     <>
       <Box
@@ -79,8 +94,8 @@ export default function Game() {
                   <Typography id="modal-modal-title" variant="h6" component="h2">
                     코드를 입력하세요
                   </Typography>
-                  <form action="">
-                    <input type="text" />
+                  <form onSubmit={entranceHandler}>
+                    <input type="text" value={code} onChange={codeHandler} />
                     <button type="submit">입장</button>
                   </form>
                 </Box>
