@@ -46,7 +46,7 @@ public class MailService {
         msgg += "<p>항상 당신의 동화를 응원합니다. 감사합니다!<p>";
         msgg += "<br>";
         msgg += "<div align='center' style='border:1px solid black; font-family:verdana';>";
-        msgg += "<h3 style='color:blue;'>인증 코드입니다.</h3>";
+        msgg += "<h3'>인증 코드입니다.</h3>";
         msgg += "<div style='font-size:130%'>";
         msgg += "CODE : <strong>";
         msgg += ePw + "</strong><div><br/> "; // 메일에 인증번호 넣기
@@ -60,7 +60,6 @@ public class MailService {
     public String createKey() {
         StringBuffer key = new StringBuffer();
         Random rnd = new Random();
-        Boolean existCode;
         while (true) {
             for (int i = 0; i < 8; i++) {
                 int index = rnd.nextInt(3);
@@ -79,10 +78,7 @@ public class MailService {
                         break;
                 }
             }
-            existCode = mailRepository.existsByCode(key.toString());
-            if(!existCode){
-                return key.toString();
-            }
+            return key.toString();
         }
     }
 
@@ -102,6 +98,10 @@ public class MailService {
     @Transactional
     public String sendMail(String send) throws Exception {
         String code = sendSimpleMessage(send);
+        Boolean confirm = mailRepository.existsMailByEmail(send);
+        if (confirm) {
+            mailRepository.delete(mailRepository.findMailByEmail(send));
+        }
         Mail mail = Mail.builder()
                 .code(code)
                 .email(send)
@@ -110,14 +110,15 @@ public class MailService {
         return code;
     }
 
-    public Boolean confirmCode(MailConfirmDto mailConfirmDto){
-        Boolean confirm = mailRepository.existsByCodeAndEmail(
+    public Boolean confirmCode(MailConfirmDto mailConfirmDto) {
+        Boolean confirm = mailRepository.existsMailByCodeAndEmail(
                 mailConfirmDto.getCode(),
                 mailConfirmDto.getEmail());
-        if(confirm){
-            Optional<Mail> mail = mailRepository.deleteByCodeAndEmail(
-                    mailConfirmDto.getCode(),
-                    mailConfirmDto.getEmail());
+        if (confirm) {
+            mailRepository.delete(
+                    mailRepository.findMailByCodeAndEmail(
+                            mailConfirmDto.getCode(),
+                            mailConfirmDto.getEmail()));
         }
         return confirm;
     }
