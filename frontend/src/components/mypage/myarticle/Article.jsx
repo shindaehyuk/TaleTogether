@@ -7,7 +7,6 @@ function Article() {
     "../../assets/mypage.png",
     "../../assets/snoopy.png",
     "../../assets/mine.png",
-    "../../assets/mypage.png",
   ];
 
   const stories = [
