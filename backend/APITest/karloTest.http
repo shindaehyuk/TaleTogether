@@ -17,10 +17,6 @@ Content-Type: application/json
     {
       "role": "system",
       "content": "You are a helpful assistant."
-    },
-    {
-      "role": "user",
-      "content": "1번 "
     }
   ]
 
