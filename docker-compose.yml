@@ -1,0 +1,113 @@
+version: '3'
+
+services:
+  react:
+    container_name: react
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    volumes:
+      - shared-volume:/usr/share/nginx/html
+      - "./frontend/:/app"
+      - "/node_modules"
+    ports:
+      - 3000:3000
+    networks:
+      - app-network
+  nginx:
+    restart: always
+    container_name: nginx
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - myapp
+      - react
+    volumes:
+      - shared-volume:/usr/share/nginx/html
+      - /var/www/certbot/:/var/www/certbot/
+      - /etc/letsencrypt/:/etc/letsencrypt/
+    networks:
+      - app-network
+
+  certbot:
+    image: certbot/certbot
+    restart: unless-stopped
+    volumes:
+      - /var/www/certbot/:/var/www/certbot/
+      - /etc/letsencrypt/:/etc/letsencrypt/
+    entrypoint: "/bin/sh -c 'trap exit TERM; certbot certonly --email alsgur97@naver.com --agree-tos --webroot -w /var/www/certbot -d i9c110.p.ssafy.io --non-interactive; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+
+  redis:
+    container_name: redis
+    image: redis
+    ports:
+      - 6379:6379
+    networks:
+      - app-network
+
+  db:
+    image: mysql
+    command: --default-authentication-plugin=caching_sha2_password
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_SECRET}
+      MYSQL_DATABASE: ssafy
+      MYSQL_ROOT_HOST: '%'
+      TZ: 'Asia/Seoul'
+    ports:
+      - 3306:3306
+    networks:
+      - app-network
+
+  myapp:
+    container_name: backend
+    image: backend
+    restart: on-failure
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - 8083:8083
+    environment:
+      SPRING.DATASOURCE.URL: jdbc:mysql://db:3306/ssafy?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
+    depends_on:
+      - db
+      - redis
+    networks:
+      - app-network
+
+  openvidu-server:
+    image: openvidu/openvidu-server-kms:2.19.0
+    volumes:
+      - certs:/certs
+    restart: always
+    ports:
+      - 4443:4443
+    environment:
+      - KMS_STUN_IP=stun.l.google.com
+      - KMS_STUN_PORT=19302
+      - OPENVIDU_PUBLICURL=https://172.26.15.198:4443/
+
+  openvidu-call:
+    image: openvidu/openvidu-call:2.19.0
+    restart: on-failure
+    network_mode: host
+    environment:
+      - SERVER_PORT=5442
+      - OPENVIDU_URL=https://localhost:4443/
+
+
+
+volumes:
+  db-data:
+  shared-volume:
+  certs:
+
+networks:
+  app-network:
+    driver: bridge
+
