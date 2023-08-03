@@ -6,23 +6,26 @@ import Admin from '../page/Admin';
 
 import PrivateRoute from '../components/route/PrivateRoute';
 import PublicRoute from '../components/route/PublicRoute';
-import Test from '../page/Test';
-import VideoRoomComponent from '../webRTC/VideoRoomComponent';
+// import VideoRoomComponent from '../webRTC/VideoRoomComponent';
+import Game from '../components/game/Game';
+import Intro from '../components/main/Intro';
 
 function Router() {
   return (
     <>
       <Routes>
         <Route Component={PrivateRoute}>
-          <Route path="/main" Component={Main} />
-          <Route path="/mypage" Component={Mypage} />
-          <Route path="/community" Component={Community} />
-          <Route path="/webrtc" Component={VideoRoomComponent} />
+          <Route element={<Main />}>
+            <Route path="mypage" element={<Mypage />} />
+            <Route path="intro" element={<Intro />} />
+            <Route path="game" element={<Game />} />
+            <Route path="community" element={<Community />} />
+          </Route>
+          {/* <Route path="webrtc" Component={VideoRoomComponent} /> */}
         </Route>
         <Route Component={PublicRoute}>
           <Route path="/" Component={Admin} />
         </Route>
-        <Route path="/test" Component={Test}></Route>
       </Routes>
     </>
   );

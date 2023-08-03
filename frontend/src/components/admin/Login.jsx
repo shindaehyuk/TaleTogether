@@ -30,7 +30,7 @@ export default function SignIn() {
     // LoginAxios(event);
 
     setTimeout(() => {
-      navigate('/main');
+      navigate('/intro');
     }, 2000); // 로그인 후 메인페이지로 이동
   };
 
