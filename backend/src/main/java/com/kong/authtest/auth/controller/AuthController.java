@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
 @RequiredArgsConstructor
 public class AuthController {
     private final AuthService authService;

@@ -1,4 +1,5 @@
-POST http://localhost:8083/mail/confirm
+# @no-redirect
+POST https://i9c110.p.ssafy.io//mail/send
 Content-Type: application/json
 
 {

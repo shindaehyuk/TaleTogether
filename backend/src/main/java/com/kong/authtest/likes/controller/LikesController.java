@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RequestMapping("/likes")
+@RequestMapping("/api/likes")
 @RequiredArgsConstructor
 @RestController
 @CrossOrigin("*")

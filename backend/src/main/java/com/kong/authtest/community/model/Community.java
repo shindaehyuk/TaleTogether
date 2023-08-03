@@ -9,6 +9,7 @@ import com.kong.authtest.user.model.User;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +26,7 @@ public class Community extends BaseEntity {
     @Embedded
     private Content content;
 
+    @NotNull
     private String title;
 
     @ManyToOne

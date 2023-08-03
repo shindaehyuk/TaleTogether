@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RequestMapping("/mail")
+@RequestMapping("/api/mail")
 @RequiredArgsConstructor
 @RestController
 @CrossOrigin("*")
