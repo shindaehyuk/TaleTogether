@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './Article.css'
-import { Box, hexToRgb } from '@mui/material';
+import { Box } from '@mui/material';
 
 
 
@@ -34,9 +34,9 @@ const Scroll = ({imagePaths, stories}) => {
                 {(article.image&&
                 <img src={article.image} style={{ marginLeft: 'auto'}}/>
                 )}
-                
+            
             </Box>
-            <hr />
+            <hr style={{ marginBottom: '0px'}}/>
             </>
         ))}
     </Box>
