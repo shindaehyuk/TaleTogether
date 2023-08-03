@@ -1,13 +1,14 @@
 package com.kong.authtest.user.service;
 
-import com.kong.authtest.user.dto.UserCreateRequest;
-import com.kong.authtest.user.dto.UserCreateResponse;
+import com.kong.authtest.user.dto.*;
 import com.kong.authtest.user.model.User;
 import com.kong.authtest.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Objects;
 
 @Service("UserService")
 @RequiredArgsConstructor
@@ -22,6 +23,45 @@ public class UserService {
         CheckDuplicated(userCreateRequest);
         return new UserCreateResponse(userRepository.save(userCreateRequest.toUser(passwordEncoder)));
     }
+
+    @Transactional
+    public UserUpdateResponse updateUser(String userId,UserUpdateRequest userUpdateRequest) {
+        User user = getUserByUserId(userId);
+
+        checkMemberRequestNull(userUpdateRequest, user);
+        user.update(userUpdateRequest.toUser());
+
+        return new UserUpdateResponse(userRepository.save(user));
+
+    }
+
+    @Transactional
+    public UserUpdatePasswordResponse updateUserPassword(String userId,UserUpdatePasswordRequest userUpdatePasswordRequest) {
+        User user = getUserByUserId(userId);
+        user.updatePassword(userUpdatePasswordRequest.toUser(passwordEncoder));
+        return new UserUpdatePasswordResponse(userRepository.save(user));
+    }
+
+
+
+    @Transactional
+    public Boolean userDelete(String userId){
+        userRepository.delete(getUserByUserId(userId));
+        return true;
+    }
+
+
+    private static void checkMemberRequestNull(UserUpdateRequest userUpdateRequest, User user) {
+        if(Objects.isNull(userUpdateRequest.getUserId())){
+            userUpdateRequest.setUserId(user.getUserId());
+        }
+
+        if(Objects.isNull(userUpdateRequest.getName())){
+            userUpdateRequest.setName(user.getName());
+        }
+    }
+
+
 
     public User getUserByName(String userName) {
         return userRepository.findUserByName(userName).
