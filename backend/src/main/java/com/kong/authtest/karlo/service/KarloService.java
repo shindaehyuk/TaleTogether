@@ -108,11 +108,13 @@ public class KarloService {
                 out.write(buffer, 0, bytesRead);
             }
 
+            karloResponse.setFileName(fileName);
+
             in.close();
             out.close();
-            System.out.println("Image saved successfully at: " + new File(fileName).getCanonicalPath());
+            System.out.println("이미지 성공적으로 저장됨 " + new File(fileName).getCanonicalPath());
         } catch (IOException e) {
-            System.err.println("Error while downloading and saving the image.");
+            System.err.println("이미지 생성중 에러");
             e.printStackTrace();
         }
 

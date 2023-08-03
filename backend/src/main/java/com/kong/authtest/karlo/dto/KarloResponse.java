@@ -18,6 +18,9 @@ public class KarloResponse {
 
     private String model_version;
 
+    private String fileName;
+
+
     private List<Image> images = new ArrayList<>();
 
 
@@ -29,7 +32,6 @@ public class KarloResponse {
         private String id;
         private BigInteger seed;
         private String image;
-
     }
 
 }

@@ -17,6 +17,10 @@ Content-Type: application/json
     {
       "role": "system",
       "content": "You are a helpful assistant."
+    },
+    {
+      "role": "user",
+      "content": "1 "
     }
   ]
 
@@ -29,6 +33,9 @@ Content-Type: application/json
     "player2Character": "소심한",
     "turn": "50"
 
+  },
+  "pageDtoRequest": {
+    "taleId": 1
   }
 
 
