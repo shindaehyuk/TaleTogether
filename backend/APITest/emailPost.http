@@ -1,5 +1,4 @@
-# @no-redirect
-POST https://i9c110.p.ssafy.io//mail/send
+POST https://i9c110.p.ssafy.io/api/mail/send
 Content-Type: application/json
 
 {

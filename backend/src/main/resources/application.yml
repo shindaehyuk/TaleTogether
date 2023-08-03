@@ -7,13 +7,13 @@ spring:
     url: jdbc:mysql://localhost:3306/ssafy?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
 
     username: root
-    password: 1234
+    password: twja0930
   redis:
     port: 6379
     host: localhost
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: create
 
     properties:
       hibernate:
@@ -36,7 +36,6 @@ spring:
           required: true
         ssl:
           enable: true
-
 
 
 server:
