@@ -1,0 +1,18 @@
+img {
+    width: 12em;
+    height: 16em;
+}
+
+.slick-slide {
+  padding: 0 15px;
+}
+
+.slick-list {
+  margin: 2em;
+}
+
+.slick-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
