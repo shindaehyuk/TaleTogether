@@ -24,9 +24,13 @@ export default function SignUp() {
     formState: { errors },
   } = useForm();
 
-  const emailCheck = () => {
-    // setIdCheck(true);
-    console.log(watch("email", false));
+  const emailCheck = async () => {
+    try {
+      const response = await IdcheckAxios(watch("email", false));
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const onSubmit = (data) => {

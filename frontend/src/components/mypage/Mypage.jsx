@@ -1,15 +1,13 @@
-import Carousel from './mystory/Carousel';
-import Article from './myarticle/Article';
-import Like from './mylike/Like';
-import MyStatus from './myupdate/MyStatus';
-import { Grid } from '@mui/material';
-import { Box } from '@mui/material';
-import * as React from 'react';
-import PropTypes from 'prop-types';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-
-
+import Carousel from "./mystory/Carousel";
+import Article from "./myarticle/Article";
+import Like from "./mylike/Like";
+import MyStatus from "./myupdate/MyStatus";
+import { Grid } from "@mui/material";
+import { Box } from "@mui/material";
+import * as React from "react";
+import PropTypes from "prop-types";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -23,9 +21,7 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ width: "100%", height: "100%" }}>
-          {children}
-        </Box>
+        <Box sx={{ width: "100%", height: "100%" }}>{children}</Box>
       )}
     </span>
   );
@@ -44,29 +40,24 @@ function a11yProps(index) {
   };
 }
 
-
 const MyPage = () => {
-
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-
   return (
     <>
-      <Grid 
-        container 
-        width="100%"
-        height="100%"    
-      >
-        <Grid item xs={4} 
-        container 
-        justifyContent="center"
-        alignItems="center"
-        width="100%"
-        height="100%"
+      <Grid container width="100%" height="100%">
+        <Grid
+          item
+          xs={4}
+          container
+          justifyContent="center"
+          alignItems="center"
+          width="100%"
+          height="100%"
         >
           <Box
             sx={{
@@ -76,16 +67,16 @@ const MyPage = () => {
               width: "60%",
               height: "90%",
               alignItems: "center",
-              justifyContent: "center"
+              justifyContent: "center",
             }}
           >
-            <Tabs     
-              orientation="vertical"     
+            <Tabs
+              orientation="vertical"
               variant="scrollable"
               value={value}
               onChange={handleChange}
-              textColor="light"
-              indicatorColor="light"
+              textColor="inherit"
+              indicatorColor="inherit"
               aria-label="secondary tabs example"
               sx={{ width: "50%" }}
             >
@@ -152,12 +143,7 @@ const MyPage = () => {
             </Tabs>
           </Box>
         </Grid>
-        <Grid item xs={8}
-          width="100%"
-          height="100%"
-          alignItems="center"
-          
-        >
+        <Grid item xs={8} width="100%" height="100%" alignItems="center">
           <TabPanel value={value} index={0}>
             <Carousel></Carousel>
           </TabPanel>

@@ -1,16 +1,22 @@
-import axios from 'axios';
+import axios from "axios";
 
 async function IdcheckAxios(props) {
   try {
     // POST 요청은 body에 실어 보냄
-    const res = await axios.post('', {
-      id: props,
-    });
-    console.log(res);
+    const res = await axios.get(
+      "//i9c110.p.ssafy.io/api/",
+      {
+        id: props,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     return res;
-  } catch (e) {
-    console.error(e);
-    return false;
+  } catch (error) {
+    return error;
   }
 }
 

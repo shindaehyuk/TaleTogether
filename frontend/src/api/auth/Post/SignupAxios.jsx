@@ -16,11 +16,9 @@ async function SignupAxios(props) {
         },
       }
     );
-    console.log(res);
     return res;
-  } catch (e) {
-    console.error(e);
-    return false;
+  } catch (error) {
+    return error;
   }
 }
 

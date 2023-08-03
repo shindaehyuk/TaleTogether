@@ -13,7 +13,11 @@ async function LoginAxios(props) {
         id: props.email,
         password: props.pasword,
       },
-      headers
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
     );
   } catch (e) {
     console.error(e);
