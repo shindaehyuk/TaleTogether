@@ -15,7 +15,6 @@ const Scroll = ({ imagePaths, likes }) => {
         width: "90%",
         height: "80%",
         overflowY: "scroll",
-        border: "1px solid black",
       }}
     >
       {Articles.map((article, index) => (
@@ -24,7 +23,7 @@ const Scroll = ({ imagePaths, likes }) => {
             key={`article${index}`}
             sx={{
               width: "100%",
-              height: "50%",
+              height: "60%",
               display: "flex",
               justifyContent: "flex-start",
             }}
@@ -34,7 +33,7 @@ const Scroll = ({ imagePaths, likes }) => {
               <img src={article.image} style={{ marginLeft: "auto" }} />
             )}
           </Box>
-          <hr style={{ marginBottom: "0px" }} />
+          <hr style={{ marginTop: "0px" }} />
         </>
       ))}
     </Box>

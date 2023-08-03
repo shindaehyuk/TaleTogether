@@ -3,9 +3,9 @@ import { Box } from "@mui/material";
 
 function Like() {
   const imagePaths = [
-    "../../assets/snoopy.png",
-    "../../assets/mine.png",
-    "../../assets/mypage.png",
+    "../../assets/forest.jpg",
+    "../../assets/makeFox.png",
+    "../../assets/joinFox.png",
     "../../assets/snoopy.png",
     "../../assets/mine.png",
   ];
@@ -29,8 +29,8 @@ function Like() {
           marginTop: "2em",
         }}
       >
-        <h2>좋아요</h2>
-        <h2 style={{ marginLeft: "auto" }}>{likes.length}</h2>
+        <h2>내가 좋아요 누른 게시글</h2>
+        <h2 style={{ marginLeft: "auto" }}>총 {likes.length}개의 게시글</h2>
       </Box>
       <Scroll imagePaths={imagePaths} likes={likes}></Scroll>
     </>
