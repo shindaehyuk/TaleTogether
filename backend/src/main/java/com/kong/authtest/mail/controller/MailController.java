@@ -19,7 +19,7 @@ public class MailController {
     private final MailService mailService;
 
     @PostMapping("/send")
-    @ApiOperation(value = "메일 인증 받는 API", notes = "지정한 메일로 인증 코드를 받기위한 API", response = String.class)
+    @ApiOperation(value = "메일 인증 받는 API", notes = "지정한 메일로 인증 코드를 받기위한 API ", response = String.class)
     public ResponseEntity<String> sendMail(@RequestBody MailConfirmDto mailConfirmDto) throws  Exception{
         String code = mailService.sendMail(mailConfirmDto.getEmail());
         System.out.println("인증코드 : " + code);
