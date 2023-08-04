@@ -29,7 +29,7 @@ public class UserController {
 
     }
 
-    @GetMapping("/member/check-duplicate")
+    @PostMapping("/check-duplicate")
     public ResponseEntity<Boolean> checkValidate(@RequestBody UserDuplicateCheckRequest userDuplicateCheckRequest) {
         return ResponseEntity.ok(userService.CheckDuplicated(userDuplicateCheckRequest));
     }
