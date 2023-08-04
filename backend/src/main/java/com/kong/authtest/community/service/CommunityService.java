@@ -9,6 +9,8 @@ import com.kong.authtest.tale.repository.TaleRepository;
 import com.kong.authtest.user.model.User;
 import com.kong.authtest.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,8 +52,8 @@ public class CommunityService {
         communityRepository.deleteById(communityId);
     }
 
-    public List<CommunityDtoGetResponse> getAll(){
-        return communityRepository.findAll()
+    public List<CommunityDtoGetResponse> getAll(int page){
+        return communityRepository.findAll(PageRequest.of(page, 9))
                 .stream()
                 .map((CommunityDtoGetResponse::new))
                 .collect(Collectors.toList());
