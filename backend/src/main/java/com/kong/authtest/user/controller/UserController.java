@@ -29,6 +29,11 @@ public class UserController {
 
     }
 
+    @GetMapping("/member/check-duplicate")
+    public ResponseEntity<Boolean> checkValidate(@RequestBody UserDuplicateCheckRequest userDuplicateCheckRequest) {
+        return ResponseEntity.ok(userService.CheckDuplicated(userDuplicateCheckRequest));
+    }
+
     @PatchMapping("/update-password/member/{userId}")
     public ResponseEntity<UserUpdatePasswordResponse> updateMemberPassword(@PathVariable String userId,
                                                                            @RequestBody @Valid final UserUpdatePasswordRequest userUpdatePasswordRequest) {
@@ -36,7 +41,7 @@ public class UserController {
     }
 
     @DeleteMapping("/delete-member/{userId}")
-    public ResponseEntity<Boolean> deleteMember(@PathVariable String userId){
+    public ResponseEntity<Boolean> deleteMember(@PathVariable String userId) {
         return ResponseEntity.ok(userService.userDelete(userId));
     }
 
