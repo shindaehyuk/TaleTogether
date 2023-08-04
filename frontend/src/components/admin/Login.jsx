@@ -12,6 +12,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { login } from '../../redux/slices/userSlice';
+import LoginAxios from '../../api/auth/Post/LoginAxios';
 
 export default function SignIn() {
   const [isLoading, setIsLoading] = useState(false);
@@ -26,8 +27,8 @@ export default function SignIn() {
 
   const onSubmit = (event) => {
     setIsLoading(true);
-    dispatch(login());
-    // LoginAxios(event);
+    LoginAxios(event);
+    // dispatch(login());
 
     setTimeout(() => {
       navigate('/intro');
