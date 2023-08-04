@@ -15,16 +15,14 @@ const Scroll = ({ imagePaths, stories }) => {
         width: "90%",
         height: "80%",
         overflowY: "scroll",
-        border: "1px solid black",
       }}
     >
       {Articles.map((article, index) => (
-        <>
+        <React.Fragment key={`article${index}`}>
           <Box
-            key={`article${index}`}
             sx={{
               width: "100%",
-              height: "50%",
+              height: "60%",
               display: "flex",
               justifyContent: "flex-start",
             }}
@@ -35,7 +33,7 @@ const Scroll = ({ imagePaths, stories }) => {
             )}
           </Box>
           <hr style={{ marginBottom: "0px" }} />
-        </>
+        </React.Fragment>
       ))}
     </Box>
   );

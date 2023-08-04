@@ -18,7 +18,7 @@ const Scroll = ({ imagePaths, likes }) => {
       }}
     >
       {Articles.map((article, index) => (
-        <>
+        <React.Fragment key={`article${index}`}>
           <Box
             key={`article${index}`}
             sx={{
@@ -34,7 +34,7 @@ const Scroll = ({ imagePaths, likes }) => {
             )}
           </Box>
           <hr style={{ marginTop: "0px" }} />
-        </>
+        </React.Fragment>
       ))}
     </Box>
   );
