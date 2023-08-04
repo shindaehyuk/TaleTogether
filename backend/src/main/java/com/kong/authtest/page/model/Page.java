@@ -7,6 +7,7 @@ import com.kong.authtest.tale.model.Tale;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -20,6 +21,7 @@ public class Page extends BaseEntity {
 
     @Embedded
     private Content content;
+    @NotNull
     private String image;
     private int sequence = 1;
 

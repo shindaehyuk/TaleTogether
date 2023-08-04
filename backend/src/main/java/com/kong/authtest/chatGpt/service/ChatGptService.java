@@ -53,8 +53,9 @@ public class ChatGptService {
         setDefaultGpt(chatGptRequest);
 
         addGptConversation(sendGptApiServer(chatGptRequest));
+        KarloResponse karloResponse = karloService.createImage(setDefaultKarlo(userChoiceRequest, content()));
 
-        registerPage(pageDtoRequest, content(), karloService.createImage(setDefaultKarlo(userChoiceRequest, content())));
+        registerPage(pageDtoRequest, content(), karloResponse);
 
         return sendGptApiServer(chatGptRequest);
     }

@@ -43,10 +43,11 @@ public class KarloService {
 
         params.put("prompt", karloRequest.getPrompt());
         params.put("negative_prompt", karloRequest.getNegative_prompt());
+        KarloResponse karloResponse = getKarloResponse();
+        saveImageLocal(karloResponse);
 
-        saveImageLocal(getKarloResponse());
 
-        return getKarloResponse();
+        return karloResponse;
     }
 
     @Nullable

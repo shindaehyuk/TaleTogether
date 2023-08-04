@@ -5,10 +5,13 @@ import com.kong.authtest.page.model.Page;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotNull;
+
 @Data
 @NoArgsConstructor
 public class PageDtoRequest {
     private String content;
+    @NotNull
     private String image;
     private Long taleId;
 

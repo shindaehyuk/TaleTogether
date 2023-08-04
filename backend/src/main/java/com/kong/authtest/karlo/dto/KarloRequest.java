@@ -14,4 +14,5 @@ public class KarloRequest {
 
     private String negative_prompt;
 
+
 }
