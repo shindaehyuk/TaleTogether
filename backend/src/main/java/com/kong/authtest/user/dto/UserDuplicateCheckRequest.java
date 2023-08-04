@@ -1,4 +1,4 @@
-package com.kong.authtest.chatting.domain;
+package com.kong.authtest.user.dto;
 
 import com.kong.authtest.user.model.User;
 import lombok.AllArgsConstructor;
@@ -6,10 +6,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class ChatMessage {
+@NoArgsConstructor
+public class UserDuplicateCheckRequest {
 
-    private String content;
-    private User sender;
+        String userId;
+
 }
