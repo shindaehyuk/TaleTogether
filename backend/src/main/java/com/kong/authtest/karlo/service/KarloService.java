@@ -5,6 +5,8 @@ import com.kong.authtest.karlo.dto.KarloRequest;
 import com.kong.authtest.karlo.dto.KarloResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
@@ -17,9 +19,6 @@ import java.io.InputStream;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Base64;
 import java.util.HashMap;
 
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
@@ -45,10 +44,29 @@ public class KarloService {
         params.put("prompt", karloRequest.getPrompt());
         params.put("negative_prompt", karloRequest.getNegative_prompt());
 
+        saveImageLocal(getKarloResponse());
+
+        return getKarloResponse();
+    }
+
+    @Nullable
+    private KarloResponse getKarloResponse() throws Exception {
+        KarloResponse karloResponse = JsonUtil.fromJson(
+                getApiAccess(setKarloApiHeaders()).getBody(),
+                KarloResponse.class);
+        return karloResponse;
+    }
+
+    @NotNull
+    private static HttpHeaders setKarloApiHeaders() {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.set(CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
         httpHeaders.set(AUTHORIZATION, API_KEY);
+        return httpHeaders;
+    }
 
+    @NotNull
+    private ResponseEntity<String> getApiAccess(HttpHeaders httpHeaders) throws Exception {
         URI uri = URI.create("https://api.kakaobrain.com/v2/inference/karlo/t2i");
 
         ResponseEntity<String> response = null;
@@ -86,10 +104,10 @@ public class KarloService {
             log.error("API 요청 실패. 재시도를 모두 소진함.");
             throw new Exception("API 요청 실패");
         }
+        return response;
+    }
 
-
-        KarloResponse karloResponse = JsonUtil.fromJson(response.getBody(), KarloResponse.class);
-
+    private static void saveImageLocal(KarloResponse karloResponse) {
         String image = karloResponse.getImages().get(0).getImage();
 
 
@@ -117,9 +135,6 @@ public class KarloService {
             System.err.println("이미지 생성중 에러");
             e.printStackTrace();
         }
-
-
-        return karloResponse;
     }
 
 
