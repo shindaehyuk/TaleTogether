@@ -72,9 +72,9 @@ export default function Game() {
             marginRight: '5%',
           }}
         >
-          <p class="title">같이하기</p>
-          <div class="overlay"></div>
-          <div class="button">
+          <p className="title">같이하기</p>
+          <div className="overlay"></div>
+          <div className="button">
             <ThemeProvider theme={theme}>
               <Button
                 onClick={handleOpen}
@@ -116,9 +116,9 @@ export default function Game() {
             marginLeft: '5%',
           }}
         >
-          <p class="title">방만들기</p>
-          <div class="overlay"></div>
-          <div class="button">
+          <p className="title">방만들기</p>
+          <div className="overlay"></div>
+          <div className="button">
             <ThemeProvider theme={theme}>
               <Button variant="outlined" color="white" sx={{ width: '50%', height: '20%', fontSize: '20px' }}>
                 <Typography variant="h4">게임시작</Typography>
