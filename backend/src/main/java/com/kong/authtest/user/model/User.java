@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -35,4 +34,13 @@ public class User {
 
     @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.REMOVE)
     private List<Comment> commentList = new ArrayList<>();
+
+    public void update(User user){
+        this.userId = user.getUserId();
+        this.name = user.getName();
+    }
+
+    public void updatePassword(User user){
+        this.password = password;
+    }
 }

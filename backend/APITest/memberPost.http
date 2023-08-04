@@ -1,4 +1,4 @@
-POST http://localhost:8083/users/join
+POST http://localhost:8083/api/users/join
 Content-Type: application/json
 
 {
@@ -9,14 +9,40 @@ Content-Type: application/json
 
 ###
 
+// 회원가입
 POST http://i9c110.p.ssafy.io:8083/auth/login
 Content-Type: application/json
 
 {
-  "userId": "qjawls123",
+  "userId": "xodnjs8287@naver.com",
   "password": "qpal123!"
 }
 
 ###
-GET http://localhost:8083/users/qjawls123@naver.com
+
+// 회원 조회
+GET http://localhost:8083/api/users/hello@naver.com
+Content-Type: application/json
+
+###
+//회원 수정
+PATCH http://localhost:8083/api/users/update/member/xodnjs8287@naver.com
+Content-Type: application/json
+
+{
+  "userId": "hello@naver.com"
+}
+
+###
+//비밀번호 변경
+PATCH http://localhost:8083/api/users/update-password/member/hello@naver.com
+Content-Type: application/json
+
+{
+  "password" : "blah123123!"
+}
+
+###
+//회원탈퇴
+DELETE http://localhost:8083/api/users/delete-member/xodnjs8287@naver.com
 Content-Type: application/json

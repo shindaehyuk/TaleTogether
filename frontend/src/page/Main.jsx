@@ -16,10 +16,11 @@ function Main() {
           borderRadius: '40px',
           justifyContent: 'center',
           alignItems: 'center',
-          boxShadow: 5,
+          // boxShadow: 5,
         }}
       >
         <Nav></Nav>
+
         <DialButton></DialButton>
       </Box>
     </>

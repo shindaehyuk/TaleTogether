@@ -1,7 +1,6 @@
 package com.kong.authtest.user.controller;
 
-import com.kong.authtest.user.dto.UserCreateRequest;
-import com.kong.authtest.user.dto.UserCreateResponse;
+import com.kong.authtest.user.dto.*;
 import com.kong.authtest.user.model.User;
 import com.kong.authtest.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +21,25 @@ public class UserController {
     public ResponseEntity<UserCreateResponse> addUser(@RequestBody @Valid final UserCreateRequest createRequest) {
         return ResponseEntity.ok(userService.addUser(createRequest));
     }
+
+    @PatchMapping("/update/member/{userId}")
+    public ResponseEntity<UserUpdateResponse> updateUser(@PathVariable String userId,
+                                                         @RequestBody @Valid final UserUpdateRequest userUpdateRequest) {
+        return ResponseEntity.ok(userService.updateUser(userId, userUpdateRequest));
+
+    }
+
+    @PatchMapping("/update-password/member/{userId}")
+    public ResponseEntity<UserUpdatePasswordResponse> updateMemberPassword(@PathVariable String userId,
+                                                                           @RequestBody @Valid final UserUpdatePasswordRequest userUpdatePasswordRequest) {
+        return ResponseEntity.ok(userService.updateUserPassword(userId, userUpdatePasswordRequest));
+    }
+
+    @DeleteMapping("/delete-member/{userId}")
+    public ResponseEntity<Boolean> deleteMember(@PathVariable String userId){
+        return ResponseEntity.ok(userService.userDelete(userId));
+    }
+
 
     @GetMapping("/{userId}")
     public ResponseEntity<?> getUserInfo(@PathVariable("userId") String userId) {
