@@ -1,4 +1,4 @@
-POST localhost:8083/tale
+POST localhost:8083/api/tale
 Content-Type: application/json
 
 {

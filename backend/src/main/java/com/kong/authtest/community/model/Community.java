@@ -32,7 +32,7 @@ public class Community extends BaseEntity {
     @ManyToOne
     private User user;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "tale_id")
     private Tale tale;
 

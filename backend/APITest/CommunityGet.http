@@ -1,2 +1,6 @@
 GET localhost:8083/community/info/1
 Content-Type: application/json
+
+###
+GET localhost:8083/api/community/all
+Content-Type: application/json
