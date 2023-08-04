@@ -1,4 +1,4 @@
-POST http://localhost:8083/api/users/join
+POST http://i9c110.p.ssafy.io:8083/api/users/join
 Content-Type: application/json
 
 {
@@ -39,7 +39,7 @@ PATCH http://localhost:8083/api/users/update-password/member/hello@naver.com
 Content-Type: application/json
 
 {
-  "password" : "blah123123!"
+  "password": "blah123123!"
 }
 
 ###
