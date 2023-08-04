@@ -1,9 +1,31 @@
-POST localhost:8083/community
+POST localhost:8083/api/community
 Content-Type: application/json
 
 {
-  "title": "자랑글",
-  "content": "자랑글입니다",
-  "userId": 1,
-  "taleId": 3
+  "title": "자랑글13213132123114",
+  "content": "자랑글 입니다441212321312251",
+  "userId": "xodnjs8287@naver.com",
+  "taleId": 1
+}
+
+###
+POST localhost:8083/api/community
+Content-Type: application/json
+
+{
+  "title": "자랑글1321313114",
+  "content": "자랑글 입니다4412123251",
+  "userId": "xodnjs8287@naver.com",
+  "taleId": 1
+}
+
+###
+POST localhost:8083/api/community
+Content-Type: application/json
+
+{
+  "title": "자랑글1321313214",
+  "content": "자랑글 입니다441212251",
+  "userId": "xodnjs8287@naver.com",
+  "taleId": 1
 }

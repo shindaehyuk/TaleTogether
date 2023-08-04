@@ -1,9 +1,6 @@
 package com.kong.authtest.community.service;
 
-import com.kong.authtest.community.dto.CommunityDtoGetResponse;
-import com.kong.authtest.community.dto.CommunityDtoPutRequest;
-import com.kong.authtest.community.dto.CommunityDtoRequest;
-import com.kong.authtest.community.dto.CommunityDtoResponse;
+import com.kong.authtest.community.dto.*;
 import com.kong.authtest.community.model.Community;
 import com.kong.authtest.community.repository.CommunityRepository;
 import com.kong.authtest.likes.service.LikesService;
@@ -12,8 +9,13 @@ import com.kong.authtest.tale.repository.TaleRepository;
 import com.kong.authtest.user.model.User;
 import com.kong.authtest.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -50,6 +52,12 @@ public class CommunityService {
         communityRepository.deleteById(communityId);
     }
 
+    public List<CommunityDtoGetResponse> getAll(int page){
+        return communityRepository.findAll(PageRequest.of(page, 9))
+                .stream()
+                .map((CommunityDtoGetResponse::new))
+                .collect(Collectors.toList());
+    }
 
     private User getUser(CommunityDtoRequest communityDtoRequest) {
         return userRepository.findUserByUserId(communityDtoRequest.getUserId())

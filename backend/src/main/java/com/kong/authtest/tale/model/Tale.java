@@ -26,8 +26,8 @@ public class Tale extends BaseEntity {
     @OneToMany(mappedBy = "tale", orphanRemoval = true, cascade = CascadeType.REMOVE)
     private List<Page> pageList = new ArrayList<>();
 
-    @OneToOne(mappedBy = "tale", orphanRemoval = true, cascade = CascadeType.REMOVE)
-    private Community community;
+    @OneToMany(mappedBy = "tale", orphanRemoval = true, cascade = CascadeType.REMOVE)
+    private List<Community> communityList = new ArrayList<>();
 
     public Tale addUser(User user) {
         this.user = user;
