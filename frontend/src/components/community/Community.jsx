@@ -14,7 +14,11 @@ function Community() {
     mode === "default" ? (
       <PostList onButtonClick={setCreate} list={list} />
     ) : (
-      <PostForm list={list} setList={setList} modeChanger={() => setMode("default")} />
+      <PostForm
+        list={list}
+        setList={setList}
+        modeChanger={() => setMode("default")}
+      />
     );
 
   return <div>{content}</div>;
