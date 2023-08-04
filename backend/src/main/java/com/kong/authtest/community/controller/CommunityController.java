@@ -31,10 +31,10 @@ public class CommunityController {
         return ResponseEntity.ok(communityService.getCommunityInfo(communityId));
     }
 
-    @GetMapping("/all")
+    @GetMapping("/all/{page}")
     @ApiOperation(value = "모든 커뮤니티 정보 얻는 API", notes = "모든 커뮤니티 정보를 얻는 API")
-    public ResponseEntity<List<CommunityDtoGetResponse>> getAll(){
-        return ResponseEntity.ok(communityService.getAll());
+    public ResponseEntity<List<CommunityDtoGetResponse>> getAll(@PathVariable int page){
+        return ResponseEntity.ok(communityService.getAll(page));
     }
 
     @PutMapping("/modify")
