@@ -22,6 +22,7 @@ public class Page extends BaseEntity {
     private String title;
     private String titleImage;
 
+
     @Embedded
     private Content content;
     @NotNull

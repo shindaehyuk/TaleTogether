@@ -12,6 +12,7 @@ public class PageDtoResponse {
     private String title;
     private String titleImage;
 
+
     public PageDtoResponse(Page page) {
         this.pageId = page.getPageId();
         this.content = page.getContent().getContent();
