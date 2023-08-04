@@ -73,6 +73,14 @@ public class UserService {
                 orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
     }
 
+    public Boolean CheckDuplicated(UserDuplicateCheckRequest userDuplicateCheckRequest) {
+        userRepository.findUserByUserId(userDuplicateCheckRequest.getUserId())
+                .ifPresent(m -> {
+                    throw new IllegalArgumentException("이미 존재 하는 회원 입니다.");
+                });
+        return true;
+    }
+
 
     private void CheckDuplicated(UserCreateRequest userCreateRequest) {
         userRepository.findUserByUserId(userCreateRequest.getUserId())
