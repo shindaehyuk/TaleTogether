@@ -46,7 +46,7 @@ public class ChatGptService {
     @Transactional
     public ChatGptResponse createChat(UserChoiceRequest userChoiceRequest, ChatGptRequest chatGptRequest, PageDtoRequest pageDtoRequest) throws Exception {
 
-        ChatGptMessage chatGptMessage = new ChatGptMessage(SetDefualtGptSystem(),  setDefaultGptUser(userChoiceRequest));
+        ChatGptMessage chatGptMessage = new ChatGptMessage(SetDefaultGptSystem(), setDefaultGptUser(userChoiceRequest));
 
         setDefaultGptMessages(chatGptMessage);
         addGptMessageHistory(chatGptRequest);
@@ -68,7 +68,7 @@ public class ChatGptService {
     }
 
     @NotNull
-    private static ChatGptRequest.Messages SetDefualtGptSystem() {
+    private static ChatGptRequest.Messages SetDefaultGptSystem() {
         ChatGptRequest.Messages system = new ChatGptRequest.Messages();
 
         system.setRole("system");
@@ -76,10 +76,6 @@ public class ChatGptService {
         return system;
     }
 
-
-    private String content() {
-        return conversationHistory.get(conversationHistory.size() - 1).getContent();
-    }
 
     @NotNull
     private KarloRequest setDefaultKarlo(UserChoiceRequest userChoiceRequest, String content) throws Exception {
@@ -89,12 +85,6 @@ public class ChatGptService {
         return karloRequest;
     }
 
-    private void registerPage(PageDtoRequest pageDtoRequest, String content, KarloResponse karloResponse) {
-        pageDtoRequest.setImage(karloResponse.getFileName());
-        pageDtoRequest.setContent(content);
-
-        pageService.register(pageDtoRequest);
-    }
 
     @NotNull
     private String translateGptMessage(UserChoiceRequest userChoiceRequest, String content) throws Exception {
@@ -105,11 +95,6 @@ public class ChatGptService {
         return text;
     }
 
-    private void addGptConversation(ChatGptResponse chatGptResponse) {
-        ChatGptRequest.Messages assistantMessage = new ChatGptRequest.Messages("assistant", chatGptResponse.getChoices().get(0).getMessage().getContent());
-
-        conversationHistory.add(assistantMessage);
-    }
 
     @Nullable
     private ChatGptResponse sendGptApiServer(ChatGptRequest chatGptRequest) {
@@ -121,14 +106,21 @@ public class ChatGptService {
 
         HttpEntity<ChatGptRequest> requestEntity = new HttpEntity<>(chatGptRequest, headers);
 
-        ResponseEntity<String> responseEntity = restTemplate.exchange(
-                uri,
-                HttpMethod.POST,
-                requestEntity,
-                String.class);
+        ResponseEntity<String> responseEntity = restTemplate.exchange(uri, HttpMethod.POST, requestEntity, String.class);
 
         ChatGptResponse chatGptResponse = JsonUtil.fromJson(responseEntity.getBody(), ChatGptResponse.class);
         return chatGptResponse;
+    }
+
+
+    private static class ChatGptMessage {
+        public final ChatGptRequest.Messages system;
+        public final ChatGptRequest.Messages user;
+
+        public ChatGptMessage(ChatGptRequest.Messages system, ChatGptRequest.Messages user) {
+            this.system = system;
+            this.user = user;
+        }
     }
 
     private void setDefaultGpt(ChatGptRequest chatGptRequest) {
@@ -137,7 +129,6 @@ public class ChatGptService {
     }
 
     private void addGptMessageHistory(ChatGptRequest chatGptRequest) {
-        // 받은 메시지를 히스토리에 추가
         if (chatGptRequest.getMessages().size() != 0) {
             conversationHistory.add(chatGptRequest.getMessages().get(chatGptRequest.getMessages().size() - 1));
         }
@@ -148,13 +139,21 @@ public class ChatGptService {
         conversationHistory.add(chatGptMessage.user);
     }
 
-    private static class ChatGptMessage {
-        public final ChatGptRequest.Messages system;
-        public final ChatGptRequest.Messages user;
+    private void addGptConversation(ChatGptResponse chatGptResponse) {
+        ChatGptRequest.Messages assistantMessage = new ChatGptRequest.Messages("assistant", chatGptResponse.getChoices().get(0).getMessage().getContent());
 
-        public ChatGptMessage(ChatGptRequest.Messages system, ChatGptRequest.Messages user) {
-            this.system = system;
-            this.user = user;
-        }
+        conversationHistory.add(assistantMessage);
+    }
+
+    private void registerPage(PageDtoRequest pageDtoRequest, String content, KarloResponse karloResponse) {
+        pageDtoRequest.setImage(karloResponse.getFileName());
+        pageDtoRequest.setContent(content);
+
+        pageService.register(pageDtoRequest);
+    }
+
+
+    private String content() {
+        return conversationHistory.get(conversationHistory.size() - 1).getContent();
     }
 }
