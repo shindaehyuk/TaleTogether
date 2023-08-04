@@ -25,6 +25,8 @@ const Scroll = ({ imagePaths, stories }) => {
               height: "60%",
               display: "flex",
               justifyContent: "flex-start",
+              textColor: "inherit",
+              indicatorColor: "inherit",
             }}
           >
             <p>{article.story}</p>

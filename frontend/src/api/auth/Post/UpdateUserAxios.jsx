@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 
 export default async function UpdateUserAxios(props) {
   try {
@@ -6,12 +6,12 @@ export default async function UpdateUserAxios(props) {
     const res = await axios.patch(
       `//i9c110.p.ssafy.io/api/users/update/member/${props.email}`,
       {
-        name: props.nickname,
+        name: props.name,
         userId: props.email,
       },
       {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       }
     );

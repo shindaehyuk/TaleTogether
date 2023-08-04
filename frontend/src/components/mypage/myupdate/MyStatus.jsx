@@ -3,25 +3,27 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
+import UpdateUserAxios from "../../../api/auth/Post/UpdateUserAxios";
+import DeleteUserAxios from "../../../api/auth/delete/DeletUserAxios";
 
 function MyStatus() {
-  const [email, setEmail] = useState("");
-  const [nickname, setNickname] = useState("");
-  const [password, setPassword] = useState("");
+  const [newEmail, setNewEmail] = useState("");
+  const [newName, setNewName] = useState("");
+  const [newPassword, setNewPassword] = useState("");
 
   const onChangeEmail = (event) => {
     // 이메일 입력창 입력
-    setEmail(event.target.value);
+    setNewEmail(event.target.value);
   };
 
-  const onChangeNickname = (event) => {
+  const onChangeName = (event) => {
     // 닉네임 입력창 입력
-    setNickname(event.target.value);
+    setNewName(event.target.value);
   };
 
   const onChangePassword = (event) => {
     // 비밀번호 입력창 입력
-    setPassword(event.target.value);
+    setNewPassword(event.target.value);
   };
 
   const eventHandler = (event) => {
@@ -66,7 +68,7 @@ function MyStatus() {
           }}
         >
           <h3>닉네임</h3>
-          <input type="text" onChange={onChangeNickname} size="50" />
+          <input type="text" onChange={onChangeName} size="50" />
         </Box>
         <Box
           sx={{
@@ -101,7 +103,7 @@ function MyStatus() {
                 <form onSubmit={eventHandler}>
                   <input
                     type="password"
-                    value={password}
+                    value={newPassword}
                     onChange={onChangePassword}
                   />
                   <button type="submit">변경</button>
@@ -109,8 +111,10 @@ function MyStatus() {
               </Box>
             </Modal>
           </>
-          <button>수정 완료</button>
-          <button>회원 탈퇴</button>
+          <Button onClick={UpdateUserAxios({ newEmail, newName })}>
+            수정 완료
+          </Button>
+          <Button onClick={DeleteUserAxios({})}>회원 탈퇴</Button>
         </Box>
       </Box>
     </>
