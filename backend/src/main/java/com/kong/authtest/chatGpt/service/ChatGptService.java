@@ -8,6 +8,7 @@ import com.kong.authtest.karlo.dto.KarloResponse;
 import com.kong.authtest.karlo.service.JsonUtil;
 import com.kong.authtest.karlo.service.KarloService;
 import com.kong.authtest.page.dto.PageDtoRequest;
+import com.kong.authtest.page.dto.PageDtoResponse;
 import com.kong.authtest.page.service.PageService;
 import com.kong.authtest.translation.DeepLService;
 import lombok.RequiredArgsConstructor;
@@ -55,9 +56,13 @@ public class ChatGptService {
         addGptConversation(sendGptApiServer(chatGptRequest));
         KarloResponse karloResponse = karloService.createImage(setDefaultKarlo(userChoiceRequest, content()));
 
-        registerPage(pageDtoRequest, content(), karloResponse);
+        PageDtoResponse pageDtoResponse = registerPage(pageDtoRequest, content(), karloResponse);
 
-        return sendGptApiServer(chatGptRequest);
+        ChatGptResponse chatGptResponse = sendGptApiServer(chatGptRequest);
+
+        chatGptResponse.setPageId(pageDtoResponse.getPageId());
+
+        return chatGptResponse;
     }
 
     @NotNull
@@ -146,11 +151,11 @@ public class ChatGptService {
         conversationHistory.add(assistantMessage);
     }
 
-    private void registerPage(PageDtoRequest pageDtoRequest, String content, KarloResponse karloResponse) {
+    private PageDtoResponse registerPage(PageDtoRequest pageDtoRequest, String content, KarloResponse karloResponse) {
         pageDtoRequest.setImage(karloResponse.getFileName());
         pageDtoRequest.setContent(content);
 
-        pageService.register(pageDtoRequest);
+        return pageService.register(pageDtoRequest);
     }
 
 

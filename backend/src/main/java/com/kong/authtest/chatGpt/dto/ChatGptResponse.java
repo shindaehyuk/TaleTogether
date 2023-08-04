@@ -18,6 +18,7 @@ public class ChatGptResponse {
     private long created;
     private List<Choice> choices;
     private Usage usage;
+    private Long pageId;
 
 
     @Data
