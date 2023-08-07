@@ -21,7 +21,7 @@ public class TaleController {
 
     private final TaleService taleService;
 
-    @PostMapping
+    @PostMapping("/register")
     @ApiOperation(value = "tale 작성 API", notes = "taleId와 userId만 작성되며, userId가 필요한 API", response = TaleDtoResponse.class)
     public ResponseEntity<TaleDtoResponse> register(@RequestBody TaleDtoRequest taleDtoRequest) {
         return ResponseEntity.ok(taleService.register(taleDtoRequest));
