@@ -48,6 +48,6 @@ public class User {
     }
 
     public void updatePassword(User user) {
-        this.password = password;
+        this.password = user.password;
     }
 }

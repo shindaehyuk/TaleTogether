@@ -5,6 +5,7 @@ import com.kong.authtest.community.service.CommunityService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +13,7 @@ import java.util.List;
 
 @RequestMapping("/api/community")
 @RequiredArgsConstructor
+@Slf4j
 @RestController
 @CrossOrigin("*")
 @Api(tags = "community")
@@ -34,7 +36,7 @@ public class CommunityController {
     @GetMapping("/all/{page}")
     @ApiOperation(value = "모든 커뮤니티 정보 얻는 API", notes = "모든 커뮤니티 정보를 얻는 API")
     public ResponseEntity<List<CommunityDtoGetResponse>> getAll(@PathVariable int page) {
-        return ResponseEntity.ok(communityService.getAll(page));
+        return ResponseEntity.ok( communityService.getAll(page));
     }
 
     @GetMapping("/detail/{username}")

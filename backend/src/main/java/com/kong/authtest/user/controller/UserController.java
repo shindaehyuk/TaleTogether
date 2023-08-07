@@ -1,7 +1,6 @@
 package com.kong.authtest.user.controller;
 
 import com.kong.authtest.user.dto.*;
-import com.kong.authtest.user.model.User;
 import com.kong.authtest.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +23,7 @@ public class UserController {
 
     @PatchMapping("/update-user/{userId}")
     public ResponseEntity<UserUpdateResponse> updateUser(@PathVariable String userId,
-                                                         @RequestBody @Valid final UserUpdateRequest userUpdateRequest) {
+                                                         @RequestBody @Valid UserUpdateRequest userUpdateRequest) {
         return ResponseEntity.ok(userService.updateUser(userId, userUpdateRequest));
 
     }
@@ -36,7 +35,7 @@ public class UserController {
 
     @PatchMapping("/update-password/{userId}")
     public ResponseEntity<UserUpdatePasswordResponse> updateMemberPassword(@PathVariable String userId,
-                                                                           @RequestBody @Valid final UserUpdatePasswordRequest userUpdatePasswordRequest) {
+                                                                           @RequestBody @Valid UserUpdatePasswordRequest userUpdatePasswordRequest) {
         return ResponseEntity.ok(userService.updateUserPassword(userId, userUpdatePasswordRequest));
     }
 
@@ -47,12 +46,9 @@ public class UserController {
 
 
     @GetMapping("/get/{userId}")
-    public ResponseEntity<?> getUserInfo(@PathVariable("userId") String userId) {
-        User user = userService.getUserByUserId(userId);
-        if (user == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok().body(user);
+    public ResponseEntity<UserDtoResponse> getUserInfo(@PathVariable("userId") String userId) {
+
+        return ResponseEntity.ok().body(userService.userDetail(userId));
     }
 
 }
