@@ -4,7 +4,9 @@ export default async function postCommunityAxios(props) {
   try {
     // POST 요청은 body에 실어 보냄
     const res = await axios.post(
-      `//i9c110.p.ssafy.io/api/community`,
+      // `//i9c110.p.ssafy.io/api/community`,
+      `http://localhost:8083/api/community`,
+      
       {
         content: props.content,
         taleId: props.taleId,
