@@ -18,8 +18,8 @@ public class TaleDtoGetResponse {
 
     public TaleDtoGetResponse(Tale tale) {
         this.taleId = tale.getTaleId();
-        this.title = tale.getTitle();
         this.titleImage = tale.getTitleImage();
+        this.title = tale.getTitle();
         this.PageList = tale.getPageList().stream().map(PageDtoResponse::new).collect(Collectors.toList());
     }
 }
