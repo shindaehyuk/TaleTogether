@@ -11,6 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RequestMapping("/api/tale")
 @RequiredArgsConstructor
 @Slf4j
@@ -38,6 +40,12 @@ public class TaleController {
     public ResponseEntity<Boolean> delete(@PathVariable Long taleId) {
         taleService.delete(taleId);
         return ResponseEntity.ok(true);
+    }
+
+    @PostMapping("/info/all")
+    @ApiOperation(value = "userId에 맞는 모든 tale 가져오는 API", notes = "userId에 해당되는 모든 tale을 가져온다")
+    public ResponseEntity<List<TaleDtoGetResponse>> getAllTale(@RequestBody TaleDtoRequest taleDtoRequest){
+        return ResponseEntity.ok(taleService.getAllTale(taleDtoRequest));
     }
 
 }

@@ -3,12 +3,16 @@ package com.kong.authtest.tale.service;
 import com.kong.authtest.tale.dto.TaleDtoGetResponse;
 import com.kong.authtest.tale.dto.TaleDtoRequest;
 import com.kong.authtest.tale.dto.TaleDtoResponse;
+import com.kong.authtest.tale.model.Tale;
 import com.kong.authtest.tale.repository.TaleRepository;
 import com.kong.authtest.user.model.User;
 import com.kong.authtest.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -32,6 +36,15 @@ public class TaleService {
     @Transactional
     public void delete(Long taleId) {
         taleRepository.deleteById(taleId);
+    }
+
+    public List<TaleDtoGetResponse> getAllTale(TaleDtoRequest taleDtoRequest){
+        return taleRepository.findAllByUser(
+                userRepository
+                        .findUserByUserId(taleDtoRequest.getUserId()).get())
+                .stream()
+                .map(TaleDtoGetResponse::new)
+                .collect(Collectors.toList());
     }
 
 
