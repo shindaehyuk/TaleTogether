@@ -2,8 +2,12 @@ package com.kong.authtest.user.model;
 
 import com.kong.authtest.comment.model.Comment;
 import com.kong.authtest.community.model.Community;
+import com.kong.authtest.likes.model.CommunityLike;
 import com.kong.authtest.tale.model.Tale;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -23,7 +27,6 @@ public class User {
     private String name;
     private String password;
 
-    @Column(name = "user_id")
     private String userId;
 
     @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.REMOVE)
@@ -35,12 +38,16 @@ public class User {
     @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.REMOVE)
     private List<Comment> commentList = new ArrayList<>();
 
-    public void update(User user){
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<CommunityLike> communityLikeList = new ArrayList<>();
+    
+
+    public void update(User user) {
         this.userId = user.getUserId();
         this.name = user.getName();
     }
 
-    public void updatePassword(User user){
+    public void updatePassword(User user) {
         this.password = password;
     }
 }

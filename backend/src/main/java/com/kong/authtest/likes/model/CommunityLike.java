@@ -1,7 +1,6 @@
 package com.kong.authtest.likes.model;
 
 import com.kong.authtest.community.model.Community;
-import com.kong.authtest.likes.dto.LikesDtoRequest;
 import com.kong.authtest.user.model.User;
 import lombok.*;
 
@@ -12,10 +11,10 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Getter
-public class Likes {
+public class CommunityLike {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long likesId;
+    private Long likeId;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -25,12 +24,12 @@ public class Likes {
     @JoinColumn(name = "community_id")
     private Community community;
 
-    public Likes addUser(User user){
+    public CommunityLike addUser(User user){
         this.user = user;
         return this;
     }
 
-    public Likes addCommunity(Community community){
+    public CommunityLike addCommunity(Community community){
         this.community = community;
         return this;
     }

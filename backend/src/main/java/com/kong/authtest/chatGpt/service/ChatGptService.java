@@ -10,6 +10,9 @@ import com.kong.authtest.karlo.service.KarloService;
 import com.kong.authtest.page.dto.PageDtoRequest;
 import com.kong.authtest.page.dto.PageDtoResponse;
 import com.kong.authtest.page.service.PageService;
+import com.kong.authtest.tale.dto.TaleDtoRequest;
+import com.kong.authtest.tale.model.Tale;
+import com.kong.authtest.tale.service.TaleService;
 import com.kong.authtest.translation.DeepLService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -43,6 +46,8 @@ public class ChatGptService {
     private final KarloService karloService;
 
     private final DeepLService deepLService;
+
+    private final TaleService taleService;
 
     @Transactional
     public ChatGptResponse createChat(UserChoiceRequest userChoiceRequest, ChatGptRequest chatGptRequest, PageDtoRequest pageDtoRequest) throws Exception {

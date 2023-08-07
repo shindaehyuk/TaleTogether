@@ -3,12 +3,15 @@ package com.kong.authtest.community.service;
 import com.kong.authtest.community.dto.*;
 import com.kong.authtest.community.model.Community;
 import com.kong.authtest.community.repository.CommunityRepository;
-import com.kong.authtest.likes.service.LikesService;
+import com.kong.authtest.likes.model.CommunityLike;
+import com.kong.authtest.likes.repository.CommunityLikeRepository;
+import com.kong.authtest.likes.service.CommunityLikeService;
 import com.kong.authtest.tale.model.Tale;
 import com.kong.authtest.tale.repository.TaleRepository;
 import com.kong.authtest.user.model.User;
 import com.kong.authtest.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,12 +22,14 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
+@Slf4j
 public class CommunityService {
 
     private final CommunityRepository communityRepository;
     private final UserRepository userRepository;
     private final TaleRepository taleRepository;
-    private final LikesService likesService;
+    private final CommunityLikeService communityLikeService;
+    private final CommunityLikeRepository communityLikeRepository;
 
     //    이것도 user의 id가 Long 형태로 바뀌어야 함
     @Transactional
@@ -36,18 +41,28 @@ public class CommunityService {
 
     public CommunityDtoGetResponse getCommunityInfo(Long communityId) {
         CommunityDtoGetResponse communityDtoGetResponse = new CommunityDtoGetResponse(findCommunityById(communityId));
-        communityDtoGetResponse.setLikes(likesService.getLikesCount(communityId));
+        communityDtoGetResponse.setLikes(communityLikeService.getLikesCount(communityId));
         return communityDtoGetResponse;
     }
 
     public List<CommunityDetailResponse> getCommunityInfoByUserName(String userId) {
-        User user = findUserByName(userId);
-        return user.getCommunityList().stream()
+        return findUserByUserId(userId).
+                getCommunityList().stream()
                 .map(CommunityDetailResponse::new)
                 .collect(Collectors.toList());
     }
 
-    private User findUserByName(String userId) {
+    public List<CommunityDetailResponse> getLikeCommunityByUserName(String userId) {
+        User user = findUserByUserId(userId);
+        return communityLikeRepository.findCommunityLikesByUser(user)
+                .stream()
+                .map(CommunityDetailResponse::new)
+                .collect(Collectors.toList());
+
+    }
+
+
+    private User findUserByUserId(String userId) {
         return userRepository.findUserByUserId(userId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
     }

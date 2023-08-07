@@ -43,6 +43,12 @@ public class CommunityController {
         return ResponseEntity.ok(communityService.getCommunityInfoByUserName(username));
     }
 
+    @GetMapping("/likes/{username}")
+    @ApiOperation(value = "유저 아이디로 좋아요한 커뮤니티 디테일 정보 얻는 API", notes = "유저 아이디로 좋아요한 커뮤니티 디테일 정보 얻는 API")
+    public ResponseEntity<List<CommunityDetailResponse>> getLikeCommunityDetailByUserName(@PathVariable String username) {
+        return ResponseEntity.ok(communityService.getLikeCommunityByUserName(username));
+    }
+
 
     @PutMapping("/modify")
     @ApiOperation(value = "커뮤니티 정보 수정 API", notes = "커뮤니티 정보를 수정하기위해 사용하는 API, taleId, content, title, communityId가 필요하다.", response = CommunityDtoResponse.class)

@@ -30,7 +30,6 @@ public class Page extends BaseEntity {
     private int sequence = 1;
 
     @ManyToOne
-    @JoinColumn(name = "tale_id")
     private Tale tale;
 
     public Page addTale(Tale tale) {

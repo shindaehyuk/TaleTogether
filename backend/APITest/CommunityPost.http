@@ -1,4 +1,4 @@
-POST localhost:8083/api/community
+POST localhost:8083/api/community/register
 Content-Type: application/json
 
 {
@@ -9,7 +9,7 @@ Content-Type: application/json
 }
 
 ###
-POST localhost:8083/api/community
+POST localhost:8083/api/community/register
 Content-Type: application/json
 
 {
@@ -20,7 +20,7 @@ Content-Type: application/json
 }
 
 ###
-POST localhost:8083/api/community
+POST localhost:8083/api/community/register
 Content-Type: application/json
 
 {
@@ -29,3 +29,4 @@ Content-Type: application/json
   "userId": "xodnjs8287@naver.com",
   "taleId": 1
 }
+
