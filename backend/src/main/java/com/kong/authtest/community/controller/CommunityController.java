@@ -33,9 +33,16 @@ public class CommunityController {
 
     @GetMapping("/all/{page}")
     @ApiOperation(value = "모든 커뮤니티 정보 얻는 API", notes = "모든 커뮤니티 정보를 얻는 API")
-    public ResponseEntity<List<CommunityDtoGetResponse>> getAll(@PathVariable int page){
+    public ResponseEntity<List<CommunityDtoGetResponse>> getAll(@PathVariable int page) {
         return ResponseEntity.ok(communityService.getAll(page));
     }
+
+    @GetMapping("/detail/{username}")
+    @ApiOperation(value = "유저 아이디로 커뮤니티 디테일 정보 얻는 API", notes = "유저 아이디로 커뮤니티 디테일 정보 얻는 API")
+    public ResponseEntity<List<CommunityDetailResponse>> getDetailByUserName(@PathVariable String username) {
+        return ResponseEntity.ok(communityService.getCommunityInfoByUserName(username));
+    }
+
 
     @PutMapping("/modify")
     @ApiOperation(value = "커뮤니티 정보 수정 API", notes = "커뮤니티 정보를 수정하기위해 사용하는 API, taleId, content, title, communityId가 필요하다.", response = CommunityDtoResponse.class)

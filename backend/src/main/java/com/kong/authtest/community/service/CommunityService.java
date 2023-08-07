@@ -10,7 +10,6 @@ import com.kong.authtest.user.model.User;
 import com.kong.authtest.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,6 +40,18 @@ public class CommunityService {
         return communityDtoGetResponse;
     }
 
+    public List<CommunityDetailResponse> getCommunityInfoByUserName(String userId) {
+        User user = findUserByName(userId);
+        return user.getCommunityList().stream()
+                .map(CommunityDetailResponse::new)
+                .collect(Collectors.toList());
+    }
+
+    private User findUserByName(String userId) {
+        return userRepository.findUserByUserId(userId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
+    }
+
     public CommunityDtoResponse modify(CommunityDtoPutRequest communityDtoPutRequest) {
         findCommunityById(communityDtoPutRequest.getCommunityId())
                 .updateCommunity(communityDtoPutRequest);
@@ -52,7 +63,7 @@ public class CommunityService {
         communityRepository.deleteById(communityId);
     }
 
-    public List<CommunityDtoGetResponse> getAll(int page){
+    public List<CommunityDtoGetResponse> getAll(int page) {
         return communityRepository.findAll(PageRequest.of(page, 9))
                 .stream()
                 .map((CommunityDtoGetResponse::new))

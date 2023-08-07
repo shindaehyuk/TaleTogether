@@ -32,6 +32,12 @@ public class PageController {
         return ResponseEntity.ok(pageService.detail(pageId));
     }
 
+//    @GetMapping("/detail/{taleId}")
+//    @ApiOperation(value = "page 정보를 얻기위한 API", notes = "page 정보를 얻기위한 API, pageId가 필요하다", response = PageDtoResponse.class)
+//    public ResponseEntity<PageDtoResponse> detail(@PathVariable Long pageId) {
+//        return ResponseEntity.ok(pageService.detail(pageId));
+//    }
+
     @PutMapping("/modify")
     @ApiOperation(value = "page 정보를 수정하기위한 API", notes = "page정보를 수정하기 위해, image, content, sequence, pageId가 필요하다.", response = PageDtoResponse.class)
     public ResponseEntity<PageDtoResponse> modify(@RequestBody PageDtoPutRequest pageDtoPutRequest) {

@@ -61,4 +61,6 @@ public class GameRoomService {
         int randomNumber = rand.nextInt(9000) + 1000;  // generates a random number between 1000 and 9999
         return CODE + randomNumber;
     }
+
+
 }
