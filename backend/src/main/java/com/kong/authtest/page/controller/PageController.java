@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 public class PageController {
     private final PageService pageService;
 
-    @PostMapping("/regist")
+    @PostMapping("/register")
     @ApiOperation(value = "page를 작성하는 API", notes = "page를 작성하기 위한 API, content, image, taleId가 필요하다.", response = PageDtoResponse.class)
     public ResponseEntity<PageDtoResponse> register(@RequestBody PageDtoRequest PageDtoRequest) {
         return ResponseEntity.ok(pageService.register(PageDtoRequest));
@@ -32,7 +32,7 @@ public class PageController {
         return ResponseEntity.ok(pageService.detail(pageId));
     }
 
-    @PutMapping("/modfiy")
+    @PutMapping("/modify")
     @ApiOperation(value = "page 정보를 수정하기위한 API", notes = "page정보를 수정하기 위해, image, content, sequence, pageId가 필요하다.", response = PageDtoResponse.class)
     public ResponseEntity<PageDtoResponse> modify(@RequestBody PageDtoPutRequest pageDtoPutRequest) {
         return ResponseEntity.ok(pageService.modify(pageDtoPutRequest));

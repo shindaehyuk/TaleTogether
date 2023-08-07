@@ -19,7 +19,7 @@ public class CommunityController {
 
     private final CommunityService communityService;
 
-    @PostMapping("/regist")
+    @PostMapping("/register")
     @ApiOperation(value = "커뮤니티 작성 API", notes = "커뮤니티 글을 작성하기 위해 사용하는 API, title, content, userId, taleId가 필요하다", response = CommunityDtoResponse.class)
     public ResponseEntity<CommunityDtoResponse> register(@RequestBody CommunityDtoRequest communityDtoRequest) {
         return ResponseEntity.ok(communityService.register(communityDtoRequest));

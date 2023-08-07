@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 public class CommentController {
     private final CommentService commentService;
 
-    @PostMapping("/regist")
+    @PostMapping("/register")
     @ApiOperation(value = "comment 작성 API", notes = "comment를 작성하기 위한 API, content, userId, communityId가 필요하다.", response = CommentDtoResponse.class)
     public ResponseEntity<CommentDtoResponse> register(@RequestBody CommentDtoRequest commentDtoRequest) {
         return ResponseEntity.ok(commentService.register(commentDtoRequest));
