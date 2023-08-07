@@ -33,15 +33,16 @@ public class TaleService {
         return new TaleDtoGetResponse(taleRepository.findById(taleId).orElseThrow(() -> new IllegalArgumentException("not found")));
     }
 
+
     @Transactional
     public void delete(Long taleId) {
         taleRepository.deleteById(taleId);
     }
 
-    public List<TaleDtoGetResponse> getAllTale(TaleDtoRequest taleDtoRequest){
+    public List<TaleDtoGetResponse> getAllTale(String userId){
         return taleRepository.findAllByUser(
                 userRepository
-                        .findUserByUserId(taleDtoRequest.getUserId()).get())
+                        .findUserByUserId(userId).get())
                 .stream()
                 .map(TaleDtoGetResponse::new)
                 .collect(Collectors.toList());

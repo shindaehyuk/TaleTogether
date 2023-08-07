@@ -23,6 +23,10 @@ public class Tale extends BaseEntity {
     @ManyToOne
     private User user;
 
+    private String title;
+
+    private String titleImage;
+
     @OneToMany(mappedBy = "tale", orphanRemoval = true, cascade = CascadeType.REMOVE)
     private List<Page> pageList = new ArrayList<>();
 

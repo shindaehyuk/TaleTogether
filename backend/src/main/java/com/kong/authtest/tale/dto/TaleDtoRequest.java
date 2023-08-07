@@ -9,8 +9,14 @@ import lombok.NoArgsConstructor;
 public class TaleDtoRequest {
     private String userId;
 
+    private String title;
+
+    private String titleImage;
+
     public Tale toTale() {
         return Tale.builder()
+                .title(this.title)
+                .titleImage(this.titleImage)
                 .build();
     }
 }

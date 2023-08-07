@@ -19,10 +19,6 @@ public class Page extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long pageId;
 
-    private String title;
-    private String titleImage;
-
-
     @Embedded
     private Content content;
     @NotNull
@@ -30,7 +26,6 @@ public class Page extends BaseEntity {
     private int sequence = 1;
 
     @ManyToOne
-    @JoinColumn(name = "tale_id")
     private Tale tale;
 
     public Page addTale(Tale tale) {

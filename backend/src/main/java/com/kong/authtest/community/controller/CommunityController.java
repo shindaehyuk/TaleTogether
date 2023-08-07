@@ -5,6 +5,7 @@ import com.kong.authtest.community.service.CommunityService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +13,7 @@ import java.util.List;
 
 @RequestMapping("/api/community")
 @RequiredArgsConstructor
+@Slf4j
 @RestController
 @CrossOrigin("*")
 @Api(tags = "community")
@@ -33,9 +35,22 @@ public class CommunityController {
 
     @GetMapping("/all/{page}")
     @ApiOperation(value = "모든 커뮤니티 정보 얻는 API", notes = "모든 커뮤니티 정보를 얻는 API")
-    public ResponseEntity<List<CommunityDtoGetResponse>> getAll(@PathVariable int page){
-        return ResponseEntity.ok(communityService.getAll(page));
+    public ResponseEntity<List<CommunityDtoGetResponse>> getAll(@PathVariable int page) {
+        return ResponseEntity.ok( communityService.getAll(page));
     }
+
+    @GetMapping("/detail/{username}")
+    @ApiOperation(value = "유저 아이디로 커뮤니티 디테일 정보 얻는 API", notes = "유저 아이디로 커뮤니티 디테일 정보 얻는 API")
+    public ResponseEntity<List<CommunityDetailResponse>> getDetailByUserName(@PathVariable String username) {
+        return ResponseEntity.ok(communityService.getCommunityInfoByUserName(username));
+    }
+
+    @GetMapping("/likes/{username}")
+    @ApiOperation(value = "유저 아이디로 좋아요한 커뮤니티 디테일 정보 얻는 API", notes = "유저 아이디로 좋아요한 커뮤니티 디테일 정보 얻는 API")
+    public ResponseEntity<List<CommunityDetailResponse>> getLikeCommunityDetailByUserName(@PathVariable String username) {
+        return ResponseEntity.ok(communityService.getLikeCommunityByUserName(username));
+    }
+
 
     @PutMapping("/modify")
     @ApiOperation(value = "커뮤니티 정보 수정 API", notes = "커뮤니티 정보를 수정하기위해 사용하는 API, taleId, content, title, communityId가 필요하다.", response = CommunityDtoResponse.class)

@@ -3,38 +3,34 @@ package com.kong.authtest.likes.service;
 import com.kong.authtest.community.model.Community;
 import com.kong.authtest.community.repository.CommunityRepository;
 import com.kong.authtest.likes.dto.LikesDtoRequest;
-import com.kong.authtest.likes.model.Likes;
-import com.kong.authtest.likes.repository.LikesRepository;
+import com.kong.authtest.likes.model.CommunityLike;
+import com.kong.authtest.likes.repository.CommunityLikeRepository;
 import com.kong.authtest.user.model.User;
 import com.kong.authtest.user.repository.UserRepository;
-import com.kong.authtest.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
-import java.util.logging.Logger;
 
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 @Slf4j
-public class LikesService {
-    private final LikesRepository likesRepository;
+public class CommunityLikeService {
+    private final CommunityLikeRepository communityLikeRepository;
     private final UserRepository userRepository;
     private final CommunityRepository communityRepository;
-    private final UserService userService;
 
     @Transactional
     public Boolean register(LikesDtoRequest likesDtoRequest) {
 
-        Optional<Likes> likesByUser = likesRepository.findLikesByUserAndCommunity(getUser(likesDtoRequest),getCommunity(likesDtoRequest.getCommunityId()));
+        Optional<CommunityLike> likesByUser = communityLikeRepository.findLikesByUserAndCommunity(getUser(likesDtoRequest),getCommunity(likesDtoRequest.getCommunityId()));
         if (likesByUser.isPresent()){
             return false;
         }
-        likesRepository.save(likesDtoRequest.toLikes()
+        communityLikeRepository.save(likesDtoRequest.toLikes()
                 .addCommunity(getCommunity(likesDtoRequest.getCommunityId()))
                 .addUser(getUser(likesDtoRequest)));
         return true;
@@ -42,14 +38,18 @@ public class LikesService {
 
     @Transactional
     public Boolean delete(LikesDtoRequest likesDtoRequest) {
-        likesRepository.deleteByUserAndCommunity(
+        communityLikeRepository.deleteByUserAndCommunity(
                 getUser(likesDtoRequest), getCommunity(likesDtoRequest.getCommunityId()));
         return true;
     }
 
+
+
     public Long getLikesCount(Long communityId){
-        return likesRepository.countByCommunity(getCommunity(communityId));
+        return communityLikeRepository.countByCommunity(getCommunity(communityId));
     }
+
+
 
     private User getUser(LikesDtoRequest likesDtoRequest) {
         return userRepository.findUserByUserId(likesDtoRequest.getUserId())
