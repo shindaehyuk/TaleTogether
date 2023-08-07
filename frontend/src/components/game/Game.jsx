@@ -1,13 +1,13 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import { useState } from 'react';
-
-import './Game.css';
 import Button from '@mui/material/Button';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { useNavigate } from 'react-router-dom';
+
+import './Game.css';
 
 export default function Game() {
   const navigate = useNavigate();
@@ -63,25 +63,21 @@ export default function Game() {
         <Box
           className="Box"
           sx={{
-            width: '450px',
-            height: '450px',
+            width: '40%',
+            height: '80%',
             backgroundImage: "url('../../assets/joinFox.png')",
             backgroundSize: 'cover',
             borderRadius: '20px',
-            boxShadow: 5,
+            boxShadow: 20,
             marginRight: '5%',
+            backgroundPosition: 'center',
           }}
         >
-          <p className="title">같이하기</p>
+          <div className="title">같이하기</div>
           <div className="overlay"></div>
           <div className="button">
             <ThemeProvider theme={theme}>
-              <Button
-                onClick={handleOpen}
-                variant="outlined"
-                color="white"
-                sx={{ width: '50%', height: '20%', fontSize: '20px' }}
-              >
+              <Button onClick={handleOpen} variant="outlined" color="white" sx={{ fontSize: '20px' }}>
                 <Typography variant="h4">코드 입력하기</Typography>
               </Button>
               <Modal
@@ -107,20 +103,21 @@ export default function Game() {
         <Box
           className="Box"
           sx={{
-            width: '450px',
-            height: '450px',
+            width: '40%',
+            height: '80%',
             backgroundImage: "url('../../assets/makeFox.png')",
             backgroundSize: 'cover',
+            backgroundPosition: 'center',
             borderRadius: '20px',
-            boxShadow: 5,
+            boxShadow: 20,
             marginLeft: '5%',
           }}
         >
-          <p className="title">방만들기</p>
+          <div className="title">방만들기</div>
           <div className="overlay"></div>
           <div className="button">
             <ThemeProvider theme={theme}>
-              <Button variant="outlined" color="white" sx={{ width: '50%', height: '20%', fontSize: '20px' }}>
+              <Button variant="outlined" color="white" sx={{ fontSize: '20px' }}>
                 <Typography variant="h4">게임시작</Typography>
               </Button>
             </ThemeProvider>

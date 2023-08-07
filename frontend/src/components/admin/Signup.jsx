@@ -9,12 +9,13 @@ import Container from '@mui/material/Container';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
+import { useEffect } from 'react';
 import SignupAxios from '../../api/auth/Post/SignupAxios';
 import IdcheckAxios from '../../api/auth/Post/IdcheckAxios';
 
 export default function SignUp() {
   const [isLoading, setIsLoading] = useState(false);
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(0);
   const [idCheck, setIdCheck] = useState(false);
 
   const {
@@ -24,24 +25,37 @@ export default function SignUp() {
     formState: { errors },
   } = useForm();
 
-  const emailCheck = () => {
-    console.log(IdcheckAxios(watch('email', false)));
-    setIdCheck(true);
+  const emailCheck = async () => {
+    const res = await IdcheckAxios(watch('email'));
+    if (res.data === false) {
+      setIdCheck(true);
+      setOpen(2);
+    } else {
+      setOpen(4);
+    }
   };
 
   const onSubmit = (data) => {
-    setIsLoading(true);
-    SignupAxios(data);
+    if (idCheck === false) {
+      setOpen(3);
+    } else {
+      setIsLoading(true);
+      SignupAxios(data);
 
-    setTimeout(() => {
-      setIsLoading(false);
-      setOpen(true);
-    }, 2000); // 2초 후에 프로그레스 바가 사라짐
+      setTimeout(() => {
+        setIsLoading(false);
+        setOpen(1);
+      }, 2000); // 2초 후에 프로그레스 바가 사라짐
 
-    setTimeout(() => {
-      window.location.reload();
-    }, 4000); // 4초 후에 로그인 페이지로 이동
+      setTimeout(() => {
+        window.location.reload();
+      }, 3000); // 3초 후에 로그인 페이지로 이동
+    }
   };
+
+  useEffect(() => {
+    setIdCheck(false);
+  }, [watch('email')]);
 
   return (
     <>
@@ -54,9 +68,17 @@ export default function SignUp() {
             alignItems: 'center',
           }}
         >
-          <Snackbar open={open} autoHideDuration={4000} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
-            <Alert severity="success" sx={{ width: '100%' }}>
-              회원가입이 완료되었습니다. 로그인 페이지로 이동합니다.
+          <Snackbar
+            open={open === 1 || open === 2 || open === 3 || open === 4}
+            autoHideDuration={4000}
+            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+            onClose={() => setOpen(0)} // Snackbar 닫기 이벤트 처리
+          >
+            <Alert severity={open === 1 ? 'success' : open === 2 ? 'success' : 'error'} sx={{ width: '100%' }}>
+              {open === 1 && '회원가입이 완료되었습니다. 로그인 페이지로 이동합니다.'}
+              {open === 2 && '사용가능한 이메일입니다.'}
+              {open === 3 && '이메일 중복검사를 해주세요.'}
+              {open === 4 && '이미 사용중인 이메일입니다.'}
             </Alert>
           </Snackbar>
 
@@ -69,12 +91,13 @@ export default function SignUp() {
                   required
                   fullWidth
                   label="이메일"
+                  color="success"
                   autoFocus
                   {...register('email', {
                     required: true,
                     pattern: {
                       value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                      message: '이메일형식이 아닙니다.',
+                      message: '*이메일형식이 아닙니다.',
                     },
                   })}
                   error={!!errors.email}
@@ -90,12 +113,13 @@ export default function SignUp() {
                   size="small"
                   required
                   fullWidth
+                  color="success"
                   label="이름"
                   {...register('nickname', {
                     required: true,
                     pattern: {
                       value: /^(?:[가-힣]{2,8}|[a-zA-Z]{2,12})$/,
-                      message: '*한글, 영문, 특수문자를 (- _ .) 포함한 2 ~ 12글자',
+                      message: '*한글 2 ~ 8자, 영문 2 ~ 12글자',
                     },
                   })}
                   error={!!errors.nickname}
@@ -109,9 +133,9 @@ export default function SignUp() {
                 <TextField
                   className="animate__animated animate__fadeIn animate__delay-0.9s"
                   size="small"
-                  fullWidth
                   label="비밀번호"
                   type="password"
+                  color="success"
                   required
                   {...register('password', {
                     required: true,
@@ -132,8 +156,8 @@ export default function SignUp() {
                   className="animate__animated animate__fadeIn animate__delay-0.9s"
                   size="small"
                   required
-                  fullWidth
                   type="password"
+                  color="success"
                   label="비밀번호 확인"
                   {...register('checkpw', {
                     required: true,
@@ -159,9 +183,10 @@ export default function SignUp() {
                   type="submit"
                   fullWidth
                   variant="contained"
-                  sx={{ mt: 2 }}
+                  color="inherit"
+                  sx={{ mt: 2, backgroundColor: '#faedcd', color: 'black' }}
                 >
-                  {idCheck ? '아이디 사용가능' : '아이디 중복검사'}
+                  {idCheck ? '이메일 사용가능' : '이메일 중복검사'}
                 </Button>
               </Grid>
               <Grid item xs={6}>
@@ -171,7 +196,8 @@ export default function SignUp() {
                   type="submit"
                   fullWidth
                   variant="contained"
-                  sx={{ mt: 2 }}
+                  color="inherit"
+                  sx={{ mt: 2, backgroundColor: '#faedcd', color: 'black' }}
                 >
                   {isLoading ? <CircularProgress size={24} /> : 'Sign up'}
                 </Button>

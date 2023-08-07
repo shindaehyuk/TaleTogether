@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Nav from '../layouts/Nav';
-import DialButton from '../layouts/DialButton';
 
 function Main() {
   return (
@@ -16,12 +15,10 @@ function Main() {
           borderRadius: '40px',
           justifyContent: 'center',
           alignItems: 'center',
-          // boxShadow: 5,
+          boxShadow: 10,
         }}
       >
         <Nav></Nav>
-
-        <DialButton></DialButton>
       </Box>
     </>
   );

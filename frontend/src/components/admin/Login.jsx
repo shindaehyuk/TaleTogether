@@ -19,6 +19,13 @@ export default function SignIn() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const success = {
+    main: '#1976d2',
+    light: '#4caf50',
+    dark: '#1565c0',
+    contrastText: '#fff',
+  };
+
   const {
     register,
     handleSubmit,
@@ -27,8 +34,8 @@ export default function SignIn() {
 
   const onSubmit = (event) => {
     setIsLoading(true);
-    LoginAxios(event);
-    // dispatch(login());
+    // LoginAxios(event);
+    dispatch(login(event));
 
     setTimeout(() => {
       navigate('/intro');
@@ -57,6 +64,7 @@ export default function SignIn() {
                 {...register('email', {
                   required: true,
                 })}
+                color="success"
                 error={!!errors.email}
                 sx={{ backgroundColor: '#faedcd', borderRadius: '5px' }}
               />
@@ -66,6 +74,7 @@ export default function SignIn() {
                 className="animate__animated animate__fadeIn animate__delay-0.6s"
                 required
                 fullWidth
+                color="success"
                 label="비밀번호"
                 type="password"
                 {...register('password', {
@@ -77,23 +86,23 @@ export default function SignIn() {
             </Grid>
 
             <Grid
-              className="animate__animated animate__fadeIn animate__delay-0.6s"
+              className="animate__animated animate__fadeIn animate__delay-0.9s"
               item
               xs={12}
               sx={{ color: 'black' }}
             >
-              <Link href="#" underline="none" variant="body2">
+              <Link href="#" underline="none" variant="body2" color="inherit">
                 <b>비밀번호 재설정</b>
               </Link>
             </Grid>
           </Grid>
 
           <Button
-            className="animate__animated animate__fadeIn animate__delay-0.9s"
-            required
+            className="animate__animated animate__fadeIn animate__delay-1.2s"
             disabled={isLoading}
             type="submit"
             fullWidth
+            color="inherit"
             variant="contained"
             sx={{ mt: 4, mb: 4, backgroundColor: '#faedcd', color: 'black' }}
           >

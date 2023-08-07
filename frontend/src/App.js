@@ -13,22 +13,20 @@ function App() {
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <div className="App">
-          <div>
-            <Container
-              maxWidth="100vw"
-              sx={{
-                alignContent: 'center',
-                justifyContent: 'center',
-                alignItems: 'center',
-                bgcolor: '#fefae0',
-                display: 'flex',
-                height: '100vh',
-                paddingY: '24px',
-              }}
-            >
-              <Router></Router>
-            </Container>
-          </div>
+          <Container
+            maxWidth="1536px"
+            sx={{
+              alignContent: 'center',
+              justifyContent: 'center',
+              alignItems: 'center',
+              bgcolor: '#fefae0',
+              display: 'flex',
+              height: '864px',
+              // paddingY: '24px',
+            }}
+          >
+            <Router></Router>
+          </Container>
 
           <footer></footer>
         </div>

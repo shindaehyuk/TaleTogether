@@ -3,33 +3,59 @@ import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
+import HomeIcon from '@mui/icons-material/Home';
+import LocalLibraryIcon from '@mui/icons-material/LocalLibrary';
+import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
+import PersonIcon from '@mui/icons-material/Person';
+
 import 'animate.css';
-import { useEffect } from 'react';
+import { useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import './Nav.css';
+import Setting from './Setting';
 
 function Nav() {
+  const [activeLinkIndex, setActiveLinkIndex] = useState(0);
+
+  const handleLinkClick = (index) => {
+    setActiveLinkIndex(index);
+  };
   return (
     <>
       <Box
         sx={{
           display: 'flex',
           width: '95%',
-          height: '5%',
+          height: '7%',
         }}
         className="link-container"
       >
-        <Link to="intro" className="link">
+        <Link to="intro" className={`link ${activeLinkIndex === 0 ? 'active' : ''}`} onClick={() => handleLinkClick(0)}>
+          <HomeIcon />
           메인
         </Link>
-        <Link to="community" className="link">
+        <Link
+          to="community"
+          className={`link ${activeLinkIndex === 1 ? 'active' : ''}`}
+          onClick={() => handleLinkClick(1)}
+        >
+          <LocalLibraryIcon />
           커뮤니티
         </Link>
-        <Link to="game" className="link">
+        <Link to="game" className={`link ${activeLinkIndex === 2 ? 'active' : ''}`} onClick={() => handleLinkClick(2)}>
+          <SportsEsportsIcon />
           게임
         </Link>
-        <Link to="mypage" className="link">
-          마이페이지
+        <Link
+          to="mypage"
+          className={`link ${activeLinkIndex === 3 ? 'active' : ''}`}
+          onClick={() => handleLinkClick(3)}
+        >
+          <PersonIcon />
+          내프로필
+        </Link>
+        <Link className="setting">
+          <Setting />
         </Link>
       </Box>
       <Box
@@ -40,7 +66,6 @@ function Nav() {
           borderBottomLeftRadius: '40px',
           borderBottomRightRadius: '40px',
           borderTopRightRadius: '40px',
-          boxShadow: 0,
         }}
       >
         <Outlet></Outlet>

@@ -19,10 +19,9 @@
 }
 
 .title {
-  position: absolute;
   width: 100%;
-  top: 375px;
-  font-weight: 700;
+  top: 85%;
+  font-weight: bold;
   font-size: 50px;
   border-radius: 20px;
   text-align: center;
@@ -36,15 +35,13 @@
 
 .Box:hover .title {
   top: 0;
+  opacity: 0.5;
 }
 
 .button {
-  position: absolute;
-  width: 450px;
-  top: 225px;
-  text-align: center;
   opacity: 0;
   transition: opacity 0.35s ease;
+  top: 70%;
 }
 
 .Box:hover .button {
