@@ -40,9 +40,7 @@ public class CommunityService {
     }
 
     public CommunityDtoGetResponse getCommunityInfo(Long communityId) {
-        CommunityDtoGetResponse communityDtoGetResponse = new CommunityDtoGetResponse(findCommunityById(communityId));
-        communityDtoGetResponse.setLikes(communityLikeService.getLikesCount(communityId));
-        return communityDtoGetResponse;
+        return new CommunityDtoGetResponse(findCommunityById(communityId));
     }
 
     public List<CommunityDetailResponse> getCommunityInfoByUserName(String userId) {
@@ -84,6 +82,7 @@ public class CommunityService {
                 .map((CommunityDtoGetResponse::new))
                 .collect(Collectors.toList());
     }
+
 
     private User getUser(CommunityDtoRequest communityDtoRequest) {
         return userRepository.findUserByUserId(communityDtoRequest.getUserId())

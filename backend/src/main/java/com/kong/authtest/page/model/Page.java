@@ -19,10 +19,6 @@ public class Page extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long pageId;
 
-    private String title;
-    private String titleImage;
-
-
     @Embedded
     private Content content;
     @NotNull
