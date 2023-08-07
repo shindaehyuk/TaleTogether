@@ -42,7 +42,7 @@ public class OpenViduController {
      * @param params The Session properties
      * @return The Session ID
      */
-    @PostMapping("/api/sessions")
+    @PostMapping("/api/get-sessions")
     public ResponseEntity<String> initializeSession(@RequestBody(required = false) Map<String, Object> params)
             throws OpenViduJavaClientException, OpenViduHttpException {
         SessionProperties properties = SessionProperties.fromJson(params).build();

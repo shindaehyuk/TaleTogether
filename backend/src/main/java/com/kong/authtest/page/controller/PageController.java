@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 public class PageController {
     private final PageService pageService;
 
-    @PostMapping
+    @PostMapping("/regist")
     @ApiOperation(value = "page를 작성하는 API", notes = "page를 작성하기 위한 API, content, image, taleId가 필요하다.", response = PageDtoResponse.class)
     public ResponseEntity<PageDtoResponse> register(@RequestBody PageDtoRequest PageDtoRequest) {
         return ResponseEntity.ok(pageService.register(PageDtoRequest));
