@@ -22,7 +22,7 @@ public class UserController {
         return ResponseEntity.ok(userService.addUser(createRequest));
     }
 
-    @PatchMapping("/update/member/{userId}")
+    @PatchMapping("/update-user/{userId}")
     public ResponseEntity<UserUpdateResponse> updateUser(@PathVariable String userId,
                                                          @RequestBody @Valid final UserUpdateRequest userUpdateRequest) {
         return ResponseEntity.ok(userService.updateUser(userId, userUpdateRequest));
@@ -34,13 +34,13 @@ public class UserController {
         return ResponseEntity.ok(userService.CheckDuplicated(userDuplicateCheckRequest));
     }
 
-    @PatchMapping("/update-password/member/{userId}")
+    @PatchMapping("/update-password/{userId}")
     public ResponseEntity<UserUpdatePasswordResponse> updateMemberPassword(@PathVariable String userId,
                                                                            @RequestBody @Valid final UserUpdatePasswordRequest userUpdatePasswordRequest) {
         return ResponseEntity.ok(userService.updateUserPassword(userId, userUpdatePasswordRequest));
     }
 
-    @DeleteMapping("/delete-member/{userId}")
+    @DeleteMapping("/delete-user/{userId}")
     public ResponseEntity<Boolean> deleteMember(@PathVariable String userId) {
         return ResponseEntity.ok(userService.userDelete(userId));
     }
