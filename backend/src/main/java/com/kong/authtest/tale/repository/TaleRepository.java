@@ -11,4 +11,5 @@ import java.util.Optional;
 
 public interface TaleRepository extends JpaRepository<Tale, Long> {
     List<Tale> findAllByUser(User user);
+
 }

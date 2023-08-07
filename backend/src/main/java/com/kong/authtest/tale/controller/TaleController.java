@@ -41,7 +41,6 @@ public class TaleController {
         taleService.delete(taleId);
         return ResponseEntity.ok(true);
     }
-
     @PostMapping("/info/all")
     @ApiOperation(value = "userId에 맞는 모든 tale 가져오는 API", notes = "userId에 해당되는 모든 tale을 가져온다")
     public ResponseEntity<List<TaleDtoGetResponse>> getAllTale(@RequestBody TaleDtoRequest taleDtoRequest){

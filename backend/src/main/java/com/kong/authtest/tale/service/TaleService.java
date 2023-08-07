@@ -46,6 +46,4 @@ public class TaleService {
                 .map(TaleDtoGetResponse::new)
                 .collect(Collectors.toList());
     }
-
-
 }
