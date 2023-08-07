@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-// import axios from "axios";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import StoryPickerModal from "./StoryPickerModal";
 import "./Community.css";
+import { useSelector } from "react-redux";
+import postCommunityAxios from "../../api/community/postCommunityAxios";
 
 function PostForm({ list, setList, modeChanger }) {
   const [title, setTitle] = useState("");
@@ -15,6 +16,12 @@ function PostForm({ list, setList, modeChanger }) {
 
   const [selectedImage, setSelectedImage] = useState(null);
 
+  const [taleId, setTaleId] = useState("");
+
+  // userId 가져오기
+  const userId = useSelector((state) => state.userSlice.userId);
+
+  // 동화목록 가져오기
   const handleModalOpen = () => {
     setModalOpen(true);
   };
@@ -23,30 +30,35 @@ function PostForm({ list, setList, modeChanger }) {
     setModalOpen(false);
   };
 
-  const handleSelectImage = (src) => {
+  const handleSelectImage = (src, id) => {
     setSelectedImage(src);
+    setTaleId(id);
   };
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
     if (!title.trim() || !content.trim()) {
       alert("제목과 내용을 모두 입력해주세요.");
       return;
     }
-
-    const payload = { title, content, img: selectedImage }; // 이미지 추가
-    setList((prevList) => [...prevList, payload]);
+  
+    const payload = {
+      title,
+      content,
+      img: selectedImage,
+      userId,
+      taleId,
+    };
+  
+    const response = await postCommunityAxios(payload);
+    if (response) {
+      const newPost = response.data;
+      setList((prevList) => [...prevList, newPost]);
+    } else {
+      // 서버 측에서 게시물 저장에 실패한 경우에 대한 처리를 추가합니다.
+    }
+  
     modeChanger();
-    // try {
-    // //   await axios.post("https://api.example.com/posts", payload);
-
-    //   setTitle("");
-    //   setContent("");
-    //   console.log("작성됨")
-    // } catch (error) {
-    //   console.error("Error creating post:", error);
-    //   throw error;
-    // }
   }
 
   return (
@@ -71,25 +83,34 @@ function PostForm({ list, setList, modeChanger }) {
           xs={8}
         >
           <div>
-            <h3>제목</h3>
+            <h3 style={{ marginRight: "70vh" }}>
+              <b>제목</b>
+            </h3>
             <label htmlFor="title"></label>
             <input
               type="text"
               name="title"
               value={title}
-              style={{ width: "100%", fontSize: "2rem", height: "100%" }}
+              style={{ width: "80vh", fontSize: "2rem", height: "10vh" }}
               onChange={(e) => setTitle(e.target.value)}
             />
           </div>
           <hr />
           <div>
-            <h3>내용</h3>
+            <h3 style={{ marginRight: "70vh" }}>
+              <b>내용</b>
+            </h3>
             <label htmlFor="content"></label>
             <textarea
               name="content"
               value={content}
               placeholder="내용을 입력해주세요"
-              style={{ width: "100%", fontSize: "2rem", height: "100%" }}
+              style={{
+                width: "80vh",
+                fontSize: "2rem",
+                height: "35vh",
+                resize: "none",
+              }}
               onChange={(e) => setContent(e.target.value)}
             />
           </div>
@@ -106,7 +127,7 @@ function PostForm({ list, setList, modeChanger }) {
           <Box
             sx={{
               width: [80, 150, 180, 250], // 100 for mobile, 150 for tablet, 200 for desktop
-              height: 300,
+              height: 330,
               backgroundColor: "primary.dark",
               "&:hover": {
                 backgroundColor: "primary.main",
@@ -137,6 +158,7 @@ function PostForm({ list, setList, modeChanger }) {
             open={modalOpen}
             onClose={handleModalClose}
             onSelectImage={handleSelectImage}
+            userId={userId}
           />
         </Grid>
       </Grid>

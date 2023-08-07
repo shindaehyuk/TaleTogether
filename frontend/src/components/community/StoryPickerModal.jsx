@@ -3,12 +3,27 @@ import React from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
-import { Carousel } from 'react-responsive-carousel'; // react-responsive-carousel 패키지를 설치하고 import 합니다.
-import 'react-responsive-carousel/lib/styles/carousel.min.css'; 
-import img1 from './src/1.png'
-import img2 from './src/2.png'
+import { Carousel } from "react-responsive-carousel"; // react-responsive-carousel 패키지를 설치하고 import 합니다.
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { useEffect, useState } from "react";
+import getTaleAllAxios from "../../api/tale/getTaleAll";
 
-function StoryPickerModal({ open, onClose, onSelectImage }) {
+function StoryPickerModal({ open, onClose, onSelectImage, userId }) {
+  const [tales, setTales] = useState([]);
+
+  useEffect(() => {
+    const fetchTales = async () => {
+      const allTales = await getTaleAllAxios(userId); // postTaleAllAxios 대신 getTaleAllAxios 사용
+      if (allTales) {
+        setTales(allTales);
+      }
+    };
+
+    if (open) {
+      fetchTales();
+    }
+  }, [open, userId]);
+
   const modalBody = {
     position: "absolute",
     top: "50%",
@@ -25,6 +40,7 @@ function StoryPickerModal({ open, onClose, onSelectImage }) {
     onSelectImage(src);
     onClose();
   };
+  
 
   return (
     <Modal
@@ -33,20 +49,15 @@ function StoryPickerModal({ open, onClose, onSelectImage }) {
       aria-labelledby="modal-title"
       aria-describedby="modal-description"
     >
-        <Box sx={modalBody}>
+      <Box sx={modalBody}>
         <h2 id="modal-title">동화 선택</h2>
-        <p id="modal-description">동화를 선택해주세요.</p>
         <Carousel showThumbs={false}>
-          <div onClick={() => handleImageClick(img1)}>
-            <img src={img1} alt="image1" />
-          </div>
-          <div onClick={() => handleImageClick(img2)}>
-            <img src={img2} alt="image2" />
-          </div>
-          <div onClick={() => handleImageClick(img2)}>
-            <img src={img2} alt="image3" />
-          </div>
-          {/* 이곳에 추가 이미지를 넣으려면 같은 형식으로 추가해 주세요. */}
+          {tales.map((tale, index) => (
+            <div key={index} onClick={() => handleImageClick(tale.img)}>
+              <img src={tale.img} alt={tale.title} />
+              <p className="legend">{tale.title}</p>
+            </div>
+          ))}
         </Carousel>
         <Button onClick={onClose}>닫기</Button>
       </Box>
@@ -55,4 +66,3 @@ function StoryPickerModal({ open, onClose, onSelectImage }) {
 }
 
 export default StoryPickerModal;
-
