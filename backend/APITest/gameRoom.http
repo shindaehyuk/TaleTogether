@@ -1,11 +1,6 @@
-POST localhost:8083/api/register-game
+GET localhost:8083/api/register-game
 Content-Type: application/json
 
-{
-
-  "sessionId" : "random"
-
-}
 
 ###
 

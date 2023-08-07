@@ -16,9 +16,9 @@ public class GameRoomController {
 
     private final GameRoomService gameRoomService;
 
-    @PostMapping("/register-game")
-    public ResponseEntity<GameRoomResponse> registerGame(@RequestBody GameRoomRequest gameRoomRequest) {
-        return ResponseEntity.ok(gameRoomService.registerGame(gameRoomRequest));
+    @RequestMapping(value = "/register-game", method = {RequestMethod.GET, RequestMethod.POST})
+    public ResponseEntity<GameRoomResponse> registerGame() {
+        return ResponseEntity.ok(gameRoomService.registerGame());
     }
 
     @DeleteMapping("/delete-game")
