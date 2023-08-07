@@ -5,11 +5,15 @@ import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
 import UpdateUserAxios from "../../../api/auth/Post/UpdateUserAxios";
 import DeleteUserAxios from "../../../api/auth/delete/DeletUserAxios";
+import UpdatePasswordAxios from "../../../api/auth/Post/UpdatePasswordAxios";
+import { useSelector } from "react-redux";
 
 function MyStatus() {
   const [newEmail, setNewEmail] = useState("");
   const [newName, setNewName] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const user = useSelector((state) => state.userSlice.userId);
+  const props = { user, newPassword };
 
   const onChangeEmail = (event) => {
     // 이메일 입력창 입력
@@ -26,7 +30,8 @@ function MyStatus() {
     setNewPassword(event.target.value);
   };
 
-  const eventHandler = (event) => {
+  const passwordEventHandler = (event) => {
+    UpdatePasswordAxios(props);
     // form 제출시 새로고침 방지
     event.preventDefault();
   };
@@ -100,7 +105,7 @@ function MyStatus() {
                   p: 4,
                 }}
               >
-                <form onSubmit={eventHandler}>
+                <form onSubmit={passwordEventHandler}>
                   <input
                     type="password"
                     value={newPassword}
@@ -111,10 +116,10 @@ function MyStatus() {
               </Box>
             </Modal>
           </>
-          <Button onClick={UpdateUserAxios({ newEmail, newName })}>
+          <Button onClick={() => UpdateUserAxios({ newEmail, newName })}>
             수정 완료
           </Button>
-          <Button onClick={DeleteUserAxios({})}>회원 탈퇴</Button>
+          <Button onClick={() => DeleteUserAxios({})}>회원 탈퇴</Button>
         </Box>
       </Box>
     </>

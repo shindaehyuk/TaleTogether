@@ -1,17 +1,17 @@
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import { Alert, Snackbar } from '@mui/material';
-import Container from '@mui/material/Container';
-import CircularProgress from '@mui/material/CircularProgress';
-import { useForm } from 'react-hook-form';
-import { useState } from 'react';
-import { useEffect } from 'react';
-import SignupAxios from '../../api/auth/Post/SignupAxios';
-import IdcheckAxios from '../../api/auth/Post/IdcheckAxios';
+import * as React from "react";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import { Alert, Snackbar } from "@mui/material";
+import Container from "@mui/material/Container";
+import CircularProgress from "@mui/material/CircularProgress";
+import { useForm } from "react-hook-form";
+import { useState } from "react";
+import { useEffect } from "react";
+import SignupAxios from "../../api/auth/Post/SignupAxios";
+import IdcheckAxios from "../../api/auth/Post/IdcheckAxios";
 
 export default function SignUp() {
   const [isLoading, setIsLoading] = useState(false);
@@ -26,7 +26,7 @@ export default function SignUp() {
   } = useForm();
 
   const emailCheck = async () => {
-    const res = await IdcheckAxios(watch('email'));
+    const res = await IdcheckAxios(watch("email"));
     if (res.data === false) {
       setIdCheck(true);
       setOpen(2);
@@ -55,7 +55,7 @@ export default function SignUp() {
 
   useEffect(() => {
     setIdCheck(false);
-  }, [watch('email')]);
+  }, [watch("email")]);
 
   return (
     <>
@@ -63,26 +63,37 @@ export default function SignUp() {
         <CssBaseline />
         <Box
           sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
           }}
         >
           <Snackbar
             open={open === 1 || open === 2 || open === 3 || open === 4}
             autoHideDuration={4000}
-            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+            anchorOrigin={{ vertical: "top", horizontal: "center" }}
             onClose={() => setOpen(0)} // Snackbar 닫기 이벤트 처리
           >
-            <Alert severity={open === 1 ? 'success' : open === 2 ? 'success' : 'error'} sx={{ width: '100%' }}>
-              {open === 1 && '회원가입이 완료되었습니다. 로그인 페이지로 이동합니다.'}
-              {open === 2 && '사용가능한 이메일입니다.'}
-              {open === 3 && '이메일 중복검사를 해주세요.'}
-              {open === 4 && '이미 사용중인 이메일입니다.'}
+            <Alert
+              severity={
+                open === 1 ? "success" : open === 2 ? "success" : "error"
+              }
+              sx={{ width: "100%" }}
+            >
+              {open === 1 &&
+                "회원가입이 완료되었습니다. 로그인 페이지로 이동합니다."}
+              {open === 2 && "사용가능한 이메일입니다."}
+              {open === 3 && "이메일 중복검사를 해주세요."}
+              {open === 4 && "이미 사용중인 이메일입니다."}
             </Alert>
           </Snackbar>
 
-          <Box component="form" noValidate onSubmit={handleSubmit(onSubmit)} sx={{}}>
+          <Box
+            component="form"
+            noValidate
+            onSubmit={handleSubmit(onSubmit)}
+            sx={{}}
+          >
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
@@ -93,17 +104,17 @@ export default function SignUp() {
                   label="이메일"
                   color="success"
                   autoFocus
-                  {...register('email', {
+                  {...register("email", {
                     required: true,
                     pattern: {
                       value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                      message: '*이메일형식이 아닙니다.',
+                      message: "*이메일형식이 아닙니다.",
                     },
                   })}
                   error={!!errors.email}
                   helperText={errors.email?.message}
                   InputProps={{
-                    sx: { backgroundColor: '#faedcd', borderRadius: '5px' },
+                    sx: { backgroundColor: "#faedcd", borderRadius: "5px" },
                   }}
                 />
               </Grid>
@@ -115,17 +126,17 @@ export default function SignUp() {
                   fullWidth
                   color="success"
                   label="이름"
-                  {...register('nickname', {
+                  {...register("nickname", {
                     required: true,
                     pattern: {
                       value: /^(?:[가-힣]{2,8}|[a-zA-Z]{2,12})$/,
-                      message: '*한글 2 ~ 8자, 영문 2 ~ 12글자',
+                      message: "*한글 2 ~ 8자, 영문 2 ~ 12글자",
                     },
                   })}
                   error={!!errors.nickname}
                   helperText={errors.nickname?.message}
                   InputProps={{
-                    sx: { backgroundColor: '#faedcd', borderRadius: '5px' },
+                    sx: { backgroundColor: "#faedcd", borderRadius: "5px" },
                   }}
                 />
               </Grid>
@@ -137,17 +148,19 @@ export default function SignUp() {
                   type="password"
                   color="success"
                   required
-                  {...register('password', {
+                  {...register("password", {
                     required: true,
                     pattern: {
-                      value: /^(?=.*[a-zA-Z])(?=.*[!@#$%^+=-])(?=.*[0-9]).{8,15}$/,
-                      message: '*영문,숫자,특수기호를 포함한 8자리 이상, 15자리 이하',
+                      value:
+                        /^(?=.*[a-zA-Z])(?=.*[!@#$%^+=-])(?=.*[0-9]).{8,15}$/,
+                      message:
+                        "*영문,숫자,특수기호를 포함한 8자리 이상, 15자리 이하",
                     },
                   })}
                   error={!!errors.password}
                   helperText={errors.password?.message}
                   InputProps={{
-                    sx: { backgroundColor: '#faedcd', borderRadius: '5px' },
+                    sx: { backgroundColor: "#faedcd", borderRadius: "5px" },
                   }}
                 />
               </Grid>
@@ -159,11 +172,11 @@ export default function SignUp() {
                   type="password"
                   color="success"
                   label="비밀번호 확인"
-                  {...register('checkpw', {
+                  {...register("checkpw", {
                     required: true,
                     validate: (value) => {
-                      if (value !== watch('password')) {
-                        return '비밀번호가 같지 않습니다.';
+                      if (value !== watch("password")) {
+                        return "비밀번호가 같지 않습니다.";
                       }
                       return true;
                     },
@@ -171,7 +184,7 @@ export default function SignUp() {
                   error={!!errors.checkpw}
                   helperText={errors.checkpw?.message}
                   InputProps={{
-                    sx: { backgroundColor: '#faedcd', borderRadius: '5px' },
+                    sx: { backgroundColor: "#faedcd", borderRadius: "5px" },
                   }}
                 />
               </Grid>
@@ -184,9 +197,9 @@ export default function SignUp() {
                   fullWidth
                   variant="contained"
                   color="inherit"
-                  sx={{ mt: 2, backgroundColor: '#faedcd', color: 'black' }}
+                  sx={{ mt: 2, backgroundColor: "#faedcd", color: "black" }}
                 >
-                  {idCheck ? '이메일 사용가능' : '이메일 중복검사'}
+                  {idCheck ? "이메일 사용가능" : "이메일 중복검사"}
                 </Button>
               </Grid>
               <Grid item xs={6}>
@@ -197,9 +210,9 @@ export default function SignUp() {
                   fullWidth
                   variant="contained"
                   color="inherit"
-                  sx={{ mt: 2, backgroundColor: '#faedcd', color: 'black' }}
+                  sx={{ mt: 2, backgroundColor: "#faedcd", color: "black" }}
                 >
-                  {isLoading ? <CircularProgress size={24} /> : 'Sign up'}
+                  {isLoading ? <CircularProgress size={24} /> : "Sign up"}
                 </Button>
               </Grid>
             </Grid>
