@@ -7,6 +7,7 @@ import lombok.Data;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
 @Data
 public class CommunityDtoGetResponse {
     private long communityId;
@@ -20,6 +21,11 @@ public class CommunityDtoGetResponse {
         this.content = community.getContent().getContent();
         this.communityId = community.getCommunityId();
         this.commentList = community.getCommentList().stream().map(CommentDtoResponse::new).collect(Collectors.toList());
-
+        this.likes = community.getCommunityLikeList().stream().count();
     }
 }
+//    public CommunityDtoGetResponse getCommunityInfo(Long communityId) {
+//        CommunityDtoGetResponse communityDtoGetResponse = new CommunityDtoGetResponse(findCommunityById(communityId));
+//        communityDtoGetResponse.setLikes(communityLikeService.getLikesCount(communityId));
+//        return communityDtoGetResponse;
+//    }
