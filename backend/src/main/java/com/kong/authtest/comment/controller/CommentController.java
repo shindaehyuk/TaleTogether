@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @Slf4j
 @RestController
-@CrossOrigin("*")
 @Api(tags = "comment")
 public class CommentController {
     private final CommentService commentService;

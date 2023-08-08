@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @Slf4j
 @RestController
-@CrossOrigin("*")
 @Api(tags = "page")
 public class PageController {
     private final PageService pageService;
