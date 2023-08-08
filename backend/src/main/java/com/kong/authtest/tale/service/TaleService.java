@@ -26,7 +26,7 @@ public class TaleService {
     @Transactional
     public TaleDtoResponse register(TaleDtoRequest taleDtoRequest) {
         User user = userRepository.findUserByUserId(taleDtoRequest.getUserId()).orElseThrow();
-        return new TaleDtoResponse(taleRepository.save(new TaleDtoRequest().toTale().addUser(user)));
+        return new TaleDtoResponse(taleRepository.save(taleDtoRequest.toTale().addUser(user)));
     }
 
     public TaleDtoGetResponse getTaleInfo(Long taleId) {

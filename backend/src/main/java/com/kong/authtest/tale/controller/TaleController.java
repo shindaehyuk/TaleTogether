@@ -17,7 +17,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 @RestController
-@CrossOrigin("*")
 @Api(tags = "tale")
 public class TaleController {
 
