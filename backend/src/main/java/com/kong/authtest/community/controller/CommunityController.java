@@ -34,8 +34,11 @@ public class CommunityController {
 
     @GetMapping("/all/{page}")
     @ApiOperation(value = "모든 커뮤니티 정보 얻는 API", notes = "모든 커뮤니티 정보를 얻는 API")
-    public ResponseEntity<List<CommunityDtoGetResponse>> getAll(@PathVariable int page) {
-        return ResponseEntity.ok( communityService.getAll(page));
+    public ResponseEntity<List<CommunityListResponse>> getAll(@PathVariable int page) {
+        List<CommunityListResponse> all = communityService.getAll(page);
+
+        log.info(all.get(0).getTaleTitle());
+        return ResponseEntity.ok( all);
     }
 
     @GetMapping("/detail/{username}")

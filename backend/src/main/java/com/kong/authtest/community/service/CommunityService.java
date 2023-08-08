@@ -76,10 +76,10 @@ public class CommunityService {
         communityRepository.deleteById(communityId);
     }
 
-    public List<CommunityDtoGetResponse> getAll(int page) {
+    public List<CommunityListResponse> getAll(int page) {
         return communityRepository.findAll(PageRequest.of(page, 9))
                 .stream()
-                .map((CommunityDtoGetResponse::new))
+                .map((CommunityListResponse::new))
                 .collect(Collectors.toList());
     }
 
