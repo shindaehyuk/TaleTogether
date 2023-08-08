@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/mail")
 @RequiredArgsConstructor
 @RestController
-@CrossOrigin("*")
 @Api(tags = "mail")
 public class MailController {
 

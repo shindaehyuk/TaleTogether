@@ -32,10 +32,11 @@ export default function SignIn() {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (event) => {
+  const onSubmit = async (event) => {
     setIsLoading(true);
-    // LoginAxios(event);
-    dispatch(login(event));
+    const res = await LoginAxios(event);
+    console.log(res);
+    // dispatch(login());
 
     setTimeout(() => {
       navigate('/intro');
