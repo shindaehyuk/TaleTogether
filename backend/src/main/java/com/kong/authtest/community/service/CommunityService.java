@@ -50,11 +50,11 @@ public class CommunityService {
                 .collect(Collectors.toList());
     }
 
-    public List<CommunityDetailResponse> getLikeCommunityByUserName(String userId) {
+    public List<CommunityListResponse> getLikeCommunityByUserName(String userId) {
         User user = findUserByUserId(userId);
         return communityLikeRepository.findCommunityLikesByUser(user)
                 .stream()
-                .map(CommunityDetailResponse::new)
+                .map(CommunityListResponse::new)
                 .collect(Collectors.toList());
 
     }
