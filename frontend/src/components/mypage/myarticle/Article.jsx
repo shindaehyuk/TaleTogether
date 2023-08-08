@@ -1,23 +1,27 @@
-import Scroll from "./Scroll";
+import ArticleScroll from "./ArticleScroll";
 import { Box } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import getUserCommunityAxios from "../../../api/community/getUserCommunityAxios";
+import { useSelector } from "react-redux";
 
 function Article() {
-  const imagePaths = [
-    "../../assets/snoopy.png",
-    "../../assets/mine.png",
-    "../../assets/mypage.png",
-    "../../assets/snoopy.png",
-    "../../assets/mine.png",
-  ];
+  const [myArticles, setMyArticles] = useState([]);
 
-  const stories = [
-    "재미있어요",
-    "무서워요",
-    "집에갈래요",
-    "오늘 점심",
-    "뭐먹지",
-    "저녁은?",
-  ];
+  const user = useSelector((state) => state.userSlice.userId);
+  const props = { user };
+
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const response = await getUserCommunityAxios(props);
+        setMyArticles(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getData();
+  }, []);
+  console.log(myArticles);
 
   return (
     <>
@@ -30,9 +34,11 @@ function Article() {
         }}
       >
         <h2>내가 쓴 글</h2>
-        <h2 style={{ marginLeft: "auto" }}>총 {stories.length}개의 게시글</h2>
+        <h2 style={{ marginLeft: "auto" }}>
+          총 {myArticles.length}개의 게시글
+        </h2>
       </Box>
-      <Scroll imagePaths={imagePaths} stories={stories}></Scroll>
+      <ArticleScroll myArticles={myArticles}></ArticleScroll>
     </>
   );
 }

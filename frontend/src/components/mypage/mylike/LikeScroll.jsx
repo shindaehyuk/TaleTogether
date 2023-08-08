@@ -1,43 +1,40 @@
-import React from "react";
 import "./Like.css";
 import { Box } from "@mui/material";
+import React from "react";
 
-const Scroll = ({ imagePaths, likes }) => {
-  const Articles = likes.map((like, index) => ({
-    image: imagePaths[index],
-    like: like,
-  }));
-
+const LikeScroll = ({ myLikes }) => {
   return (
     <Box
-      className="scroll"
+      className="no-scroll"
       style={{
         width: "90%",
         height: "80%",
         overflowY: "scroll",
       }}
     >
-      {Articles.map((article, index) => (
-        <React.Fragment key={`article${index}`}>
+      {myLikes.map((like, index) => (
+        <React.Fragment key={`like${index}`}>
           <Box
-            key={`article${index}`}
             sx={{
               width: "100%",
               height: "60%",
               display: "flex",
               justifyContent: "flex-start",
+              textColor: "inherit",
+              indicatorColor: "inherit",
             }}
           >
-            <p>{article.like}</p>
-            {article.image && (
-              <img src={article.image} style={{ marginLeft: "auto" }} />
+            <p>{like.title}</p>
+            <p>{like.content}</p>
+            {like.taleImage && (
+              <img src={like.taleImage} style={{ marginLeft: "auto" }} />
             )}
           </Box>
-          <hr style={{ marginTop: "0px" }} />
+          <hr style={{ marginBottom: "0px" }} />
         </React.Fragment>
       ))}
     </Box>
   );
 };
 
-export default Scroll;
+export default LikeScroll;
