@@ -1,13 +1,8 @@
-import React from "react";
 import "./Article.css";
 import { Box } from "@mui/material";
+import React from "react";
 
-const Scroll = ({ imagePaths, stories }) => {
-  const Articles = stories.map((story, index) => ({
-    image: imagePaths[index],
-    story: story,
-  }));
-
+const ArticleScroll = ({ myArticles }) => {
   return (
     <Box
       className="no-scroll"
@@ -17,7 +12,7 @@ const Scroll = ({ imagePaths, stories }) => {
         overflowY: "scroll",
       }}
     >
-      {Articles.map((article, index) => (
+      {myArticles.map((article, index) => (
         <React.Fragment key={`article${index}`}>
           <Box
             sx={{
@@ -29,9 +24,13 @@ const Scroll = ({ imagePaths, stories }) => {
               indicatorColor: "inherit",
             }}
           >
-            <p>{article.story}</p>
-            {article.image && (
-              <img src={article.image} style={{ marginLeft: "auto" }} />
+            <p>{article.title}</p>
+            <p>{article.content}</p>
+            {article.taleTitleImage && (
+              <img
+                src={article.taleTitleImage}
+                style={{ marginLeft: "auto" }}
+              />
             )}
           </Box>
           <hr style={{ marginBottom: "0px" }} />
@@ -41,4 +40,4 @@ const Scroll = ({ imagePaths, stories }) => {
   );
 };
 
-export default Scroll;
+export default ArticleScroll;
