@@ -15,6 +15,8 @@ public class CommunityDtoGetResponse {
     private String title;
     private List<CommentDtoResponse> commentList;
     private Long likes;
+    private String taleTitle;
+    private String taleTitleImage;
 
     public CommunityDtoGetResponse(Community community) {
         this.title = community.getTitle();
@@ -22,10 +24,7 @@ public class CommunityDtoGetResponse {
         this.communityId = community.getCommunityId();
         this.commentList = community.getCommentList().stream().map(CommentDtoResponse::new).collect(Collectors.toList());
         this.likes = community.getCommunityLikeList().stream().count();
+        this.taleTitle = community.getTale().getTitle();
+        this.taleTitleImage = community.getTale().getTitleImage();
     }
 }
-//    public CommunityDtoGetResponse getCommunityInfo(Long communityId) {
-//        CommunityDtoGetResponse communityDtoGetResponse = new CommunityDtoGetResponse(findCommunityById(communityId));
-//        communityDtoGetResponse.setLikes(communityLikeService.getLikesCount(communityId));
-//        return communityDtoGetResponse;
-//    }
