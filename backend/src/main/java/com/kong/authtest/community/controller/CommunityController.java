@@ -15,7 +15,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 @RestController
-@CrossOrigin("*")
 @Api(tags = "community")
 public class CommunityController {
 
