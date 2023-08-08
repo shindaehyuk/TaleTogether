@@ -3,7 +3,7 @@ import axios from 'axios';
 async function LoginAxios(props) {
   try {
     // POST 요청은 body에 실어 보냄
-    await axios.post(
+    const res = await axios.post(
       '//i9c110.p.ssafy.io/api/auth/login',
       {
         // id: '',
@@ -17,6 +17,7 @@ async function LoginAxios(props) {
         },
       }
     );
+    return res;
   } catch (e) {
     console.error(e);
   }
