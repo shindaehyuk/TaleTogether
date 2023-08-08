@@ -8,6 +8,7 @@ import Modal from '@mui/material/Modal';
 import { useNavigate } from 'react-router-dom';
 
 import './Game.css';
+import makeGameAxios from '../../api/gameroom/makeGameAxios';
 
 export default function Game() {
   const navigate = useNavigate();
@@ -21,6 +22,13 @@ export default function Game() {
       fontFamily: ['omyu_pretty'],
     },
   });
+
+  const makeRoomHandler = async () => {
+    const res = await makeGameAxios();
+    const code = res.data.sessionId;
+    console.log(code);
+    navigate(`/webrtc/${code}`);
+  };
 
   const entranceHandler = (e) => {
     e.preventDefault();
@@ -117,7 +125,7 @@ export default function Game() {
           <div className="overlay"></div>
           <div className="button">
             <ThemeProvider theme={theme}>
-              <Button variant="outlined" color="white" sx={{ fontSize: '20px' }}>
+              <Button variant="outlined" onClick={makeRoomHandler} color="white" sx={{ fontSize: '20px' }}>
                 <Typography variant="h4">게임시작</Typography>
               </Button>
             </ThemeProvider>

@@ -24,7 +24,7 @@ function Router() {
             <Route path="community" element={<Community />} />
             <Route path="/postDetail/:postId" element={<PostDetail />} />
           </Route>
-          <Route path="webrtc" Component={VideoRoomComponent} />
+          <Route path="webrtc/:sessionId" Component={VideoRoomComponent} />
         </Route>
         <Route Component={PublicRoute}>
           <Route path="/" Component={Admin} />

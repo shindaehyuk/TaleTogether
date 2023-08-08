@@ -10,16 +10,18 @@ import OpenViduLayout from '../layout/openvidu-layout';
 import UserModel from '../models/user-model';
 import ToolbarComponent from './toolbar/ToolbarComponent';
 import { Box } from '@mui/material';
+import withRouter from './withRotuer';
+import MakeScript from './game/MakeScript';
 
 var localUser = new UserModel();
-const APPLICATION_SERVER_URL = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:8083/';
+const APPLICATION_SERVER_URL = process.env.NODE_ENV === 'production' ? '' : '//i9c110.p.ssafy.io/';
 
 class VideoRoomComponent extends Component {
   constructor(props) {
     super(props);
     this.hasBeenUpdated = false;
     this.layout = new OpenViduLayout();
-    let sessionName = this.props.sessionName ? this.props.sessionName : 'ssafy5645';
+    let sessionName = this.props.sessionName ? this.props.sessionName : this.props.params.sessionId;
     let userName = this.props.user ? this.props.user : 'OpenVidu_User' + Math.floor(Math.random() * 100);
     this.remotes = [];
     this.localUserAccessAllowed = false;
@@ -577,27 +579,13 @@ class VideoRoomComponent extends Component {
           >
             <img className="gameimage" src="../../assets/forest.jpg" alt=""></img>
           </Box>
-          <Box sx={{ width: '90%', height: '40%', flexDirection: 'column', border: 1 }}></Box>
+          <Box sx={{ width: '90%', height: '40%', flexDirection: 'column', border: 1 }}>
+            <MakeScript></MakeScript>
+          </Box>
         </Box>
       </>
     );
   }
-
-  /**
-   * --------------------------------------------
-   * GETTING A TOKEN FROM YOUR APPLICATION SERVER
-   * --------------------------------------------
-   * The methods below request the creation of a Session and a Token to
-   * your application server. This keeps your OpenVidu deployment secure.
-   *
-   * In this sample code, there is no user control at all. Anybody could
-   * access your application server endpoints! In a real production
-   * environment, your application server must identify the user to allow
-   * access to the endpoints.
-   *
-   * Visit https://docs.openvidu.io/en/stable/application-server to learn
-   * more about the integration of OpenVidu in your application server.
-   */
   async getToken() {
     const sessionId = await this.createSession(this.state.mySessionId);
     return await this.createToken(sessionId);
@@ -605,7 +593,7 @@ class VideoRoomComponent extends Component {
 
   async createSession(sessionId) {
     const response = await axios.post(
-      APPLICATION_SERVER_URL + 'api/sessions',
+      APPLICATION_SERVER_URL + 'api/get-sessions',
       { customSessionId: sessionId },
       {
         headers: { 'Content-Type': 'application/json' },
@@ -625,4 +613,4 @@ class VideoRoomComponent extends Component {
     return response.data; // The token
   }
 }
-export default VideoRoomComponent;
+export default withRouter(VideoRoomComponent);
