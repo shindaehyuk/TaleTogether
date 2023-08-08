@@ -68,6 +68,7 @@ public class ChatGptService {
 
         ChatGptResponse chatGptResponse = sendGptApiServer(chatGptRequest);
 
+
         chatGptResponse.setPageId(pageDtoResponse.getPageId());
 
         return chatGptResponse;
@@ -138,7 +139,7 @@ public class ChatGptService {
     }
 
     private void setDefaultGpt(ChatGptRequest chatGptRequest) {
-        chatGptRequest.setModel("gpt-3.5-turbo");
+        chatGptRequest.setModel("gpt-3.5-turbo-16k");
         chatGptRequest.setMessages(conversationHistory);
     }
 
