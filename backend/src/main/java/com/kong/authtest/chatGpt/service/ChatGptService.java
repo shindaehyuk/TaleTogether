@@ -95,8 +95,8 @@ public class ChatGptService {
     @NotNull
     private KarloRequest setDefaultKarlo(UserChoiceRequest userChoiceRequest, String content) throws Exception {
         KarloRequest karloRequest = new KarloRequest();
-        karloRequest.setPrompt("high quality, painting." + translateGptMessage(userChoiceRequest, content)); // 예시로 1번째 인덱스 사용
-        karloRequest.setNegative_prompt("low quality, low contrast, draft, amateur, cut off, cropped, frame, scary");
+        karloRequest.setPrompt("painting." + translateGptMessage(userChoiceRequest, content)); // 예시로 1번째 인덱스 사용
+        karloRequest.setNegative_prompt("low quality, low contrast, draft, amateur, cut off, cropped, frame, scary, letters, character");
         return karloRequest;
     }
 
