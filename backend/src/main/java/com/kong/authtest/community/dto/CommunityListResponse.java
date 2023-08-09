@@ -47,5 +47,4 @@ public class CommunityListResponse {
         this.commentCount = community.getCommentList().stream().map(CommentDtoResponse::new).count();
     }
 
-
 }
