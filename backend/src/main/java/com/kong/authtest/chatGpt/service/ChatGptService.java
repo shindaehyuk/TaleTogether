@@ -68,7 +68,7 @@ public class ChatGptService {
 
         ChatGptResponse chatGptResponse = sendGptApiServer(chatGptRequest);
 
-
+        chatGptResponse.setImage(pageDtoResponse.getImage());
         chatGptResponse.setPageId(pageDtoResponse.getPageId());
 
         return chatGptResponse;
