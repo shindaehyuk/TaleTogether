@@ -7,7 +7,6 @@ import Admin from '../page/Admin';
 
 import PrivateRoute from '../components/route/PrivateRoute';
 import PublicRoute from '../components/route/PublicRoute';
-import VideoRoomComponent from '../WebRTC/components/VideoRoomComponent';
 import Game from '../components/game/Game';
 import Intro from '../components/main/Intro';
 import NotFound from '../page/NotFound';
@@ -24,7 +23,6 @@ function Router() {
             <Route path="community" element={<Community />} />
             <Route path="/postDetail/:postId" element={<PostDetail />} />
           </Route>
-          <Route path="webrtc/:sessionId" Component={VideoRoomComponent} />
         </Route>
         <Route Component={PublicRoute}>
           <Route path="/" Component={Admin} />
