@@ -11,11 +11,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserUpdateResponse {
 
-    private String userId;
     private String name;
 
     public UserUpdateResponse(User user){
-        this.userId = user.getUserId();
         this.name = user.getName();
     }
 }

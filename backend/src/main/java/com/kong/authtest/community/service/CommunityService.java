@@ -13,6 +13,7 @@ import com.kong.authtest.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,11 +51,11 @@ public class CommunityService {
                 .collect(Collectors.toList());
     }
 
-    public List<CommunityDetailResponse> getLikeCommunityByUserName(String userId) {
+    public List<CommunityListResponse> getLikeCommunityByUserName(String userId) {
         User user = findUserByUserId(userId);
         return communityLikeRepository.findCommunityLikesByUser(user)
                 .stream()
-                .map(CommunityDetailResponse::new)
+                .map(CommunityListResponse::new)
                 .collect(Collectors.toList());
 
     }
@@ -77,7 +78,7 @@ public class CommunityService {
     }
 
     public List<CommunityListResponse> getAll(int page) {
-        return communityRepository.findAll(PageRequest.of(page, 9))
+        return communityRepository.findAll(PageRequest.of(page, 9, Sort.by("createdAt").descending()))
                 .stream()
                 .map((CommunityListResponse::new))
                 .collect(Collectors.toList());

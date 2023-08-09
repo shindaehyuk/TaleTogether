@@ -1,23 +1,27 @@
-import Scroll from "./LikeScroll";
 import { Box } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import getlikeTaleAxios from "../../../api/community/getlikeTaleAxios";
+import LikeScroll from "./LikeScroll";
 
 function Like() {
-  const imagePaths = [
-    "../../assets/forest.jpg",
-    "../../assets/makeFox.png",
-    "../../assets/joinFox.png",
-    "../../assets/snoopy.png",
-    "../../assets/mine.png",
-  ];
+  const [myLikes, setMyLikes] = useState([]);
 
-  const likes = [
-    "너무좋아요",
-    "좋아좋아",
-    "원숭이",
-    "나무에",
-    "올라가",
-    "몽키매직?",
-  ];
+  const user = useSelector((state) => state.userSlice.userId);
+  const props = { user };
+
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const response = await getlikeTaleAxios(props);
+        setMyLikes(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getData();
+  }, []);
+  console.log(myLikes);
 
   return (
     <>
@@ -29,10 +33,10 @@ function Like() {
           marginTop: "2em",
         }}
       >
-        <h2>내가 좋아요 누른 게시글</h2>
-        <h2 style={{ marginLeft: "auto" }}>총 {likes.length}개의 게시글</h2>
+        <h2>내가 쓴 글</h2>
+        <h2 style={{ marginLeft: "auto" }}>총 {myLikes.length}개의 게시글</h2>
       </Box>
-      <Scroll imagePaths={imagePaths} likes={likes}></Scroll>
+      <LikeScroll myLikes={myLikes}></LikeScroll>
     </>
   );
 }

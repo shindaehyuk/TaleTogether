@@ -68,6 +68,7 @@ public class ChatGptService {
 
         ChatGptResponse chatGptResponse = sendGptApiServer(chatGptRequest);
 
+        chatGptResponse.setImage(pageDtoResponse.getImage());
         chatGptResponse.setPageId(pageDtoResponse.getPageId());
 
         return chatGptResponse;
@@ -94,8 +95,8 @@ public class ChatGptService {
     @NotNull
     private KarloRequest setDefaultKarlo(UserChoiceRequest userChoiceRequest, String content) throws Exception {
         KarloRequest karloRequest = new KarloRequest();
-        karloRequest.setPrompt("high quality, painting." + translateGptMessage(userChoiceRequest, content)); // 예시로 1번째 인덱스 사용
-        karloRequest.setNegative_prompt("low quality, low contrast, draft, amateur, cut off, cropped, frame, scary");
+        karloRequest.setPrompt("painting." + translateGptMessage(userChoiceRequest, content)); // 예시로 1번째 인덱스 사용
+        karloRequest.setNegative_prompt("low quality, low contrast, draft, amateur, cut off, cropped, frame, scary, letters, character");
         return karloRequest;
     }
 
@@ -138,7 +139,7 @@ public class ChatGptService {
     }
 
     private void setDefaultGpt(ChatGptRequest chatGptRequest) {
-        chatGptRequest.setModel("gpt-3.5-turbo");
+        chatGptRequest.setModel("gpt-3.5-turbo-16k");
         chatGptRequest.setMessages(conversationHistory);
     }
 

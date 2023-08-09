@@ -12,6 +12,9 @@ function MyStatus() {
   const [newEmail, setNewEmail] = useState("");
   const [newName, setNewName] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   const user = useSelector((state) => state.userSlice.userId);
   const props = { user, newPassword };
 
@@ -31,14 +34,11 @@ function MyStatus() {
   };
 
   const passwordEventHandler = (event) => {
-    UpdatePasswordAxios(props);
     // form 제출시 새로고침 방지
     event.preventDefault();
+    UpdatePasswordAxios(props);
+    handleClose();
   };
-
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
 
   return (
     <>

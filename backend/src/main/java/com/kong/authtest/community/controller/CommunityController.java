@@ -49,7 +49,7 @@ public class CommunityController {
 
     @GetMapping("/likes/{username}")
     @ApiOperation(value = "유저 아이디로 좋아요한 커뮤니티 디테일 정보 얻는 API", notes = "유저 아이디로 좋아요한 커뮤니티 디테일 정보 얻는 API")
-    public ResponseEntity<List<CommunityDetailResponse>> getLikeCommunityDetailByUserName(@PathVariable String username) {
+    public ResponseEntity<List<CommunityListResponse>> getLikeCommunityDetailByUserName(@PathVariable String username) {
         return ResponseEntity.ok(communityService.getLikeCommunityByUserName(username));
     }
 
