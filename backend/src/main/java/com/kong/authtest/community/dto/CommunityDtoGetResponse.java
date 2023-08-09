@@ -15,6 +15,7 @@ public class CommunityDtoGetResponse {
     private String title;
     private List<CommentDtoResponse> commentList;
     private Long likes;
+    private Long taleId;
     private String taleTitle;
     private String taleTitleImage;
 
@@ -24,6 +25,7 @@ public class CommunityDtoGetResponse {
         this.communityId = community.getCommunityId();
         this.commentList = community.getCommentList().stream().map(CommentDtoResponse::new).collect(Collectors.toList());
         this.likes = community.getCommunityLikeList().stream().count();
+        this.taleId = community.getTale().getTaleId();
         this.taleTitle = community.getTale().getTitle();
         this.taleTitleImage = community.getTale().getTitleImage();
     }
