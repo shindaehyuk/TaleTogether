@@ -63,7 +63,6 @@ const Carousel = () => {
     };
     getData();
   }, []);
-  console.log(myStories);
 
   const settings = {
     dots: true,
@@ -100,6 +99,10 @@ const Carousel = () => {
               key={index}
               myStory={myStory}
               alt={`Image ${index + 1}`}
+              lastPageId={
+                myStory["pageList"][myStory["pageList"].length - 1]["pageId"]
+              }
+              firstPageId={myStory["pageList"][0]["pageId"]}
             />
           ))}
       </Slider>
