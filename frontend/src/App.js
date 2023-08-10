@@ -13,7 +13,7 @@ function App() {
     },
   });
   window.addEventListener('storage', (event) => {
-    if (event.key === 'Token') {
+    if (event.key === 'token') {
       // 토큰이 변경되면 로그아웃 처리
       dispatch(logout());
     }

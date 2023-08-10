@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { Outlet, Navigate } from 'react-router-dom';
 
 const PrivateRoute = () => {
-  const isLogin = useSelector((state) => state.userSlice.token);
+  const isLogin = sessionStorage.getItem('token');
   return isLogin ? <Outlet /> : <Navigate to="/" />;
 };
 

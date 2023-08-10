@@ -31,14 +31,13 @@ export default function Game() {
   const makeRoomHandler = async () => {
     const res = await makeGameAxios();
     const code = res.data.sessionId;
-    console.log(code);
-    navigate(`/webrtc/${code}`);
+    navigate(`/webrtc/${code}`, { state: { code, owner: true } });
   };
 
   const entranceHandler = (e) => {
     e.preventDefault();
     console.log(code);
-    navigate(`/webrtc/${code}`);
+    navigate(`/webrtc/${code}`, { state: { code, owner: false } });
   };
 
   const codeHandler = (e) => {
