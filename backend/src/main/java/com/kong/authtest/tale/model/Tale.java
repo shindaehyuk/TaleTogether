@@ -2,7 +2,9 @@ package com.kong.authtest.tale.model;
 
 import com.kong.authtest.common.baseEntity.BaseEntity;
 import com.kong.authtest.community.model.Community;
+import com.kong.authtest.gameRoom.domain.GameRoom;
 import com.kong.authtest.page.model.Page;
+import com.kong.authtest.taleUser.domain.UserTale;
 import com.kong.authtest.user.model.User;
 import lombok.*;
 
@@ -20,12 +22,12 @@ public class Tale extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long taleId;
 
-    @ManyToOne
-    private User user;
-
     private String title;
 
     private String titleImage;
+
+    @OneToOne(mappedBy = "tale", cascade = CascadeType.ALL)
+    private GameRoom gameRoom;
 
     @OneToMany(mappedBy = "tale", orphanRemoval = true, cascade = CascadeType.REMOVE)
     private List<Page> pageList = new ArrayList<>();
@@ -33,8 +35,8 @@ public class Tale extends BaseEntity {
     @OneToMany(mappedBy = "tale", orphanRemoval = true, cascade = CascadeType.REMOVE)
     private List<Community> communityList = new ArrayList<>();
 
-    public Tale addUser(User user) {
-        this.user = user;
-        return this;
-    }
+    @OneToMany(mappedBy = "tale")
+    private List<UserTale> userTaleList = new ArrayList<>();
+
+
 }

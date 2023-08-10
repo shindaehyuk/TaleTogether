@@ -16,6 +16,9 @@ function StoryPickerModal({ open, onClose, onSelectImage, userId }) {
       const allTales = await getTaleAllAxios(userId); // postTaleAllAxios 대신 getTaleAllAxios 사용
       if (allTales) {
         setTales(allTales);
+        console.log(userId)
+      } else{
+        console.log(userId)
       }
     };
 
@@ -36,11 +39,10 @@ function StoryPickerModal({ open, onClose, onSelectImage, userId }) {
     borderRadius: "5px",
   };
 
-  const handleImageClick = (src) => {
-    onSelectImage(src);
+  const handleImageClick = (src, id, title) => {
+    onSelectImage(src, id, title);
     onClose();
   };
-  
 
   return (
     <Modal
@@ -53,7 +55,10 @@ function StoryPickerModal({ open, onClose, onSelectImage, userId }) {
         <h2 id="modal-title">동화 선택</h2>
         <Carousel showThumbs={false}>
           {tales.map((tale, index) => (
-            <div key={index} onClick={() => handleImageClick(tale.img)}>
+            <div
+              key={index}
+              onClick={() => handleImageClick(tale.titleImage , tale.taleId, tale.title)}
+            >
               <img src={tale.img} alt={tale.title} />
               <p className="legend">{tale.title}</p>
             </div>

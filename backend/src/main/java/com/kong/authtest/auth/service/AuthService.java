@@ -4,12 +4,14 @@ import com.kong.authtest.user.dto.UserDto;
 import com.kong.authtest.user.model.User;
 import com.kong.authtest.user.service.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class AuthService {
     private final PasswordEncoder passwordEncoder;
@@ -24,7 +26,19 @@ public class AuthService {
         String password = userDto.getPassword();
         User user = userService.getUserByUserId(userId);
         if (passwordEncoder.matches(password, user.getPassword())) {
-            return tokenService.generateTokens(userId);
+            HashMap<String, Object> stringObjectHashMap = tokenService.generateTokens(userId);
+            return stringObjectHashMap;
+        }
+        return null;
+    }
+
+    public String testLogin(final UserDto userDto) {
+        String userId = userDto.getUserId();
+        String password = userDto.getPassword();
+        User user = userService.getUserByUserId(userId);
+        if (passwordEncoder.matches(password, user.getPassword())) {
+            String token = tokenService.generateAccessToken(userId);
+            return token;
         }
         return null;
     }

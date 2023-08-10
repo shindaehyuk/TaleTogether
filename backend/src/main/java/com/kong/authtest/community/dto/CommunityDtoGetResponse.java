@@ -15,16 +15,19 @@ public class CommunityDtoGetResponse {
     private String title;
     private List<CommentDtoResponse> commentList;
     private Long likes;
+    private Long taleId;
     private String taleTitle;
     private String taleTitleImage;
-
+    private String userId;
     public CommunityDtoGetResponse(Community community) {
         this.title = community.getTitle();
         this.content = community.getContent().getContent();
         this.communityId = community.getCommunityId();
         this.commentList = community.getCommentList().stream().map(CommentDtoResponse::new).collect(Collectors.toList());
         this.likes = community.getCommunityLikeList().stream().count();
+        this.taleId = community.getTale().getTaleId();
         this.taleTitle = community.getTale().getTitle();
         this.taleTitleImage = community.getTale().getTitleImage();
+        this.userId = community.getUser().getUserId();
     }
 }

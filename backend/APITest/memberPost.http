@@ -2,7 +2,7 @@ POST http://localhost:8083/api/users/join
 Content-Type: application/json
 
 {
-  "userId": "xodnjs8287@naver.com",
+  "userId": "twjang8287@naver.com",
   "name": "parkbumjin",
   "password": "qpal123!"
 }
@@ -10,32 +10,39 @@ Content-Type: application/json
 ###
 
 // 로그인
-POST http://localhost:8083/api/auth/login
+POST http://localhost:8083/api/auth/test/login
 Content-Type: application/json
 
 {
-  "userId": "xodnjs8287@naver.com",
+  "userId": "twjang8287@naver.com",
   "password": "qpal123!"
 }
 
 ###
 
 // 회원 조회
-GET http://localhost:8083/api/users/hello@naver.com
+GET http://localhost:8083/api/users/get/twjang8287@naver.com
+Content-Type: application/json
+
+###
+GET http://localhost:8083/api/users/get
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0d2phbmc4Mjg3QG5hdmVyLmNvbSIsImV4cCI6MTY5MTY0NzgwOSwiaXNzIjoia29uZy5jb20ifQ.tgsRtUADO0jTFY6gBfn9Qr_bbqrzWKwG4LaqX1alwDY
 Content-Type: application/json
 
 ###
 //회원 수정
-PATCH http://localhost:8083/api/users/update/member/xodnjs8287@naver.com
+PATCH http://localhost:8083/api/users/update-user
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0d2phbmc4Mjg3QG5hdmVyLmNvbSIsImV4cCI6MTY5MTY0NzgwOSwiaXNzIjoia29uZy5jb20ifQ.tgsRtUADO0jTFY6gBfn9Qr_bbqrzWKwG4LaqX1alwDY
 Content-Type: application/json
 
 {
-  "userId": "hello@naver.com"
+  "name" : "asdas"
 }
 
 ###
 //비밀번호 변경
-PATCH http://localhost:8083/api/users/update-password/member/hello@naver.com
+PATCH http://localhost:8083/api/users/update-password
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0d2phbmc4Mjg3QG5hdmVyLmNvbSIsImV4cCI6MTY5MTY0NzgwOSwiaXNzIjoia29uZy5jb20ifQ.tgsRtUADO0jTFY6gBfn9Qr_bbqrzWKwG4LaqX1alwDY
 Content-Type: application/json
 
 {
@@ -46,3 +53,24 @@ Content-Type: application/json
 //회원탈퇴
 DELETE http://localhost:8083/api/users/delete-member/xodnjs8287@naver.com
 Content-Type: application/json
+
+###
+POST http://i9c110.p.ssafy.io:8083/api/users/join
+Content-Type: application/json
+
+{
+  "userId": "xodnjs8287@naver.com",
+  "name": "parkbumjin",
+  "password": "qpal123!"
+}
+
+###
+
+// 로그인
+POST https://i9c110.p.ssafy.io:8083/api/auth/login
+Content-Type: application/json
+
+{
+  "userId": "xodnjs8287@naver.com",
+  "password": "qpal123!"
+}

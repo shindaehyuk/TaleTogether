@@ -2,15 +2,14 @@ import { Routes, Route } from 'react-router-dom';
 import Main from '../page/Main';
 import Mypage from '../components/mypage/Mypage';
 import Community from '../components/community/Community';
-import PostDetail from '../components/community/Postdetail';
 import Admin from '../page/Admin';
-
 import PrivateRoute from '../components/route/PrivateRoute';
 import PublicRoute from '../components/route/PublicRoute';
-import VideoRoomComponent from '../WebRTC/components/VideoRoomComponent';
 import Game from '../components/game/Game';
 import Intro from '../components/main/Intro';
 import NotFound from '../page/NotFound';
+import PostDetail from '../components/community/Postdetail';
+import Openvidu from '../components/openvidu/Openvidu';
 
 function Router() {
   return (
@@ -22,9 +21,10 @@ function Router() {
             <Route path="intro" element={<Intro />} />
             <Route path="game" element={<Game />} />
             <Route path="community" element={<Community />} />
-            <Route path="/postDetail/:postId" element={<PostDetail />} />
+            <Route element></Route>
+            <Route path="community/postDetail/:communityId" element={<PostDetail />} />
           </Route>
-          <Route path="webrtc/:sessionId" Component={VideoRoomComponent} />
+          <Route path="/webrtc/:sessionId" Component={Openvidu} />
         </Route>
         <Route Component={PublicRoute}>
           <Route path="/" Component={Admin} />

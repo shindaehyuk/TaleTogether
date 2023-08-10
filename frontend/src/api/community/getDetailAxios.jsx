@@ -5,6 +5,7 @@ export default async function getDetailAxios(props) {
     // POST 요청은 body에 실어 보냄
     const res = await axios.get(
       `//i9c110.p.ssafy.io/api/community/detail/${props.userId}`,
+      // `http://localhost:8083/api/community/detail/${props.userId}`,
       {},
       {
         headers: {

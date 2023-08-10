@@ -10,6 +10,8 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,7 +28,7 @@ public class ChatGptController {
     @PostMapping("/create-chat")
     @ApiOperation(value = "image 생성 및 page 저장하는 API", notes = "chatGpt와 통신하는 API, 결과가 바로 page DB에 저장된다.", response = ChatGptResponse.class)
     public ResponseEntity<ChatGptResponse> createChat(@RequestBody ChatGptUserChoicePageRequest chatGptRequest
-                                                      ) throws Exception {
+    ) throws Exception {
 
         ChatGptResponse response = chatGptService.createChat(
                 chatGptRequest.getUserChoiceRequest(),
@@ -35,5 +37,6 @@ public class ChatGptController {
 
         return ResponseEntity.ok(response);
     }
+
 
 }

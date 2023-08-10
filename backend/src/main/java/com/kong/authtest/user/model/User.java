@@ -4,6 +4,7 @@ import com.kong.authtest.comment.model.Comment;
 import com.kong.authtest.community.model.Community;
 import com.kong.authtest.likes.model.CommunityLike;
 import com.kong.authtest.tale.model.Tale;
+import com.kong.authtest.taleUser.domain.UserTale;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,8 +30,6 @@ public class User {
 
     private String userId;
 
-    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.REMOVE)
-    private List<Tale> taleList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.REMOVE)
     private List<Community> communityList = new ArrayList<>();
@@ -40,8 +39,9 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<CommunityLike> communityLikeList = new ArrayList<>();
-    
 
+    @OneToMany(mappedBy = "user")
+    private List<UserTale> userTaleList = new ArrayList<>();
     public void update(User user) {
         this.userId = user.getUserId();
         this.name = user.getName();

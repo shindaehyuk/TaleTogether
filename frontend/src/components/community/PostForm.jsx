@@ -6,6 +6,7 @@ import StoryPickerModal from "./StoryPickerModal";
 import "./Community.css";
 import { useSelector } from "react-redux";
 import postCommunityAxios from "../../api/community/postCommunityAxios";
+import { createSelector } from "@reduxjs/toolkit";
 
 function PostForm({ list, setList, modeChanger }) {
   const [title, setTitle] = useState("");
@@ -14,12 +15,18 @@ function PostForm({ list, setList, modeChanger }) {
 
   const [modalOpen, setModalOpen] = useState(false);
 
+  // payload를 통해 axios넘겨줄 데이터
   const [selectedImage, setSelectedImage] = useState(null);
-
   const [taleId, setTaleId] = useState("");
+  const [taleTitle, setTaleTitle] = useState("");
 
   // userId 가져오기
-  const userId = useSelector((state) => state.userSlice.userId);
+  const userSliceSelector = (state) => state.userSlice;
+  const userEmailSelector = createSelector(
+    userSliceSelector,
+    (userSlice) => userSlice.email
+  );
+  const userId = useSelector(userEmailSelector);
 
   // 동화목록 가져오기
   const handleModalOpen = () => {
@@ -30,9 +37,10 @@ function PostForm({ list, setList, modeChanger }) {
     setModalOpen(false);
   };
 
-  const handleSelectImage = (src, id) => {
+  const handleSelectImage = (src, id, title) => {
     setSelectedImage(src);
     setTaleId(id);
+    setTaleTitle(title);
   };
 
   async function handleSubmit(event) {
@@ -41,23 +49,24 @@ function PostForm({ list, setList, modeChanger }) {
       alert("제목과 내용을 모두 입력해주세요.");
       return;
     }
-  
+
     const payload = {
       title,
       content,
-      img: selectedImage,
       userId,
       taleId,
     };
-  
+
     const response = await postCommunityAxios(payload);
     if (response) {
       const newPost = response.data;
+      console.log(newPost);
       setList((prevList) => [...prevList, newPost]);
     } else {
       // 서버 측에서 게시물 저장에 실패한 경우에 대한 처리를 추가합니다.
+      console.log(payload);
     }
-  
+
     modeChanger();
   }
 

@@ -1,5 +1,6 @@
 package com.kong.authtest.chatGpt.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kong.authtest.chatGpt.dto.ChatGptRequest;
 import com.kong.authtest.chatGpt.dto.ChatGptResponse;
 import com.kong.authtest.chatGpt.dto.UserChoiceRequest;
@@ -10,8 +11,6 @@ import com.kong.authtest.karlo.service.KarloService;
 import com.kong.authtest.page.dto.PageDtoRequest;
 import com.kong.authtest.page.dto.PageDtoResponse;
 import com.kong.authtest.page.service.PageService;
-import com.kong.authtest.tale.dto.TaleDtoRequest;
-import com.kong.authtest.tale.model.Tale;
 import com.kong.authtest.tale.service.TaleService;
 import com.kong.authtest.translation.DeepLService;
 import lombok.RequiredArgsConstructor;
@@ -37,6 +36,9 @@ public class ChatGptService {
 
     private static final String API_KEY = "Bearer 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";
     private final RestTemplate restTemplate = new RestTemplate();
+
+    private final ObjectMapper objectMapper = new ObjectMapper();
+
 
     // 메시지를 저장하는 리스트
     private final List<ChatGptRequest.Messages> conversationHistory = new ArrayList<>();
@@ -68,7 +70,9 @@ public class ChatGptService {
 
         ChatGptResponse chatGptResponse = sendGptApiServer(chatGptRequest);
 
+        chatGptResponse.setImage(pageDtoResponse.getImage());
         chatGptResponse.setPageId(pageDtoResponse.getPageId());
+
 
         return chatGptResponse;
     }
@@ -94,8 +98,8 @@ public class ChatGptService {
     @NotNull
     private KarloRequest setDefaultKarlo(UserChoiceRequest userChoiceRequest, String content) throws Exception {
         KarloRequest karloRequest = new KarloRequest();
-        karloRequest.setPrompt("high quality, painting." + translateGptMessage(userChoiceRequest, content)); // 예시로 1번째 인덱스 사용
-        karloRequest.setNegative_prompt("low quality, low contrast, draft, amateur, cut off, cropped, frame, scary");
+        karloRequest.setPrompt("painting." + translateGptMessage(userChoiceRequest, content)); // 예시로 1번째 인덱스 사용
+        karloRequest.setNegative_prompt("low quality, low contrast, draft, amateur, cut off, cropped, frame, scary, letters, character");
         return karloRequest;
     }
 
@@ -107,6 +111,15 @@ public class ChatGptService {
             text = text.substring(0, 200);
         }
         return text;
+    }
+
+    private String convertToJson(Object object) {
+        try {
+            return objectMapper.writeValueAsString(object);
+        } catch (Exception e) {
+            log.error("Failed to convert object to JSON string", e);
+            throw new RuntimeException("Failed to convert object to JSON", e);
+        }
     }
 
 
@@ -138,7 +151,7 @@ public class ChatGptService {
     }
 
     private void setDefaultGpt(ChatGptRequest chatGptRequest) {
-        chatGptRequest.setModel("gpt-3.5-turbo");
+        chatGptRequest.setModel("gpt-3.5-turbo-16k");
         chatGptRequest.setMessages(conversationHistory);
     }
 

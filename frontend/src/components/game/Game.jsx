@@ -12,6 +12,11 @@ import makeGameAxios from '../../api/gameroom/makeGameAxios';
 
 export default function Game() {
   const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const [code, setCode] = useState('');
+
   const theme = createTheme({
     palette: {
       white: {
@@ -26,24 +31,18 @@ export default function Game() {
   const makeRoomHandler = async () => {
     const res = await makeGameAxios();
     const code = res.data.sessionId;
-    console.log(code);
-    navigate(`/webrtc/${code}`);
+    navigate(`/webrtc/${code}`, { state: { code, owner: true } });
   };
 
   const entranceHandler = (e) => {
     e.preventDefault();
     console.log(code);
-    // navigate('/webrtc', { state: code });
+    navigate(`/webrtc/${code}`, { state: { code, owner: false } });
   };
 
   const codeHandler = (e) => {
     setCode(e.target.value);
   };
-
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-  const [code, setCode] = useState('');
 
   const style = {
     position: 'absolute',

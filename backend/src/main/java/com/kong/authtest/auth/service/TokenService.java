@@ -2,12 +2,14 @@ package com.kong.authtest.auth.service;
 
 import com.kong.authtest.auth.util.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class TokenService {
     private final JwtTokenUtil jwtTokenUtil;
@@ -21,11 +23,16 @@ public class TokenService {
         final HashMap<String, Object> map = new HashMap<>();
         map.put("accessToken", generateAccessToken(userId));
         map.put("refreshToken", generateRefreshToken(userId));
+
         return map;
     }
 
     public String generateAccessToken(String userId) {
-        return jwtTokenUtil.generateToken(userId, expiration);
+        String token = jwtTokenUtil.generateToken(userId, expiration);
+        log.info("token {}",token);
+        log.info("userId {}", jwtTokenUtil.getUserIdFromToken(token));
+
+        return token;
     }
 
     public String generateRefreshToken(String userId) {

@@ -19,7 +19,7 @@ public class ChatGptResponse {
     private List<Choice> choices;
     private Usage usage;
     private Long pageId;
-
+    private String image;
 
     @Data
     @NoArgsConstructor

@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-export default async function createChatAxios(props) {
+export default async function createChatAxios(props, data) {
+  console.log(props, data);
   try {
     // POST 요청은 body에 실어 보냄
     const res = await axios.post(
@@ -13,15 +14,19 @@ export default async function createChatAxios(props) {
               role: 'system',
               content: 'You are a helpful assistant.',
             },
+            {
+              role: 'user',
+              content: data,
+            },
           ],
         },
         userChoiceRequest: {
-          backGround: '산',
-          player1: '범진',
-          player2: '범진2',
-          player1Character: '용감한',
-          player2Character: '소심한',
-          turn: '50',
+          backGround: props.backGround,
+          player1: props.player1,
+          player2: props.player2,
+          player1Character: props.player1Character,
+          player2Character: props.player2Character,
+          turn: props.turn,
         },
         pageDtoRequest: {
           taleId: 1,
