@@ -18,7 +18,7 @@ public class CommunityDtoGetResponse {
     private Long taleId;
     private String taleTitle;
     private String taleTitleImage;
-
+    private String userId;
     public CommunityDtoGetResponse(Community community) {
         this.title = community.getTitle();
         this.content = community.getContent().getContent();
@@ -28,5 +28,6 @@ public class CommunityDtoGetResponse {
         this.taleId = community.getTale().getTaleId();
         this.taleTitle = community.getTale().getTitle();
         this.taleTitleImage = community.getTale().getTitleImage();
+        this.userId = community.getUser().getUserId();
     }
 }

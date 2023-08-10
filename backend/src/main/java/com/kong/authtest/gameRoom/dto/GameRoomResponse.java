@@ -14,10 +14,13 @@ public class GameRoomResponse {
 
     private String sessionId;
 
+    private Long taleId;
+
     private LocalDateTime timeStamp;
 
     public GameRoomResponse (GameRoom gameRoom) {
         this.sessionId = gameRoom.getSessionId();
         this.timeStamp = gameRoom.getTimestamp();
+        this.taleId = gameRoom.getTale().getTaleId();
     }
 }

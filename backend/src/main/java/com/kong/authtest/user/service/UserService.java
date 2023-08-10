@@ -56,9 +56,6 @@ public class UserService {
 
 
     private static void checkMemberRequestNull(UserUpdateRequest userUpdateRequest, User user) {
-        if (Objects.isNull(userUpdateRequest.getUserId())) {
-            userUpdateRequest.setUserId(user.getUserId());
-        }
 
         if (Objects.isNull(userUpdateRequest.getName())) {
             userUpdateRequest.setName(user.getName());
