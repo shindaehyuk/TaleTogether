@@ -1,11 +1,12 @@
 import axios from 'axios';
 
-export default async function getPageAxios(props) {
+export default async function getPageAxios(pageId) {
   try {
+    const queryParams = `?pageId=${pageId}`;
     // POST 요청은 body에 실어 보냄
     const res = await axios.get(
-      `//i9c110.p.ssafy.io/api/page/detail/${props.pageid}`,
-      // `http://localhost:8083/api/page/detail/${props.pageid}`,
+      // `//i9c110.p.ssafy.io/api/page/detail${queryParams}`,
+      `http://localhost:8083/api/page/detail${queryParams}`,
       {},
       {
         headers: {
@@ -13,7 +14,6 @@ export default async function getPageAxios(props) {
         },
       }
     );
-    console.log(res);
     return res;
   } catch (e) {
     console.error(e);
