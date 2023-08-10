@@ -5,6 +5,7 @@ export default async function putCommunityAxios(props) {
     // POST 요청은 body에 실어 보냄
     const res = await axios.put(
       `//i9c110.p.ssafy.io/api/community/modify`,
+      // `http://localhost:8083/api/community/modify`,
       {
         content: props.content,
         taleId: props.taleId,

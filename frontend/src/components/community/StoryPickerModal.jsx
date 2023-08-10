@@ -16,6 +16,9 @@ function StoryPickerModal({ open, onClose, onSelectImage, userId }) {
       const allTales = await getTaleAllAxios(userId); // postTaleAllAxios 대신 getTaleAllAxios 사용
       if (allTales) {
         setTales(allTales);
+        console.log(userId)
+      } else{
+        console.log(userId)
       }
     };
 

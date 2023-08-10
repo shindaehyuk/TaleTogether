@@ -6,6 +6,7 @@ import StoryPickerModal from "./StoryPickerModal";
 import "./Community.css";
 import { useSelector } from "react-redux";
 import postCommunityAxios from "../../api/community/postCommunityAxios";
+import { createSelector } from "@reduxjs/toolkit";
 
 function PostForm({ list, setList, modeChanger }) {
   const [title, setTitle] = useState("");
@@ -20,7 +21,12 @@ function PostForm({ list, setList, modeChanger }) {
   const [taleTitle, setTaleTitle] = useState("");
 
   // userId 가져오기
-  const userId = useSelector((state) => state.userSlice.userId);
+  const userSliceSelector = (state) => state.userSlice;
+  const userEmailSelector = createSelector(
+    userSliceSelector,
+    (userSlice) => userSlice.email
+  );
+  const userId = useSelector(userEmailSelector);
 
   // 동화목록 가져오기
   const handleModalOpen = () => {
@@ -36,33 +42,31 @@ function PostForm({ list, setList, modeChanger }) {
     setTaleId(id);
     setTaleTitle(title);
   };
-  
+
   async function handleSubmit(event) {
     event.preventDefault();
     if (!title.trim() || !content.trim()) {
       alert("제목과 내용을 모두 입력해주세요.");
       return;
     }
-  
+
     const payload = {
       title,
       content,
-      img: selectedImage,
       userId,
       taleId,
-      taleTitle,
     };
-  
+
     const response = await postCommunityAxios(payload);
     if (response) {
       const newPost = response.data;
-      console.log(newPost)
+      console.log(newPost);
       setList((prevList) => [...prevList, newPost]);
     } else {
       // 서버 측에서 게시물 저장에 실패한 경우에 대한 처리를 추가합니다.
-      console.log(payload )
+      console.log(payload);
     }
-  
+
     modeChanger();
   }
 

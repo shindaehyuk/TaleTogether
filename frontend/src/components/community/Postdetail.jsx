@@ -9,6 +9,7 @@ import deleteCommentAxios from "../../api/comment/deleteCommentAxios";
 import getUserCommunityAxios from "../../api/community/getUserCommunityAxios";
 import putCommentAxios from "../../api/comment/putCommentAxios";
 import deleteCommunityAxios from "../../api/community/deleteCommunityAxios";
+import { createSelector } from "@reduxjs/toolkit";
 
 // NavBar
 function NavBar({ onButtonClick, onDeleteClick, isAuthor }) {
@@ -46,7 +47,12 @@ function CommentForm({ onCommentCreate }) {
   // Axios를 위해 보내줄 3가지 데이터
   const [content, setContent] = useState("");
   const { communityId } = useParams();
-  const userId = useSelector((state) => state.userSlice.userId);
+  const userSliceSelector = (state) => state.userSlice;
+  const userEmailSelector = createSelector(
+    userSliceSelector,
+    (userSlice) => userSlice.email
+  );
+  const userId = useSelector(userEmailSelector);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -188,7 +194,12 @@ function PostDetail() {
 
   const [comments, setComments] = useState([]);
 
-  const userId_now = useSelector((state) => state.userSlice.userId);
+  const userSliceSelector = (state) => state.userSlice;
+  const userEmailSelector = createSelector(
+    userSliceSelector,
+    (userSlice) => userSlice.email
+  );
+  const userId_now = useSelector(userEmailSelector);
 
   // 댓글 비동기 처리 (실패)
   const handleCommentCreated = (newComment) => {
