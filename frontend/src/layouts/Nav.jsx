@@ -1,7 +1,4 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import HomeIcon from '@mui/icons-material/Home';
 import LocalLibraryIcon from '@mui/icons-material/LocalLibrary';
