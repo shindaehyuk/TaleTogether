@@ -1,5 +1,7 @@
 package com.kong.authtest.tale.controller;
 
+import antlr.Token;
+import com.kong.authtest.auth.service.TokenService;
 import com.kong.authtest.tale.dto.TaleDtoGetResponse;
 import com.kong.authtest.tale.dto.TaleDtoRequest;
 import com.kong.authtest.tale.dto.TaleDtoResponse;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static com.kong.authtest.auth.util.JwtTokenUtil.HEADER_STRING;
+
 @RequestMapping("/api/tale")
 @RequiredArgsConstructor
 @Slf4j
@@ -21,10 +25,13 @@ import java.util.List;
 public class TaleController {
 
     private final TaleService taleService;
+    private final TokenService tokenService;
 
     @PostMapping("/register")
     @ApiOperation(value = "tale 작성 API", notes = "taleId와 userId만 작성되며, userId가 필요한 API", response = TaleDtoResponse.class)
-    public ResponseEntity<TaleDtoResponse> register(@RequestBody TaleDtoRequest taleDtoRequest) {
+    public ResponseEntity<TaleDtoResponse> register(@RequestBody TaleDtoRequest taleDtoRequest, @RequestHeader(HEADER_STRING) String token) {
+        taleDtoRequest.setUserId(tokenService.decodeUserId(token));
+        log.info(taleDtoRequest.getUserId());
         return ResponseEntity.ok(taleService.register(taleDtoRequest));
     }
 
@@ -40,10 +47,10 @@ public class TaleController {
         taleService.delete(taleId);
         return ResponseEntity.ok(true);
     }
-    @GetMapping("/info/all/{userId}")
+    @GetMapping("/info/all")
     @ApiOperation(value = "userId에 맞는 모든 tale 가져오는 API", notes = "userId에 해당되는 모든 tale을 가져온다")
-    public ResponseEntity<List<TaleDtoGetResponse>> getAllTale(@PathVariable String userId){
-        return ResponseEntity.ok(taleService.getAllTaleByUserId(userId));
+    public ResponseEntity<List<TaleDtoGetResponse>> getAllTale(@RequestHeader(HEADER_STRING) String token){
+        return ResponseEntity.ok(taleService.getAllTaleByUserId(tokenService.decodeUserId(token)));
     }
 
 }

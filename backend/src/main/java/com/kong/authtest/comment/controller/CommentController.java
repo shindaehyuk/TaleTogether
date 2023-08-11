@@ -1,5 +1,6 @@
 package com.kong.authtest.comment.controller;
 
+import com.kong.authtest.auth.service.TokenService;
 import com.kong.authtest.comment.dto.CommentDtoPutRequest;
 import com.kong.authtest.comment.dto.CommentDtoRequest;
 import com.kong.authtest.comment.dto.CommentDtoResponse;
@@ -11,6 +12,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.search.HeaderTerm;
+
+import static com.kong.authtest.auth.util.JwtTokenUtil.HEADER_STRING;
+
 @RequestMapping("/api/comment")
 @RequiredArgsConstructor
 @Slf4j
@@ -18,17 +23,19 @@ import org.springframework.web.bind.annotation.*;
 @Api(tags = "comment")
 public class CommentController {
     private final CommentService commentService;
+    private final TokenService tokenService;
 
     @PostMapping("/register")
     @ApiOperation(value = "comment 작성 API", notes = "comment를 작성하기 위한 API, content, userId, communityId가 필요하다.", response = CommentDtoResponse.class)
-    public ResponseEntity<CommentDtoResponse> register(@RequestBody CommentDtoRequest commentDtoRequest) {
+    public ResponseEntity<CommentDtoResponse> register(@RequestBody CommentDtoRequest commentDtoRequest, @RequestHeader(HEADER_STRING) String token) {
+        commentDtoRequest.setUserId(tokenService.decodeUserId(token));
         return ResponseEntity.ok(commentService.register(commentDtoRequest));
     }
 
-    @GetMapping("/info/{postId}")
+    @GetMapping("/info/{commentId}")
     @ApiOperation(value = "comment 정보를 얻는 API", notes = "comment정보를 얻기위한 API, commentId가 필요하다", response = CommentDtoResponse.class)
-    public ResponseEntity<CommentDtoResponse> getComment(@PathVariable Long postId) {
-        return ResponseEntity.ok(commentService.getInfo(postId));
+    public ResponseEntity<CommentDtoResponse> getComment(@PathVariable Long commentId) {
+        return ResponseEntity.ok(commentService.getInfo(commentId));
     }
 
     @PutMapping("/modify")
