@@ -5,7 +5,6 @@ import "./Carousel.css";
 import AreaCard from "./Card";
 import React, { useState, useEffect } from "react";
 import getTaleAllAxios from "../../../api/tale/getTaleAll";
-import { useSelector } from "react-redux";
 
 // 이전 화살표 디자인
 function NextArrow(props) {
@@ -50,12 +49,13 @@ function PrevArrow(props) {
 const Carousel = () => {
   const [myStories, setMyStories] = useState([]);
 
-  const user = useSelector((state) => state.userSlice.userId);
+  const userId = sessionStorage.getItem("email");
+  const infiniteEnabled = myStories.length > 3;
 
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await getTaleAllAxios(user);
+        const response = await getTaleAllAxios(userId);
         setMyStories(response);
       } catch (error) {
         console.error(error);
@@ -66,7 +66,7 @@ const Carousel = () => {
 
   const settings = {
     dots: true,
-    infinite: true,
+    infinite: infiniteEnabled,
     speed: 500,
     slidesToShow: 3, // 한 번에 보여질 슬라이드 수
     slidesToScroll: 1, // 한 번에 스크롤될 슬라이드 수
@@ -93,7 +93,6 @@ const Carousel = () => {
     <div>
       <Slider {...settings}>
         {myStories &&
-          myStories.length > 0 &&
           myStories.map((myStory, index) => (
             <AreaCard
               key={index}

@@ -13,7 +13,6 @@ export default function AreaCard({ myStory, alt, firstPageId, lastPageId }) {
   const [page, setPage] = useState([]);
   const [pageId, setPageId] = useState(firstPageId);
   const [pageList, setPageList] = useState(myStory["pageList"]);
-  console.log(pageList);
 
   useEffect(() => {
     if (open) {
@@ -31,7 +30,6 @@ export default function AreaCard({ myStory, alt, firstPageId, lastPageId }) {
 
   const handleOpen = () => {
     setOpen(true);
-    console.log(pageId);
   };
 
   const handleClose = () => {
@@ -48,14 +46,14 @@ export default function AreaCard({ myStory, alt, firstPageId, lastPageId }) {
   const boxStyle = {
     position: "absolute",
     display: "flex",
-    width: "80%", // 너비를 100%로 변경
-    height: "80%", // 높이를 100%로 변경
-    alignItems: "center", // alignItems를 stretch로 변경
-    justifyContent: "center", // justifyContent를 stretch로 변경
-    backgroundColor: "white",
-    boxShadow: 24,
-    padding: 4,
-    overflow: "auto", // 추가: Box가 부모 요소 내에서 스크롤되도록 설정
+    width: "80%",
+    height: "80%",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 0,
+    overflow: "auto",
+    backgroundImage: `url("../../assets/BookTemplate.jpg")`,
+    backgroundSize: "101.5% 100%",
   };
 
   return (
