@@ -7,8 +7,8 @@ import LikeScroll from "./LikeScroll";
 function Like() {
   const [myLikes, setMyLikes] = useState([]);
 
-  const user = useSelector((state) => state.userSlice.userId);
-  const props = { user };
+  const id = useSelector((state) => state.userSlice.userId);
+  const props = { id };
 
   useEffect(() => {
     const getData = async () => {

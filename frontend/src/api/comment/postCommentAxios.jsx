@@ -9,11 +9,12 @@ export default async function postCommentAxios(props) {
       {
         content: props.content,
         communityId: props.communityId,
-        userId: props.email,
+        userId: null,
       },
       {
         headers: {
           'Content-Type': 'application/json',
+          Authorization: sessionStorage.getItem('token'),
         },
       }
     );

@@ -4,14 +4,15 @@ export default async function UpdateUserAxios(props) {
   try {
     // POST 요청은 body에 실어 보냄
     const res = await axios.patch(
-      `//i9c110.p.ssafy.io/api/users/update/${props.email}`,
+      `//i9c110.p.ssafy.io/api/users/update`,
       {
         name: props.name,
-        userId: props.email,
+        userId: null,
       },
       {
         headers: {
           'Content-Type': 'application/json',
+          Authorization: sessionStorage.getItem('token'),
         },
       }
     );

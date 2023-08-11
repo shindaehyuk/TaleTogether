@@ -30,6 +30,12 @@ public class AuthController {
         return authService.testLogin(userDto);
     }
 
+//    @PostMapping("/test/login")
+//    public ResponseEntity<HashMap<String, Object>> testLogin(@RequestBody final UserDto userDto) {
+//        return ResponseEntity.ok(authService.testLogin(userDto.getUserId()));
+//
+//    }
+
     @GetMapping("/refresh/{userId}")
     public ResponseEntity<?> refresh(HttpServletRequest request, @PathVariable final String userId) {
         HashMap<String, Object> token = authService.refresh(request.getHeader(JwtTokenUtil.HEADER_STRING), userId);

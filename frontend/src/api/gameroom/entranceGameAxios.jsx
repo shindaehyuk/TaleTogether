@@ -1,11 +1,12 @@
 import axios from 'axios';
 
-export default async function deleteTaleAxios(props) {
+export default async function entranceGamxAxios(sessionId) {
+  const userId = sessionStorage.getItem('email');
   try {
     // POST 요청은 body에 실어 보냄
-    const res = await axios.delete(
-      `//i9c110.p.ssafy.io/api/tale/delete/${props.taleid}`,
-      // `http://localhost:8083/api/tale/delete/${props.taleid}`,
+    const res = await axios.get(
+      // '//i9c110.p.ssafy.io/api/register-game',
+      `http://localhost:8083/api/enter-game/${sessionId}`,
       {},
       {
         headers: {

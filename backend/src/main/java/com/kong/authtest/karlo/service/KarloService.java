@@ -119,7 +119,7 @@ public class KarloService {
             URL url = new URL(image);
             URLConnection connection = url.openConnection();
             InputStream in = connection.getInputStream();
-            FileOutputStream out = new FileOutputStream(fileName);
+            FileOutputStream out = new FileOutputStream("../frontend/public/karlo/" + fileName);
 
             byte[] buffer = new byte[4096];
             int bytesRead;

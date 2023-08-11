@@ -1,12 +1,12 @@
 import axios from 'axios';
 
-export default async function createChatAxios(props) {
-  console.log(props);
+export default async function createChatAxios(props, data) {
+  console.log(props, data);
   try {
     // POST 요청은 body에 실어 보냄
     const res = await axios.post(
-      '//i9c110.p.ssafy.io/api/create-chat',
-      // 'http://localhost:8083/api/create-chat',
+      // '//i9c110.p.ssafy.io/api/create-chat',
+      'http://localhost:8083/api/create-chat',
       {
         chatGptRequest: {
           messages: [
@@ -16,7 +16,7 @@ export default async function createChatAxios(props) {
             },
             {
               role: 'user',
-              content: props.content,
+              content: data,
             },
           ],
         },
@@ -29,7 +29,7 @@ export default async function createChatAxios(props) {
           turn: props.turn,
         },
         pageDtoRequest: {
-          taleId: 1,
+          taleId: props.taleId,
         },
       },
       {

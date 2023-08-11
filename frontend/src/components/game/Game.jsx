@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 
 import './Game.css';
 import makeGameAxios from '../../api/gameroom/makeGameAxios';
+import entranceGamxAxios from '../../api/gameroom/entranceGameAxios';
 
 export default function Game() {
   const navigate = useNavigate();
@@ -31,14 +32,16 @@ export default function Game() {
   const makeRoomHandler = async () => {
     const res = await makeGameAxios();
     const code = res.data.sessionId;
-    console.log(code);
-    navigate(`/webrtc/${code}`);
+    const taleId = res.data.taleId;
+    navigate(`/webrtc/${code}`, { state: { code, owner: true, taleId } });
   };
 
-  const entranceHandler = (e) => {
+  const entranceHandler = async (e) => {
     e.preventDefault();
-    console.log(code);
-    navigate(`/webrtc/${code}`);
+    const res = await entranceGamxAxios(code);
+    const taleId = res.data.taleId;
+
+    navigate(`/webrtc/${code}`, { state: { code, owner: false, taleId } });
   };
 
   const codeHandler = (e) => {

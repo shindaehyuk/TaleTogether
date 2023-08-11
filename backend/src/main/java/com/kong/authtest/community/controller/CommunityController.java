@@ -1,5 +1,6 @@
 package com.kong.authtest.community.controller;
 
+import com.kong.authtest.auth.service.TokenService;
 import com.kong.authtest.community.dto.*;
 import com.kong.authtest.community.service.CommunityService;
 import io.swagger.annotations.Api;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static com.kong.authtest.auth.util.JwtTokenUtil.HEADER_STRING;
+
 @RequestMapping("/api/community")
 @RequiredArgsConstructor
 @Slf4j
@@ -19,10 +22,12 @@ import java.util.List;
 public class CommunityController {
 
     private final CommunityService communityService;
+    private final TokenService tokenService;
 
     @PostMapping("/register")
     @ApiOperation(value = "커뮤니티 작성 API", notes = "커뮤니티 글을 작성하기 위해 사용하는 API, title, content, userId, taleId가 필요하다", response = CommunityDtoResponse.class)
-    public ResponseEntity<CommunityDtoResponse> register(@RequestBody CommunityDtoRequest communityDtoRequest) {
+    public ResponseEntity<CommunityDtoResponse> register(@RequestBody CommunityDtoRequest communityDtoRequest, @RequestHeader(HEADER_STRING) String token) {
+        communityDtoRequest.setUserId(tokenService.decodeUserId(token));
         return ResponseEntity.ok(communityService.register(communityDtoRequest));
     }
 
@@ -41,16 +46,16 @@ public class CommunityController {
         return ResponseEntity.ok( all);
     }
 
-    @GetMapping("/detail/{username}")
+    @GetMapping("/detail")
     @ApiOperation(value = "유저 아이디로 커뮤니티 디테일 정보 얻는 API", notes = "유저 아이디로 커뮤니티 디테일 정보 얻는 API")
-    public ResponseEntity<List<CommunityDetailResponse>> getDetailByUserName(@PathVariable String username) {
-        return ResponseEntity.ok(communityService.getCommunityInfoByUserName(username));
+    public ResponseEntity<List<CommunityDetailResponse>> getDetailByUserName(@RequestHeader(HEADER_STRING) String token) {
+        return ResponseEntity.ok(communityService.getCommunityInfoByUserName(tokenService.decodeUserId(token)));
     }
 
-    @GetMapping("/likes/{username}")
+    @GetMapping("/likes")
     @ApiOperation(value = "유저 아이디로 좋아요한 커뮤니티 디테일 정보 얻는 API", notes = "유저 아이디로 좋아요한 커뮤니티 디테일 정보 얻는 API")
-    public ResponseEntity<List<CommunityListResponse>> getLikeCommunityDetailByUserName(@PathVariable String username) {
-        return ResponseEntity.ok(communityService.getLikeCommunityByUserName(username));
+    public ResponseEntity<List<CommunityListResponse>> getLikeCommunityDetailByUserName(@RequestHeader(HEADER_STRING) String token) {
+        return ResponseEntity.ok(communityService.getLikeCommunityByUserName(tokenService.decodeUserId(token)));
     }
 
 
