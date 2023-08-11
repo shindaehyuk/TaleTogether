@@ -66,6 +66,7 @@ public class CommunityService {
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
     }
 
+    @Transactional
     public CommunityDtoResponse modify(CommunityDtoPutRequest communityDtoPutRequest) {
         findCommunityById(communityDtoPutRequest.getCommunityId())
                 .updateCommunity(communityDtoPutRequest);
