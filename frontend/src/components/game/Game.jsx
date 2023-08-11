@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import './Game.css';
 import makeGameAxios from '../../api/gameroom/makeGameAxios';
 import entranceGamxAxios from '../../api/gameroom/entranceGameAxios';
+import createSessionAxios from "../../api/CreateSessionAxios";
 
 export default function Game() {
   const navigate = useNavigate();
@@ -30,6 +31,7 @@ export default function Game() {
   });
 
   const makeRoomHandler = async () => {
+    // const res = await createSessionAxios();
     const res = await makeGameAxios();
     const code = res.data.sessionId;
     const taleId = res.data.taleId;

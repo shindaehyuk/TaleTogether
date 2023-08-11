@@ -4,141 +4,49 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9649107a-f65a-4b89-8c51-d6b4a1cf7e35" name="Changes" comment="feat : ci/cd">
+    <list default="true" id="9649107a-f65a-4b89-8c51-d6b4a1cf7e35" name="Changes" comment="fix : nginx conf&#10;http로 접속 시 redirect가 정상적으로 되지 않는 증상 해결.">
+      <change afterPath="$PROJECT_DIR$/frontend/src/api/CreateSessionAxios.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/nginx/.idea/nginx.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/docker-compose.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/nginx/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/nginx/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/nginx/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/nginx/.idea/nginx.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/nginx/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/nginx/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/nginx/default.conf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/nginx/default_dev.conf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/nginx/default_prod.conf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/.gradle/8.0/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.gradle/8.0/checksums/checksums.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/.gradle/8.0/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.gradle/8.0/checksums/md5-checksums.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/.gradle/8.0/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.gradle/8.0/checksums/sha1-checksums.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/.gradle/7.4/checksums/checksums.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/.gradle/7.4/checksums/md5-checksums.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/.gradle/7.4/checksums/sha1-checksums.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/.gradle/7.4/dependencies-accessors/dependencies-accessors.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/.gradle/7.4/dependencies-accessors/gc.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/app_local.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/.gradle/7.4/executionHistory/executionHistory.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/.gradle/7.4/executionHistory/executionHistory.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/.gradle/7.4/fileChanges/last-build.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/.gradle/7.4/fileHashes/fileHashes.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/.gradle/7.4/fileHashes/fileHashes.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/.gradle/7.4/fileHashes/resourceHashesCache.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/.gradle/7.4/gc.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/app_server.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/.gradle/8.0/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.gradle/8.0/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/.gradle/8.0/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.gradle/8.0/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/.gradle/8.0/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.gradle/8.0/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/.gradle/8.0/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.gradle/8.0/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/.gradle/8.0/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.gradle/8.0/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.gradle/file-system.probe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/.idea/modules/backend.main.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/APITest/memberPost.http" beforeDir="false" afterPath="$PROJECT_DIR$/backend/APITest/memberPost.http" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/app.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/bootJarMainClassName" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/AuthTestApplication.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/auth/Controller/AuthController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/auth/JwtAuthenticationFilter.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/auth/JwtAuthenticationProvider.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/auth/config/AuthConfig.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/auth/config/RedisConfig.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/auth/config/authConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/auth/config/authConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/auth/dto/PJTNameUserDetails.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/auth/service/AuthService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/auth/service/PJTNameUserDetailsService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/auth/service/RedisService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/auth/service/TokenService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/auth/util/JwtTokenUtil.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/chatGpt/controller/ChatGptController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/chatGpt/dto/ChatGptRequest$Messages.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/chatGpt/dto/ChatGptRequest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/chatGpt/dto/ChatGptResponse$Choice.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/chatGpt/dto/ChatGptResponse$Message.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/chatGpt/dto/ChatGptResponse$Usage.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/chatGpt/dto/ChatGptResponse.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/chatGpt/service/ChatGptService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/chatting/controller/ChatController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/chatting/domain/ChatMessage.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/chatting/domain/ChatMessageDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/chatting/service/ChatService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/cicd_test/controller/TestController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/comment/controller/CommentController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/comment/dto/CommentDtoGetRequest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/comment/dto/CommentDtoPutRequest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/comment/dto/CommentDtoRequest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/comment/dto/CommentDtoResponse.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/comment/model/Comment$CommentBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/comment/model/Comment.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/comment/repository/CommentRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/comment/service/CommentService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/common/baseEntity/BaseEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/common/commonValidation/Content.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/community/controller/CommunityController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/community/dto/CommunityDtoGetResponse.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/community/dto/CommunityDtoPutRequest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/community/dto/CommunityDtoRequest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/community/dto/CommunityDtoResponse.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/community/model/Community$CommunityBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/community/model/Community.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/community/repository/CommunityRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/community/service/CommunityService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/configuration/CorsConfig.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/configuration/SwaggerConfig.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/configuration/WebSocketConfiguration.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/karlo/controller/KarloController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/karlo/dto/KarloRequest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/karlo/dto/KarloResponse$Image.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/karlo/dto/KarloResponse.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/karlo/service/EnumInterface.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/karlo/service/EnumSerializer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/karlo/service/JsonUtil$EnumModule.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/karlo/service/JsonUtil.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/karlo/service/KarloService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/page/controller/PageController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/page/dto/PageDtoPutRequest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/page/dto/PageDtoRequest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/page/dto/PageDtoResponse.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/page/model/Page$PageBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/page/model/Page.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/page/repository/PageRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/page/service/PageService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/tale/controller/TaleController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/tale/dto/TaleDtoGetResponse.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/tale/dto/TaleDtoRequest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/tale/dto/TaleDtoResponse.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/tale/model/Tale$TaleBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/tale/model/Tale.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/tale/repository/TaleRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/tale/service/TaleService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/user/Controller/UserController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/user/dto/UserCreateRequest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/user/dto/UserCreateResponse.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/user/dto/UserDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/user/model/User$UserBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/user/model/User.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/user/repository/UserRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/main/com/kong/authtest/user/service/UserService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/classes/java/test/com/kong/authtest/AuthTestApplicationTests.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/libs/backend-0.0.1-SNAPSHOT-plain.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/libs/backend-0.0.1-SNAPSHOT.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/reports/tests/test/classes/com.kong.authtest.AuthTestApplicationTests.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/reports/tests/test/classes/com.kong.authtest.chatting.controller.ChatControllerTest.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/reports/tests/test/classes/com.kong.authtest.chatting.service.ChatServiceTest.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/reports/tests/test/css/base-style.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/reports/tests/test/css/style.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/reports/tests/test/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/reports/tests/test/js/report.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/reports/tests/test/packages/com.kong.authtest.chatting.controller.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/reports/tests/test/packages/com.kong.authtest.chatting.service.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/reports/tests/test/packages/com.kong.authtest.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/resources/main/application.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/resources/main/docker-compose.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/test-results/test/TEST-com.kong.authtest.AuthTestApplicationTests.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/test-results/test/TEST-com.kong.authtest.chatting.controller.ChatControllerTest.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/test-results/test/TEST-com.kong.authtest.chatting.service.ChatServiceTest.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/test-results/test/binary/output.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/test-results/test/binary/output.bin.idx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/test-results/test/binary/results.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/tmp/bootJar/MANIFEST.MF" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/tmp/compileTestJava/previous-compilation-data.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build/tmp/jar/MANIFEST.MF" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/docker-compose.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/kong/authtest/auth/config/AuthConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/kong/authtest/auth/config/AuthConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/kong/authtest/chatting/controller/ChatController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/kong/authtest/chatting/domain/ChatMessageDto.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/kong/authtest/chatting/service/ChatService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/test/java/com/kong/authtest/AuthTestApplicationTests.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/registerServiceWorker.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/reportWebVitals.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/setupTests.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/kong/authtest/auth/JwtAuthenticationProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/kong/authtest/auth/JwtAuthenticationProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/kong/authtest/configuration/CorsConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/kong/authtest/configuration/CorsConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/kong/authtest/gameRoom/service/GameRoomService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/kong/authtest/gameRoom/service/GameRoomService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/test/java/com/kong/authtest/chatGpt/controller/ChatGptControllerTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/api/gameroom/makeGameAxios.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/api/gameroom/makeGameAxios.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/game/Game.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/game/Game.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nginx/default_prod.conf" beforeDir="false" afterPath="$PROJECT_DIR$/nginx/default_prod.conf" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -149,7 +57,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="front-build" />
+        <entry key="$PROJECT_DIR$" value="develop" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -165,18 +73,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/SSAFY/Desktop/Coding/S09P12C110/static&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.23333333&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\SSAFY\Desktop\Coding\S09P12C110\static" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="memberPost | #1" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/backend/APITest/memberPost.http" requestIdentifier="#1" runType="Run single request">
       <method v="2" />
@@ -215,7 +133,16 @@
       <workItem from="1690353366846" duration="10000" />
       <workItem from="1690504355051" duration="42000" />
       <workItem from="1690762229689" duration="9000" />
-      <workItem from="1691125575133" duration="3893000" />
+      <workItem from="1691125575133" duration="4492000" />
+      <workItem from="1691384034836" duration="8631000" />
+      <workItem from="1691456611675" duration="14195000" />
+      <workItem from="1691509444538" duration="599000" />
+      <workItem from="1691542442217" duration="599000" />
+      <workItem from="1691571816320" duration="381000" />
+      <workItem from="1691597087222" duration="364000" />
+      <workItem from="1691628660437" duration="598000" />
+      <workItem from="1691716924495" duration="3040000" />
+      <workItem from="1691723691358" duration="2822000" />
     </task>
     <task id="LOCAL-00001" summary="feat : ci/cd">
       <option name="closed" value="true" />
@@ -225,7 +152,15 @@
       <option name="project" value="LOCAL" />
       <updated>1690347585000</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="fix : nginx conf&#10;http로 접속 시 redirect가 정상적으로 되지 않는 증상 해결.">
+      <option name="closed" value="true" />
+      <created>1691393483560</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1691393483560</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -236,7 +171,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="feature/openvidu" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -244,6 +191,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="feat : ci/cd" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat : ci/cd" />
+    <MESSAGE value="fix : nginx conf&#10;http로 접속 시 redirect가 정상적으로 되지 않는 증상 해결." />
+    <option name="LAST_COMMIT_MESSAGE" value="fix : nginx conf&#10;http로 접속 시 redirect가 정상적으로 되지 않는 증상 해결." />
   </component>
 </project>
