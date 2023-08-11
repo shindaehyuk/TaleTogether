@@ -24,7 +24,12 @@ public class UserController {
 
     @PostMapping("/join")
     public ResponseEntity<UserCreateResponse> addUser(@RequestBody @Valid final UserCreateRequest createRequest) {
-        return ResponseEntity.ok(userService.addUser(createRequest));
+        UserCreateResponse userCreateResponse = userService.addUser(createRequest);
+        if(userCreateResponse == null){
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok(userCreateResponse);
+
     }
 
     @PatchMapping("/update-user")
@@ -40,7 +45,11 @@ public class UserController {
 
     @PostMapping("/check-duplicate")
     public ResponseEntity<Boolean> checkValidate(@RequestBody UserDuplicateCheckRequest userDuplicateCheckRequest) {
-        return ResponseEntity.ok(userService.CheckDuplicated(userDuplicateCheckRequest));
+        boolean duplicated = userService.CheckDuplicated(userDuplicateCheckRequest);
+        if(duplicated){
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok(duplicated);
     }
 
     @PatchMapping("/update-password")

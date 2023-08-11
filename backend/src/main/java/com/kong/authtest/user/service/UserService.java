@@ -22,7 +22,12 @@ public class UserService {
 
     @Transactional
     public UserCreateResponse addUser(UserCreateRequest userCreateRequest) {
-        CheckDuplicated(userCreateRequest);
+        try{
+            CheckDuplicated(userCreateRequest);
+        }catch (IllegalArgumentException e){
+            e.printStackTrace();
+            return null;
+        }
         return new UserCreateResponse(userRepository.save(userCreateRequest.toUser(passwordEncoder)));
     }
 
