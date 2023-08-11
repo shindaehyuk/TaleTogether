@@ -1,4 +1,5 @@
 import { OpenVidu } from 'openvidu-browser';
+import './Openvidu.css';
 
 import axios from 'axios';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
@@ -13,7 +14,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Input from '@mui/material/Input';
 
-const APPLICATION_SERVER_URL = process.env.NODE_ENV === 'production' ? '' : 'https://i9c110.p.ssafy.io:4443/';
+const APPLICATION_SERVER_URL = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:8083/';
 
 export default function Openvidu() {
   //sessionId
@@ -40,6 +41,7 @@ export default function Openvidu() {
   const [image, setImage] = useState('');
   const [message, setMessage] = useState('');
   const [messageList, setMessageList] = useState([]);
+  const chatScrollRef = useRef(null);
 
   const {
     register,
@@ -180,6 +182,11 @@ export default function Openvidu() {
       });
     }
   }, [session, myUserName]);
+  useEffect(() => {
+    if (chatScrollRef.current) {
+      chatScrollRef.current.scrollTop = chatScrollRef.current.scrollHeight;
+    }
+  }, [messageList]);
 
   const leaveSession = useCallback(() => {
     // Leave the session
@@ -491,20 +498,52 @@ export default function Openvidu() {
             sx={{
               width: '100%',
               height: '30%',
-              border: 1,
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
             }}
           >
-            {messageList.map((data, index) => (
-              <div key={index}>
-                {data.nickname === myUserName ? <>내꺼 {data.message}</> : <>상대방꺼 {data.message}</>}
+            <Box
+              sx={{
+                width: '377px',
+                height: '90%',
+                border: 1,
+                backgroundColor: '#d4a373',
+                fontFamily: 'omyu_pretty',
+                display: 'flex',
+                flexDirection: 'column',
+                borderRadius: '20px',
+              }}
+            >
+              <div
+                ref={chatScrollRef}
+                style={{
+                  flex: 1,
+                  overflowY: 'scroll', // 스크롤 가능하도록 설정
+                  padding: '10px', // 스크롤 영역에 패딩 추가
+                }}
+              >
+                <div class="container">
+                  {messageList.map((data, index) => (
+                    <div key={index}>
+                      {data.nickname === myUserName ? (
+                        <div class="message-body">내꺼 {data.message}</div>
+                      ) : (
+                        <div class="message-body">상대방꺼 {data.message}</div>
+                      )}
+                    </div>
+                  ))}
+                </div>
               </div>
-            ))}
-            <Input placeholder="메세지를 입력하세요" value={message} onChange={messageChangeHandler}></Input>
-            <Button variant="text" color="inherit" onClick={sendMessageToSubscribers}>
-              메세지 보내기
-            </Button>
+
+              <Input placeholder="메세지를 입력하세요" value={message} onChange={messageChangeHandler}></Input>
+              <Button variant="text" color="inherit" onClick={sendMessageToSubscribers}>
+                메세지 보내기
+              </Button>
+            </Box>
           </Box>
         </Box>
+
         <Box
           sx={{
             width: '60%',

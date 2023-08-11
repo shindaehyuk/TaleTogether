@@ -34,19 +34,15 @@ export default function SignIn() {
 
   const onSubmit = async (event) => {
     setIsLoading(true);
-
-    // 서버에 올릴 시 이거 주석해제
     const res = await LoginAxios(event);
-    console.log(res);
-
-    // if (res) {
-    //   setTimeout(() => {
-    //     dispatch(login(res.data.));
-    //     navigate('/intro');
-    //   }, 2000); // 로그인 후 메인페이지로 이동
-    // } else {
-    //   console.log('로그인실패');
-    // }
+    if (res) {
+      setTimeout(() => {
+        dispatch(login(res.data.accessToken));
+        navigate('/intro');
+      }, 2000); // 로그인 후 메인페이지로 이동
+    } else {
+      console.log('로그인실패');
+    }
 
     // setTimeout(() => {
     //   dispatch(login(1));

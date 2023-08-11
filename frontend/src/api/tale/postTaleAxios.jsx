@@ -7,11 +7,12 @@ export default async function postTaleAxios(props) {
       '//i9c110.p.ssafy.io/api/tale/regiser',
       // 'http://localhost:8083/api/tale/regiser',
       {
-        userid: props.email,
+        userid: null,
       },
       {
         headers: {
           'Content-Type': 'application/json',
+          Authorization: sessionStorage.getItem('token'),
         },
       }
     );

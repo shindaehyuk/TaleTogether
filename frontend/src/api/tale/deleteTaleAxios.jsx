@@ -10,6 +10,7 @@ export default async function deleteTaleAxios(props) {
       {
         headers: {
           'Content-Type': 'application/json',
+          Authorization: sessionStorage.getItem('token'),
         },
       }
     );

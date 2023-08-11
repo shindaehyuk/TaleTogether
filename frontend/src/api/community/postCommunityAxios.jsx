@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 export default async function postCommunityAxios(props) {
   try {
@@ -10,11 +10,12 @@ export default async function postCommunityAxios(props) {
         content: props.content,
         taleId: props.taleId,
         title: props.title,
-        userId: props.userId,
+        userId: null,
       },
       {
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
+          Authorization: sessionStorage.getItem('token'),
         },
       }
     );

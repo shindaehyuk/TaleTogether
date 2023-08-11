@@ -6,11 +6,12 @@ export default async function entranceGamxAxios(sessionId) {
     // POST 요청은 body에 실어 보냄
     const res = await axios.get(
       // '//i9c110.p.ssafy.io/api/register-game',
-      `http://localhost:8083/api/${userId}/enter-game/${sessionId}`,
+      `http://localhost:8083/api/enter-game/${sessionId}`,
       {},
       {
         headers: {
           'Content-Type': 'application/json',
+          Authorization: sessionStorage.getItem('token'),
         },
       }
     );

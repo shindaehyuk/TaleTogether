@@ -7,11 +7,12 @@ export default async function postlikesRemoveAxios(props) {
       `//i9c110.p.ssafy.io/api/likes/remove`,
       {
         communityId: props.id,
-        userId: props.email,
+        userId: null,
       },
       {
         headers: {
           'Content-Type': 'application/json',
+          Authorization: sessionStorage.getItem('token'),
         },
       }
     );
