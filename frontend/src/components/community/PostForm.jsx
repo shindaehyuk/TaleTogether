@@ -6,18 +6,26 @@ import StoryPickerModal from "./StoryPickerModal";
 import "./Community.css";
 import { useSelector } from "react-redux";
 import postCommunityAxios from "../../api/community/postCommunityAxios";
+import putCommunityAxios from "../../api/community/putCommunityAxios";
 import { createSelector } from "@reduxjs/toolkit";
 
-function PostForm({ list, setList, modeChanger }) {
-  const [title, setTitle] = useState("");
-
-  const [content, setContent] = useState("");
+function PostForm({
+  list,
+  setList,
+  modeChanger,
+  initialValues = {},
+  setEditing,
+}) {
+  const [title, setTitle] = useState(initialValues?.title || "");
+  const [content, setContent] = useState(initialValues?.content || "");
+  const [taleId, setTaleId] = useState(initialValues?.taleId || null);
 
   const [modalOpen, setModalOpen] = useState(false);
 
   // payload를 통해 axios넘겨줄 데이터
   const [selectedImage, setSelectedImage] = useState(null);
-  const [taleId, setTaleId] = useState("");
+  // const [taleId, setTaleId] = useState("");
+
   const [taleTitle, setTaleTitle] = useState("");
 
   // userId 가져오기
@@ -43,7 +51,7 @@ function PostForm({ list, setList, modeChanger }) {
     setTaleTitle(title);
   };
 
-  async function handleSubmit(event) {
+  async function postSubmit(event) {
     event.preventDefault();
     if (!title.trim() || !content.trim()) {
       alert("제목과 내용을 모두 입력해주세요.");
@@ -63,12 +71,39 @@ function PostForm({ list, setList, modeChanger }) {
       console.log(newPost);
       setList((prevList) => [...prevList, newPost]);
     } else {
-      // 서버 측에서 게시물 저장에 실패한 경우에 대한 처리를 추가합니다.
-      console.log(payload);
     }
 
     modeChanger();
   }
+
+  async function putSubmit(event) {
+    event.preventDefault();
+    if (!title.trim() || !content.trim()) {
+      alert("제목과 내용을 모두 입력해주세요.");
+      return;
+    }
+
+    const payload = {
+      title,
+      content,
+      userId,
+      taleId,
+    };
+
+    const response = await putCommunityAxios({
+      ...payload,
+      communityId: initialValues.communityId,
+    });
+
+    if (response) {
+      setEditing(false);
+    } else {
+      // 실패한 경우 오류 처리
+    }
+  }
+  const handleSubmit = initialValues.communityId
+    ? (e) => putSubmit(e)
+    : (e) => postSubmit(e);
 
   return (
     <form onSubmit={handleSubmit}>
@@ -77,6 +112,7 @@ function PostForm({ list, setList, modeChanger }) {
           type="submit"
           sx={{ mt: "1rem", ml: "77%", width: "7rem" }}
           className="button-green"
+          onClick={handleSubmit}
         >
           작성완료
         </Button>

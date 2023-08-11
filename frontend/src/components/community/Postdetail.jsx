@@ -4,11 +4,16 @@ import { useSelector } from "react-redux";
 import CircularProgress from "@mui/material/CircularProgress";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import postCommentAxios from "../../api/comment/postCommentAxios";
 import deleteCommentAxios from "../../api/comment/deleteCommentAxios";
 import getUserCommunityAxios from "../../api/community/getUserCommunityAxios";
 import putCommentAxios from "../../api/comment/putCommentAxios";
 import deleteCommunityAxios from "../../api/community/deleteCommunityAxios";
+import postlikesAddAxios from "../../api/likse/postlikesAddAxios";
+import postlikesRemoveAxios from "../../api/likse/postlikesRemoveAxios";
+import PostForm from "./PostForm";
 import { createSelector } from "@reduxjs/toolkit";
 
 // NavBar
@@ -194,6 +199,14 @@ function PostDetail() {
 
   const [comments, setComments] = useState([]);
 
+  // 수정모드
+  const [editing, setEditing] = useState(false);
+
+  // 좋아요
+  const [liked, setLiked] = useState(false); // 좋아요 상태 관리
+  const [likeCount, setLikeCount] = useState(0); // 좋아요 개수 관리
+
+  // 현 유저의 ID
   const userSliceSelector = (state) => state.userSlice;
   const userEmailSelector = createSelector(
     userSliceSelector,
@@ -239,13 +252,30 @@ function PostDetail() {
     }
   };
 
+  // 좋아요 이벤트를 처리하는 함수
+  const handleLikeClick = async () => {
+    const likeProps = { id: post.communityId, email: userId_now };
+
+    // 좋아요 상태에 따라 좋아요 추가 또는 제거
+    if (liked) {
+      await postlikesRemoveAxios(likeProps);
+      setLikeCount(likeCount - 1);
+    } else {
+      await postlikesAddAxios(likeProps);
+      setLikeCount(likeCount + 1);
+    }
+
+    // 좋아요 상태 변경
+    setLiked(!liked);
+  };
+
   useEffect(() => {
     async function fetchPost() {
       setLoading(true);
       const res = await getUserCommunityAxios({ id: communityId });
       if (res) {
-        console.log(post);
         setPost(res.data);
+        setLikeCount(res.data.likes);
       }
 
       setLoading(false);
@@ -265,12 +295,20 @@ function PostDetail() {
   return (
     <>
       <Outlet />
-      <NavBar
-        // onButtonClick={/* 수정 버튼 클릭 이벤트 처리 */}
-        onDeleteClick={handleDeletePost} // 삭제 이벤트 처리
-        isAuthor={post.userId === userId_now} // 작성자 여부 확인
-      />
-      <PostContent post={post} onCommentCreate={handleCommentCreated} />
+      {!editing && (
+        <NavBar
+          onButtonClick={() => setEditing(!editing)}
+          onDeleteClick={handleDeletePost}
+          isAuthor={post.userId === userId_now}
+        />
+      )}
+      {editing ? (
+        console.log(post),
+        <PostForm initialValues={post} setEditing={setEditing} />
+      ) : (
+        <PostContent post={post} onCommentCreate={handleCommentCreated} />
+      )}
+
       {post.commentList.map((comment) => (
         <Comment
           key={comment.commentId}

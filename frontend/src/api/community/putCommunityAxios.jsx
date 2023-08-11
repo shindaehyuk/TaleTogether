@@ -7,10 +7,10 @@ export default async function putCommunityAxios(props) {
       `//i9c110.p.ssafy.io/api/community/modify`,
       // `http://localhost:8083/api/community/modify`,
       {
-        content: props.content,
         taleId: props.taleId,
+        content: props.content,
         title: props.title,
-        userId: props.email,
+        communityId: props.communityId
       },
       {
         headers: {
@@ -22,6 +22,10 @@ export default async function putCommunityAxios(props) {
     return res;
   } catch (e) {
     console.error(e);
+    console.log(props.title)
+    console.log(props.content)
+    console.log(props.taleId)
+    console.log(props.communityId)
     return false;
   }
 }
