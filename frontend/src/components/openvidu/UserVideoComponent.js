@@ -23,6 +23,7 @@ export default function UserVideoComponent({ streamManager }) {
       }}
     >
       <OpenViduVideoComponent streamManager={streamManager} />
+      {/* <p>{getNicknameTag()}</p> */}
       {/* {streamManager !== undefined ? (
         <div className="streamcomponent">
           <OpenViduVideoComponent streamManager={streamManager} />

@@ -29,7 +29,7 @@ export default async function createChatAxios(props, data) {
           turn: props.turn,
         },
         pageDtoRequest: {
-          taleId: 1,
+          taleId: props.taleId,
         },
       },
       {

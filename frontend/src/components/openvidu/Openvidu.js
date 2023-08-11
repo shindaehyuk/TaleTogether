@@ -11,15 +11,16 @@ import getPageAxios from '../../api/page/getPageAxios';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
+import Input from '@mui/material/Input';
 
-const APPLICATION_SERVER_URL = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:8083/';
+const APPLICATION_SERVER_URL = process.env.NODE_ENV === 'production' ? '' : 'https://i9c110.p.ssafy.io:4443/';
 
 export default function Openvidu() {
   //sessionId
   const { state } = useLocation();
 
   const [mySessionId, setMySessionId] = useState(state.code);
-  const [myUserName, setMyUserName] = useState(`Participant${Math.floor(Math.random() * 100)}`);
+  const [myUserName, setMyUserName] = useState(sessionStorage.getItem('email'));
   const [session, setSession] = useState(undefined);
   const [mainStreamManager, setMainStreamManager] = useState(undefined);
   const [publisher, setPublisher] = useState(undefined);
@@ -37,6 +38,8 @@ export default function Openvidu() {
   const [owner, setOwner] = useState(state.owner);
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState('');
+  const [message, setMessage] = useState('');
+  const [messageList, setMessageList] = useState([]);
 
   const {
     register,
@@ -51,6 +54,7 @@ export default function Openvidu() {
     player2Character: '',
     backGround: '',
     turn: '',
+    taleId: state.taleId,
   });
 
   // 페이지 뒤로가기 막기
@@ -61,6 +65,7 @@ export default function Openvidu() {
     // 뒤로가기와 앞으로 가기 막기
     window.history.pushState(null, null, window.location.href);
   });
+
   const handleMainVideoStream = useCallback(
     (stream) => {
       if (mainStreamManager !== stream) {
@@ -84,7 +89,6 @@ export default function Openvidu() {
     mySession.on('streamCreated', (event) => {
       const subscriber = mySession.subscribe(event.stream, undefined);
       setSubscribers((subscribers) => [...subscribers, subscriber]);
-      console.log('USER DATA: ' + event.stream.connection.data);
 
       // 폼데이터입력시 데이터보내기
       event.stream.session.on('signal:custom', (event) => {
@@ -115,14 +119,19 @@ export default function Openvidu() {
       // 스크립트 변경 신호 보내기
       event.stream.session.on('signal:script', (event) => {
         const receivedData = JSON.parse(event.data);
-        console.log(receivedData);
-        setScript(receivedData);
+        setScript(receivedData.script);
+        setImage(receivedData.image);
       });
       // gpt input창 변경 신호 보내기
       event.stream.session.on('signal:GptInput', (event) => {
         const receivedData = JSON.parse(event.data);
         console.log(receivedData);
         setGptInput(receivedData);
+      });
+      // message 보내기
+      event.stream.session.on('signal:message', (event) => {
+        const receivedData = JSON.parse(event.data);
+        setMessageList((prevMessageList) => [...prevMessageList, receivedData]);
       });
     });
 
@@ -179,36 +188,6 @@ export default function Openvidu() {
     }
     window.location.href = '/intro'; // 다른 URL로 이동
   }, [session]);
-
-  const switchCamera = useCallback(async () => {
-    try {
-      const devices = await OV.current.getDevices();
-      const videoDevices = devices.filter((device) => device.kind === 'videoinput');
-
-      if (videoDevices && videoDevices.length > 1) {
-        const newVideoDevice = videoDevices.filter((device) => device.deviceId !== currentVideoDevice.deviceId);
-
-        if (newVideoDevice.length > 0) {
-          const newPublisher = OV.current.initPublisher(undefined, {
-            videoSource: newVideoDevice[0].deviceId,
-            publishAudio: true,
-            publishVideo: true,
-            mirror: true,
-          });
-
-          if (session) {
-            await session.unpublish(mainStreamManager);
-            await session.publish(newPublisher);
-            setCurrentVideoDevice(newVideoDevice[0]);
-            setMainStreamManager(newPublisher);
-            setPublisher(newPublisher);
-          }
-        }
-      }
-    } catch (e) {
-      console.error(e);
-    }
-  }, [currentVideoDevice, session, mainStreamManager]);
 
   const deleteSubscriber = useCallback((streamManager) => {
     setSubscribers((prevSubscribers) => {
@@ -296,8 +275,6 @@ export default function Openvidu() {
     }, 500);
 
     setTypingTimeout(newTypingTimeout);
-
-    // sendFormDataToSubscribers(name, value); // 값 변경 시 실시간 전송
   };
 
   // 게임설정 완료 핸들러
@@ -305,9 +282,10 @@ export default function Openvidu() {
     const res = await createChatAxios(formData, '');
     const pageId = await getPageAxios(res.data.pageId);
     setScript(pageId.data.content);
+    setImage(pageId.data.image);
+    sendScriptToSubscribers(pageId.data.content, pageId.data.image);
     setShowForm(false);
     sendShowFormToSubscribers(false);
-    sendScriptToSubscribers(pageId.data.content);
     setShowInput(true);
   };
 
@@ -352,8 +330,13 @@ export default function Openvidu() {
     }
   };
   // 스크립트 메세지 보낼때 사용
-  const sendScriptToSubscribers = (data) => {
+  const sendScriptToSubscribers = (script, image) => {
     if (session) {
+      const data = {
+        script: script,
+        image: image,
+      };
+
       session
         .signal({
           type: 'script',
@@ -403,10 +386,38 @@ export default function Openvidu() {
   const makeScriptHandler = async () => {
     const res = await createChatAxios(formData, GptInput);
     const pageId = await getPageAxios(res.data.pageId);
+    console.log(pageId);
     setScript(pageId.data.content);
-    sendScriptToSubscribers(pageId.data.content);
+    setImage(pageId.data.image);
+    sendScriptToSubscribers(pageId.data.content, pageId.data.image);
     setGptInput('');
     sendGptInputToSubscribers('');
+  };
+
+  // 메세지 변경
+  const messageChangeHandler = (e) => {
+    setMessage(e.target.value);
+  };
+  // 메세지 보내기
+  const sendMessageToSubscribers = () => {
+    const mydata = {
+      message: message,
+      nickname: myUserName,
+    };
+    setMessage('');
+    if (session) {
+      session
+        .signal({
+          type: 'message',
+          data: JSON.stringify(mydata),
+        })
+        .then(() => {
+          console.log('Data sent successfully:', mydata);
+        })
+        .catch((error) => {
+          console.error('Error sending data:', error);
+        });
+    }
   };
 
   return (
@@ -443,6 +454,11 @@ export default function Openvidu() {
                 <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                   게임방 코드: {mySessionId}
                 </Typography>
+                {state.owner && !gameStarted && (
+                  <Button color="inherit" onClick={startgameHandler}>
+                    게임시작
+                  </Button>
+                )}
                 <Button color="inherit" onClick={leaveSession}>
                   종료하기
                 </Button>
@@ -470,6 +486,24 @@ export default function Openvidu() {
               </div>
             ))}
           </Box>
+          {/* 채팅창 */}
+          <Box
+            sx={{
+              width: '100%',
+              height: '30%',
+              border: 1,
+            }}
+          >
+            {messageList.map((data, index) => (
+              <div key={index}>
+                {data.nickname === myUserName ? <>내꺼 {data.message}</> : <>상대방꺼 {data.message}</>}
+              </div>
+            ))}
+            <Input placeholder="메세지를 입력하세요" value={message} onChange={messageChangeHandler}></Input>
+            <Button variant="text" color="inherit" onClick={sendMessageToSubscribers}>
+              메세지 보내기
+            </Button>
+          </Box>
         </Box>
         <Box
           sx={{
@@ -484,10 +518,16 @@ export default function Openvidu() {
             boxShadow: 10,
           }}
         >
-          {state.owner && !gameStarted && <button onClick={startgameHandler}>게임시작</button>}
-
           {/* 이미지 출력 박스 */}
-          <Box sx={{ width: '90%', height: '50%', border: 1, margin: 1 }}></Box>
+          <Box
+            sx={{
+              width: '90%',
+              height: '50%',
+              border: 1,
+              margin: 1,
+              backgroundImage: `url(../karlo/${image})`,
+            }}
+          ></Box>
 
           {/* 스크립트 출력 박스  */}
           <Box sx={{ width: '90%', height: '40%', border: 1 }}>
