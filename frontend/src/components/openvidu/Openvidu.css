@@ -1,23 +1,52 @@
-/* Message box starts here */
 .container {
   clear: both;
   position: relative;
 }
 
-.container .message-body {
-  float: left;
-  width: 300px;
+.container .message-mybody {
+  float: right;
+  width: 200px;
   height: auto;
-  border: 1px solid #ccc;
+  background-color: #fefae0;
+  padding: 6px 8px;
+  margin-bottom: 1rem;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  text-align: right;
+}
+
+.container .message-yourbody {
+  float: left;
+  width: 200px;
+  height: auto;
+  margin-bottom: 1rem;
   background-color: #ffffff;
-  border: 1px solid #000000;
   padding: 6px 8px;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   -o-border-radius: 5px;
   border-radius: 5px;
+  text-align: left;
 }
 
 .container .message-body p {
   margin: 0;
+}
+
+.chat-box {
+  flex: 1;
+  overflow-y: scroll;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.chat-box::-webkit-scrollbar {
+  display: none;
+}
+
+/* DEMO-SPECIFIC STYLES */
+.typewriter {
+  font-family: 'omyu_pretty';
 }

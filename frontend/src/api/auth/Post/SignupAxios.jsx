@@ -4,8 +4,8 @@ async function SignupAxios(props) {
   try {
     // POST 요청은 body에 실어 보냄
     const res = await axios.post(
-      '//i9c110.p.ssafy.io/api/users/join',
-      // "http://localhost:8083/api/users/join",
+      // '//i9c110.p.ssafy.io/api/users/join',
+      'http://localhost:8083/api/users/join',
       {
         userId: props.email,
         name: props.nickname,

@@ -22,16 +22,7 @@ export default function UserVideoComponent({ streamManager }) {
         // borderRadius: '20px',
       }}
     >
-      <OpenViduVideoComponent streamManager={streamManager} />
-      {/* <p>{getNicknameTag()}</p> */}
-      {/* {streamManager !== undefined ? (
-        <div className="streamcomponent">
-          <OpenViduVideoComponent streamManager={streamManager} />
-          <div>
-            <p>{getNicknameTag()}</p>
-          </div>
-        </div>
-      ) : null} */}
+      {streamManager !== undefined && <OpenViduVideoComponent streamManager={streamManager} />}
     </Box>
   );
 }

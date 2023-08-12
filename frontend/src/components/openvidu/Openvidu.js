@@ -13,6 +13,7 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Input from '@mui/material/Input';
+import SendIcon from '@mui/icons-material/Send';
 
 const APPLICATION_SERVER_URL = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:8083/';
 
@@ -21,23 +22,23 @@ export default function Openvidu() {
   const { state } = useLocation();
 
   const [mySessionId, setMySessionId] = useState(state.code);
-  const [myUserName, setMyUserName] = useState(sessionStorage.getItem('email'));
+  const [myUserName, setMyUserName] = useState(sessionStorage.getItem('token'));
   const [session, setSession] = useState(undefined);
   const [mainStreamManager, setMainStreamManager] = useState(undefined);
   const [publisher, setPublisher] = useState(undefined);
   const [subscribers, setSubscribers] = useState([]);
   const [currentVideoDevice, setCurrentVideoDevice] = useState(null);
   const [hasJoinedSession, setHasJoinedSession] = useState(false);
-  const OV = useRef(new OpenVidu());
+  const OV = useRef(new OpenVidu({ logLevel: 'error' }));
 
   const [showForm, setShowForm] = useState(false);
   const [typingTimeout, setTypingTimeout] = useState(null);
   const [gameStarted, setGameStarted] = useState(false);
-  const [script, setScript] = useState('Tale Together를 시작하기 전 주인공들의 이름과 성격, 배경, 턴수를 입력해주세요');
+  const [script, setScript] = useState('');
   const [showInput, setShowInput] = useState(false);
   const [GptInput, setGptInput] = useState('');
   const [owner, setOwner] = useState(state.owner);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState('false');
   const [image, setImage] = useState('');
   const [message, setMessage] = useState('');
   const [messageList, setMessageList] = useState([]);
@@ -59,6 +60,33 @@ export default function Openvidu() {
     taleId: state.taleId,
   });
 
+  const fields = [
+    {
+      label: '등장인물 1',
+      name: 'player1',
+    },
+    {
+      label: '등장인물 1 성격 ',
+      name: 'player1Character',
+    },
+    {
+      label: '등장인물 2',
+      name: 'player2',
+    },
+    {
+      label: '등장인물 2 성격 ',
+      name: 'player2Character',
+    },
+    {
+      label: '배경',
+      name: 'backGround',
+    },
+    {
+      label: '턴수',
+      name: 'turn',
+    },
+  ];
+
   // 페이지 뒤로가기 막기
   window.addEventListener('popstate', function (event) {
     // 페이지 새로고침
@@ -76,6 +104,9 @@ export default function Openvidu() {
     },
     [mainStreamManager]
   );
+  useEffect(() => {
+    console.log(subscribers);
+  }, [subscribers]);
 
   /// 방 처음 들어올때 세션만드는거
   useEffect(() => {
@@ -111,6 +142,7 @@ export default function Openvidu() {
       event.stream.session.on('signal:start', (event) => {
         const receivedData = JSON.parse(event.data);
         setGameStarted(receivedData);
+        setScript('Tale Together를 시작하기 전 주인공들의 이름과 성격, 배경, 턴수를 입력해주세요');
       });
       // 폼보여주는 신호 보내기
       event.stream.session.on('signal:ShowForm', (event) => {
@@ -123,11 +155,11 @@ export default function Openvidu() {
         const receivedData = JSON.parse(event.data);
         setScript(receivedData.script);
         setImage(receivedData.image);
+        setGptInput('');
       });
       // gpt input창 변경 신호 보내기
       event.stream.session.on('signal:GptInput', (event) => {
         const receivedData = JSON.parse(event.data);
-        console.log(receivedData);
         setGptInput(receivedData);
       });
       // message 보내기
@@ -298,9 +330,10 @@ export default function Openvidu() {
 
   // 처음 게임시작버튼 핸들러
   const startgameHandler = () => {
-    setShowForm(true);
+    setScript('Tale Together를 시작하기 전 주인공들의 이름과 성격, 배경, 턴수를 입력해주세요');
+    // setShowForm(true);
     sendShowFormToSubscribers(true);
-    setGameStarted(true);
+    // setGameStarted(true);
     sendDataToSubscribers(true);
   };
 
@@ -393,12 +426,10 @@ export default function Openvidu() {
   const makeScriptHandler = async () => {
     const res = await createChatAxios(formData, GptInput);
     const pageId = await getPageAxios(res.data.pageId);
-    console.log(pageId);
     setScript(pageId.data.content);
     setImage(pageId.data.image);
     sendScriptToSubscribers(pageId.data.content, pageId.data.image);
     setGptInput('');
-    sendGptInputToSubscribers('');
   };
 
   // 메세지 변경
@@ -406,7 +437,8 @@ export default function Openvidu() {
     setMessage(e.target.value);
   };
   // 메세지 보내기
-  const sendMessageToSubscribers = () => {
+  const sendMessageToSubscribers = (e) => {
+    e.preventDefault();
     const mydata = {
       message: message,
       nickname: myUserName,
@@ -426,6 +458,41 @@ export default function Openvidu() {
         });
     }
   };
+
+  // const [str, setStr] = useState([...script]);
+  // const [output, setOutput] = useState('');
+
+  // useEffect(() => {
+  //   setStr([...script]);
+  //   setOutput('');
+  // }, [script]);
+
+  // useEffect(() => {
+  //   const animate = () => {
+  //     if (str.length > 0) {
+  //       setOutput((output) => output + str.shift());
+  //       setTimeout(animate, 50);
+  //     }
+  //   };
+  //   animate();
+  // }, [str]);
+
+  // const [output, setOutput] = useState('');
+
+  // useEffect(() => {
+  //   let strCopy = [...script];
+  //   let outputString = '';
+
+  //   const animate = () => {
+  //     if (strCopy.length > 0) {
+  //       outputString += strCopy.shift();
+  //       setOutput(outputString);
+  //       setTimeout(animate, 90);
+  //     }
+  //   };
+
+  //   animate();
+  // }, [script]);
 
   return (
     <>
@@ -469,6 +536,7 @@ export default function Openvidu() {
                 <Button color="inherit" onClick={leaveSession}>
                   종료하기
                 </Button>
+                {loading}
               </Toolbar>
             </AppBar>
           </Box>
@@ -507,7 +575,6 @@ export default function Openvidu() {
               sx={{
                 width: '377px',
                 height: '90%',
-                border: 1,
                 backgroundColor: '#d4a373',
                 fontFamily: 'omyu_pretty',
                 display: 'flex',
@@ -515,31 +582,58 @@ export default function Openvidu() {
                 borderRadius: '20px',
               }}
             >
-              <div
-                ref={chatScrollRef}
-                style={{
-                  flex: 1,
-                  overflowY: 'scroll', // 스크롤 가능하도록 설정
-                  padding: '10px', // 스크롤 영역에 패딩 추가
-                }}
-              >
+              <div ref={chatScrollRef} className="chat-box">
                 <div class="container">
                   {messageList.map((data, index) => (
                     <div key={index}>
                       {data.nickname === myUserName ? (
-                        <div class="message-body">내꺼 {data.message}</div>
+                        <div class="message-mybody">{data.message}</div>
                       ) : (
-                        <div class="message-body">상대방꺼 {data.message}</div>
+                        <div class="message-yourbody">{data.message}</div>
                       )}
                     </div>
                   ))}
                 </div>
               </div>
+              <Box
+                sx={{
+                  display: 'flex',
+                  height: '20%',
+                  width: '100%',
+                  marginBottom: '10px',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                <Box
+                  sx={{
+                    backgroundColor: 'white',
 
-              <Input placeholder="메세지를 입력하세요" value={message} onChange={messageChangeHandler}></Input>
-              <Button variant="text" color="inherit" onClick={sendMessageToSubscribers}>
-                메세지 보내기
-              </Button>
+                    width: '90%',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    borderRadius: '20px',
+                  }}
+                >
+                  <form onSubmit={sendMessageToSubscribers} style={{ width: '100%' }}>
+                    <Input
+                      disableUnderline
+                      sx={{
+                        backgroundColor: 'white',
+                        borderRadius: '20px',
+                        width: '70%',
+                      }}
+                      placeholder="메세지를 입력하세요"
+                      value={message}
+                      onChange={messageChangeHandler}
+                    />
+                    <Button variant="text" color="inherit" type="submit">
+                      <SendIcon></SendIcon>
+                    </Button>
+                  </form>
+                </Box>
+              </Box>
             </Box>
           </Box>
         </Box>
@@ -571,7 +665,11 @@ export default function Openvidu() {
           {/* 스크립트 출력 박스  */}
           <Box sx={{ width: '90%', height: '40%', border: 1 }}>
             {/* 스크립트 메세지 출력 */}
-            {gameStarted && script}
+            {gameStarted && (
+              <div className="typewriter">
+                <h5>{script}</h5>
+              </div>
+            )}
 
             {/* Gpt입력창 */}
             {showInput &&
@@ -592,109 +690,24 @@ export default function Openvidu() {
             {showForm && state.owner && (
               <Box component="form" noValidate onSubmit={handleSubmit(settingCompleteHandler)} sx={{}}>
                 <Grid container spacing={2}>
-                  <Grid item xs={6}>
-                    <TextField
-                      className="animate__animated animate__fadeIn animate__delay-0.3s"
-                      required
-                      fullWidth
-                      label="주인공1"
-                      autoFocus
-                      {...register('player1', {
-                        required: true,
-                      })}
-                      color="success"
-                      error={!!errors.player1}
-                      sx={{ backgroundColor: '#faedcd', borderRadius: '5px' }}
-                      onChange={handleChange}
-                      value={formData.player1}
-                      name="player1"
-                    />
-                  </Grid>
-                  <Grid item xs={6}>
-                    <TextField
-                      className="animate__animated animate__fadeIn animate__delay-0.3s"
-                      required
-                      fullWidth
-                      color="success"
-                      label="주인공1 성격"
-                      {...register('player1Character', {
-                        required: true,
-                      })}
-                      error={!!errors.player1Character}
-                      sx={{ backgroundColor: '#faedcd', borderRadius: '5px' }}
-                      onChange={handleChange}
-                      value={formData.player1Character}
-                      name="player1Character"
-                    />
-                  </Grid>
-                  <Grid item xs={6}>
-                    <TextField
-                      className="animate__animated animate__fadeIn animate__delay-0.3s"
-                      required
-                      fullWidth
-                      color="success"
-                      label="주인공2"
-                      {...register('player2', {
-                        required: true,
-                      })}
-                      error={!!errors.player2}
-                      sx={{ backgroundColor: '#faedcd', borderRadius: '5px' }}
-                      onChange={handleChange}
-                      value={formData.player2}
-                      name="player2"
-                    />
-                  </Grid>
-                  <Grid item xs={6}>
-                    <TextField
-                      className="animate__animated animate__fadeIn animate__delay-0.3s"
-                      required
-                      fullWidth
-                      color="success"
-                      label="주인공2 성격"
-                      {...register('player2Character', {
-                        required: true,
-                      })}
-                      error={!!errors.player2Character}
-                      sx={{ backgroundColor: '#faedcd', borderRadius: '5px' }}
-                      onChange={handleChange}
-                      value={formData.player2Character}
-                      name="player2Character"
-                    />
-                  </Grid>
-                  <Grid item xs={6}>
-                    <TextField
-                      className="animate__animated animate__fadeIn animate__delay-0.3s"
-                      required
-                      fullWidth
-                      color="success"
-                      label="배경"
-                      {...register('backGround', {
-                        required: true,
-                      })}
-                      error={!!errors.backGround}
-                      sx={{ backgroundColor: '#faedcd', borderRadius: '5px' }}
-                      onChange={handleChange}
-                      value={formData.backGround}
-                      name="backGround"
-                    />
-                  </Grid>
-                  <Grid item xs={6}>
-                    <TextField
-                      className="animate__animated animate__fadeIn animate__delay-0.3s"
-                      required
-                      fullWidth
-                      color="success"
-                      label="턴수"
-                      {...register('turn', {
-                        required: true,
-                      })}
-                      error={!!errors.turn}
-                      sx={{ backgroundColor: '#faedcd', borderRadius: '5px' }}
-                      onChange={handleChange}
-                      value={formData.turn}
-                      name="turn"
-                    />
-                  </Grid>
+                  {fields.map((field) => (
+                    <Grid item xs={6}>
+                      <TextField
+                        key={field.name}
+                        className="animate__animated animate__fadeIn animate__delay-0.3s"
+                        required
+                        fullWidth
+                        color="success"
+                        label={field.label}
+                        {...register(field.name, { required: true })}
+                        error={!!errors[field.name]}
+                        sx={{ backgroundColor: '#faedcd', borderRadius: '5px' }}
+                        onChange={handleChange}
+                        value={formData[field.name]}
+                        name={field.name}
+                      />
+                    </Grid>
+                  ))}
                 </Grid>
                 <Button
                   className="animate__animated animate__fadeIn animate__delay-1.2s"
@@ -712,108 +725,25 @@ export default function Openvidu() {
             {showForm && !state.owner && (
               <Box component="form" noValidate sx={{}}>
                 <Grid container spacing={2}>
-                  <Grid item xs={6}>
-                    <TextField
-                      className="animate__animated animate__fadeIn animate__delay-0.3s"
-                      required
-                      fullWidth
-                      label="주인공1"
-                      disabled
-                      {...register('player1', {
-                        required: true,
-                      })}
-                      color="success"
-                      error={!!errors.player1}
-                      sx={{ backgroundColor: '#faedcd', borderRadius: '5px' }}
-                      value={formData.player1}
-                      name="player1"
-                    />
-                  </Grid>
-                  <Grid item xs={6}>
-                    <TextField
-                      className="animate__animated animate__fadeIn animate__delay-0.3s"
-                      required
-                      fullWidth
-                      color="success"
-                      label="주인공1 성격"
-                      disabled
-                      {...register('player1Character', {
-                        required: true,
-                      })}
-                      error={!!errors.player1Character}
-                      sx={{ backgroundColor: '#faedcd', borderRadius: '5px' }}
-                      value={formData.player1Character}
-                      name="player1Character"
-                    />
-                  </Grid>
-                  <Grid item xs={6}>
-                    <TextField
-                      className="animate__animated animate__fadeIn animate__delay-0.3s"
-                      required
-                      fullWidth
-                      color="success"
-                      label="주인공2"
-                      disabled
-                      {...register('player2', {
-                        required: true,
-                      })}
-                      error={!!errors.player2}
-                      sx={{ backgroundColor: '#faedcd', borderRadius: '5px' }}
-                      value={formData.player2}
-                      name="player2"
-                    />
-                  </Grid>
-                  <Grid item xs={6}>
-                    <TextField
-                      className="animate__animated animate__fadeIn animate__delay-0.3s"
-                      required
-                      fullWidth
-                      color="success"
-                      label="주인공2 성격"
-                      disabled
-                      {...register('player2Character', {
-                        required: true,
-                      })}
-                      error={!!errors.player2Character}
-                      sx={{ backgroundColor: '#faedcd', borderRadius: '5px' }}
-                      value={formData.player2Character}
-                      name="player2Character"
-                    />
-                  </Grid>
-                  <Grid item xs={6}>
-                    <TextField
-                      className="animate__animated animate__fadeIn animate__delay-0.3s"
-                      required
-                      fullWidth
-                      color="success"
-                      label="배경"
-                      disabled
-                      {...register('backGround', {
-                        required: true,
-                      })}
-                      error={!!errors.backGround}
-                      sx={{ backgroundColor: '#faedcd', borderRadius: '5px' }}
-                      value={formData.backGround}
-                      name="backGround"
-                    />
-                  </Grid>
-                  <Grid item xs={6}>
-                    <TextField
-                      className="animate__animated animate__fadeIn animate__delay-0.3s"
-                      required
-                      disabled
-                      fullWidth
-                      color="success"
-                      label="턴수"
-                      {...register('turn', {
-                        required: true,
-                      })}
-                      error={!!errors.turn}
-                      sx={{ backgroundColor: '#faedcd', borderRadius: '5px' }}
-                      value={formData.turn}
-                      name="turn"
-                    />
-                  </Grid>
+                  {fields.map((field) => (
+                    <Grid item xs={6}>
+                      <TextField
+                        key={field.name}
+                        className="animate__animated animate__fadeIn animate__delay-0.3s"
+                        required
+                        fullWidth
+                        disabled
+                        color="success"
+                        label={field.label}
+                        {...register(field.name, { required: true })}
+                        error={!!errors[field.name]}
+                        sx={{ backgroundColor: '#faedcd', borderRadius: '5px' }}
+                        onChange={handleChange}
+                        value={formData[field.name]}
+                        name={field.name}
+                      />
+                    </Grid>
+                  ))}
                 </Grid>
               </Box>
             )}

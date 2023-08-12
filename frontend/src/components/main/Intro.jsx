@@ -1,7 +1,15 @@
 import * as React from 'react';
 import './Intro.css';
-
+import UserinfoAxios from '../../api/auth/Get/UserinfoAxios';
+import { useEffect } from 'react';
 export default function Intro() {
+  const user = async () => {
+    const res = await UserinfoAxios();
+    console.log(res);
+  };
+  useEffect(() => {
+    user();
+  });
   return (
     <>
       <div className="cover">
