@@ -14,11 +14,9 @@ export default async function getUserCommunityAxios(props) {
       }
     );
     console.log(res);
-    console.log(props)
     return res;
   } catch (e) {
     console.error(e);
-    console.log(props)
     return false;
   }
 }

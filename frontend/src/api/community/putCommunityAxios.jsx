@@ -22,10 +22,6 @@ export default async function putCommunityAxios(props) {
     return res;
   } catch (e) {
     console.error(e);
-    console.log(props.title)
-    console.log(props.content)
-    console.log(props.taleId)
-    console.log(props.communityId)
     return false;
   }
 }
