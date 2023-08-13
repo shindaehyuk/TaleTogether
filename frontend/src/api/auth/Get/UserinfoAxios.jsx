@@ -4,8 +4,8 @@ export default async function UserinfoAxios(props) {
   try {
     // POST 요청은 body에 실어 보냄
     const res = await axios.get(
-      `//localhost:8083/api/users`,
-      {},
+      `//i9c110.p.ssafy.io/api/users/get`,
+      // `http://localhost:8083/api/users/get`,
       {
         headers: {
           'Content-Type': 'application/json',
