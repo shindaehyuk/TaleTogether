@@ -4,7 +4,7 @@ export default async function putPageAxios(props) {
   try {
     // POST 요청은 body에 실어 보냄
     const res = await axios.put(
-      `//i9c110.p.ssafy.io/api/page/modify`,
+      `//localhost:8083/api/page/modify`,
       // `http://localhost:8083/api/page/detail/${props.pageid}`,
       {},
       {
