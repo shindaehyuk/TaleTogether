@@ -49,7 +49,6 @@ public class ChatGptService {
 
     private final DeepLService deepLService;
 
-    private final TaleService taleService;
 
     @Transactional
     public ChatGptResponse createChat(UserChoiceRequest userChoiceRequest, ChatGptRequest chatGptRequest, PageDtoRequest pageDtoRequest) throws Exception {
@@ -76,6 +75,12 @@ public class ChatGptService {
 
         return chatGptResponse;
     }
+
+    public void clearConversationHistory() {
+        conversationHistory.clear();
+    }
+
+
 
     @NotNull
     private static ChatGptRequest.Messages setDefaultGptUser(UserChoiceRequest userChoiceRequest) {

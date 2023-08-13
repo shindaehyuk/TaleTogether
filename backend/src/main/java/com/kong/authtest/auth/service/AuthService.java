@@ -32,17 +32,6 @@ public class AuthService {
         return null;
     }
 
-    public String testLogin(final UserDto userDto) {
-        String userId = userDto.getUserId();
-        String password = userDto.getPassword();
-        User user = userService.getUserByUserId(userId);
-        if (passwordEncoder.matches(password, user.getPassword())) {
-            String token = tokenService.generateAccessToken(userId);
-            return token;
-        }
-        return null;
-    }
-
     // client에서 받은 refreshToken이 유효하면, 새 access, refresh 토큰 발급.
     public HashMap<String, Object> refresh(final String reqToken, final String userId) {
         if (reqToken.equals(redisService.getToken(userId)))

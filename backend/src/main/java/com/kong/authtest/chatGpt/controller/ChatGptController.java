@@ -27,15 +27,19 @@ public class ChatGptController {
 
     @PostMapping("/create-chat")
     @ApiOperation(value = "image 생성 및 page 저장하는 API", notes = "chatGpt와 통신하는 API, 결과가 바로 page DB에 저장된다.", response = ChatGptResponse.class)
-    public ResponseEntity<ChatGptResponse> createChat(@RequestBody ChatGptUserChoicePageRequest chatGptRequest
+    public ResponseEntity<?> createChat(@RequestBody ChatGptUserChoicePageRequest chatGptRequest
     ) throws Exception {
+        try{
+            ChatGptResponse response = chatGptService.createChat(
+                    chatGptRequest.getUserChoiceRequest(),
+                    chatGptRequest.getChatGptRequest(),
+                    chatGptRequest.getPageDtoRequest());
 
-        ChatGptResponse response = chatGptService.createChat(
-                chatGptRequest.getUserChoiceRequest(),
-                chatGptRequest.getChatGptRequest(),
-                chatGptRequest.getPageDtoRequest());
+            return ResponseEntity.ok(response);
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body("Create-Chat에서 오류 발생");
+        }
 
-        return ResponseEntity.ok(response);
     }
 
 
