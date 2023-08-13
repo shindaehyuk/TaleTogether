@@ -50,7 +50,7 @@ public class UserController {
         if(duplicated){
             return ResponseEntity.badRequest().body("checkValidate가 true임다");
         }
-        return ResponseEntity.ok(duplicated);
+        return ResponseEntity.ok(false);
     }
 
     @PatchMapping("/update-password")

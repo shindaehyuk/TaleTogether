@@ -50,8 +50,7 @@ public class CommunityController {
     @ApiOperation(value = "모든 커뮤니티 정보 얻는 API", notes = "모든 커뮤니티 정보를 얻는 API")
     public ResponseEntity<?> getAll(@PathVariable int page) {
         try {
-            List<CommunityListResponse> all = communityService.getAll(page);
-            return ResponseEntity.ok( all);
+            return ResponseEntity.ok(communityService.getAll(page));
         }catch (Exception e){
             return ResponseEntity.badRequest().body("community getAll 오류");
         }
