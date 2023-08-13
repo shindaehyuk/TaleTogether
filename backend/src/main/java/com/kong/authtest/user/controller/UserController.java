@@ -23,61 +23,73 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/join")
-    public ResponseEntity<UserCreateResponse> addUser(@RequestBody @Valid final UserCreateRequest createRequest) {
+    public ResponseEntity<?> addUser(@RequestBody @Valid final UserCreateRequest createRequest) {
         UserCreateResponse userCreateResponse = userService.addUser(createRequest);
         if(userCreateResponse == null){
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body("join 에러");
         }
         return ResponseEntity.ok(userCreateResponse);
 
     }
 
     @PatchMapping("/update-user")
-    public ResponseEntity<UserUpdateResponse> updateUser(@RequestHeader(HEADER_STRING) String token,
+    public ResponseEntity<?> updateUser(@RequestHeader(HEADER_STRING) String token,
                                                          @RequestBody @Valid UserUpdateRequest userUpdateRequest) {
-
-        UserDtoResponse userDtoResponse = userService.userDetail(JWT.decode(token.replace(JwtTokenUtil.TOKEN_PREFIX, ""))
-                .getSubject());
-
-        return ResponseEntity.ok(userService.updateUser(userDtoResponse.getUserId(), userUpdateRequest));
-
+        try {
+            UserDtoResponse userDtoResponse = userService.userDetail(JWT.decode(token.replace(JwtTokenUtil.TOKEN_PREFIX, ""))
+                    .getSubject());
+            return ResponseEntity.ok(userService.updateUser(userDtoResponse.getUserId(), userUpdateRequest));
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body("updateUser 오류");
+        }
     }
 
     @PostMapping("/check-duplicate")
-    public ResponseEntity<Boolean> checkValidate(@RequestBody UserDuplicateCheckRequest userDuplicateCheckRequest) {
+    public ResponseEntity<?> checkValidate(@RequestBody UserDuplicateCheckRequest userDuplicateCheckRequest) {
         boolean duplicated = userService.CheckDuplicated(userDuplicateCheckRequest);
         if(duplicated){
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body("checkValidate가 true임다");
         }
         return ResponseEntity.ok(duplicated);
     }
 
     @PatchMapping("/update-password")
-    public ResponseEntity<UserUpdatePasswordResponse> updateMemberPassword(@RequestHeader(HEADER_STRING) String token,
+    public ResponseEntity<?> updateMemberPassword(@RequestHeader(HEADER_STRING) String token,
                                                                            @RequestBody @Valid UserUpdatePasswordRequest userUpdatePasswordRequest) {
-        UserDtoResponse userDtoResponse = userService.userDetail(JWT.decode(token.replace(JwtTokenUtil.TOKEN_PREFIX, ""))
-                .getSubject());
+        try {
+            UserDtoResponse userDtoResponse = userService.userDetail(JWT.decode(token.replace(JwtTokenUtil.TOKEN_PREFIX, ""))
+                    .getSubject());
 
-        return ResponseEntity.ok(userService.updateUserPassword(userDtoResponse.getUserId(), userUpdatePasswordRequest));
+            return ResponseEntity.ok(userService.updateUserPassword(userDtoResponse.getUserId(), userUpdatePasswordRequest));
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body("updatePassword 오류");
+        }
     }
 
     @DeleteMapping("/delete-user")
-    public ResponseEntity<Boolean> deleteMember(@RequestHeader(HEADER_STRING) String token) {
+    public ResponseEntity<?> deleteMember(@RequestHeader(HEADER_STRING) String token) {
+        try {
+            UserDtoResponse userDtoResponse = userService.userDetail(JWT.decode(token.replace(JwtTokenUtil.TOKEN_PREFIX, ""))
+                    .getSubject());
 
-        UserDtoResponse userDtoResponse = userService.userDetail(JWT.decode(token.replace(JwtTokenUtil.TOKEN_PREFIX, ""))
-                .getSubject());
-
-        return ResponseEntity.ok(userService.userDelete(userDtoResponse.getUserId()));
+            return ResponseEntity.ok(userService.userDelete(userDtoResponse.getUserId()));
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body("deleteMember 오류");
+        }
     }
 
 
     @GetMapping("/get")
-    public ResponseEntity<UserDtoResponse> getUser(@RequestHeader(HEADER_STRING) String token) {
-        // 토큰에서 "Bearer " 제거
-        token = token.replace(JwtTokenUtil.TOKEN_PREFIX, "");
-        UserDtoResponse userDtoResponse = userService.userDetail(JWT.decode(token).getSubject());
+    public ResponseEntity<?> getUser(@RequestHeader(HEADER_STRING) String token) {
+        try {
+            // 토큰에서 "Bearer " 제거
+            token = token.replace(JwtTokenUtil.TOKEN_PREFIX, "");
+            UserDtoResponse userDtoResponse = userService.userDetail(JWT.decode(token).getSubject());
 
-        return ResponseEntity.ok().body(userDtoResponse);
+            return ResponseEntity.ok().body(userDtoResponse);
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body("getUser 오류");
+        }
     }
 
 }

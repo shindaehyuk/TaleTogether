@@ -44,7 +44,6 @@ public class TaleService {
         taleRepository.deleteById(taleId);
     }
 
-
     public List<TaleDtoGetResponse> getAllTaleByUserId(String userId) {
         // 주어진 userId로 User 엔터티 찾기
         User user = userRepository.findUserByUserId(userId)
