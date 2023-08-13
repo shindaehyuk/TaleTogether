@@ -4,7 +4,7 @@ export default async function DeleteUserAxios(props) {
   try {
     // POST 요청은 body에 실어 보냄
     const res = await axios.get(
-      `//i9c110.p.ssafy.io/api/users/delete-user`,
+      `//localhost:8083/api/users/delete-user`,
       {},
       {
         headers: {

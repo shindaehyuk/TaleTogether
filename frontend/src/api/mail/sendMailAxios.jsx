@@ -4,7 +4,7 @@ export default async function sendMailAxios(props) {
   try {
     // POST 요청은 body에 실어 보냄
     const res = await axios.post(
-      `//i9c110.p.ssafy.io/api/mail/send`,
+      `//localhost:8083/api/mail/send`,
       {
         code: props.code,
         email: props.email,

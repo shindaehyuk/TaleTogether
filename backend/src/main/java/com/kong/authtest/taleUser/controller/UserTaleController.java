@@ -6,6 +6,7 @@ import com.kong.authtest.taleUser.dto.UserTaleResponse;
 import com.kong.authtest.taleUser.service.UserTaleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import static com.kong.authtest.auth.util.JwtTokenUtil.HEADER_STRING;
@@ -18,8 +19,8 @@ public class UserTaleController {
     private final UserTaleService userTaleService;
     private final TokenService tokenService;
     @PostMapping("/taleUser/register")
-    public ResponseEntity<UserTaleResponse> addUserToTale(@RequestBody UserTaleRequest userTaleRequest, @RequestHeader(HEADER_STRING) String token){
-        userTaleRequest.setUserId(tokenService.decodeUserId(token));
+    public ResponseEntity<UserTaleResponse> addUserToTale(@RequestBody UserTaleRequest userTaleRequest, final Authentication authentication){
+        userTaleRequest.setUserId((String) authentication.getPrincipal());
         return ResponseEntity.ok(userTaleService.addUserToTale(userTaleRequest));
 
     }

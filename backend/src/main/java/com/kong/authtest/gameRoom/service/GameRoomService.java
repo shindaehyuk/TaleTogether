@@ -31,7 +31,6 @@ public class GameRoomService {
 
     private final UserTaleRepository userTaleRepository;
 
-
     private final static String CODE = "ssafy";
 
     @Transactional
