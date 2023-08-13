@@ -4,7 +4,7 @@ export default async function postlikesRemoveAxios(props) {
   try {
     // POST 요청은 body에 실어 보냄
     const res = await axios.post(
-      `//localhost:8083/api/likes/remove`,
+      `//i9c110.p.ssafy.io/api/likes/remove`,
       {
         communityId: props.id,
         userId: null,

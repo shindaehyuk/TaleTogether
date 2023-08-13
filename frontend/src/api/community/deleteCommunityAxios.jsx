@@ -4,7 +4,7 @@ export default async function deleteCommunityAxios(props) {
   try {
     // POST 요청은 body에 실어 보냄
     const res = await axios.delete(
-      `//localhost:8083/api/community/delete/${props.communityId}`,
+      `//i9c110.p.ssafy.io/api/community/delete/${props.communityId}`,
       // `http://localhost:8083/api/community/delete/${props.communityId}`,
       {},
       {

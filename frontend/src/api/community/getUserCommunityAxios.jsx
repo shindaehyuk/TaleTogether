@@ -4,7 +4,7 @@ export default async function getUserCommunityAxios(props) {
   try {
     // POST 요청은 body에 실어 보냄
     const res = await axios.get(
-      `//localhost:8083/api/community/info/${props.id}`,
+      `//i9c110.p.ssafy.io/api/community/info/${props.id}`,
       // `http://localhost:8083/api/community/info/${props.id}`,
       {},
       {

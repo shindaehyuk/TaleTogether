@@ -4,7 +4,7 @@ export default async function UpdatePasswordAxios(props) {
   try {
     // POST 요청은 body에 실어 보냄;
     const res = await axios.patch(
-      `//localhost:8083/api/users/update-password`,
+      `//i9c110.p.ssafy.io/api/users/update-password`,
       // `http://localhost:8083/api/users/update-password/${props.user}`,
       {
         password: props.newPassword,

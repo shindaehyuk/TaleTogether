@@ -4,7 +4,7 @@ export default async function RefreshAxios(props) {
   try {
     // POST 요청은 body에 실어 보냄
     const res = await axios.get(
-      `//localhost:8083/api/auth/refresh/${props.email}`,
+      `//i9c110.p.ssafy.io/api/auth/refresh/${props.email}`,
       {},
       {
         headers: {

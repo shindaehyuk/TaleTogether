@@ -4,7 +4,7 @@ export default async function deleteTaleAxios(props) {
   try {
     // POST 요청은 body에 실어 보냄
     const res = await axios.delete(
-      `//localhost:8083/api/tale/delete/${props.taleid}`,
+      `//i9c110.p.ssafy.io/api/tale/delete/${props.taleid}`,
       // `http://localhost:8083/api/tale/delete/${props.taleid}`,
       {},
       {

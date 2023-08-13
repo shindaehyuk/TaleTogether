@@ -4,7 +4,7 @@ export default async function putCommentAxios(props) {
   try {
     // POST 요청은 body에 실어 보냄
     const res = await axios.put(
-      `//localhost:8083/api/comment/modify`,
+      `//i9c110.p.ssafy.io/api/comment/modify`,
       // `http://localhost:8083/api/comment/modify`,
       {
         content: props.content,

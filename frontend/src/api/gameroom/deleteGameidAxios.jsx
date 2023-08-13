@@ -4,7 +4,7 @@ export default async function deleteGamdidAxios(props) {
   try {
     // POST 요청은 body에 실어 보냄
     const res = await axios.delete(
-      '//localhost:8083/api/delete-game',
+      '//i9c110.p.ssafy.io/api/delete-game',
       {
         sessionId: props.id,
       },

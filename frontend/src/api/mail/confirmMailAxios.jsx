@@ -4,7 +4,7 @@ export default async function confirmMailAxios(props) {
   try {
     // POST 요청은 body에 실어 보냄
     const res = await axios.post(
-      '//localhost:8083/api/mail/confirm',
+      '//i9c110.p.ssafy.io/api/mail/confirm',
       {
         code: props.code,
         email: props.email,

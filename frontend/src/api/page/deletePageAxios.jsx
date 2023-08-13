@@ -4,7 +4,7 @@ export default async function deletePageAxios(props) {
   try {
     // POST 요청은 body에 실어 보냄
     const res = await axios.get(
-      `//localhost:8083/api/page/delete/${props.pageid}`,
+      `//i9c110.p.ssafy.io/api/page/delete/${props.pageid}`,
       {},
       {
         headers: {

@@ -4,7 +4,7 @@ export default async function getGamdidAxios(props) {
   try {
     // POST 요청은 body에 실어 보냄
     const res = await axios.get(
-      `//localhost:8083/api/enter-game/${props.id}`,
+      `//i9c110.p.ssafy.io/api/enter-game/${props.id}`,
       {},
       {
         headers: {
