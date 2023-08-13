@@ -1,19 +1,25 @@
 import { Box } from "@mui/material";
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
 import getlikeTaleAxios from "../../../api/community/getlikeTaleAxios";
 import LikeScroll from "./LikeScroll";
 
 function Like() {
   const [myLikes, setMyLikes] = useState([]);
 
-  const id = useSelector((state) => state.userSlice.userId);
-  const props = { id };
+  const [userId, setUserId] = useState("");
+
+  const user = async () => {
+    const res = await UserinfoAxios();
+    setUserId(res.data.userId);
+  };
+  useEffect(() => {
+    user();
+  });
 
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await getlikeTaleAxios(props);
+        const response = await getlikeTaleAxios(userId);
         setMyLikes(response.data);
       } catch (error) {
         console.error(error);
@@ -31,9 +37,10 @@ function Like() {
           justifyContent: "flex-start",
           width: "90%",
           marginTop: "2em",
+          fontFamily: "omyu_pretty",
         }}
       >
-        <h2>내가 쓴 글</h2>
+        <h2>내가 좋아요 누른 글</h2>
         <h2 style={{ marginLeft: "auto" }}>총 {myLikes.length}개의 게시글</h2>
       </Box>
       <LikeScroll myLikes={myLikes}></LikeScroll>

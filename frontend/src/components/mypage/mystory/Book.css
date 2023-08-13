@@ -21,7 +21,7 @@
   position: relative;
   width: 49%;
   height: 100%;
-  margin-left: 500px; /* 기존의 margin-left 값 유지 */
+  margin-left: 55%; /* 기존의 margin-left 값 유지 */
   perspective-origin: center;
   perspective: 2500px;
 }

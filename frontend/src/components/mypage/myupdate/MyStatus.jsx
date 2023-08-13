@@ -17,8 +17,17 @@ function MyStatus() {
   const handleClosePassword = () => setOpenPassword(false);
   const handleOpenName = () => setOpenName(true);
   const handleCloseName = () => setOpenName(false);
-  const id = useSelector((state) => state.userSlice.userId);
-  const props = { id, newPassword, newName };
+  const [userId, setUserId] = useState("");
+
+  const user = async () => {
+    const res = await UserinfoAxios();
+    setUserId(res.data.userId);
+  };
+  useEffect(() => {
+    user();
+  });
+
+  const props = { userId, newPassword, newName };
 
   const onChangeName = (event) => {
     // 닉네임 입력창 입력
