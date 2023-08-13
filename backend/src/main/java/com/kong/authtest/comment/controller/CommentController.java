@@ -28,9 +28,9 @@ public class CommentController {
 
     @PostMapping("/register")
     @ApiOperation(value = "comment 작성 API", notes = "comment를 작성하기 위한 API, content, userId, communityId가 필요하다.", response = CommentDtoResponse.class)
-    public ResponseEntity<?> register(@RequestBody CommentDtoRequest commentDtoRequest, final Authentication authentication, @RequestHeader(HEADER_STRING) String token) {
+    public ResponseEntity<?> register(@RequestBody CommentDtoRequest commentDtoRequest, final Authentication authentication) {
         try{
-            commentDtoRequest.setUserId(tokenService.decodeUserId(token));
+            commentDtoRequest.setUserId((String) authentication.getPrincipal());
             return ResponseEntity.ok(commentService.register(commentDtoRequest));
         }catch (Exception e){
             return ResponseEntity.badRequest().body("comment register 오류");
