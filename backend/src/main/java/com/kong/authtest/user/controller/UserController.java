@@ -7,6 +7,7 @@ import com.kong.authtest.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,14 +34,10 @@ public class UserController {
     }
 
     @PatchMapping("/update-user")
-    public ResponseEntity<UserUpdateResponse> updateUser(@RequestHeader(HEADER_STRING) String token,
+    public ResponseEntity<UserUpdateResponse> updateUser(final Authentication authentication,
                                                          @RequestBody @Valid UserUpdateRequest userUpdateRequest) {
-
-        UserDtoResponse userDtoResponse = userService.userDetail(JWT.decode(token.replace(JwtTokenUtil.TOKEN_PREFIX, ""))
-                .getSubject());
-
+        UserDtoResponse userDtoResponse = userService.userDetail((String) authentication.getPrincipal());
         return ResponseEntity.ok(userService.updateUser(userDtoResponse.getUserId(), userUpdateRequest));
-
     }
 
     @PostMapping("/check-duplicate")
@@ -53,30 +50,22 @@ public class UserController {
     }
 
     @PatchMapping("/update-password")
-    public ResponseEntity<UserUpdatePasswordResponse> updateMemberPassword(@RequestHeader(HEADER_STRING) String token,
+    public ResponseEntity<UserUpdatePasswordResponse> updateMemberPassword(final Authentication authentication,
                                                                            @RequestBody @Valid UserUpdatePasswordRequest userUpdatePasswordRequest) {
-        UserDtoResponse userDtoResponse = userService.userDetail(JWT.decode(token.replace(JwtTokenUtil.TOKEN_PREFIX, ""))
-                .getSubject());
-
+        UserDtoResponse userDtoResponse = userService.userDetail((String) authentication.getPrincipal());
         return ResponseEntity.ok(userService.updateUserPassword(userDtoResponse.getUserId(), userUpdatePasswordRequest));
     }
 
     @DeleteMapping("/delete-user")
-    public ResponseEntity<Boolean> deleteMember(@RequestHeader(HEADER_STRING) String token) {
-
-        UserDtoResponse userDtoResponse = userService.userDetail(JWT.decode(token.replace(JwtTokenUtil.TOKEN_PREFIX, ""))
-                .getSubject());
-
+    public ResponseEntity<Boolean> deleteMember(final Authentication authentication) {
+        UserDtoResponse userDtoResponse = userService.userDetail((String) authentication.getPrincipal());
         return ResponseEntity.ok(userService.userDelete(userDtoResponse.getUserId()));
     }
 
 
     @GetMapping("/get")
-    public ResponseEntity<UserDtoResponse> getUser(@RequestHeader(HEADER_STRING) String token) {
-        // 토큰에서 "Bearer " 제거
-        token = token.replace(JwtTokenUtil.TOKEN_PREFIX, "");
-        UserDtoResponse userDtoResponse = userService.userDetail(JWT.decode(token).getSubject());
-
+    public ResponseEntity<UserDtoResponse> getUser(final Authentication authentication) {
+        UserDtoResponse userDtoResponse = userService.userDetail((String) authentication.getPrincipal());
         return ResponseEntity.ok().body(userDtoResponse);
     }
 

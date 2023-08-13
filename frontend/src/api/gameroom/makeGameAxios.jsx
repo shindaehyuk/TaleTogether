@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 export default async function makeGameAxios(props) {
-  const userId = sessionStorage.getItem('email');
   try {
     // POST 요청은 body에 실어 보냄
     const res = await axios.post(
@@ -11,7 +10,7 @@ export default async function makeGameAxios(props) {
       {
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Basic ${btoa('OPENVIDUAPP:Theatergloate')}`,
+          Authorization: sessionStorage.getItem('token'),
         },
       }
     );

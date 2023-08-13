@@ -10,6 +10,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.search.HeaderTerm;
@@ -27,8 +28,8 @@ public class CommentController {
 
     @PostMapping("/register")
     @ApiOperation(value = "comment 작성 API", notes = "comment를 작성하기 위한 API, content, userId, communityId가 필요하다.", response = CommentDtoResponse.class)
-    public ResponseEntity<CommentDtoResponse> register(@RequestBody CommentDtoRequest commentDtoRequest, @RequestHeader(HEADER_STRING) String token) {
-        commentDtoRequest.setUserId(tokenService.decodeUserId(token));
+    public ResponseEntity<CommentDtoResponse> register(@RequestBody CommentDtoRequest commentDtoRequest, final Authentication authentication) {
+        commentDtoRequest.setUserId((String) authentication.getPrincipal());
         return ResponseEntity.ok(commentService.register(commentDtoRequest));
     }
 

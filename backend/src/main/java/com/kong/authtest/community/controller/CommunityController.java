@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,8 +27,8 @@ public class CommunityController {
 
     @PostMapping("/register")
     @ApiOperation(value = "커뮤니티 작성 API", notes = "커뮤니티 글을 작성하기 위해 사용하는 API, title, content, userId, taleId가 필요하다", response = CommunityDtoResponse.class)
-    public ResponseEntity<CommunityDtoResponse> register(@RequestBody CommunityDtoRequest communityDtoRequest, @RequestHeader(HEADER_STRING) String token) {
-        communityDtoRequest.setUserId(tokenService.decodeUserId(token));
+    public ResponseEntity<CommunityDtoResponse> register(@RequestBody CommunityDtoRequest communityDtoRequest, final Authentication authentication) {
+        communityDtoRequest.setUserId((String) authentication.getPrincipal());
         return ResponseEntity.ok(communityService.register(communityDtoRequest));
     }
 
@@ -48,14 +49,14 @@ public class CommunityController {
 
     @GetMapping("/detail")
     @ApiOperation(value = "유저 아이디로 커뮤니티 디테일 정보 얻는 API", notes = "유저 아이디로 커뮤니티 디테일 정보 얻는 API")
-    public ResponseEntity<List<CommunityDetailResponse>> getDetailByUserName(@RequestHeader(HEADER_STRING) String token) {
-        return ResponseEntity.ok(communityService.getCommunityInfoByUserName(tokenService.decodeUserId(token)));
+    public ResponseEntity<List<CommunityDetailResponse>> getDetailByUserName(final Authentication authentication) {
+        return ResponseEntity.ok(communityService.getCommunityInfoByUserName((String) authentication.getPrincipal()));
     }
 
     @GetMapping("/likes")
     @ApiOperation(value = "유저 아이디로 좋아요한 커뮤니티 디테일 정보 얻는 API", notes = "유저 아이디로 좋아요한 커뮤니티 디테일 정보 얻는 API")
-    public ResponseEntity<List<CommunityListResponse>> getLikeCommunityDetailByUserName(@RequestHeader(HEADER_STRING) String token) {
-        return ResponseEntity.ok(communityService.getLikeCommunityByUserName(tokenService.decodeUserId(token)));
+    public ResponseEntity<List<CommunityListResponse>> getLikeCommunityDetailByUserName(final Authentication authentication) {
+        return ResponseEntity.ok(communityService.getLikeCommunityByUserName((String) authentication.getPrincipal()));
     }
 
 
