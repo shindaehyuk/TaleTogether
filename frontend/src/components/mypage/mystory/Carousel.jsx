@@ -49,7 +49,16 @@ function PrevArrow(props) {
 const Carousel = () => {
   const [myStories, setMyStories] = useState([]);
 
-  const userId = sessionStorage.getItem("email");
+  const [userId, setUserId] = useState("");
+
+  const user = async () => {
+    const res = await UserinfoAxios();
+    setUserId(res.data.userId);
+  };
+  useEffect(() => {
+    user();
+  });
+
   const infiniteEnabled = myStories.length > 3;
 
   useEffect(() => {
@@ -63,6 +72,7 @@ const Carousel = () => {
     };
     getData();
   }, []);
+  console.log(myStories);
 
   const settings = {
     dots: true,
