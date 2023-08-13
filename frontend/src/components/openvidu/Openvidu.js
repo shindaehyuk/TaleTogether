@@ -15,7 +15,7 @@ import Typography from '@mui/material/Typography';
 import Input from '@mui/material/Input';
 import SendIcon from '@mui/icons-material/Send';
 
-const APPLICATION_SERVER_URL = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:8083/';
+const APPLICATION_SERVER_URL = process.env.NODE_ENV === 'production' ? '' : '//i9c110.p.ssafy.io';
 
 export default function Openvidu() {
   //sessionId
@@ -154,7 +154,7 @@ export default function Openvidu() {
       event.stream.session.on('signal:script', (event) => {
         const receivedData = JSON.parse(event.data);
         setScript(receivedData.script);
-        setImage(`http://localhost:8083/${receivedData.image}`);
+        setImage(`https://i9c110.p.ssafy.io:8083/${receivedData.image}`);
         setGptInput('');
       });
       // gpt input창 변경 신호 보내기
@@ -321,7 +321,7 @@ export default function Openvidu() {
     const res = await createChatAxios(formData, '');
     const pageId = await getPageAxios(res.data.pageId);
     setScript(pageId.data.content);
-    setImage(`http://localhost:8083/${pageId.data.content}`);
+    setImage(`https://i9c110.p.ssafy.io:8083/${pageId.data.content}`);
     sendScriptToSubscribers(pageId.data.content, pageId.data.image);
     setShowForm(false);
     sendShowFormToSubscribers(false);
@@ -427,7 +427,7 @@ export default function Openvidu() {
     const res = await createChatAxios(formData, GptInput);
     const pageId = await getPageAxios(res.data.pageId);
     setScript(pageId.data.content);
-    setImage(`http://localhost:8083/${pageId.data.content}`);
+    setImage(`https://i9c110.p.ssafy.io:8083/${pageId.data.content}`);
     sendScriptToSubscribers(pageId.data.content, pageId.data.image);
     setGptInput('');
   };
@@ -663,8 +663,7 @@ export default function Openvidu() {
                       <div class="corner2"></div>
                       <div class="corner-fold"></div>
                       <div class="page-text w-richtext">
-                        <img src="http://localhost:8083/outputImage_1691908352649.jpg" alt=""></img>
-                        {/* http://localhost:8083/outputImage_1691848454531.jpg */}
+                        <img src={image} alt=""></img>
                       </div>
                     </div>
                   </div>
