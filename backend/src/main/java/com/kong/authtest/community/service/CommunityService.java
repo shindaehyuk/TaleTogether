@@ -29,7 +29,6 @@ public class CommunityService {
     private final CommunityRepository communityRepository;
     private final UserRepository userRepository;
     private final TaleRepository taleRepository;
-    private final CommunityLikeService communityLikeService;
     private final CommunityLikeRepository communityLikeRepository;
 
     //    이것도 user의 id가 Long 형태로 바뀌어야 함
