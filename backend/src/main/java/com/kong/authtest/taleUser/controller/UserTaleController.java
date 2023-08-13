@@ -8,6 +8,7 @@ import com.kong.authtest.taleUser.service.UserTaleService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,9 +23,9 @@ public class UserTaleController {
     private final UserTaleService userTaleService;
     private final TokenService tokenService;
     @PostMapping("/taleUser/register")
-    public ResponseEntity<?> addUserToTale(@RequestBody UserTaleRequest userTaleRequest, @RequestHeader(HEADER_STRING) String token){
+    public ResponseEntity<?> addUserToTale(@RequestBody UserTaleRequest userTaleRequest, final Authentication authentication){
         try {
-            userTaleRequest.setUserId(tokenService.decodeUserId(token));
+            userTaleRequest.setUserId((String) authentication.getPrincipal());
             return ResponseEntity.ok(userTaleService.addUserToTale(userTaleRequest));
         }catch (Exception e){
             return ResponseEntity.badRequest().body("addUserToTale 오류");

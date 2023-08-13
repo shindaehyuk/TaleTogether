@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,9 +27,9 @@ public class CommunityController {
 
     @PostMapping("/register")
     @ApiOperation(value = "커뮤니티 작성 API", notes = "커뮤니티 글을 작성하기 위해 사용하는 API, title, content, userId, taleId가 필요하다", response = CommunityDtoResponse.class)
-    public ResponseEntity<?> register(@RequestBody CommunityDtoRequest communityDtoRequest, @RequestHeader(HEADER_STRING) String token) {
+    public ResponseEntity<?> register(@RequestBody CommunityDtoRequest communityDtoRequest, final Authentication authentication) {
         try {
-            communityDtoRequest.setUserId(tokenService.decodeUserId(token));
+            communityDtoRequest.setUserId((String) authentication.getPrincipal());
             return ResponseEntity.ok(communityService.register(communityDtoRequest));
         }catch (Exception e){
             return ResponseEntity.badRequest().body("community register 오류");
@@ -58,9 +59,9 @@ public class CommunityController {
 
     @GetMapping("/detail")
     @ApiOperation(value = "유저 아이디로 커뮤니티 디테일 정보 얻는 API", notes = "유저 아이디로 커뮤니티 디테일 정보 얻는 API")
-    public ResponseEntity<?> getDetailByUserName(@RequestHeader(HEADER_STRING) String token) {
+    public ResponseEntity<?> getDetailByUserName(final Authentication authentication) {
         try {
-            return ResponseEntity.ok(communityService.getCommunityInfoByUserName(tokenService.decodeUserId(token)));
+            return ResponseEntity.ok(communityService.getCommunityInfoByUserName((String) authentication.getPrincipal()));
         }catch (Exception e){
             return ResponseEntity.badRequest().body("community - getDetailByUserName 오류");
         }
@@ -68,9 +69,9 @@ public class CommunityController {
 
     @GetMapping("/likes")
     @ApiOperation(value = "유저 아이디로 좋아요한 커뮤니티 디테일 정보 얻는 API", notes = "유저 아이디로 좋아요한 커뮤니티 디테일 정보 얻는 API")
-    public ResponseEntity<?> getLikeCommunityDetailByUserName(@RequestHeader(HEADER_STRING) String token) {
+    public ResponseEntity<?> getLikeCommunityDetailByUserName(final Authentication authentication) {
         try {
-            return ResponseEntity.ok(communityService.getLikeCommunityByUserName(tokenService.decodeUserId(token)));
+            return ResponseEntity.ok(communityService.getLikeCommunityByUserName((String) authentication.getPrincipal()));
         }catch (Exception e){
             return ResponseEntity.badRequest().body("getLikeCommunityDetailByUserName 오류");
         }

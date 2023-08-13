@@ -11,6 +11,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,9 +30,9 @@ public class TaleController {
 
     @PostMapping("/register")
     @ApiOperation(value = "tale 작성 API", notes = "taleId와 userId만 작성되며, userId가 필요한 API", response = TaleDtoResponse.class)
-    public ResponseEntity<?> register(@RequestBody TaleDtoRequest taleDtoRequest, @RequestHeader(HEADER_STRING) String token) {
+    public ResponseEntity<?> register(@RequestBody TaleDtoRequest taleDtoRequest, final Authentication authentication) {
         try {
-            taleDtoRequest.setUserId(tokenService.decodeUserId(token));
+            taleDtoRequest.setUserId((String) authentication.getPrincipal());
             return ResponseEntity.ok(taleService.register(taleDtoRequest));
         }catch (Exception e){
             return ResponseEntity.badRequest().body("tale Register 오류");
@@ -60,9 +61,9 @@ public class TaleController {
     }
     @GetMapping("/info/all")
     @ApiOperation(value = "userId에 맞는 모든 tale 가져오는 API", notes = "userId에 해당되는 모든 tale을 가져온다")
-    public ResponseEntity<?> getAllTale(@RequestHeader(HEADER_STRING) String token){
+    public ResponseEntity<?> getAllTale(final Authentication authentication){
         try {
-            return ResponseEntity.ok(taleService.getAllTaleByUserId(tokenService.decodeUserId(token)));
+            return ResponseEntity.ok(taleService.getAllTaleByUserId((String) authentication.getPrincipal()));
         }catch (Exception e){
             return ResponseEntity.badRequest().body("getAllTale 오류");
         }
