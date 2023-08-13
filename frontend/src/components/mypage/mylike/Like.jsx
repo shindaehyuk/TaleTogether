@@ -2,6 +2,7 @@ import { Box } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import getlikeTaleAxios from "../../../api/community/getlikeTaleAxios";
 import LikeScroll from "./LikeScroll";
+import UserinfoAxios from "../../../api/auth/Get/UserinfoAxios";
 
 function Like() {
   const [myLikes, setMyLikes] = useState([]);

@@ -5,6 +5,7 @@ import "./Carousel.css";
 import AreaCard from "./Card";
 import React, { useState, useEffect } from "react";
 import getTaleAllAxios from "../../../api/tale/getTaleAll";
+import UserinfoAxios from "../../../api/auth/Get/UserinfoAxios";
 
 // 이전 화살표 디자인
 function NextArrow(props) {

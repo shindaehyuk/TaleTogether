@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 import UpdateUserAxios from "../../../api/auth/Post/UpdateUserAxios";
 import DeleteUserAxios from "../../../api/auth/delete/DeletUserAxios";
 import UpdatePasswordAxios from "../../../api/auth/Post/UpdatePasswordAxios";
-import { useSelector } from "react-redux";
+import UserinfoAxios from "../../../api/auth/Get/UserinfoAxios";
 
 function MyStatus() {
   const [newName, setNewName] = useState("");

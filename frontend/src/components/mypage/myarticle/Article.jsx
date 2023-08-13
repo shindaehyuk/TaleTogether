@@ -2,7 +2,7 @@ import ArticleScroll from "./ArticleScroll";
 import { Box } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import getUserCommunityAxios from "../../../api/community/getUserCommunityAxios";
-import { useSelector } from "react-redux";
+import UserinfoAxios from "../../../api/auth/Get/UserinfoAxios";
 
 function Article() {
   const [myArticles, setMyArticles] = useState([]);
