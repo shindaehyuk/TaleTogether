@@ -1,6 +1,7 @@
 package com.kong.authtest.community.dto;
 
 
+import com.kong.authtest.comment.dto.CommentDtoResponse;
 import com.kong.authtest.community.model.Community;
 import com.kong.authtest.likes.model.CommunityLike;
 import lombok.AllArgsConstructor;
@@ -19,12 +20,16 @@ public class CommunityDetailResponse {
     private String content;
 
     private Long taleId;
+    private long likeCount;
+    private long commentCount;
 
     public CommunityDetailResponse(Community community) {
         this.communityId = community.getCommunityId();
         this.title = community.getTitle();
         this.content = community.getContent().getContent();
         this.taleId = community.getTale().getTaleId();
+        this.likeCount = community.getCommunityLikeList().stream().count();
+        this.commentCount = community.getCommentList().stream().map(CommentDtoResponse::new).count();
     }
 
 
