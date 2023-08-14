@@ -31,7 +31,6 @@ public class CommunityService {
     private final TaleRepository taleRepository;
     private final CommunityLikeRepository communityLikeRepository;
 
-    //    이것도 user의 id가 Long 형태로 바뀌어야 함
     @Transactional
     public CommunityDtoResponse register(CommunityDtoRequest communityDtoRequest) {
         return new CommunityDtoResponse(communityRepository.save(communityDtoRequest.toCommunity()

@@ -2,6 +2,7 @@ package com.kong.authtest.tale.model;
 
 import com.kong.authtest.common.baseEntity.BaseEntity;
 import com.kong.authtest.community.model.Community;
+import com.kong.authtest.finalScriptPage.domain.FinalScriptPage;
 import com.kong.authtest.gameRoom.domain.GameRoom;
 import com.kong.authtest.page.model.Page;
 import com.kong.authtest.taleUser.domain.UserTale;
@@ -37,6 +38,9 @@ public class Tale extends BaseEntity {
 
     @OneToMany(mappedBy = "tale",orphanRemoval = true, cascade = CascadeType.REMOVE)
     private List<UserTale> userTaleList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "tale",orphanRemoval = true, cascade = CascadeType.REMOVE)
+    private List<FinalScriptPage> finalScriptPageList = new ArrayList<>();
 
 
 }

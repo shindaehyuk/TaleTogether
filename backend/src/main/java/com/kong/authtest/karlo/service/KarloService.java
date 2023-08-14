@@ -128,6 +128,7 @@ public class KarloService {
                 out.write(buffer, 0, bytesRead);
             }
 
+            log.info(" 파일 이름 {}" , fileName);
             karloResponse.setFileName(fileName);
 
             in.close();

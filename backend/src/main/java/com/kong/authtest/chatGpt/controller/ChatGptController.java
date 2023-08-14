@@ -6,6 +6,7 @@ import com.kong.authtest.chatGpt.dto.ChatGptResponse;
 import com.kong.authtest.chatGpt.dto.ChatGptUserChoicePageRequest;
 import com.kong.authtest.chatGpt.service.ChatGptService;
 import com.kong.authtest.comment.dto.CommentDtoResponse;
+import com.kong.authtest.finalScriptPage.dto.FinalScriptPageResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 @Controller
 @Slf4j
@@ -41,9 +44,8 @@ public class ChatGptController {
     }
 
     @PostMapping("/finish-chat")
-    public ResponseEntity<ChatGptResponse> finishChat(@RequestBody ChatGptFinishTaleRequest chatGptRequest) throws Exception {
-        ChatGptResponse response = chatGptService.finishTale(chatGptRequest.getChatGptRequest(), chatGptRequest.getPageDtoRequest());
-        return ResponseEntity.ok(response);
+    public ResponseEntity<List<FinalScriptPageResponse>> finishChat(@RequestBody ChatGptFinishTaleRequest chatGptRequest) throws Exception {
+        return ResponseEntity.ok(chatGptService.finishTale(chatGptRequest.getChatGptRequest(), chatGptRequest.getPageDtoRequest()));
 
     }
 
