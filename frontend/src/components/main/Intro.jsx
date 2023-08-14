@@ -1,27 +1,21 @@
 import * as React from 'react';
 import './Intro.css';
-import UserinfoAxios from '../../api/auth/Get/UserinfoAxios';
-import { useEffect } from 'react';
+import 'animate.css';
+import { useState, useEffect, useRef } from 'react';
+
 export default function Intro() {
-  const user = async () => {
-    const res = await UserinfoAxios();
-    console.log(res);
-  };
-  useEffect(() => {
-    user();
-  });
   return (
     <>
       <div className="cover">
         <div className="book">
           <label htmlFor="page-1" className="book__page book__page--1">
-            <div className="image-wrapper shine">
+            <div className="image-wrapper shine animate__animated animate__fadeIn">
               <img src="../../assets/Layerbg2.png" alt="" />
             </div>
           </label>
 
           <label htmlFor="page-2" className="book__page book__page--4 ">
-            <div className="image-wrapper shine">
+            <div className="image-wrapper shine animate__animated animate__fadeIn">
               <img src="../../assets/twopeople.png" alt="" />
             </div>
           </label>

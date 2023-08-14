@@ -12,14 +12,13 @@ export default function UserVideoComponent({ streamManager }) {
   return (
     <Box
       sx={{
-        width: '377px',
-        height: '200px',
+        width: '335px',
+        height: '165px',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#d4a373',
         boxShadow: '10',
-        // borderRadius: '20px',
       }}
     >
       {streamManager !== undefined && <OpenViduVideoComponent streamManager={streamManager} />}

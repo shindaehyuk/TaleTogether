@@ -15,7 +15,8 @@ import Typography from '@mui/material/Typography';
 import Input from '@mui/material/Input';
 import SendIcon from '@mui/icons-material/Send';
 
-const APPLICATION_SERVER_URL = process.env.NODE_ENV === 'production' ? '' : '//i9c110.p.ssafy.io';
+// const APPLICATION_SERVER_URL = process.env.NODE_ENV === 'production' ? '' : '//i9c110.p.ssafy.io';
+const APPLICATION_SERVER_URL = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:8083/';
 
 export default function Openvidu() {
   //sessionId
@@ -192,7 +193,7 @@ export default function Openvidu() {
             videoSource: undefined,
             publishAudio: true,
             publishVideo: true,
-            resolution: '355x185',
+            resolution: '325x155',
             frameRate: 30,
             insertMode: 'APPEND',
             mirror: true,
