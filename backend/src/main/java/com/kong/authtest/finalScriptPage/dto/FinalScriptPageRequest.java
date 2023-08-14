@@ -18,11 +18,13 @@ public class FinalScriptPageRequest {
     @NotNull
     private String image;
     private Long taleId;
+    private int sequence;
 
     public FinalScriptPage toFinalScriptPage(){
         return FinalScriptPage.builder()
                 .content(new Content(this.content))
                 .image(this.image)
+                .sequence(this.sequence)
                 .build();
     }
 

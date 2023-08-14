@@ -102,6 +102,9 @@ public class ChatGptService {
 
         int startIndex = 0;
 
+        int sequence = 1;
+
+
         List<FinalScriptPageResponse> finalScriptPageResponses = new ArrayList<>();
 
         while (startIndex < fullContent.length()) {
@@ -118,11 +121,12 @@ public class ChatGptService {
             if (!subContent.isEmpty()) {
                 KarloResponse karloResponse = karloService.createImage(setFinalDefaultKarlo(subContent));
 
-                FinalScriptPageResponse finalScriptPageResponse = registerFinalScriptPage(finalScriptPageRequest, subContent, karloResponse);
+                FinalScriptPageResponse finalScriptPageResponse = registerFinalScriptPage(finalScriptPageRequest, subContent, karloResponse,sequence);
                 finalScriptPageResponses.add(finalScriptPageResponse);
             }
 
             startIndex = actualEndIndex;
+            sequence++;
         }
 
 
@@ -280,11 +284,11 @@ public class ChatGptService {
         return pageService.register(pageDtoRequest);
     }
 
-    private FinalScriptPageResponse registerFinalScriptPage(FinalScriptPageRequest finalScriptPageRequest, String content, KarloResponse karloResponse) {
+    private FinalScriptPageResponse registerFinalScriptPage(FinalScriptPageRequest finalScriptPageRequest, String content, KarloResponse karloResponse, int sequence) {
       finalScriptPageRequest.setImage(karloResponse.getFileName());
       finalScriptPageRequest.setContent(content);
-
-        return finalScriptPageService.register(finalScriptPageRequest);
+      finalScriptPageRequest.setSequence(sequence);
+      return finalScriptPageService.register(finalScriptPageRequest);
     }
 
 
