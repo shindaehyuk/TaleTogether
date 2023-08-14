@@ -35,6 +35,7 @@ export default function SignIn() {
   const onSubmit = async (event) => {
     setIsLoading(true);
     const res = await LoginAxios(event);
+    console.log(res);
     if (res) {
       setTimeout(() => {
         dispatch(login(res.data.accessToken.slice(7)));
@@ -42,25 +43,9 @@ export default function SignIn() {
       }, 2000); // 로그인 후 메인페이지로 이동
     } else {
       setTimeout(() => {
-        setIsLoading(true);
+        setIsLoading(false);
       }, 2000); // 로그인 후 메인페이지로 이동
     }
-
-    setTimeout(() => {
-      // test1@naver.com 신대혁
-      // dispatch(
-      //   login(
-      //     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0MUBuYXZlci5jb20iLCJleHAiOjE2OTE3NDQ0NzMsImlzcyI6ImtvbmcuY29tIn0.ePPGZpghPPQMurU84TSBurRhybpCpavJj7SmmfZlLzU'
-      //   )
-      // );
-      // test2@naver.com 김범규
-      // dispatch(
-      //   login(
-      //     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0MkBuYXZlci5jb20iLCJleHAiOjE2OTE3NjY1MTcsImlzcyI6ImtvbmcuY29tIn0.E8AoxQaxSSwEgOHRaw7elAki_FQ2lyuHjKKni7GRhEU'
-      //   )
-      // );
-      navigate('/intro');
-    }, 2000); // 로그인 후 메인페이지로 이동
   };
 
   return (
