@@ -6,7 +6,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import IconButton from "@mui/material/IconButton";
 import UserinfoAxios from "../../api/auth/Get/UserinfoAxios";
 
-function HeartButton({ communityId, likedUsers, updateLikes }) {
+function HeartButton({ communityId, likedUsers, updateLikes, likes }) {
   const [liked, setLiked] = useState(false);
   const [userId, setUserId] = useState("");
 
@@ -36,13 +36,13 @@ function HeartButton({ communityId, likedUsers, updateLikes }) {
       const result = await postlikesRemoveAxios({ id: communityId });
       if (result) {
         setLiked(false);
-        updateLikes(result.data); // 좋아요 수 갱신
+        updateLikes(likes - 1); // 좋아요 수 갱신
       }
     } else {
       const result = await postlikesAddAxios({ id: communityId });
       if (result) {
         setLiked(true);
-        updateLikes(result.data); // 좋아요 수 갱신
+        updateLikes(likes + 1); // 좋아요 수 갱신
       }
     }
   };

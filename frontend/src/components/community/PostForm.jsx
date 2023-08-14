@@ -14,6 +14,7 @@ function PostForm({
   modeChanger,
   initialValues = {},
   setEditing,
+  onUpdatePost // 새로운 함수로 postIdRef를 업데이트합니다.
 }) {
   // payload를 통해 axios넘겨줄 데이터
   const [title, setTitle] = useState(initialValues?.title || "");
@@ -107,7 +108,8 @@ function PostForm({
 
     if (response) {
       setEditing(false);
-    } else {
+      onUpdatePost(); // postIdRef를 업데이트하는 함수를 호출합니다.
+    }  else {
       // 실패한 경우 오류 처리
     }
   }
@@ -222,3 +224,4 @@ function PostForm({
 }
 
 export default PostForm;
+

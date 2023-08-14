@@ -160,9 +160,12 @@ function Comment({ comment, onDelete, onUpdate, userId_now }) {
 }
 
 // 안에 보여지는 화면
-function PostContent({ post, comments, onCommentCreate }) {
+function PostContent({ post, onCommentCreate }) {
+  // 좋아요 수 비동기화
+  const [likes, setLikes] = useState(post.likes);
+
   const updateLikes = (newLikes) => {
-    post.likes = newLikes;
+    setLikes(newLikes);
   };
 
   return (
@@ -178,11 +181,13 @@ function PostContent({ post, comments, onCommentCreate }) {
           <h2>{post.title}</h2>
           <h3>{post.taleTitle}</h3>
           <p>{post.content}</p>
-          <p>좋아요 : {post.likes}</p>
+          <p>좋아요 : {likes}</p>
+          {/* 좋아요 버튼 */}
           <HeartButton
             communityId={post.communityId}
             likedUsers={post.likesList}
             updateLikes={updateLikes}
+            likes={likes}
           />
           <p>댓글 수 : {post.commentList.length}</p>
         </div>
@@ -205,6 +210,9 @@ function PostDetail() {
 
   const navigate = useNavigate();
 
+  // 새로고침하기 위한 변수
+  const [postIdRef, setPostIdRef] = useState(null);
+
   const [comments, setComments] = useState([]);
 
   // 수정모드
@@ -223,27 +231,40 @@ function PostDetail() {
 
   // 댓글 비동기 처리 (실패)
   const handleCommentCreated = (newComment) => {
-    // 새 댓글을 기존 댓글 배열에 추가
-    setComments((prevComments) => [...prevComments, newComment]);
+    setComments((prevComments) => [...prevComments, newComment.data]);
+
+    // Update the post state, adding the newly created comment to the list and updating the count
+    setPost((prevState) => {
+      let updatedPost = { ...prevState };
+      updatedPost.commentList = [...prevState.commentList, newComment.data];
+      return updatedPost; // 이 부분을 추가해 원본 post 상태를 업데이트하도록 합니다.
+    });
   };
 
   // 댓글 삭제
   const handleCommentDeleted = (commentId) => {
-    // 삭제된 댓글을 댓글 배열에서 제거
-    setComments((prevComments) =>
-      prevComments.filter((comment) => comment.commentId !== commentId)
-    );
+    // Update the post state, removing the deleted comment from the list and updating the count
+    setPost((prevState) => {
+      let updatedPost = { ...prevState };
+      updatedPost.commentList = prevState.commentList.filter(
+        (comment) => comment.commentId !== commentId
+      );
+      return updatedPost;
+    });
   };
 
   // 댓글 수정
   const handleCommentUpdated = (commentId, updatedContent) => {
-    setComments((prevComments) =>
-      prevComments.map((comment) =>
+    // Update the post state with modified content for a specific comment.
+    setPost((prevState) => {
+      let updatedComments = prevState.commentList.map((comment) =>
         comment.commentId === commentId
           ? { ...comment, content: updatedContent }
           : comment
-      )
-    );
+      );
+
+      return { ...prevState, commentList: updatedComments };
+    });
   };
 
   // 게시글 삭제
@@ -259,6 +280,7 @@ function PostDetail() {
     }
   };
 
+  // getUserCommunityAxios를 통해서 게시글을 작성한 사람의 아이디를 가져와서 현재 userId와 비교하여 인가처리
   useEffect(() => {
     async function fetchPost() {
       setLoading(true);
@@ -266,12 +288,12 @@ function PostDetail() {
       if (res) {
         setPost(res.data);
       }
-
+  
       setLoading(false);
     }
-
+  
     fetchPost();
-  }, [communityId]);
+  }, [communityId, postIdRef]);
 
   if (loading) {
     return <CircularProgress />;
@@ -292,9 +314,18 @@ function PostDetail() {
         />
       )}
       {editing ? (
-        <PostForm initialValues={post} setEditing={setEditing} />
+        <PostForm
+          initialValues={post}
+          setEditing={setEditing}
+          onUpdatePost={() => setPostIdRef(Date.now())} // 새로운 함수를 props로 추가
+        />
       ) : (
-        <PostContent post={post} onCommentCreate={handleCommentCreated} />
+        <PostContent
+          post={post}
+          onCommentCreate={handleCommentCreated}
+          onCommentDelete={handleCommentDeleted}
+          onCommentUpdate={handleCommentUpdated}
+        />
       )}
 
       {post.commentList.map((comment) => (
