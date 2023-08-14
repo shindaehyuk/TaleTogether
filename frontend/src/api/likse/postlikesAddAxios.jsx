@@ -6,8 +6,7 @@ export default async function postlikesAddAxios(props) {
     const res = await axios.post(
       `//i9c110.p.ssafy.io/api/likes/add`,
       {
-        communityId: props.id,
-        userId: null,
+        communityId: props.id
       },
       {
         headers: {

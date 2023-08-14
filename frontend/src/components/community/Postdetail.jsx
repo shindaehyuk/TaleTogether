@@ -1,20 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Outlet, useParams, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 import CircularProgress from "@mui/material/CircularProgress";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import postCommentAxios from "../../api/comment/postCommentAxios";
 import deleteCommentAxios from "../../api/comment/deleteCommentAxios";
 import getUserCommunityAxios from "../../api/community/getUserCommunityAxios";
 import putCommentAxios from "../../api/comment/putCommentAxios";
 import deleteCommunityAxios from "../../api/community/deleteCommunityAxios";
-import postlikesAddAxios from "../../api/likse/postlikesAddAxios";
-import postlikesRemoveAxios from "../../api/likse/postlikesRemoveAxios";
+import UserinfoAxios from "../../api/auth/Get/UserinfoAxios";
 import PostForm from "./PostForm";
-import { createSelector } from "@reduxjs/toolkit";
+import HeartButton from "./HeartButton";
 
 // NavBar
 function NavBar({ onButtonClick, onDeleteClick, isAuthor }) {
@@ -52,12 +48,15 @@ function CommentForm({ onCommentCreate }) {
   // Axios를 위해 보내줄 3가지 데이터
   const [content, setContent] = useState("");
   const { communityId } = useParams();
-  const userSliceSelector = (state) => state.userSlice;
-  const userEmailSelector = createSelector(
-    userSliceSelector,
-    (userSlice) => userSlice.email
-  );
-  const userId = useSelector(userEmailSelector);
+  const [userId, setUserId] = useState("");
+
+  const user = async () => {
+    const res = await UserinfoAxios();
+    setUserId(res.data.userId);
+  };
+  useEffect(() => {
+    user();
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -162,6 +161,10 @@ function Comment({ comment, onDelete, onUpdate, userId_now }) {
 
 // 안에 보여지는 화면
 function PostContent({ post, comments, onCommentCreate }) {
+  const updateLikes = (newLikes) => {
+    post.likes = newLikes;
+  };
+
   return (
     <div>
       <div
@@ -176,6 +179,11 @@ function PostContent({ post, comments, onCommentCreate }) {
           <h3>{post.taleTitle}</h3>
           <p>{post.content}</p>
           <p>좋아요 : {post.likes}</p>
+          <HeartButton
+            communityId={post.communityId}
+            likedUsers={post.likesList}
+            updateLikes={updateLikes}
+          />
           <p>댓글 수 : {post.commentList.length}</p>
         </div>
         <div>
@@ -202,17 +210,16 @@ function PostDetail() {
   // 수정모드
   const [editing, setEditing] = useState(false);
 
-  // 좋아요
-  const [liked, setLiked] = useState(false); // 좋아요 상태 관리
-  const [likeCount, setLikeCount] = useState(0); // 좋아요 개수 관리
-
   // 현 유저의 ID
-  const userSliceSelector = (state) => state.userSlice;
-  const userEmailSelector = createSelector(
-    userSliceSelector,
-    (userSlice) => userSlice.email
-  );
-  const userId_now = useSelector(userEmailSelector);
+  const [userId_now, setUserId] = useState("");
+
+  const user = async () => {
+    const res = await UserinfoAxios();
+    setUserId(res.data.userId);
+  };
+  useEffect(() => {
+    user();
+  });
 
   // 댓글 비동기 처리 (실패)
   const handleCommentCreated = (newComment) => {
@@ -252,30 +259,12 @@ function PostDetail() {
     }
   };
 
-  // 좋아요 이벤트를 처리하는 함수
-  const handleLikeClick = async () => {
-    const likeProps = { id: post.communityId, email: userId_now };
-
-    // 좋아요 상태에 따라 좋아요 추가 또는 제거
-    if (liked) {
-      await postlikesRemoveAxios(likeProps);
-      setLikeCount(likeCount - 1);
-    } else {
-      await postlikesAddAxios(likeProps);
-      setLikeCount(likeCount + 1);
-    }
-
-    // 좋아요 상태 변경
-    setLiked(!liked);
-  };
-
   useEffect(() => {
     async function fetchPost() {
       setLoading(true);
       const res = await getUserCommunityAxios({ id: communityId });
       if (res) {
         setPost(res.data);
-        setLikeCount(res.data.likes);
       }
 
       setLoading(false);
@@ -303,7 +292,6 @@ function PostDetail() {
         />
       )}
       {editing ? (
-        console.log(post),
         <PostForm initialValues={post} setEditing={setEditing} />
       ) : (
         <PostContent post={post} onCommentCreate={handleCommentCreated} />
