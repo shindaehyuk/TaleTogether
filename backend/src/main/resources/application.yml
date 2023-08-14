@@ -4,16 +4,16 @@ chatgpt:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://i9c110.p.ssafy.io:3306/ssafy?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+    url: jdbc:mysql://db:3306/ssafy?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
 
     username: root
     password: twja0930
   redis:
-    port: 6363
-    host: i9c110.p.ssafy.io
+    port: 6379
+    host: redis
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
 
     properties:
       hibernate:

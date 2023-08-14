@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  nginx:
+    restart: always
+    container_name: nginx
+    build:
+      dockerfile: Dockerfile
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - shared-volume:/usr/share/nginx/html
+      - /var/www/certbot/:/var/www/certbot/
+      - /etc/letsencrypt/:/etc/letsencrypt/
+    networks:
+      - app-network
+  certbot:
+    image: certbot/certbot
+    restart: unless-stopped
+    volumes:
+      - /var/www/certbot/:/var/www/certbot/
+      - /etc/letsencrypt/:/etc/letsencrypt/
+    entrypoint: "/bin/sh -c 'trap exit TERM; certbot certonly --email alsgur97@naver.com --agree-tos --webroot -w /var/www/certbot -d i9c110.p.ssafy.io --non-interactive; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+
+volumes:
+  shared-volume:
+
+networks:
+  app-network:
+    driver: bridge
