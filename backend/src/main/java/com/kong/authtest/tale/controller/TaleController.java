@@ -26,47 +26,31 @@ import static com.kong.authtest.auth.util.JwtTokenUtil.HEADER_STRING;
 public class TaleController {
 
     private final TaleService taleService;
-    private final TokenService tokenService;
 
     @PostMapping("/register")
     @ApiOperation(value = "tale 작성 API", notes = "taleId와 userId만 작성되며, userId가 필요한 API", response = TaleDtoResponse.class)
-    public ResponseEntity<?> register(@RequestBody TaleDtoRequest taleDtoRequest, final Authentication authentication) {
-        try {
-            taleDtoRequest.setUserId((String) authentication.getPrincipal());
-            return ResponseEntity.ok(taleService.register(taleDtoRequest));
-        }catch (Exception e){
-            return ResponseEntity.badRequest().body("tale Register 오류");
-        }
+    public ResponseEntity<TaleDtoResponse> register(@RequestBody TaleDtoRequest taleDtoRequest, final Authentication authentication) {
+        taleDtoRequest.setUserId((String) authentication.getPrincipal());
+        return ResponseEntity.ok(taleService.register(taleDtoRequest));
     }
 
     @GetMapping("/info/{taleId}")
     @ApiOperation(value = "tale 정보 얻는 API", notes = "taleId에 해당된 페이지 정보도 같이 가져오는 API", response = TaleDtoGetResponse.class)
-    public ResponseEntity<?> getTaleResponse(@PathVariable Long taleId) {
-        try {
-            return ResponseEntity.ok(taleService.getTaleInfo(taleId));
-        }catch (Exception e){
-            return ResponseEntity.badRequest().body("getTaleResponse 오류");
-        }
+    public ResponseEntity<TaleDtoGetResponse> getTaleResponse(@PathVariable Long taleId) {
+        return ResponseEntity.ok(taleService.getTaleInfo(taleId));
     }
 
     @DeleteMapping("/delete/{taleId}")
     @ApiOperation(value = "tale 삭제하는 API", notes = "taleId에 해당되는 tale, page, community, comment 모두 삭제된다.", response = Boolean.class)
-    public ResponseEntity<?> delete(@PathVariable Long taleId) {
-        try {
-            taleService.delete(taleId);
-            return ResponseEntity.ok(true);
-        }catch (Exception e){
-            return ResponseEntity.badRequest().body("tale Delete오류");
-        }
+    public ResponseEntity<Boolean> delete(@PathVariable Long taleId) {
+        taleService.delete(taleId);
+        return ResponseEntity.ok(true);
     }
+
     @GetMapping("/info/all")
     @ApiOperation(value = "userId에 맞는 모든 tale 가져오는 API", notes = "userId에 해당되는 모든 tale을 가져온다")
-    public ResponseEntity<?> getAllTale(final Authentication authentication){
-        try {
-            return ResponseEntity.ok(taleService.getAllTaleByUserId((String) authentication.getPrincipal()));
-        }catch (Exception e){
-            return ResponseEntity.badRequest().body("getAllTale 오류");
-        }
+    public ResponseEntity<List<TaleDtoGetResponse>> getAllTale(final Authentication authentication) {
+        return ResponseEntity.ok(taleService.getAllTaleByUserId((String) authentication.getPrincipal()));
     }
 
 }

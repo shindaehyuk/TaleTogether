@@ -21,15 +21,10 @@ import static com.kong.authtest.auth.util.JwtTokenUtil.HEADER_STRING;
 public class UserTaleController {
 
     private final UserTaleService userTaleService;
-    private final TokenService tokenService;
-    @PostMapping("/taleUser/register")
-    public ResponseEntity<?> addUserToTale(@RequestBody UserTaleRequest userTaleRequest, final Authentication authentication){
-        try {
-            userTaleRequest.setUserId((String) authentication.getPrincipal());
-            return ResponseEntity.ok(userTaleService.addUserToTale(userTaleRequest));
-        }catch (Exception e){
-            return ResponseEntity.badRequest().body("addUserToTale 오류");
-        }
-    }
 
+    @PostMapping("/taleUser/register")
+    public ResponseEntity<UserTaleResponse> addUserToTale(@RequestBody UserTaleRequest userTaleRequest, final Authentication authentication) {
+        userTaleRequest.setUserId((String) authentication.getPrincipal());
+        return ResponseEntity.ok(userTaleService.addUserToTale(userTaleRequest));
+    }
 }

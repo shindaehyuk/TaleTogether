@@ -20,32 +20,20 @@ import static com.kong.authtest.auth.util.JwtTokenUtil.HEADER_STRING;
 public class GameRoomController {
 
     private final GameRoomService gameRoomService;
-    private final TokenService tokenService;
+
     @RequestMapping(value = "/register-game", method = {RequestMethod.GET, RequestMethod.POST})
-    public ResponseEntity<?> registerGame(final Authentication authentication) {
-        try {
-            return ResponseEntity.ok(gameRoomService.registerGame((String) authentication.getPrincipal()));
-        }catch (Exception e){
-            return ResponseEntity.badRequest().body("registerGame 오류");
-        }
+    public ResponseEntity<GameRoomResponse> registerGame(final Authentication authentication) {
+        return ResponseEntity.ok(gameRoomService.registerGame((String) authentication.getPrincipal()));
     }
 
     @DeleteMapping("/delete-game")
-    public ResponseEntity<?> deleteGame(@RequestBody GameRoomRequest gameRoomRequest) {
-        try {
-            return ResponseEntity.ok(gameRoomService.deleteGame(gameRoomRequest));
-        }catch (Exception e){
-            return ResponseEntity.badRequest().body("deleteGame 오류");
-        }
+    public ResponseEntity<GameRoomDeleteResponse> deleteGame(@RequestBody GameRoomRequest gameRoomRequest) {
+        return ResponseEntity.ok(gameRoomService.deleteGame(gameRoomRequest));
     }
 
     @GetMapping("/enter-game/{sessionId}")
-    public ResponseEntity<?> enterGame(final Authentication authentication,
-                                                      @PathVariable("sessionId") String sessionId){
-        try {
-            return ResponseEntity.ok(gameRoomService.enterGame((String) authentication.getPrincipal(),sessionId));
-        }catch (Exception e){
-            return ResponseEntity.badRequest().body("enterGame 오류");
-        }
+    public ResponseEntity<GameRoomResponse> enterGame(final Authentication authentication,
+                                                      @PathVariable("sessionId") String sessionId) {
+        return ResponseEntity.ok(gameRoomService.enterGame((String) authentication.getPrincipal(), sessionId));
     }
 }

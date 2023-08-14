@@ -24,67 +24,47 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/join")
-    public ResponseEntity<?> addUser(@RequestBody @Valid final UserCreateRequest createRequest) {
+    public ResponseEntity<UserCreateResponse> addUser(@RequestBody @Valid final UserCreateRequest createRequest) {
         UserCreateResponse userCreateResponse = userService.addUser(createRequest);
-        if(userCreateResponse == null){
-            return ResponseEntity.badRequest().body("join 에러");
-        }
         return ResponseEntity.ok(userCreateResponse);
 
     }
 
     @PatchMapping("/update-user")
-    public ResponseEntity<?> updateUser(final Authentication authentication,
+    public ResponseEntity<UserUpdateResponse> updateUser(final Authentication authentication,
                                                          @RequestBody @Valid UserUpdateRequest userUpdateRequest) {
-        try {
-            UserDtoResponse userDtoResponse = userService.userDetail((String) authentication.getPrincipal());
-            return ResponseEntity.ok(userService.updateUser(userDtoResponse.getUserId(), userUpdateRequest));
-        }catch (Exception e){
-            return ResponseEntity.badRequest().body("updateUser 오류");
-        }
+        UserDtoResponse userDtoResponse = userService.userDetail((String) authentication.getPrincipal());
+        return ResponseEntity.ok(userService.updateUser(userDtoResponse.getUserId(), userUpdateRequest));
     }
 
     @PostMapping("/check-duplicate")
     public ResponseEntity<?> checkValidate(@RequestBody UserDuplicateCheckRequest userDuplicateCheckRequest) {
         boolean duplicated = userService.CheckDuplicated(userDuplicateCheckRequest);
-        if(duplicated){
+        if (duplicated) {
             return ResponseEntity.badRequest().body("checkValidate가 true임다");
         }
         return ResponseEntity.ok(false);
     }
 
     @PatchMapping("/update-password")
-    public ResponseEntity<?> updateMemberPassword(final Authentication authentication,
+    public ResponseEntity<UserUpdatePasswordResponse> updateMemberPassword(final Authentication authentication,
                                                                            @RequestBody @Valid UserUpdatePasswordRequest userUpdatePasswordRequest) {
-        try {
-            UserDtoResponse userDtoResponse = userService.userDetail((String) authentication.getPrincipal());
+        UserDtoResponse userDtoResponse = userService.userDetail((String) authentication.getPrincipal());
 
-            return ResponseEntity.ok(userService.updateUserPassword(userDtoResponse.getUserId(), userUpdatePasswordRequest));
-        }catch (Exception e){
-            return ResponseEntity.badRequest().body("updatePassword 오류");
-        }
+        return ResponseEntity.ok(userService.updateUserPassword(userDtoResponse.getUserId(), userUpdatePasswordRequest));
     }
 
     @DeleteMapping("/delete-user")
-    public ResponseEntity<?> deleteMember(final Authentication authentication) {
-        try {
-            UserDtoResponse userDtoResponse = userService.userDetail((String) authentication.getPrincipal());
-
-            return ResponseEntity.ok(userService.userDelete(userDtoResponse.getUserId()));
-        }catch (Exception e){
-            return ResponseEntity.badRequest().body("deleteMember 오류");
-        }
+    public ResponseEntity<Boolean> deleteMember(final Authentication authentication) {
+        UserDtoResponse userDtoResponse = userService.userDetail((String) authentication.getPrincipal());
+        return ResponseEntity.ok(userService.userDelete(userDtoResponse.getUserId()));
     }
 
 
     @GetMapping("/get")
-    public ResponseEntity<?> getUser(final Authentication authentication) {
-        try {
-            UserDtoResponse userDtoResponse = userService.userDetail((String) authentication.getPrincipal());
-            return ResponseEntity.ok().body(userDtoResponse);
-        }catch (Exception e){
-            return ResponseEntity.badRequest().body("getUser 오류");
-        }
+    public ResponseEntity<UserDtoResponse> getUser(final Authentication authentication) {
+        UserDtoResponse userDtoResponse = userService.userDetail((String) authentication.getPrincipal());
+        return ResponseEntity.ok().body(userDtoResponse);
     }
 
 }
