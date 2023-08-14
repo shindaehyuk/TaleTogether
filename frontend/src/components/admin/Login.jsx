@@ -42,7 +42,6 @@ export default function SignIn() {
       }, 2000); // 로그인 후 메인페이지로 이동
     } else {
       setTimeout(() => {
-<<<<<<< HEAD
         setIsLoading(true);
       }, 2000); // 로그인 후 메인페이지로 이동
     }
@@ -62,28 +61,6 @@ export default function SignIn() {
       // );
       navigate('/intro');
     }, 2000); // 로그인 후 메인페이지로 이동
-=======
-        setIsLoading(false);
-        console.log('로그인실패');
-      }, 2000); // 로그인 후 메인페이지로 이동
-    }
-
-    // setTimeout(() => {
-    //   // test1@naver.com 신대혁
-    //   dispatch(
-    //     login(
-    //       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0MUBuYXZlci5jb20iLCJleHAiOjE2OTE3NDQ0NzMsImlzcyI6ImtvbmcuY29tIn0.ePPGZpghPPQMurU84TSBurRhybpCpavJj7SmmfZlLzU'
-    //     )
-    //   );
-    //   // test2@naver.com 김범규
-    //   // dispatch(
-    //   //   login(
-    //   //     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0MkBuYXZlci5jb20iLCJleHAiOjE2OTE3NjY1MTcsImlzcyI6ImtvbmcuY29tIn0.E8AoxQaxSSwEgOHRaw7elAki_FQ2lyuHjKKni7GRhEU'
-    //   //   )
-    //   // );
-    //   navigate('/intro');
-    // }, 2000); // 로그인 후 메인페이지로 이동
->>>>>>> c6db24ad716d7c1243f03e6f77c84b4af103e00b
   };
 
   return (
