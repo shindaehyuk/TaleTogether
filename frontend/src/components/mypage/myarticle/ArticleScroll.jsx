@@ -4,6 +4,7 @@ import React from "react";
 
 const ArticleScroll = ({ myArticles }) => {
   console.log(myArticles);
+
   return (
     <Box
       className="no-scroll"

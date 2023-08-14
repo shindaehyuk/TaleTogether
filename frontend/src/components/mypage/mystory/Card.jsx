@@ -4,29 +4,12 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea, Modal, Box, Grid } from "@mui/material";
-import getPageAxios from "../../../api/page/getPageAxios";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Book from "./Book";
 
-export default function AreaCard({ myStory, alt, firstPageId, lastPageId }) {
+export default function AreaCard({ myStory, alt, firstPageId }) {
   const [open, setOpen] = useState(false);
-  const [page, setPage] = useState([]);
   const [pageId, setPageId] = useState(firstPageId);
-  const [pageList, setPageList] = useState(myStory["pageList"]);
-
-  useEffect(() => {
-    if (open) {
-      const getData = async () => {
-        try {
-          const response = await getPageAxios(pageId);
-          setPage(response.data);
-        } catch (error) {
-          console.error(error);
-        }
-      };
-      getData();
-    }
-  }, [open, pageId]); // useEffect 함수는 'open'과 'pageId'가 변경될 때 호출됩니다.
 
   const handleOpen = () => {
     setOpen(true);
@@ -80,7 +63,7 @@ export default function AreaCard({ myStory, alt, firstPageId, lastPageId }) {
         style={modalStyle}
       >
         <Box sx={boxStyle}>
-          <Book pageList={pageList} />
+          <Book pageList={myStory["pageList"]} />
         </Box>
       </Modal>
     </Card>
