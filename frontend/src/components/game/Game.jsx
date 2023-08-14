@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import './Game.css';
 import makeGameAxios from '../../api/gameroom/makeGameAxios';
 import entranceGamxAxios from '../../api/gameroom/entranceGameAxios';
-import createSessionAxios from "../../api/CreateSessionAxios";
+import createSessionAxios from '../../api/CreateSessionAxios';
 
 export default function Game() {
   const navigate = useNavigate();
