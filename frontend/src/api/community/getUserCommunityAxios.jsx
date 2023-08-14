@@ -6,10 +6,10 @@ export default async function getUserCommunityAxios(props) {
     const res = await axios.get(
       `//i9c110.p.ssafy.io/api/community/info/${props.id}`,
       // `http://localhost:8083/api/community/info/${props.id}`,
-      {},
       {
         headers: {
           'Content-Type': 'application/json',
+          Authorization: sessionStorage.getItem('token'),
         },
       }
     );

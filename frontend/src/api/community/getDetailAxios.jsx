@@ -6,7 +6,6 @@ export default async function getDetailAxios(props) {
     const res = await axios.get(
       `//i9c110.p.ssafy.io/api/community/detail`,
       // `http://localhost:8083/api/community/detail`,
-      {},
       {
         headers: {
           'Content-Type': 'application/json',

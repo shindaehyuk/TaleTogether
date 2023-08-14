@@ -7,8 +7,6 @@ async function LoginAxios(props) {
       '//i9c110.p.ssafy.io/api/auth/login',
       // 'http://localhost:8083/api/auth/login',
       {
-        // id: '',
-        // name: '',
         userId: props.email,
         password: props.password,
       },

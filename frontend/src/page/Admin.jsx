@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Login from '../components/admin/Login';
 import Signup from '../components/admin/Signup';
+import { useState } from 'react';
 import 'animate.css';
 import './Admin.css';
 
@@ -39,7 +40,7 @@ function a11yProps(index) {
 }
 
 export default function Admin() {
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -52,8 +53,8 @@ export default function Admin() {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          width: '70%',
-          height: '70%',
+          width: '80%',
+          height: '80%',
           bgcolor: '#ccd5ae',
           borderRadius: '61px',
           boxShadow: 20,
@@ -93,8 +94,8 @@ export default function Admin() {
             src="./assets/Logo2-removebg-preview.png"
             alt=""
             style={{
-              width: '40%', // 이미지의 너비를 100%로 설정하여 부모 박스의 너비에 맞춤
-              height: '20%', // 이미지의 높이를 자동으로 조정하여 비율 유지
+              width: '30%', // 이미지의 너비를 100%로 설정하여 부모 박스의 너비에 맞춤
+              height: '15%', // 이미지의 높이를 자동으로 조정하여 비율 유지
             }}
           />
           <Typography
