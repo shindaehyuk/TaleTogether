@@ -7,8 +7,7 @@ export default async function postlikesRemoveAxios(props) {
       `//i9c110.p.ssafy.io/api/likes/remove`,
       // `http://localhost:8083/api/likes/remove`,
       {
-        communityId: props.id,
-        userId: null,
+        communityId: props.id
       },
       {
         headers: {

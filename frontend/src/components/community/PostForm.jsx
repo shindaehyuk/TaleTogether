@@ -1,13 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import StoryPickerModal from "./StoryPickerModal";
 import "./Community.css";
-import { useSelector } from "react-redux";
 import postCommunityAxios from "../../api/community/postCommunityAxios";
 import putCommunityAxios from "../../api/community/putCommunityAxios";
-import { createSelector } from "@reduxjs/toolkit";
+import UserinfoAxios from "../../api/auth/Get/UserinfoAxios";
 
 function PostForm({
   list,
@@ -16,25 +15,27 @@ function PostForm({
   initialValues = {},
   setEditing,
 }) {
+  // payload를 통해 axios넘겨줄 데이터
   const [title, setTitle] = useState(initialValues?.title || "");
   const [content, setContent] = useState(initialValues?.content || "");
   const [taleId, setTaleId] = useState(initialValues?.taleId || null);
 
   const [modalOpen, setModalOpen] = useState(false);
 
-  // payload를 통해 axios넘겨줄 데이터
   const [selectedImage, setSelectedImage] = useState(null);
-  // const [taleId, setTaleId] = useState("");
 
   const [taleTitle, setTaleTitle] = useState("");
 
   // userId 가져오기
-  const userSliceSelector = (state) => state.userSlice;
-  const userEmailSelector = createSelector(
-    userSliceSelector,
-    (userSlice) => userSlice.email
-  );
-  const userId = useSelector(userEmailSelector);
+  const [userId, setUserId] = useState("");
+
+  const user = async () => {
+    const res = await UserinfoAxios();
+    setUserId(res.data.userId);
+  };
+  useEffect(() => {
+    user();
+  });
 
   // 동화목록 가져오기
   const handleModalOpen = () => {
@@ -58,6 +59,11 @@ function PostForm({
       return;
     }
 
+    if (!taleId) {
+      alert("동화를 골라주세요.");
+      return;
+    }
+
     const payload = {
       title,
       content,
@@ -68,7 +74,6 @@ function PostForm({
     const response = await postCommunityAxios(payload);
     if (response) {
       const newPost = response.data;
-      console.log(newPost);
       setList((prevList) => [...prevList, newPost]);
     } else {
     }
@@ -80,6 +85,11 @@ function PostForm({
     event.preventDefault();
     if (!title.trim() || !content.trim()) {
       alert("제목과 내용을 모두 입력해주세요.");
+      return;
+    }
+
+    if (!taleId) {
+      alert("동화를 골라주세요.");
       return;
     }
 

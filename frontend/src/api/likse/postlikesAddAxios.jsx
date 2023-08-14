@@ -7,8 +7,7 @@ export default async function postlikesAddAxios(props) {
       `//i9c110.p.ssafy.io/api/likes/add`,
       // `http://localhost:8083/api/likes/add`,
       {
-        communityId: props.id,
-        userId: null,
+        communityId: props.id
       },
       {
         headers: {
