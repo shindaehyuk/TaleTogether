@@ -35,7 +35,7 @@ public class Tale extends BaseEntity {
     @OneToMany(mappedBy = "tale", orphanRemoval = true, cascade = CascadeType.REMOVE)
     private List<Community> communityList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "tale")
+    @OneToMany(mappedBy = "tale",orphanRemoval = true, cascade = CascadeType.REMOVE)
     private List<UserTale> userTaleList = new ArrayList<>();
 
 

@@ -40,10 +40,9 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<CommunityLike> communityLikeList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<UserTale> userTaleList = new ArrayList<>();
     public void update(User user) {
-        this.userId = user.getUserId();
         this.name = user.getName();
     }
 

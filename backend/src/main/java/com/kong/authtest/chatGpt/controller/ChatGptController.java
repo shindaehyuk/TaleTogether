@@ -1,6 +1,7 @@
 package com.kong.authtest.chatGpt.controller;
 
 
+import com.kong.authtest.chatGpt.dto.ChatGptFinishTaleRequest;
 import com.kong.authtest.chatGpt.dto.ChatGptResponse;
 import com.kong.authtest.chatGpt.dto.ChatGptUserChoicePageRequest;
 import com.kong.authtest.chatGpt.service.ChatGptService;
@@ -42,5 +43,15 @@ public class ChatGptController {
 
     }
 
+    @PostMapping("/finish-chat")
+    public ResponseEntity<?> finishChat(@RequestBody ChatGptFinishTaleRequest chatGptRequest) {
+        try {
+            ChatGptResponse response = chatGptService.finishTale(chatGptRequest.getChatGptRequest(), chatGptRequest.getPageDtoRequest());
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            log.error("Error during finishChat:", e); // 오류 로그 추가
+            return ResponseEntity.badRequest().body("Error during finishChat: " + e.getMessage()); // 오류 메시지도 추가
+        }
+    }
 
 }

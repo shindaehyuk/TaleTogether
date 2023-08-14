@@ -8,6 +8,7 @@ import com.kong.authtest.gameRoom.dto.GameRoomResponse;
 import com.kong.authtest.gameRoom.service.GameRoomService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
