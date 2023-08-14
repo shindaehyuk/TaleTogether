@@ -15,8 +15,8 @@ import Typography from '@mui/material/Typography';
 import Input from '@mui/material/Input';
 import SendIcon from '@mui/icons-material/Send';
 
-// const APPLICATION_SERVER_URL = process.env.NODE_ENV === 'production' ? '' : '//i9c110.p.ssafy.io';
-const APPLICATION_SERVER_URL = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:8083/';
+const APPLICATION_SERVER_URL = process.env.NODE_ENV === 'production' ? '' : '//i9c110.p.ssafy.io';
+// const APPLICATION_SERVER_URL = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:8083/';
 
 export default function Openvidu() {
   //sessionId

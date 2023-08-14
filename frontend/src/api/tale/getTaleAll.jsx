@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export default async function getTaleAllAxios(userId) {
+export default async function getTaleAllAxios() {
   try {
     const res = await axios.get(
       `//i9c110.p.ssafy.io/api/tale/info/all/`,
