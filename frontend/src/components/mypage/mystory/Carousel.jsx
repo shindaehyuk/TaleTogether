@@ -5,6 +5,7 @@ import "./Carousel.css";
 import AreaCard from "./Card";
 import React, { useState, useEffect } from "react";
 import getTaleAllAxios from "../../../api/tale/getTaleAll";
+import UserinfoAxios from "../../../api/auth/Get/UserinfoAxios";
 
 // 이전 화살표 디자인
 function NextArrow(props) {
@@ -49,7 +50,16 @@ function PrevArrow(props) {
 const Carousel = () => {
   const [myStories, setMyStories] = useState([]);
 
-  const userId = sessionStorage.getItem("email");
+  const [userId, setUserId] = useState("");
+
+  const user = async () => {
+    const res = await UserinfoAxios();
+    setUserId(res.data.userId);
+  };
+  useEffect(() => {
+    user();
+  });
+
   const infiniteEnabled = myStories.length > 3;
 
   useEffect(() => {
@@ -63,6 +73,7 @@ const Carousel = () => {
     };
     getData();
   }, []);
+  console.log(myStories);
 
   const settings = {
     dots: true,

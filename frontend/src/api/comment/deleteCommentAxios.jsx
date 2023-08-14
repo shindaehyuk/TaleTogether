@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 export default async function deleteCommentAxios(props) {
   try {
@@ -9,7 +9,7 @@ export default async function deleteCommentAxios(props) {
       {},
       {
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
       }
     );

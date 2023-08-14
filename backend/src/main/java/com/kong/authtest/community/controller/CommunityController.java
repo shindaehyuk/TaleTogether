@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,50 +27,75 @@ public class CommunityController {
 
     @PostMapping("/register")
     @ApiOperation(value = "커뮤니티 작성 API", notes = "커뮤니티 글을 작성하기 위해 사용하는 API, title, content, userId, taleId가 필요하다", response = CommunityDtoResponse.class)
-    public ResponseEntity<CommunityDtoResponse> register(@RequestBody CommunityDtoRequest communityDtoRequest, @RequestHeader(HEADER_STRING) String token) {
-        communityDtoRequest.setUserId(tokenService.decodeUserId(token));
-        return ResponseEntity.ok(communityService.register(communityDtoRequest));
+    public ResponseEntity<?> register(@RequestBody CommunityDtoRequest communityDtoRequest, final Authentication authentication) {
+        try {
+            communityDtoRequest.setUserId((String) authentication.getPrincipal());
+            return ResponseEntity.ok(communityService.register(communityDtoRequest));
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body("community register 오류");
+        }
     }
 
     @GetMapping("/info/{communityId}")
     @ApiOperation(value = "커뮤니티 정보 얻는 API", notes = "커뮤니티와 댓글 정보를 얻기위해 사용하는 API, communityId가 필요하다.", response = CommunityDtoGetResponse.class)
-    public ResponseEntity<CommunityDtoGetResponse> getCommunityInfo(@PathVariable Long communityId) {
-        return ResponseEntity.ok(communityService.getCommunityInfo(communityId));
+    public ResponseEntity<?> getCommunityInfo(@PathVariable Long communityId) {
+        try {
+            return ResponseEntity.ok(communityService.getCommunityInfo(communityId));
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body("getCommunityInfo 오류");
+        }
     }
 
     @GetMapping("/all/{page}")
     @ApiOperation(value = "모든 커뮤니티 정보 얻는 API", notes = "모든 커뮤니티 정보를 얻는 API")
-    public ResponseEntity<List<CommunityListResponse>> getAll(@PathVariable int page) {
-        List<CommunityListResponse> all = communityService.getAll(page);
-
-        log.info(all.get(0).getTaleTitle());
-        return ResponseEntity.ok( all);
+    public ResponseEntity<?> getAll(@PathVariable int page) {
+        try {
+            return ResponseEntity.ok(communityService.getAll(page));
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body("community getAll 오류");
+        }
     }
 
     @GetMapping("/detail")
     @ApiOperation(value = "유저 아이디로 커뮤니티 디테일 정보 얻는 API", notes = "유저 아이디로 커뮤니티 디테일 정보 얻는 API")
-    public ResponseEntity<List<CommunityDetailResponse>> getDetailByUserName(@RequestHeader(HEADER_STRING) String token) {
-        return ResponseEntity.ok(communityService.getCommunityInfoByUserName(tokenService.decodeUserId(token)));
+    public ResponseEntity<?> getDetailByUserName(final Authentication authentication) {
+        try {
+            return ResponseEntity.ok(communityService.getCommunityInfoByUserName((String) authentication.getPrincipal()));
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body("community - getDetailByUserName 오류");
+        }
     }
 
     @GetMapping("/likes")
     @ApiOperation(value = "유저 아이디로 좋아요한 커뮤니티 디테일 정보 얻는 API", notes = "유저 아이디로 좋아요한 커뮤니티 디테일 정보 얻는 API")
-    public ResponseEntity<List<CommunityListResponse>> getLikeCommunityDetailByUserName(@RequestHeader(HEADER_STRING) String token) {
-        return ResponseEntity.ok(communityService.getLikeCommunityByUserName(tokenService.decodeUserId(token)));
+    public ResponseEntity<?> getLikeCommunityDetailByUserName(final Authentication authentication) {
+        try {
+            return ResponseEntity.ok(communityService.getLikeCommunityByUserName((String) authentication.getPrincipal()));
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body("getLikeCommunityDetailByUserName 오류");
+        }
     }
 
 
     @PutMapping("/modify")
     @ApiOperation(value = "커뮤니티 정보 수정 API", notes = "커뮤니티 정보를 수정하기위해 사용하는 API, taleId, content, title, communityId가 필요하다.", response = CommunityDtoResponse.class)
-    public ResponseEntity<CommunityDtoResponse> modifyCommunityInfo(@RequestBody CommunityDtoPutRequest communityDtoPutRequest) {
-        return ResponseEntity.ok(communityService.modify(communityDtoPutRequest));
+    public ResponseEntity<?> modifyCommunityInfo(@RequestBody CommunityDtoPutRequest communityDtoPutRequest) {
+        try {
+            return ResponseEntity.ok(communityService.modify(communityDtoPutRequest));
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body("modifyCommunityInfo 오류");
+        }
     }
 
     @DeleteMapping("/delete/{communityId}")
     @ApiOperation(value = "커뮤니티 글을 삭제하기 위한 API", notes = "커뮤니티 글을 삭제하기 위한 API로 communityId가 필요하다. 커뮤니티에 달린 댓글들까지 같이 삭제된다. ", response = Boolean.class)
-    public ResponseEntity<Boolean> delete(@PathVariable Long communityId) {
-        communityService.delete(communityId);
-        return ResponseEntity.ok(true);
+    public ResponseEntity<?> delete(@PathVariable Long communityId) {
+        try {
+            communityService.delete(communityId);
+            return ResponseEntity.ok(true);
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body("delete Community 오류");
+        }
     }
 
 }

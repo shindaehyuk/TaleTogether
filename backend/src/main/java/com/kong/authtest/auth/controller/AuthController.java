@@ -22,26 +22,15 @@ public class AuthController {
         HashMap<String, Object> token = authService.login(userDto);
         if (token != null)
             return ResponseEntity.ok().body(token);
-        return ResponseEntity.badRequest().build();
+        return ResponseEntity.badRequest().body("토큰이 null");
     }
-
-    @PostMapping("/test/login")
-    public String testLogin(@RequestBody final UserDto userDto){
-        return authService.testLogin(userDto);
-    }
-
-//    @PostMapping("/test/login")
-//    public ResponseEntity<HashMap<String, Object>> testLogin(@RequestBody final UserDto userDto) {
-//        return ResponseEntity.ok(authService.testLogin(userDto.getUserId()));
-//
-//    }
 
     @GetMapping("/refresh/{userId}")
     public ResponseEntity<?> refresh(HttpServletRequest request, @PathVariable final String userId) {
         HashMap<String, Object> token = authService.refresh(request.getHeader(JwtTokenUtil.HEADER_STRING), userId);
         if (token != null)
             return ResponseEntity.ok().body(token);
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("token이 refresh안됨");
     }
 
     @GetMapping("/logout/{userId}")

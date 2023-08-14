@@ -15,7 +15,7 @@ import Typography from '@mui/material/Typography';
 import Input from '@mui/material/Input';
 import SendIcon from '@mui/icons-material/Send';
 
-const APPLICATION_SERVER_URL = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:8083/';
+const APPLICATION_SERVER_URL = process.env.NODE_ENV === 'production' ? '' : '//i9c110.p.ssafy.io';
 
 export default function Openvidu() {
   //sessionId
@@ -154,7 +154,7 @@ export default function Openvidu() {
       event.stream.session.on('signal:script', (event) => {
         const receivedData = JSON.parse(event.data);
         setScript(receivedData.script);
-        setImage(receivedData.image);
+        setImage(`https://i9c110.p.ssafy.io:8083/${receivedData.image}`);
         setGptInput('');
       });
       // gpt input창 변경 신호 보내기
@@ -321,7 +321,7 @@ export default function Openvidu() {
     const res = await createChatAxios(formData, '');
     const pageId = await getPageAxios(res.data.pageId);
     setScript(pageId.data.content);
-    setImage(pageId.data.image);
+    setImage(`https://i9c110.p.ssafy.io:8083/${pageId.data.content}`);
     sendScriptToSubscribers(pageId.data.content, pageId.data.image);
     setShowForm(false);
     sendShowFormToSubscribers(false);
@@ -427,7 +427,7 @@ export default function Openvidu() {
     const res = await createChatAxios(formData, GptInput);
     const pageId = await getPageAxios(res.data.pageId);
     setScript(pageId.data.content);
-    setImage(pageId.data.image);
+    setImage(`https://i9c110.p.ssafy.io:8083/${pageId.data.content}`);
     sendScriptToSubscribers(pageId.data.content, pageId.data.image);
     setGptInput('');
   };
@@ -459,40 +459,22 @@ export default function Openvidu() {
     }
   };
 
-  // const [str, setStr] = useState([...script]);
-  // const [output, setOutput] = useState('');
+  const [output, setOutput] = useState('');
 
-  // useEffect(() => {
-  //   setStr([...script]);
-  //   setOutput('');
-  // }, [script]);
+  useEffect(() => {
+    let strCopy = [...script];
+    let outputString = '';
 
-  // useEffect(() => {
-  //   const animate = () => {
-  //     if (str.length > 0) {
-  //       setOutput((output) => output + str.shift());
-  //       setTimeout(animate, 50);
-  //     }
-  //   };
-  //   animate();
-  // }, [str]);
+    const animate = () => {
+      if (strCopy.length > 0) {
+        outputString += strCopy.shift();
+        setOutput(outputString);
+        setTimeout(animate, 90);
+      }
+    };
 
-  // const [output, setOutput] = useState('');
-
-  // useEffect(() => {
-  //   let strCopy = [...script];
-  //   let outputString = '';
-
-  //   const animate = () => {
-  //     if (strCopy.length > 0) {
-  //       outputString += strCopy.shift();
-  //       setOutput(outputString);
-  //       setTimeout(animate, 90);
-  //     }
-  //   };
-
-  //   animate();
-  // }, [script]);
+    animate();
+  }, [script]);
 
   return (
     <>
@@ -654,23 +636,67 @@ export default function Openvidu() {
           {/* 이미지 출력 박스 */}
           <Box
             sx={{
-              width: '90%',
-              height: '50%',
-              border: 1,
+              width: '95%',
+              height: '80%',
               margin: 1,
-              backgroundImage: `url(../karlo/${image})`,
             }}
-          ></Box>
+          >
+            <div class="scene">
+              <div class="book-wrap">
+                <div class="left-side">
+                  <div class="book-cover-left"></div>
+                  <div class="layer1">
+                    <div class="page-left"></div>
+                  </div>
+                  <div class="layer2">
+                    <div class="page-left"></div>
+                  </div>
+                  <div class="layer3">
+                    <div class="page-left"></div>
+                  </div>
+                  <div class="layer4">
+                    <div class="page-left"></div>
+                  </div>
+                  <div class="layer-text">
+                    <div class="page-left-2">
+                      <div class="corner"></div>
+                      <div class="corner2"></div>
+                      <div class="corner-fold"></div>
+                      <div class="page-text w-richtext">
+                        <img src={image} alt=""></img>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="center"></div>
+                <div class="right-side">
+                  <div class="book-cover-right"></div>
+                  <div class="layer1">
+                    <div class="page-right"></div>
+                  </div>
+                  <div class="layer2 right">
+                    <div class="page-right"></div>
+                  </div>
+                  <div class="layer3 right">
+                    <div class="page-right"></div>
+                  </div>
+                  <div class="layer4 right">
+                    <div class="page-right"></div>
+                  </div>
+                  <div class="layer-text right">
+                    <div class="page-right-2">
+                      <div class="page-text w-richtext">
+                        <p>{output}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Box>
 
           {/* 스크립트 출력 박스  */}
-          <Box sx={{ width: '90%', height: '40%', border: 1 }}>
-            {/* 스크립트 메세지 출력 */}
-            {gameStarted && (
-              <div className="typewriter">
-                <h5>{script}</h5>
-              </div>
-            )}
-
+          <Box sx={{ width: '90%', height: '20%', border: 1 }}>
             {/* Gpt입력창 */}
             {showInput &&
               (owner ? (

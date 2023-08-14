@@ -2,18 +2,25 @@ import ArticleScroll from "./ArticleScroll";
 import { Box } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import getUserCommunityAxios from "../../../api/community/getUserCommunityAxios";
-import { useSelector } from "react-redux";
+import UserinfoAxios from "../../../api/auth/Get/UserinfoAxios";
 
 function Article() {
   const [myArticles, setMyArticles] = useState([]);
 
-  const id = useSelector((state) => state.userSlice.userId);
-  const props = { id };
+  const [userId, setUserId] = useState("");
+
+  const user = async () => {
+    const res = await UserinfoAxios();
+    setUserId(res.data.userId);
+  };
+  useEffect(() => {
+    user();
+  });
 
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await getUserCommunityAxios(props);
+        const response = await getUserCommunityAxios(userId);
         setMyArticles(response.data);
       } catch (error) {
         console.error(error);
@@ -31,6 +38,7 @@ function Article() {
           justifyContent: "flex-start",
           width: "90%",
           marginTop: "2em",
+          fontFamily: "omyu_pretty",
         }}
       >
         <h2>내가 쓴 글</h2>

@@ -1,5 +1,6 @@
 package com.kong.authtest.gameRoom.service;
 
+import com.kong.authtest.chatGpt.service.ChatGptService;
 import com.kong.authtest.gameRoom.domain.GameRoom;
 import com.kong.authtest.gameRoom.dto.GameRoomDeleteResponse;
 import com.kong.authtest.gameRoom.dto.GameRoomRequest;
@@ -30,6 +31,8 @@ public class GameRoomService {
     private final TaleRepository taleRepository;
 
     private final UserTaleRepository userTaleRepository;
+
+    private final ChatGptService chatGptService;
 
 
     private final static String CODE = "ssafy";

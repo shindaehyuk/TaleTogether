@@ -19,16 +19,26 @@ const LikeScroll = ({ myLikes }) => {
               width: "100%",
               height: "60%",
               display: "flex",
+              flexDirection: "column", // 추가
               justifyContent: "flex-start",
+              alignItems: "flex-start",
               textColor: "inherit",
               indicatorColor: "inherit",
+              fontFamily: "omyu_pretty",
             }}
           >
-            <p>{like.title}</p>
-            <p>{like.content}</p>
+            <h2>{like.title}</h2>
             {like.taleImage && (
-              <img src={like.taleImage} style={{ marginLeft: "auto" }} />
+              <img
+                src={like.taleImage}
+                style={{
+                  marginLeft: "auto",
+                  alignSelf: "center",
+                  borderRadius: "20px",
+                }}
+              />
             )}
+            <p style={{ alignSelf: "flex-end" }}>좋아요 : {like.likeCount}</p>
           </Box>
           <hr style={{ marginBottom: "0px" }} />
         </React.Fragment>

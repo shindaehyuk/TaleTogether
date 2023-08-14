@@ -21,27 +21,42 @@ public class PageController {
 
     @PostMapping("/register")
     @ApiOperation(value = "page를 작성하는 API", notes = "page를 작성하기 위한 API, content, image, taleId가 필요하다.", response = PageDtoResponse.class)
-    public ResponseEntity<PageDtoResponse> register(@RequestBody PageDtoRequest PageDtoRequest) {
-        return ResponseEntity.ok(pageService.register(PageDtoRequest));
+    public ResponseEntity<?> register(@RequestBody PageDtoRequest PageDtoRequest) {
+        try {
+            return ResponseEntity.ok(pageService.register(PageDtoRequest));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("pageRegister 오류");
+        }
     }
 
     @GetMapping("/detail")
     @ApiOperation(value = "page 정보를 얻기위한 API", notes = "page 정보를 얻기위한 API, pageId가 필요하다", response = PageDtoResponse.class)
-    public ResponseEntity<PageDtoResponse> detail(@RequestParam Long pageId) {
-        return ResponseEntity.ok(pageService.detail(pageId));
-
+    public ResponseEntity<?> detail(@RequestParam Long pageId) {
+        try {
+            return ResponseEntity.ok(pageService.detail(pageId));
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body("pageDetail 오류");
+        }
     }
 
     @PutMapping("/modify")
     @ApiOperation(value = "page 정보를 수정하기위한 API", notes = "page정보를 수정하기 위해, image, content, sequence, pageId가 필요하다.", response = PageDtoResponse.class)
-    public ResponseEntity<PageDtoResponse> modify(@RequestBody PageDtoPutRequest pageDtoPutRequest) {
-        return ResponseEntity.ok(pageService.modify(pageDtoPutRequest));
+    public ResponseEntity<?> modify(@RequestBody PageDtoPutRequest pageDtoPutRequest) {
+        try {
+            return ResponseEntity.ok(pageService.modify(pageDtoPutRequest));
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body("page Modify 오류");
+        }
     }
 
     @DeleteMapping("/delete/{pageId}")
     @ApiOperation(value = "page 정보를 삭제하기 위한 API", notes = "page 정보를 삭제하기 위해 pageId가 필요하다.", response = Boolean.class)
-    public ResponseEntity<Boolean> delete(@PathVariable Long pageId) {
-        pageService.delete(pageId);
-        return ResponseEntity.ok(true);
+    public ResponseEntity<?> delete(@PathVariable Long pageId) {
+        try {
+            pageService.delete(pageId);
+            return ResponseEntity.ok(true);
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body("page Delete 오류");
+        }
     }
 }

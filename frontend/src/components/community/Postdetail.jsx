@@ -198,8 +198,6 @@ function PostContent({ post, comments, onCommentCreate }) {
   );
 }
 
-
-
 function PostDetail() {
   const { communityId } = useParams();
   const [post, setPost] = useState(null);
@@ -294,7 +292,7 @@ function PostDetail() {
         />
       )}
       {editing ? (
-        (<PostForm initialValues={post} setEditing={setEditing} />))
+        <PostForm initialValues={post} setEditing={setEditing} />
       ) : (
         <PostContent post={post} onCommentCreate={handleCommentCreated} />
       )}

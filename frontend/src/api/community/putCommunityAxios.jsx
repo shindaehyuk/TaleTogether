@@ -10,7 +10,7 @@ export default async function putCommunityAxios(props) {
         taleId: props.taleId,
         content: props.content,
         title: props.title,
-        communityId: props.communityId
+        communityId: props.communityId,
       },
       {
         headers: {

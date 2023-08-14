@@ -9,7 +9,7 @@ function App() {
   const dispatch = useDispatch();
   const theme = createTheme({
     typography: {
-      fontFamily: ["omyu_pretty", "yg-jalnan"],
+      fontFamily: ["omyu_pretty"],
     },
   });
   window.addEventListener("storage", (event) => {
@@ -36,8 +36,6 @@ function App() {
           >
             <Router></Router>
           </Container>
-
-          <footer></footer>
         </div>
       </BrowserRouter>
     </ThemeProvider>

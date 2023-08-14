@@ -24,8 +24,6 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
         if (user == null || !user.getPassword().equals(password)) {
             throw new BadCredentialsException("id or password Wrong");
         }
-
-        // 얘는 jwtToken과 무슨 관계인지
         return new UsernamePasswordAuthenticationToken(username, password, user.getAuthorities());
     }
 
