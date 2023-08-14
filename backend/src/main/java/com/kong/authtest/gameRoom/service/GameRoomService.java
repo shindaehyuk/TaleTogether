@@ -39,7 +39,7 @@ public class GameRoomService {
 
     @Transactional
     public GameRoomResponse registerGame(String userId) {
-
+        chatGptService.clearConversationHistory();
         String code = generateCode();
 
         Tale tale = Tale.builder().build();

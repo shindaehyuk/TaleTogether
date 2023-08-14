@@ -10,33 +10,50 @@ Content-Type: application/json
 
 POST http://localhost:8083/api/create-chat
 Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0d2phbmc4Mjg3QG5hdmVyLmNvbSIsImV4cCI6MTY5MTk4MTc2NCwiaXNzIjoia29uZy5jb20ifQ._wAHQG-IYaO4_Rno3XjtuLWqo0JYZ7eub_G2PbIJ860
 
 {
 "chatGptRequest": {
   "messages": [
     {
       "role": "system",
-      "content": "You are a helpful assistant."
-    },
-    {
+      "content": "너는 trpg 게임 진행자야 ."
+    },{
       "role": "user",
-      "content": "1 "
+      "content": "2"
     }
   ]
 
 },
   "userChoiceRequest": {
-    "backGround": "산",
+    "backGround": "우주",
     "player1": "범진",
-    "player2": "범진2",
+    "player2": "대혁",
     "player1Character": "용감한",
     "player2Character": "소심한",
-    "turn": "50"
+    "turn": "5"
 
   },
   "pageDtoRequest": {
     "taleId": 1
   }
 
+
+}
+
+###
+
+POST localhost:8083/api/finish-chat
+Content-Type: application/json
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0d2phbmc4Mjg3QG5hdmVyLmNvbSIsImV4cCI6MTY5MTk4MTc2NCwiaXNzIjoia29uZy5jb20ifQ._wAHQG-IYaO4_Rno3XjtuLWqo0JYZ7eub_G2PbIJ860
+
+{
+  "chatGptRequest": {
+  },
+
+
+  "pageDtoRequest": {
+    "taleId": 1
+  }
 
 }

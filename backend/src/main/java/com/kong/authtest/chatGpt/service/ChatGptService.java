@@ -11,7 +11,6 @@ import com.kong.authtest.karlo.service.KarloService;
 import com.kong.authtest.page.dto.PageDtoRequest;
 import com.kong.authtest.page.dto.PageDtoResponse;
 import com.kong.authtest.page.service.PageService;
-import com.kong.authtest.tale.service.TaleService;
 import com.kong.authtest.translation.DeepLService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -66,7 +65,6 @@ public class ChatGptService {
         PageDtoResponse pageDtoResponse = registerPage(pageDtoRequest, content(), karloResponse);
 
 
-
         ChatGptResponse chatGptResponse = sendGptApiServer(chatGptRequest);
 
         chatGptResponse.setImage(pageDtoResponse.getImage());
@@ -76,17 +74,52 @@ public class ChatGptService {
         return chatGptResponse;
     }
 
+    @Transactional
+    public ChatGptResponse finishTale(ChatGptRequest chatGptRequest, PageDtoRequest pageDtoRequest) throws Exception {
+        // 기본 메시지 설정
+        ChatGptMessage chatGptMessage = new ChatGptMessage(SetDefaultGptSystem(), setDefaultFinishGptUser());
+        setDefaultGptMessages(chatGptMessage);
+        addGptMessageHistory(chatGptRequest);
+        setDefaultGpt(chatGptRequest);
+
+        // API 서버로 메시지 전송
+        ChatGptResponse chatGptResponse = sendGptApiServer(chatGptRequest);
+        if (chatGptResponse == null || chatGptResponse.getChoices() == null || chatGptResponse.getChoices().isEmpty()) {
+            throw new Exception("Invalid response from GPT API Server");
+        }
+        addGptConversation(chatGptResponse);
+
+        // 이미지 생성
+        KarloResponse karloResponse = karloService.createImage(setFinalDefaultKarlo(content()));
+
+        // 페이지 등록
+        PageDtoResponse pageDtoResponse = registerPage(pageDtoRequest, content(), karloResponse);
+
+        chatGptResponse.setImage(pageDtoResponse.getImage());
+        chatGptResponse.setPageId(pageDtoResponse.getPageId());
+
+        return chatGptResponse;
+    }
+
+
     public void clearConversationHistory() {
         conversationHistory.clear();
     }
-
 
 
     @NotNull
     private static ChatGptRequest.Messages setDefaultGptUser(UserChoiceRequest userChoiceRequest) {
         ChatGptRequest.Messages user = new ChatGptRequest.Messages();
         user.setRole("user");
-        user.setContent("5~8세가 읽을 동화책 " + userChoiceRequest.getBackGround() + "에서 모험을 하는 테마로 trpg 진행할건데 진행자 역할을 해줘. 플레이어는 2명이고 첫번째 플레이어의 이름은 " + userChoiceRequest.getPlayer1() + " 이고 성격은 " + userChoiceRequest.getPlayer1Character() + " 성격이야. 두번째 플레이어의 이름은 " + userChoiceRequest.getPlayer2() + " 이고 성격은 " + userChoiceRequest.getPlayer2Character() + "성격이야. 진행 방식은 내가 응답을 하면 응답에 따라 선택지를 줘서 스토리를 진행해줘.  턴제방식으로 진행하고 " + userChoiceRequest.getTurn() + " 턴에 끝내줘.  각 턴에는 최대 3가지 선택지를 주고 끝나면 다음턴으로 넘겨줘.  " + userChoiceRequest.getPlayer1() + ", " + userChoiceRequest.getPlayer2() + "순서대로 내가 선택할 수 있게 하고  턴을 진행해줘 내가 선택하기 전까지는 턴을 넘기지 마");
+        user.setContent("5~8세가 읽을 동화책 " + userChoiceRequest.getBackGround() + "에서 모험을 하는 테마로 trpg 진행할건데 진행자 역할을 해줘. 플레이어는 2명이고 첫번째 플레이어의 이름은 " + userChoiceRequest.getPlayer1() + " 이고 성격은 " + userChoiceRequest.getPlayer1Character() + " 성격이야. 두번째 플레이어의 이름은 " + userChoiceRequest.getPlayer2() + " 이고 성격은 " + userChoiceRequest.getPlayer2Character() + "성격이야. 진행 방식은 내가 응답을 하면 응답에 따라 선택지를 줘서 스토리를 진행해줘.  턴제방식으로 진행하고 " + userChoiceRequest.getTurn() + " 턴에 끝내줘.  각 턴에는 최대 3가지 선택지를 주고 끝나면 다음턴으로 넘겨줘.  " + userChoiceRequest.getPlayer1() + ", " + userChoiceRequest.getPlayer2() + "순서대로 내가 선택할 수 있게 하고  턴을 진행해줘 내가 선택하기 전까지는 턴을 넘기지 마.");
+        return user;
+    }
+
+    @NotNull
+    private static ChatGptRequest.Messages setDefaultFinishGptUser() {
+        ChatGptRequest.Messages user = new ChatGptRequest.Messages();
+        user.setRole("user");
+        user.setContent("턴을 종료해주고 여태 내용을 요약해서 동화로 만들어줘");
         return user;
     }
 
@@ -95,7 +128,7 @@ public class ChatGptService {
         ChatGptRequest.Messages system = new ChatGptRequest.Messages();
 
         system.setRole("system");
-        system.setContent("You are a helpful assistant");
+        system.setContent("You are a helpful assistant and you are the host of the TRPG game");
         return system;
     }
 
@@ -108,10 +141,27 @@ public class ChatGptService {
         return karloRequest;
     }
 
+    @NotNull
+    private KarloRequest setFinalDefaultKarlo(String content) throws Exception {
+        KarloRequest karloRequest = new KarloRequest();
+        karloRequest.setPrompt("painting." + translateFinishGptMessage(content)); // 예시로 1번째 인덱스 사용
+        karloRequest.setNegative_prompt("low quality, low contrast, draft, amateur, cut off, cropped, frame, scary, letters, character");
+        return karloRequest;
+    }
+
 
     @NotNull
     private String translateGptMessage(UserChoiceRequest userChoiceRequest, String content) throws Exception {
         String text = deepLService.translateEN(userChoiceRequest.getPlayer1() + content).trim();
+        if (text.length() > 200) {
+            text = text.substring(0, 200);
+        }
+        return text;
+    }
+
+    @NotNull
+    private String translateFinishGptMessage(String content) throws Exception {
+        String text = deepLService.translateEN(content).trim();
         if (text.length() > 200) {
             text = text.substring(0, 200);
         }
