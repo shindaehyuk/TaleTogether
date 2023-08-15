@@ -127,9 +127,7 @@ public class KarloService {
             while ((bytesRead = in.read(buffer)) != -1) {
                 out.write(buffer, 0, bytesRead);
             }
-
-            log.info(" 파일 이름 {}" , fileName);
-            karloResponse.setFileName(fileName);
+            karloResponse.setFileName(image);
 
             in.close();
             out.close();
