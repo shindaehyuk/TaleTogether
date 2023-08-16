@@ -1,11 +1,12 @@
 import axios from 'axios';
+import { axiosInstance } from '../../../components/route/axiosInstance';
 
 export default async function DeleteUserAxios(props) {
   try {
     // POST 요청은 body에 실어 보냄
-    const res = await axios.delete(
-      `//i9c110.p.ssafy.io/api/users/delete-user`,
-      // `//localhost:8083/api/users/delete-user`,
+    const res = await axiosInstance.delete(
+      // `//i9c110.p.ssafy.io/api/users/delete-user`,
+      `users/delete-user`,
       {
         headers: {
           'Content-Type': 'application/json',
