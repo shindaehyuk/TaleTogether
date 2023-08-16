@@ -13,11 +13,13 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { login } from '../../redux/slices/userSlice';
 import LoginAxios from '../../api/auth/Post/LoginAxios';
+import { Alert, Snackbar } from '@mui/material';
 
 export default function SignIn() {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [open, setOpen] = useState('');
 
   const success = {
     main: '#1976d2',
@@ -35,15 +37,21 @@ export default function SignIn() {
   const onSubmit = async (event) => {
     setIsLoading(true);
     const res = await LoginAxios(event);
-    console.log(res);
+
     if (res) {
+      const payload = {
+        token: res.data.accessToken,
+        refreshToken: res.data.refreshToken,
+      };
+      setOpen(1);
       setTimeout(() => {
-        dispatch(login(res.data.accessToken.slice(7)));
-        navigate('/intro');
+        dispatch(login(payload));
+        window.location.href = '/intro'; // 다른 URL로 이동
       }, 2000); // 로그인 후 메인페이지로 이동
     } else {
       setTimeout(() => {
         setIsLoading(false);
+        setOpen(2);
       }, 2000); // 로그인 후 메인페이지로 이동
     }
   };
@@ -58,6 +66,18 @@ export default function SignIn() {
           alignItems: 'center',
         }}
       >
+        <Snackbar
+          open={open === 1 || open === 2}
+          autoHideDuration={4000}
+          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+          onClose={() => setOpen(0)} // Snackbar 닫기 이벤트 처리
+        >
+          <Alert severity={open === 1 ? 'success' : open === 2 ? 'error' : 'error'} sx={{ width: '100%' }}>
+            {open === 1 && '로그인 성공! 메인페이지로 이동합니다.'}
+            {open === 2 && '아이디가 존재하지 않거나 비밀번호가 틀립니다.'}
+          </Alert>
+        </Snackbar>
+
         <Box component="form" noValidate onSubmit={handleSubmit(onSubmit)} sx={{}}>
           <Grid container spacing={2}>
             <Grid item xs={12}>

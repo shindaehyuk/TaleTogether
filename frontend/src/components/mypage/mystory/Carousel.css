@@ -1,6 +1,6 @@
-img {
-    width: 12em;
-    height: 16em;
+.img {
+  width: 12em;
+  height: 16em;
 }
 
 .slick-slide {
@@ -12,7 +12,7 @@ img {
 }
 
 .slick-arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
 }

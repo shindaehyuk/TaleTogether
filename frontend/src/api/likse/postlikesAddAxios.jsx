@@ -1,11 +1,12 @@
 import axios from 'axios';
+import { axiosInstance } from '../../components/route/axiosInstance';
 
 export default async function postlikesAddAxios(props) {
   try {
     // POST 요청은 body에 실어 보냄
-    const res = await axios.post(
-      `//i9c110.p.ssafy.io/api/likes/add`,
-      // `//localhost:8083/api/likes/add`,
+    const res = await axiosInstance.post(
+      // `//i9c110.p.ssafy.io/api/likes/add`,
+      `likes/add`,
 
       {
         communityId: props.id,
