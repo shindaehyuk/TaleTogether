@@ -6,7 +6,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import UserVideoComponent from './UserVideoComponent';
 import { useLocation } from 'react-router';
 import { Box, Button, Grid, TextField } from '@mui/material';
-import { useForm } from 'react-hook-form';
+import { set, useForm } from 'react-hook-form';
 import createChatAxios from '../../api/chat-gpt/createChatAxios';
 import getPageAxios from '../../api/page/getPageAxios';
 import AppBar from '@mui/material/AppBar';
@@ -14,8 +14,15 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Input from '@mui/material/Input';
 import SendIcon from '@mui/icons-material/Send';
+import { axiosInstance } from '../route/axiosInstance';
+import getTaleAxios from '../../api/tale/getTaleAxios';
+import Modal from '@mui/material/Modal';
+import Book from '../mypage/mystory/Book';
+import finishChatAxios from '../../api/chat-gpt/finishChatAxios';
+import NotFound from '../../page/NotFound';
+import saveTitleAxios from '../../api/chat-gpt/saveTitleAxios';
 
-const APPLICATION_SERVER_URL = process.env.NODE_ENV === 'production' ? '' : '//i9c110.p.ssafy.io';
+const APPLICATION_SERVER_URL = process.env.NODE_ENV === 'production' ? '' : '//i9c110.p.ssafy.io/';
 // const APPLICATION_SERVER_URL = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:8083/';
 
 export default function Openvidu() {
@@ -24,6 +31,7 @@ export default function Openvidu() {
 
   const [mySessionId, setMySessionId] = useState(state.code);
   const [myUserName, setMyUserName] = useState(sessionStorage.getItem('token'));
+  const [taleid, setTaleid] = useState(state.taleId);
   const [session, setSession] = useState(undefined);
   const [mainStreamManager, setMainStreamManager] = useState(undefined);
   const [publisher, setPublisher] = useState(undefined);
@@ -40,10 +48,18 @@ export default function Openvidu() {
   const [GptInput, setGptInput] = useState('');
   const [owner, setOwner] = useState(state.owner);
   const [loading, setLoading] = useState('false');
-  const [image, setImage] = useState('');
+  const [image, setImage] = useState('../assets/Logo1-removebg-preview.png');
   const [message, setMessage] = useState('');
   const [messageList, setMessageList] = useState([]);
   const chatScrollRef = useRef(null);
+  const [open, setOpen] = useState(false);
+  const [pageList, setPageList] = useState('');
+  const [showLastForm, setShowLastForm] = useState(false);
+
+  const [showbook, setShowBook] = useState(false);
+  const [finish, setFinish] = useState(true);
+  const [choiceImage, setChoiceImage] = useState('');
+  const [choicetitle, setChoiceTitle] = useState('');
 
   const {
     register,
@@ -88,6 +104,39 @@ export default function Openvidu() {
     },
   ];
 
+  const modalStyle = {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  };
+
+  const boxStyle = {
+    position: 'absolute',
+    display: 'flex',
+    width: '80%',
+    height: '80%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 0,
+    overflow: 'auto',
+    backgroundImage: `url("../../assets/BookTemplate.jpg")`,
+    backgroundSize: '101.5% 100%',
+  };
+
+  const getTaleBook = async () => {
+    const res = await getTaleAxios(taleid);
+    console.log(res);
+    setPageList(res.data.pageList);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
   // 페이지 뒤로가기 막기
   window.addEventListener('popstate', function (event) {
     // 페이지 새로고침
@@ -105,9 +154,6 @@ export default function Openvidu() {
     },
     [mainStreamManager]
   );
-  useEffect(() => {
-    console.log(subscribers);
-  }, [subscribers]);
 
   /// 방 처음 들어올때 세션만드는거
   useEffect(() => {
@@ -148,15 +194,22 @@ export default function Openvidu() {
       // 폼보여주는 신호 보내기
       event.stream.session.on('signal:ShowForm', (event) => {
         const receivedData = JSON.parse(event.data);
-        setShowForm(receivedData);
+
         setShowInput(!receivedData);
+
+        setTimeout(() => {
+          setShowForm(receivedData);
+        }, 5000); // 로그인 후 메인페이지로 이동
       });
       // 스크립트 변경 신호 보내기
       event.stream.session.on('signal:script', (event) => {
         const receivedData = JSON.parse(event.data);
         setScript(receivedData.script);
-        setImage(`https://i9c110.p.ssafy.io:8083/${receivedData.image}`);
+        setImage(receivedData.image);
         setGptInput('');
+        setLoading('false');
+        getTaleBook();
+        setShowBook(true);
       });
       // gpt input창 변경 신호 보내기
       event.stream.session.on('signal:GptInput', (event) => {
@@ -167,6 +220,22 @@ export default function Openvidu() {
       event.stream.session.on('signal:message', (event) => {
         const receivedData = JSON.parse(event.data);
         setMessageList((prevMessageList) => [...prevMessageList, receivedData]);
+      });
+
+      event.stream.session.on('signal:loading', (event) => {
+        const receivedData = JSON.parse(event.data);
+        setLoading(receivedData);
+        setShowInput(true);
+      });
+
+      event.stream.session.on('signal:finish', (event) => {
+        const receivedData = JSON.parse(event.data);
+        setPageList(receivedData);
+        setLoading('false');
+        setShowInput(false);
+        setImage('../assets/Logo1-removebg-preview.png');
+        setScript('마지막으로 동화의 제목과 메인사진을 골라주세요!');
+        setShowLastForm(true);
       });
     });
 
@@ -215,6 +284,8 @@ export default function Openvidu() {
       });
     }
   }, [session, myUserName]);
+
+  // 채팅창 자동스크롤위치
   useEffect(() => {
     if (chatScrollRef.current) {
       chatScrollRef.current.scrollTop = chatScrollRef.current.scrollHeight;
@@ -226,7 +297,7 @@ export default function Openvidu() {
     if (session) {
       session.disconnect();
     }
-    window.location.href = '/intro'; // 다른 URL로 이동
+    window.location.href = '/game'; // 다른 URL로 이동
   }, [session]);
 
   const deleteSubscriber = useCallback((streamManager) => {
@@ -258,24 +329,12 @@ export default function Openvidu() {
   }, [mySessionId]);
 
   const createSession = async (sessionId) => {
-    const response = await axios.post(
-      APPLICATION_SERVER_URL + 'api/get-sessions',
-      { customSessionId: sessionId },
-      {
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
+    const response = await axiosInstance.post('get-sessions', { customSessionId: sessionId });
     return response.data; // The sessionId
   };
 
   const createToken = async (sessionId) => {
-    const response = await axios.post(
-      APPLICATION_SERVER_URL + 'api/sessions/' + sessionId + '/connections',
-      {},
-      {
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
+    const response = await axiosInstance.post('sessions/' + sessionId + '/connections');
     return response.data; // The token
   };
 
@@ -319,14 +378,17 @@ export default function Openvidu() {
 
   // 게임설정 완료 핸들러
   const settingCompleteHandler = async () => {
+    await loadingHandler();
     const res = await createChatAxios(formData, '');
     const pageId = await getPageAxios(res.data.pageId);
     setScript(pageId.data.content);
-    setImage(`https://i9c110.p.ssafy.io:8083/${pageId.data.content}`);
+    setImage(pageId.data.content);
     sendScriptToSubscribers(pageId.data.content, pageId.data.image);
     setShowForm(false);
     sendShowFormToSubscribers(false);
     setShowInput(true);
+    setLoading('false');
+    setShowBook(true);
   };
 
   // 처음 게임시작버튼 핸들러
@@ -336,6 +398,7 @@ export default function Openvidu() {
     sendShowFormToSubscribers(true);
     // setGameStarted(true);
     sendDataToSubscribers(true);
+    getTaleBook();
   };
 
   //보내고 싶은 데이터 보낼때 사용
@@ -428,9 +491,11 @@ export default function Openvidu() {
     const res = await createChatAxios(formData, GptInput);
     const pageId = await getPageAxios(res.data.pageId);
     setScript(pageId.data.content);
-    setImage(`https://i9c110.p.ssafy.io:8083/${pageId.data.content}`);
+    setImage(pageId.data.content);
     sendScriptToSubscribers(pageId.data.content, pageId.data.image);
     setGptInput('');
+    setLoading(true);
+    getTaleBook();
   };
 
   // 메세지 변경
@@ -477,6 +542,62 @@ export default function Openvidu() {
     animate();
   }, [script]);
 
+  //로딩신호 보내기
+  const sendLoadingToSubscribers = (data) => {
+    if (session) {
+      session
+        .signal({
+          type: 'loading',
+          data: JSON.stringify(data),
+        })
+        .then(() => {
+          console.log('Data sent successfully:', data);
+        })
+        .catch((error) => {
+          console.error('Error sending data:', error);
+        });
+    }
+  };
+  // 스크립트 로딩핸들러
+  const loadingHandler = async () => {
+    setLoading('true');
+    sendLoadingToSubscribers('true');
+    setShowInput(true);
+  };
+
+  const sendFinishToSubscribers = (data) => {
+    if (session) {
+      session
+        .signal({
+          type: 'loading',
+          data: JSON.stringify(data),
+        })
+        .then(() => {
+          console.log('Data sent successfully:', data);
+        })
+        .catch((error) => {
+          console.error('Error sending data:', error);
+        });
+    }
+  };
+
+  const finishHandler = async () => {
+    setFinish(false);
+    await loadingHandler();
+    const res = await finishChatAxios(state.taleId);
+    sendFinishToSubscribers(res.data);
+    setPageList(res.data);
+    setShowInput(false);
+    setImage('../assets/Logo1-removebg-preview.png');
+    setLoading('false');
+    setShowLastForm(true);
+    setScript('마지막으로 동화의 제목과 메인사진을 골라주세요!');
+  };
+
+  const saveHandler = async () => {
+    const res = await saveTitleAxios();
+  };
+
   return (
     <>
       <Box
@@ -519,7 +640,6 @@ export default function Openvidu() {
                 <Button color="inherit" onClick={leaveSession}>
                   종료하기
                 </Button>
-                {loading}
               </Toolbar>
             </AppBar>
           </Box>
@@ -566,13 +686,13 @@ export default function Openvidu() {
               }}
             >
               <div ref={chatScrollRef} className="chat-box">
-                <div class="container">
+                <div className="container">
                   {messageList.map((data, index) => (
                     <div key={index}>
                       {data.nickname === myUserName ? (
-                        <div class="message-mybody">{data.message}</div>
+                        <div className="message-mybody">{data.message}</div>
                       ) : (
-                        <div class="message-yourbody">{data.message}</div>
+                        <div className="message-yourbody">{data.message}</div>
                       )}
                     </div>
                   ))}
@@ -635,145 +755,231 @@ export default function Openvidu() {
           }}
         >
           {/* 이미지 출력 박스 */}
-          <Box
-            sx={{
-              width: '95%',
-              height: '80%',
-              margin: 1,
-            }}
-          >
-            <div class="scene">
-              <div class="book-wrap">
-                <div class="left-side">
-                  <div class="book-cover-left"></div>
-                  <div class="layer1">
-                    <div class="page-left"></div>
-                  </div>
-                  <div class="layer2">
-                    <div class="page-left"></div>
-                  </div>
-                  <div class="layer3">
-                    <div class="page-left"></div>
-                  </div>
-                  <div class="layer4">
-                    <div class="page-left"></div>
-                  </div>
-                  <div class="layer-text">
-                    <div class="page-left-2">
-                      <div class="corner"></div>
-                      <div class="corner2"></div>
-                      <div class="corner-fold"></div>
-                      <div class="page-text w-richtext">
-                        <img src={image} alt=""></img>
+          {showInput && loading === 'true' && <NotFound />}
+          {loading === 'false' && (
+            <Box
+              sx={{
+                width: '95%',
+                height: '80%',
+                margin: 1,
+              }}
+            >
+              <div className="scene">
+                <div className="book-wrap">
+                  <div className="left-side">
+                    <div className="book-cover-left"></div>
+                    <div className="layer1">
+                      <div className="page-left"></div>
+                    </div>
+                    <div className="layer2">
+                      <div className="page-left"></div>
+                    </div>
+                    <div className="layer3">
+                      <div className="page-left"></div>
+                    </div>
+                    <div className="layer4">
+                      <div className="page-left"></div>
+                    </div>
+                    <div className="layer-text">
+                      <div className="page-left-2">
+                        <div className="corner"></div>
+                        <div className="corner2"></div>
+                        <div className="corner-fold"></div>
+                        <div className="page-text w-richtext">
+                          <img className="img" src={image} alt=""></img>
+                          {showInput && (
+                            <>
+                              <form
+                                onSubmit={() => {
+                                  loadingHandler();
+                                  makeScriptHandler();
+                                }}
+                                style={{
+                                  fontFamily: 'omyu_pretty',
+                                  fontSize: '18px',
+                                  marginTop: 10,
+                                  marginBottom: 10,
+                                }}
+                              >
+                                이곳에 답변을 입력해주세요!
+                                <Input
+                                  color="success"
+                                  required
+                                  type="text"
+                                  value={GptInput}
+                                  sx={{ marginX: 2 }}
+                                  onChange={GptInputHandler}
+                                />
+                                <Button color="success" type="submit">
+                                  제출하기
+                                </Button>
+                              </form>
+                            </>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div class="center"></div>
-                <div class="right-side">
-                  <div class="book-cover-right"></div>
-                  <div class="layer1">
-                    <div class="page-right"></div>
-                  </div>
-                  <div class="layer2 right">
-                    <div class="page-right"></div>
-                  </div>
-                  <div class="layer3 right">
-                    <div class="page-right"></div>
-                  </div>
-                  <div class="layer4 right">
-                    <div class="page-right"></div>
-                  </div>
-                  <div class="layer-text right">
-                    <div class="page-right-2">
-                      <div class="page-text w-richtext">
-                        <p>{output}</p>
+                  <div className="center"></div>
+                  <div className="right-side">
+                    <div className="book-cover-right"></div>
+                    <div className="layer1">
+                      <div className="page-right"></div>
+                    </div>
+                    <div className="layer2 right">
+                      <div className="page-right"></div>
+                    </div>
+                    <div className="layer3 right">
+                      <div className="page-right"></div>
+                    </div>
+                    <div className="layer4 right">
+                      <div className="page-right"></div>
+                    </div>
+                    <div className="layer-text right">
+                      <div className="page-right-2">
+                        <div className="page-text w-richtext">
+                          <p className="script">{output}</p>
+                          {/* 게임 시작하기 전 입력 폼 */}
+                          {showForm && state.owner && (
+                            <Box
+                              component="form"
+                              noValidate
+                              onSubmit={handleSubmit(settingCompleteHandler)}
+                              sx={{ marginTop: '10%' }}
+                            >
+                              <Grid container spacing={2}>
+                                {fields.map((field) => (
+                                  <Grid item xs={6}>
+                                    <TextField
+                                      key={field.name}
+                                      className="animate__animated animate__fadeIn animate__delay-0.3s"
+                                      required
+                                      fullWidth
+                                      color="success"
+                                      label={field.label}
+                                      {...register(field.name, { required: true })}
+                                      error={!!errors[field.name]}
+                                      sx={{ backgroundColor: '#faedcd', borderRadius: '5px' }}
+                                      onChange={handleChange}
+                                      value={formData[field.name]}
+                                      name={field.name}
+                                    />
+                                  </Grid>
+                                ))}
+                              </Grid>
+                              <Button
+                                className="animate__animated animate__fadeIn animate__delay-1.2s"
+                                type="submit"
+                                fullWidth
+                                color="inherit"
+                                variant="contained"
+                                sx={{ mt: 4, mb: 4, backgroundColor: '#faedcd', color: 'black' }}
+                              >
+                                게임시작
+                              </Button>
+                            </Box>
+                          )}
+                          {/* 방장 아닌 사람에게 뜨는 입력 폼 */}
+                          {showForm && !state.owner && (
+                            <Box component="form" noValidate sx={{ marginTop: '10%' }}>
+                              <Grid container spacing={2}>
+                                {fields.map((field) => (
+                                  <Grid item xs={6}>
+                                    <TextField
+                                      key={field.name}
+                                      className="animate__animated animate__fadeIn animate__delay-0.3s"
+                                      required
+                                      fullWidth
+                                      disabled
+                                      color="success"
+                                      label={field.label}
+                                      {...register(field.name, { required: true })}
+                                      error={!!errors[field.name]}
+                                      sx={{ backgroundColor: '#faedcd', borderRadius: '5px' }}
+                                      onChange={handleChange}
+                                      value={formData[field.name]}
+                                      name={field.name}
+                                    />
+                                  </Grid>
+                                ))}
+                              </Grid>
+                            </Box>
+                          )}
+
+                          {/* 마지막폼 */}
+                          {showLastForm && state.owner && (
+                            <Box component="form" noValidate onSubmit={handleSubmit(saveHandler)}>
+                              <Grid container spacing={2}>
+                                <Grid item xs={12}>
+                                  <TextField
+                                    className="animate__animated animate__fadeIn animate__delay-0.3s"
+                                    required
+                                    fullWidth
+                                    label="타이틀"
+                                    autoFocus
+                                    {...register('title', {
+                                      required: true,
+                                    })}
+                                    color="success"
+                                    error={!!errors.title}
+                                    sx={{ backgroundColor: '#faedcd', borderRadius: '5px' }}
+                                  />
+                                </Grid>
+                              </Grid>
+
+                              <Button
+                                className="animate__animated animate__fadeIn animate__delay-1.2s"
+                                type="submit"
+                                fullWidth
+                                color="inherit"
+                                variant="contained"
+                                sx={{ mt: 4, mb: 4, backgroundColor: '#faedcd', color: 'black' }}
+                              >
+                                저장하고 종료하기
+                              </Button>
+                            </Box>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </Box>
+            </Box>
+          )}
 
-          {/* 스크립트 출력 박스  */}
-          <Box sx={{ width: '90%', height: '20%', border: 1 }}>
-            {/* Gpt입력창 */}
-            {showInput &&
-              (owner ? (
-                <>
-                  <input type="text" value={GptInput} onChange={GptInputHandler} />
-                  <Button variant="text" color="inherit" onClick={makeScriptHandler}>
-                    제출하기
+          {/* 기타 설정박스  */}
+          <Box sx={{ width: '50%' }}>
+            <AppBar position="static" sx={{ borderRadius: '30px', backgroundColor: '#d4a373' }}>
+              <Toolbar>
+                <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                  Tale Together
+                </Typography>
+                <Button color="inherit">타자연습</Button>
+                {showInput && showbook && (
+                  <Button color="inherit" onClick={handleOpen}>
+                    동화보기
                   </Button>
-                </>
-              ) : (
-                <>
-                  <input type="text" value={GptInput} disabled />
-                </>
-              ))}
+                )}
+                {showInput && owner && finish && (
+                  <Button color="inherit" onClick={finishHandler}>
+                    동화완결
+                  </Button>
+                )}
 
-            {/* 게임 시작하기 전 입력 폼 */}
-            {showForm && state.owner && (
-              <Box component="form" noValidate onSubmit={handleSubmit(settingCompleteHandler)} sx={{}}>
-                <Grid container spacing={2}>
-                  {fields.map((field) => (
-                    <Grid item xs={6}>
-                      <TextField
-                        key={field.name}
-                        className="animate__animated animate__fadeIn animate__delay-0.3s"
-                        required
-                        fullWidth
-                        color="success"
-                        label={field.label}
-                        {...register(field.name, { required: true })}
-                        error={!!errors[field.name]}
-                        sx={{ backgroundColor: '#faedcd', borderRadius: '5px' }}
-                        onChange={handleChange}
-                        value={formData[field.name]}
-                        name={field.name}
-                      />
-                    </Grid>
-                  ))}
-                </Grid>
-                <Button
-                  className="animate__animated animate__fadeIn animate__delay-1.2s"
-                  type="submit"
-                  fullWidth
-                  color="inherit"
-                  variant="contained"
-                  sx={{ mt: 4, mb: 4, backgroundColor: '#faedcd', color: 'black' }}
+                <Modal
+                  open={open}
+                  onClose={handleClose}
+                  aria-labelledby="modal-title"
+                  aria-describedby="modal-description"
+                  style={modalStyle}
                 >
-                  게임시작
-                </Button>
-              </Box>
-            )}
-            {/* 방장 아닌 사람에게 뜨는 입력 폼 */}
-            {showForm && !state.owner && (
-              <Box component="form" noValidate sx={{}}>
-                <Grid container spacing={2}>
-                  {fields.map((field) => (
-                    <Grid item xs={6}>
-                      <TextField
-                        key={field.name}
-                        className="animate__animated animate__fadeIn animate__delay-0.3s"
-                        required
-                        fullWidth
-                        disabled
-                        color="success"
-                        label={field.label}
-                        {...register(field.name, { required: true })}
-                        error={!!errors[field.name]}
-                        sx={{ backgroundColor: '#faedcd', borderRadius: '5px' }}
-                        onChange={handleChange}
-                        value={formData[field.name]}
-                        name={field.name}
-                      />
-                    </Grid>
-                  ))}
-                </Grid>
-              </Box>
-            )}
+                  <Box sx={boxStyle}>
+                    <Book pageList={pageList} />
+                  </Box>
+                </Modal>
+              </Toolbar>
+            </AppBar>
           </Box>
         </Box>
       </Box>

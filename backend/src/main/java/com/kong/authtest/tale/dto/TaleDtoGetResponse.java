@@ -1,5 +1,6 @@
 package com.kong.authtest.tale.dto;
 
+import com.kong.authtest.finalScriptPage.dto.FinalScriptPageResponse;
 import com.kong.authtest.page.dto.PageDtoResponse;
 import com.kong.authtest.tale.model.Tale;
 import lombok.Data;
@@ -14,6 +15,7 @@ public class TaleDtoGetResponse {
 
     private String titleImage;
     private List<PageDtoResponse> PageList;
+    private List<FinalScriptPageResponse> finalScriptPageList;
 
 
     public TaleDtoGetResponse(Tale tale) {
@@ -21,5 +23,6 @@ public class TaleDtoGetResponse {
         this.titleImage = tale.getTitleImage();
         this.title = tale.getTitle();
         this.PageList = tale.getPageList().stream().map(PageDtoResponse::new).collect(Collectors.toList());
+        this.finalScriptPageList = tale.getFinalScriptPageList().stream().map(FinalScriptPageResponse::new).collect(Collectors.toList());
     }
 }

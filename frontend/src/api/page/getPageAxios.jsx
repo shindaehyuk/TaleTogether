@@ -1,12 +1,13 @@
 import axios from 'axios';
+import { axiosInstance } from '../../components/route/axiosInstance';
 
 export default async function getPageAxios(pageId) {
   try {
     const queryParams = `?pageId=${pageId}`;
     // POST 요청은 body에 실어 보냄
-    const res = await axios.get(
-      `//i9c110.p.ssafy.io/api/page/detail${queryParams}`,
-      // `http://localhost:8083/api/page/detail${queryParams}`,
+    const res = await axiosInstance.get(
+      // `//i9c110.p.ssafy.io/api/page/detail${queryParams}`,
+      `page/detail${queryParams}`,
       {},
       {
         headers: {

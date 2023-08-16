@@ -30,8 +30,7 @@ public class FinalScriptPageService {
     public FinalScriptPageResponse register(FinalScriptPageRequest finalScriptPageRequest) {
 
         FinalScriptPage finalScriptPage = finalScriptPageRequest.toFinalScriptPage();
-        finalScriptPage.addSequence(findById(finalScriptPageRequest)
-                .getFinalScriptPageList().size() + 1);
+
 
         return new FinalScriptPageResponse(finalScriptPageRepository.save(finalScriptPage
                 .addTale(findById(finalScriptPageRequest))));

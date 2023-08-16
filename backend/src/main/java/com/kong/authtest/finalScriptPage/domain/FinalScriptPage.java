@@ -24,7 +24,6 @@ public class FinalScriptPage {
     private Content content;
     @NotNull
     private String image;
-    private int sequence = 1;
 
     @ManyToOne
     private Tale tale;
@@ -34,10 +33,6 @@ public class FinalScriptPage {
         return this;
     }
 
-    public FinalScriptPage addSequence(int sequence) {
-        this.sequence = sequence;
-        return this;
-    }
 
 
 }

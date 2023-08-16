@@ -5,7 +5,7 @@
 
 .container .message-mybody {
   float: right;
-  width: 200px;
+  width: 170px;
   height: auto;
   background-color: #fefae0;
   padding: 6px 8px;
@@ -15,11 +15,13 @@
   -o-border-radius: 5px;
   border-radius: 5px;
   text-align: right;
+  margin-right: 10%;
+  white-space: normal;
 }
 
 .container .message-yourbody {
   float: left;
-  width: 200px;
+  width: 170px;
   height: auto;
   margin-bottom: 1rem;
   background-color: #ffffff;
@@ -29,10 +31,8 @@
   -o-border-radius: 5px;
   border-radius: 5px;
   text-align: left;
-}
-
-.container .message-body p {
-  margin: 0;
+  margin-left: 10%;
+  white-space: normal;
 }
 
 .chat-box {
@@ -173,13 +173,22 @@ html.w-mod-touch * {
 }
 
 /*-----------------------*/
+.img {
+  width: 300px;
+  height: 300px;
+}
 
-p {
-  margin-top: 0;
+.script {
+  margin-top: 10px;
   margin-bottom: 10px;
   font-family: 'omyu_pretty';
   white-space: pre-line;
-  font-size: 36px;
+  font-size: 18px;
+  overflow-y: scroll;
+}
+
+.script::-webkit-scrollbar {
+  display: none;
 }
 
 .scene {
@@ -452,6 +461,7 @@ p {
   display: block;
   width: 80%;
   margin-top: 25px;
+  margin-bottom: 25px;
   margin-right: auto;
   margin-left: auto;
   font-family: Georgia, Times, 'Times New Roman', serif;
@@ -570,6 +580,11 @@ p {
   transition: transform 850ms ease, -webkit-transform 850ms ease;
   -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
+  overflow-y: scroll;
+}
+
+.page-right-2::-webkit-scrollbar {
+  display: none;
 }
 
 .page-right-2:hover {
