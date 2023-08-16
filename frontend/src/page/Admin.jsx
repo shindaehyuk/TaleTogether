@@ -53,7 +53,7 @@ export default function Admin() {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          width: '80%',
+          width: '70%',
           height: '80%',
           bgcolor: '#ccd5ae',
           borderRadius: '61px',
@@ -87,6 +87,7 @@ export default function Admin() {
             height: '100%',
             flexGrow: 1,
             borderRadius: '61px',
+            marginTop: '10px',
           }}
         >
           <img
@@ -113,7 +114,7 @@ export default function Admin() {
             value={value}
             onChange={handleChange}
             centered
-            sx={{ marginBottom: 3 }}
+            sx={{ marginTop: 2, marginBottom: 2 }}
           >
             <Tab label="Login" {...a11yProps(0)} sx={{ marginRight: 3, fontWeight: 'bold' }} />
             <Tab label="Signup" {...a11yProps(1)} sx={{ marginLeft: 3, fontWeight: 'bold' }} />

@@ -1,11 +1,12 @@
 import axios from 'axios';
+import { axiosInstance } from '../../components/route/axiosInstance';
 
 export default async function deleteTaleAxios(props) {
   try {
     // POST 요청은 body에 실어 보냄
-    const res = await axios.delete(
-      `//i9c110.p.ssafy.io/api/tale/delete/${props.taleid}`,
-      // `http://localhost:8083/api/tale/delete/${props.taleid}`,
+    const res = await axiosInstance.delete(
+      // `//i9c110.p.ssafy.io/api/tale/delete/${props.taleId}`,
+      `tale/delete/${props.taleId}`,
       {},
       {
         headers: {

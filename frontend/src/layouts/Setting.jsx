@@ -1,16 +1,19 @@
-import * as React from "react";
-import Button from "@mui/material/Button";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import Fade from "@mui/material/Fade";
-import ListItemText from "@mui/material/ListItemText";
-import LogoutIcon from "@mui/icons-material/Logout";
-import SettingsIcon from "@mui/icons-material/Settings";
-import { useDispatch } from "react-redux";
-import { logout } from "../redux/slices/userSlice";
+import * as React from 'react';
+import Button from '@mui/material/Button';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Fade from '@mui/material/Fade';
+import ListItemText from '@mui/material/ListItemText';
+import LogoutIcon from '@mui/icons-material/Logout';
+import SettingsIcon from '@mui/icons-material/Settings';
+import { useDispatch } from 'react-redux';
+import { logout } from '../redux/slices/userSlice';
+import LogoutAxios from '../api/auth/Post/LogoutAxios';
+import { useNavigate } from 'react-router-dom';
 
 export default function Setting() {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const navigate = useNavigate();
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -20,26 +23,28 @@ export default function Setting() {
   };
   const dispatch = useDispatch();
 
-  const logoutHandler = () => {
+  const logoutHandler = async () => {
+    await LogoutAxios();
     dispatch(logout());
+    navigate('/');
   };
 
   return (
     <>
       <Button
         id="fade-button"
-        aria-controls={open ? "fade-menu" : undefined}
+        aria-controls={open ? 'fade-menu' : undefined}
         aria-haspopup="true"
-        aria-expanded={open ? "true" : undefined}
+        aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
         color="inherit"
         sx={{
-          padding: "0px 0px",
-          minWidth: "0px",
-          fontSize: "16px",
-          fontFamily: "omyu_pretty",
-          "@media (max-width: 992px)": {
-            fontSize: "12px",
+          padding: '0px 0px',
+          minWidth: '0px',
+          fontSize: '16px',
+          fontFamily: 'omyu_pretty',
+          '@media (max-width: 992px)': {
+            fontSize: '12px',
           },
         }}
       >
@@ -49,7 +54,7 @@ export default function Setting() {
       <Menu
         id="fade-menu"
         MenuListProps={{
-          "aria-labelledby": "fade-button",
+          'aria-labelledby': 'fade-button',
         }}
         anchorEl={anchorEl}
         open={open}

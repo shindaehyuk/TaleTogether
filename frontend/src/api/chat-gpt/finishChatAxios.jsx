@@ -1,19 +1,18 @@
 import axios from 'axios';
 import { axiosInstance } from '../../components/route/axiosInstance';
 
-export default async function postlikesRemoveAxios(props) {
+export default async function finishChatAxios(props) {
+  console.log(props);
   try {
     // POST 요청은 body에 실어 보냄
     const res = await axiosInstance.post(
-      // `//i9c110.p.ssafy.io/api/likes/remove`,
-      `likes/remove`,
+      // '//i9c110.p.ssafy.io/api/create-chat',
+      `finish-chat`,
       {
-        communityId: props.id,
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: sessionStorage.getItem('token'),
+        chatGptRequest: {},
+
+        pageDtoRequest: {
+          taleId: props,
         },
       }
     );

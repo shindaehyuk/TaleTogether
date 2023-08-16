@@ -1,19 +1,20 @@
 import axios from 'axios';
+import { axiosInstance } from '../../../components/route/axiosInstance';
 
 async function IdcheckAxios(props) {
   try {
     // POST 요청은 body에 실어 보냄
-    const res = await axios.post(
-      '//i9c110.p.ssafy.io/api/users/check-duplicate',
-      // 'http://localhost:8083/api/users/check-duplicate',
+    const res = await axiosInstance.post(
+      // '//i9c110.p.ssafy.io/api/users/check-duplicate',
+      'users/check-duplicate',
       {
         userId: props,
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-        },
       }
+      // {
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      // }
     );
     console.log(res);
     return res;
