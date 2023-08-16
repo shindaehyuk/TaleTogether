@@ -11,9 +11,11 @@ import com.kong.authtest.taleUser.repository.UserTaleRepository;
 import com.kong.authtest.user.model.User;
 import com.kong.authtest.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
@@ -22,6 +24,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
+@Slf4j
 public class TaleService {
 
     private final TaleRepository taleRepository;
@@ -49,8 +52,11 @@ public class TaleService {
         User user = userRepository.findUserByUserId(userId)
                 .orElseThrow(() -> new NoSuchElementException("해당 사용자를 찾을 수 없습니다."));
 
+        log.info(user.getUserId());
         // 해당 사용자와 연결된 모든 UserTale 엔터티를 가져옴
         List<UserTale> userTales = userTaleRepository.findUserTalesByUser(user);
+
+        log.info(Arrays.deepToString(userTales.toArray()));
 
         // UserTale에서 Tale 리스트로 변환 후, 각 Tale을 TaleDtoResponse로 매핑
         return userTales.stream()
