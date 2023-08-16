@@ -54,7 +54,7 @@ public class TaleController {
         return ResponseEntity.ok(taleService.getAllTaleByUserId((String) authentication.getPrincipal()));
     }
 
-    @PostMapping("/regist/title")
+    @PostMapping("/register/title")
     @ApiOperation(value = "taleId에 해당하는 tale에 title과, titleImage를 세팅하는 API", notes = "taleId에 해당되는 tale의 title정보를 작성한다")
     public ResponseEntity<Boolean> registTitle(@RequestBody TaleTitleRequest taleTitleRequest, final Authentication authentication){
         return ResponseEntity.ok(taleService.registTitle(taleTitleRequest));
