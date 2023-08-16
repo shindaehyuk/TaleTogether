@@ -4,6 +4,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kong.authtest.chatGpt.dto.ChatGptRequest;
 import com.kong.authtest.chatGpt.dto.ChatGptResponse;
 import com.kong.authtest.chatGpt.dto.UserChoiceRequest;
+import com.kong.authtest.finalScriptPage.domain.FinalScriptPage;
+import com.kong.authtest.finalScriptPage.dto.FinalScriptPageRequest;
+import com.kong.authtest.finalScriptPage.dto.FinalScriptPageResponse;
+import com.kong.authtest.finalScriptPage.repository.FinalScriptPageRepository;
+import com.kong.authtest.finalScriptPage.service.FinalScriptPageService;
 import com.kong.authtest.karlo.dto.KarloRequest;
 import com.kong.authtest.karlo.dto.KarloResponse;
 import com.kong.authtest.karlo.service.JsonUtil;
@@ -27,6 +32,7 @@ import org.springframework.web.client.RestTemplate;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -43,6 +49,10 @@ public class ChatGptService {
     private final List<ChatGptRequest.Messages> conversationHistory = new ArrayList<>();
 
     private final PageService pageService;
+
+    private final FinalScriptPageService finalScriptPageService;
+
+    private final FinalScriptPageRepository finalScriptPageRepository;
 
     private final KarloService karloService;
 
@@ -75,36 +85,76 @@ public class ChatGptService {
     }
 
     @Transactional
-    public ChatGptResponse finishTale(ChatGptRequest chatGptRequest, PageDtoRequest pageDtoRequest) throws Exception {
-        // 기본 메시지 설정
+    public List<FinalScriptPageResponse> finishTale(ChatGptRequest chatGptRequest, FinalScriptPageRequest finalScriptPageRequest) throws Exception {
+
         ChatGptMessage chatGptMessage = new ChatGptMessage(SetDefaultGptSystem(), setDefaultFinishGptUser());
         setDefaultGptMessages(chatGptMessage);
         addGptMessageHistory(chatGptRequest);
         setDefaultGpt(chatGptRequest);
 
-        // API 서버로 메시지 전송
         ChatGptResponse chatGptResponse = sendGptApiServer(chatGptRequest);
         if (chatGptResponse == null || chatGptResponse.getChoices() == null || chatGptResponse.getChoices().isEmpty()) {
-            throw new Exception("Invalid response from GPT API Server");
+            throw new Exception("Gpt 서버가 이상함");
         }
         addGptConversation(chatGptResponse);
 
-        // 이미지 생성
-        KarloResponse karloResponse = karloService.createImage(setFinalDefaultKarlo(content()));
+        String fullContent = chatGptResponse.getChoices().get(0).getMessage().getContent();
 
-        // 페이지 등록
-        PageDtoResponse pageDtoResponse = registerPage(pageDtoRequest, content(), karloResponse);
+        int startIndex = 0;
 
-        chatGptResponse.setImage(pageDtoResponse.getImage());
-        chatGptResponse.setPageId(pageDtoResponse.getPageId());
+        int sequence = 1;
 
-        return chatGptResponse;
+
+        List<FinalScriptPageResponse> finalScriptPageResponses = new ArrayList<>();
+
+        while (startIndex < fullContent.length()) {
+            int tentativeEndIndex = Math.min(fullContent.length(), startIndex + 180);
+
+            int actualEndIndex = findNidaIndex(fullContent, tentativeEndIndex);
+
+            if (actualEndIndex <= startIndex) {
+                actualEndIndex = tentativeEndIndex;
+            }
+
+            String subContent = fullContent.substring(startIndex, actualEndIndex);
+
+            if (!subContent.isEmpty()) {
+                KarloResponse karloResponse = karloService.createImage(setFinalDefaultKarlo(subContent));
+
+                FinalScriptPageResponse finalScriptPageResponse = registerFinalScriptPage(finalScriptPageRequest, subContent, karloResponse,sequence);
+                finalScriptPageResponses.add(finalScriptPageResponse);
+            }
+
+            startIndex = actualEndIndex;
+            sequence++;
+        }
+
+
+        if (!finalScriptPageResponses.isEmpty()) {
+            FinalScriptPageResponse lastPage = finalScriptPageResponses.get(finalScriptPageResponses.size() - 1);
+            chatGptResponse.setImage(lastPage.getImage());
+            chatGptResponse.setPageId(lastPage.getPageId());
+        }
+
+        return finalScriptPageRepository
+                .findAll()
+                .stream()
+                .map(FinalScriptPageResponse::new)
+                .collect(Collectors.toList());
     }
+
 
 
     public void clearConversationHistory() {
         conversationHistory.clear();
     }
+
+    private int findNidaIndex(String content, int endIndex) {
+        int nidaIndex = content.lastIndexOf("니다.", endIndex);
+        return (nidaIndex == -1 || nidaIndex + 2 > endIndex) ? endIndex : nidaIndex + 2;
+    }
+
+
 
 
     @NotNull
@@ -119,7 +169,7 @@ public class ChatGptService {
     private static ChatGptRequest.Messages setDefaultFinishGptUser() {
         ChatGptRequest.Messages user = new ChatGptRequest.Messages();
         user.setRole("user");
-        user.setContent("턴을 종료해주고 여태 내용을 요약해서 동화로 만들어줘");
+        user.setContent("게임을 종료 해주고 여태 내용을 동화로 만들어 줘. 이제 선택지를 주지 않아도 돼");
         return user;
     }
 
@@ -233,6 +283,14 @@ public class ChatGptService {
 
         return pageService.register(pageDtoRequest);
     }
+
+    private FinalScriptPageResponse registerFinalScriptPage(FinalScriptPageRequest finalScriptPageRequest, String content, KarloResponse karloResponse, int sequence) {
+      finalScriptPageRequest.setImage(karloResponse.getFileName());
+      finalScriptPageRequest.setContent(content);
+      finalScriptPageRequest.setSequence(sequence);
+      return finalScriptPageService.register(finalScriptPageRequest);
+    }
+
 
 
     private String content() {

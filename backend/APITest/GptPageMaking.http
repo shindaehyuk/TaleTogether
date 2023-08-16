@@ -10,7 +10,7 @@ Content-Type: application/json
 
 POST http://localhost:8083/api/create-chat
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0d2phbmc4Mjg3QG5hdmVyLmNvbSIsImV4cCI6MTY5MTk4MTc2NCwiaXNzIjoia29uZy5jb20ifQ._wAHQG-IYaO4_Rno3XjtuLWqo0JYZ7eub_G2PbIJ860
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0d2phbmc4Mjg3QG5hdmVyLmNvbSIsImV4cCI6MTY5NDc0MTI1NSwiaXNzIjoia29uZy5jb20ifQ.o4JwoEeZkey1O6LgdLTo2cx8YosAq3pFO6E72SBUeGM
 
 {
 "chatGptRequest": {
@@ -20,7 +20,7 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0d2phbmc4Mjg3QG5h
       "content": "너는 trpg 게임 진행자야 ."
     },{
       "role": "user",
-      "content": "2"
+      "content": "3"
     }
   ]
 
@@ -45,10 +45,11 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0d2phbmc4Mjg3QG5h
 
 POST localhost:8083/api/finish-chat
 Content-Type: application/json
-Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0d2phbmc4Mjg3QG5hdmVyLmNvbSIsImV4cCI6MTY5MTk4MTc2NCwiaXNzIjoia29uZy5jb20ifQ._wAHQG-IYaO4_Rno3XjtuLWqo0JYZ7eub_G2PbIJ860
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0d2phbmc4Mjg3QG5hdmVyLmNvbSIsImV4cCI6MTY5NDc0MTI1NSwiaXNzIjoia29uZy5jb20ifQ.o4JwoEeZkey1O6LgdLTo2cx8YosAq3pFO6E72SBUeGM
 
 {
   "chatGptRequest": {
+
   },
 
 
@@ -57,3 +58,8 @@ Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0d2phbmc4Mjg3QG5hd
   }
 
 }
+
+###
+GET localhost:8083/api/get-finalScript/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0d2phbmc4Mjg3QG5hdmVyLmNvbSIsImV4cCI6MTY5NDc0MTI1NSwiaXNzIjoia29uZy5jb20ifQ.o4JwoEeZkey1O6LgdLTo2cx8YosAq3pFO6E72SBUeGM
