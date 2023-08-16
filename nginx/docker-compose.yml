@@ -26,10 +26,10 @@ services:
 
 volumes:
   shared-volume:
-    external:
-      name: taletogether
+          external:
+                  name: taletogether
 
 networks:
   app-network:
-    external:
-      name: taletogether
+          external:
+                  name: taletogether
