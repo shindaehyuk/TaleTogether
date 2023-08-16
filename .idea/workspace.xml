@@ -5,7 +5,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9649107a-f65a-4b89-8c51-d6b4a1cf7e35" name="Changes" comment="fix : docker 네트워크, 볼륨 지정&#10;폴더 세분화에 따른 네트워크 지정">
-      <change beforePath="$PROJECT_DIR$/backend.zip" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gitlab-ci.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/kong/authtest/user/dto/UserUpdatePasswordResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/nginx/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/nginx/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/nginx/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/nginx/.idea/nginx.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/nginx/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/nginx/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/nginx/default.conf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/nginx/default_dev.conf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/nginx/default_prod.conf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/kong/authtest/auth/JwtAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/kong/authtest/auth/JwtAuthenticationFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/kong/authtest/tale/controller/TaleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/kong/authtest/tale/controller/TaleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/kong/authtest/user/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/kong/authtest/user/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/kong/authtest/user/dto/UserCreateResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/kong/authtest/user/dto/UserCreateResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/kong/authtest/user/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/kong/authtest/user/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/app_local.yml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/app_local.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/app_server.yml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/app_server.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nginx/default_prod.conf" beforeDir="false" afterPath="$PROJECT_DIR$/nginx/default_prod.conf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/static/docker-compose.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -33,21 +55,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/SSAFY/Desktop/Coding/S09P12C110/nginx&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/SSAFY/Desktop/gitlab/S09P12C110/nginx",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\SSAFY\Desktop\gitlab\S09P12C110\nginx" />
       <recent name="C:\Users\SSAFY\Desktop\Coding\S09P12C110\nginx" />
       <recent name="C:\Users\SSAFY\Desktop\Coding\S09P12C110\static" />
     </key>
