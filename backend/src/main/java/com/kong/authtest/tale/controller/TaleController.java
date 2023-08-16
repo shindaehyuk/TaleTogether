@@ -5,6 +5,7 @@ import com.kong.authtest.auth.service.TokenService;
 import com.kong.authtest.tale.dto.TaleDtoGetResponse;
 import com.kong.authtest.tale.dto.TaleDtoRequest;
 import com.kong.authtest.tale.dto.TaleDtoResponse;
+import com.kong.authtest.tale.dto.TaleTitleRequest;
 import com.kong.authtest.tale.service.TaleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -52,5 +53,12 @@ public class TaleController {
     public ResponseEntity<List<TaleDtoGetResponse>> getAllTale(final Authentication authentication) {
         return ResponseEntity.ok(taleService.getAllTaleByUserId((String) authentication.getPrincipal()));
     }
+
+    @PostMapping("/regist/title")
+    @ApiOperation(value = "taleId에 해당하는 tale에 title과, titleImage를 세팅하는 API", notes = "taleId에 해당되는 tale의 title정보를 작성한다")
+    public ResponseEntity<Boolean> registTitle(@RequestBody TaleTitleRequest taleTitleRequest, final Authentication authentication){
+        return ResponseEntity.ok(taleService.registTitle(taleTitleRequest));
+    }
+
 
 }

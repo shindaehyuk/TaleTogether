@@ -5,6 +5,7 @@ import com.kong.authtest.community.model.Community;
 import com.kong.authtest.finalScriptPage.domain.FinalScriptPage;
 import com.kong.authtest.gameRoom.domain.GameRoom;
 import com.kong.authtest.page.model.Page;
+import com.kong.authtest.tale.dto.TaleTitleRequest;
 import com.kong.authtest.taleUser.domain.UserTale;
 import com.kong.authtest.user.model.User;
 import lombok.*;
@@ -42,5 +43,9 @@ public class Tale extends BaseEntity {
     @OneToMany(mappedBy = "tale",orphanRemoval = true, cascade = CascadeType.REMOVE)
     private List<FinalScriptPage> finalScriptPageList = new ArrayList<>();
 
+    public void setTitle(TaleTitleRequest taleTitleRequest){
+        this.title = taleTitleRequest.getTitle();
+        this.titleImage = taleTitleRequest.getTitleImage();
+    }
 
 }
