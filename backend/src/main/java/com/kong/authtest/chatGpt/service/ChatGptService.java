@@ -151,7 +151,7 @@ public class ChatGptService {
 
     private int findNidaIndex(String content, int endIndex) {
         int nidaIndex = content.lastIndexOf("니다.", endIndex);
-        return (nidaIndex == -1 || nidaIndex + 2 > endIndex) ? endIndex : nidaIndex + 2;
+        return (nidaIndex == -1 || nidaIndex + 4 > endIndex) ? endIndex : nidaIndex + 4;
     }
 
 
