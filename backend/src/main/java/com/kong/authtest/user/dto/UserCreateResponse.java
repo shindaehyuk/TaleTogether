@@ -12,15 +12,11 @@ import lombok.NoArgsConstructor;
 public class UserCreateResponse {
 
     private String userId;
-
     private String name;
-
-    private String password;
 
     public UserCreateResponse(User user) {
         this.userId = user.getUserId();
         this.name = user.getName();
-        this.password = user.getPassword();
     }
 
 
