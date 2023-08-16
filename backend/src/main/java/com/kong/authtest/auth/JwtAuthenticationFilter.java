@@ -86,7 +86,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         logger.info("After verifying token.");
 
-        String userId = decodedJWT.getSubject();z
+        String userId = decodedJWT.getSubject();
         if (userId != null) {
             User user = userService.getUserByUserId(userId);
             if (user != null) {
