@@ -3,7 +3,7 @@ import "./Book.css";
 import { Box } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material";
 
-const Book = ({ pageList }) => {
+const SummarizeBook = ({ pageList }) => {
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
   const pageRefs = useRef([]);
   const [backgroundImage, setBackgroundImage] = useState(pageList[0].image);
@@ -87,4 +87,4 @@ const Book = ({ pageList }) => {
   );
 };
 
-export default Book;
+export default SummarizeBook;

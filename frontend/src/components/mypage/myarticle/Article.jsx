@@ -1,7 +1,6 @@
 import ArticleScroll from "./ArticleScroll";
 import { Box } from "@mui/material";
 import React, { useState, useEffect } from "react";
-import getUserCommunityAxios from "../../../api/community/getUserCommunityAxios";
 import UserinfoAxios from "../../../api/auth/Get/UserinfoAxios";
 import getDetailAxios from "../../../api/community/getDetailAxios";
 
@@ -26,7 +25,6 @@ function Article() {
     };
     getData();
   }, []);
-  console.log(myArticles);
 
   return (
     <>

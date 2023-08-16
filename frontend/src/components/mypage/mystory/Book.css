@@ -51,7 +51,8 @@
   justify-content: center;
   align-items: center;
   height: 100%;
-  padding: 50px;
+  padding-right: 10px;
+  padding-bottom: 10px;
   font-size: 18px;
   line-height: 2.25;
   font-family: "yg-jalnan";
@@ -71,4 +72,12 @@
 
 .pageImage-active {
   opacity: 1;
+}
+
+.scroll {
+  -ms-overflow-style: none; /* IE, Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.scroll::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
 }

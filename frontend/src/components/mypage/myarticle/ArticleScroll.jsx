@@ -3,7 +3,9 @@ import { Box } from "@mui/material";
 import React from "react";
 
 const ArticleScroll = ({ myArticles }) => {
-  console.log(myArticles);
+  const handleClick = (article) => {
+    window.location.href = `/community/postDetail/${article.communityId}`;
+  };
 
   return (
     <Box
@@ -17,6 +19,7 @@ const ArticleScroll = ({ myArticles }) => {
       {myArticles.map((article, index) => (
         <React.Fragment key={`article${index}`}>
           <Box
+            onClick={() => handleClick(article)}
             sx={{
               width: "100%",
               height: "60%",
@@ -40,7 +43,22 @@ const ArticleScroll = ({ myArticles }) => {
                 }}
               />
             )}
-            <p style={{ alignSelf: "flex-end" }}>좋아요 : {article.likes}</p>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "flex-end",
+                alignItems: "center",
+                width: "100%",
+              }}
+            >
+              <p style={{ alignSelf: "flex-end", marginRight: "10px" }}>
+                댓글 : {article.commentCount}
+              </p>
+              <p style={{ alignSelf: "flex-end" }}>
+                좋아요 : {article.likeCount}
+              </p>
+            </Box>
           </Box>
           <hr style={{ marginBottom: "0px" }} />
         </React.Fragment>

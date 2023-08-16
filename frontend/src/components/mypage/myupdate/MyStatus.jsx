@@ -15,14 +15,20 @@ function MyStatus() {
   const [newName, setNewName] = useState("");
   const [openName, setOpenName] = useState(false);
   const handleOpenName = () => setOpenName(true);
-  const handleCloseName = () => setOpenName(false);
+  const handleCloseName = () => {
+    setOpenName(false);
+    setNewName("");
+  };
 
   const [newPassword, setNewPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [passwordValid, setPasswordValid] = useState(false);
   const [openPassword, setOpenPassword] = useState(false);
   const handleOpenPassword = () => setOpenPassword(true);
-  const handleClosePassword = () => setOpenPassword(false);
+  const handleClosePassword = () => {
+    setOpenPassword(false);
+    setNewPassword("");
+  };
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -72,6 +78,7 @@ function MyStatus() {
     navigate("/");
     dispatch(logout());
   };
+
   const nameEventHandler = (event) => {
     // form 제출시 새로고침 방지
     event.preventDefault();
@@ -95,7 +102,7 @@ function MyStatus() {
           width: "90%",
           height: "90%",
           marginTop: "2em",
-          border: "1px solid black",
+          fontFamily: "omyu_pretty",
         }}
       >
         <h2>내 정보 수정</h2>

@@ -25,7 +25,6 @@ function Like() {
     };
     getData();
   }, []);
-  console.log(myLikes);
 
   return (
     <>

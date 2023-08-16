@@ -3,6 +3,10 @@ import { Box } from "@mui/material";
 import React from "react";
 
 const LikeScroll = ({ myLikes }) => {
+  const handleClick = (like) => {
+    window.location.href = `/community/postDetail/${like.communityId}`;
+  };
+
   return (
     <Box
       className="no-scroll"
@@ -15,6 +19,7 @@ const LikeScroll = ({ myLikes }) => {
       {myLikes.map((like, index) => (
         <React.Fragment key={`like${index}`}>
           <Box
+            onClick={() => handleClick(like)}
             sx={{
               width: "100%",
               height: "60%",
@@ -38,7 +43,20 @@ const LikeScroll = ({ myLikes }) => {
                 }}
               />
             )}
-            <p style={{ alignSelf: "flex-end" }}>좋아요 : {like.likeCount}</p>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "flex-end",
+                alignItems: "center",
+                width: "100%",
+              }}
+            >
+              <p style={{ alignSelf: "flex-end", marginRight: "10px" }}>
+                댓글 : {like.commentCount}
+              </p>
+              <p style={{ alignSelf: "flex-end" }}>좋아요 : {like.likeCount}</p>
+            </Box>
           </Box>
           <hr style={{ marginBottom: "0px" }} />
         </React.Fragment>
