@@ -3,6 +3,7 @@ package com.kong.authtest.tale.service;
 import com.kong.authtest.tale.dto.TaleDtoGetResponse;
 import com.kong.authtest.tale.dto.TaleDtoRequest;
 import com.kong.authtest.tale.dto.TaleDtoResponse;
+import com.kong.authtest.tale.dto.TaleTitleRequest;
 import com.kong.authtest.tale.model.Tale;
 import com.kong.authtest.tale.repository.TaleRepository;
 import com.kong.authtest.taleUser.domain.UserTale;
@@ -41,7 +42,6 @@ public class TaleService {
                 () -> new IllegalArgumentException("not found")));
     }
 
-
     @Transactional
     public void delete(Long taleId) {
         taleRepository.deleteById(taleId);
@@ -62,6 +62,12 @@ public class TaleService {
         return userTales.stream()
                 .map(ut -> new TaleDtoGetResponse(ut.getTale()))
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public Boolean registTitle(TaleTitleRequest taleTitleRequest){
+        taleRepository.findById(taleTitleRequest.getTaleId()).get().setTitle(taleTitleRequest);
+        return true;
     }
 
 }
