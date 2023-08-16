@@ -1,0 +1,49 @@
+chatgpt:
+  api-key: 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
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://i9c110.p.ssafy.io:3306/ssafy?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+
+    username: root
+    password: twja0930
+  redis:
+    port: 6380
+    host: i9c110.p.ssafy.io
+  jpa:
+    hibernate:
+      ddl-auto: create
+
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  mail:
+    host: smtp.naver.com
+    port: 465
+    username: rhks1132dn@naver.com
+    password: twja0930i9c110!
+    properties:
+      mail:
+        smtp:
+          auth: true
+        starttls:
+          enable: true
+          required: true
+        ssl:
+          enable: true
+
+
+server:
+  port: 8083
+
+jwt:
+  secret: dbbAeHubOOc8KaOfYB6XEQoEj1QzRlHgtjNL8PYs1A1tymZvvqkcEU7L1imkKHeDb
+  expiration: 1800
+
+OPENVIDU_URL: https://i9c110.p.ssafy.io:4443
+OPENVIDU_SECRET: THEATERGLOATE
