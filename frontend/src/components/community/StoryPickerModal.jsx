@@ -57,7 +57,7 @@ function StoryPickerModal({ open, onClose, onSelectImage, userId }) {
               key={index}
               onClick={() => handleImageClick(tale.titleImage , tale.taleId, tale.title)}
             >
-              <img src={tale.img} alt={tale.title} />
+              <img src={tale.titleImage} alt={tale.title} />
               <p className="legend">{tale.title}</p>
             </div>
           ))}
