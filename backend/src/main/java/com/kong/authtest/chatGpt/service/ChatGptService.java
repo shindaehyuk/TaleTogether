@@ -102,8 +102,6 @@ public class ChatGptService {
 
         int startIndex = 0;
 
-        int sequence = 1;
-
 
         List<FinalScriptPageResponse> finalScriptPageResponses = new ArrayList<>();
 
@@ -121,12 +119,11 @@ public class ChatGptService {
             if (!subContent.isEmpty()) {
                 KarloResponse karloResponse = karloService.createImage(setFinalDefaultKarlo(subContent));
 
-                FinalScriptPageResponse finalScriptPageResponse = registerFinalScriptPage(finalScriptPageRequest, subContent, karloResponse,sequence);
+                FinalScriptPageResponse finalScriptPageResponse = registerFinalScriptPage(finalScriptPageRequest, subContent, karloResponse);
                 finalScriptPageResponses.add(finalScriptPageResponse);
             }
 
             startIndex = actualEndIndex;
-            sequence++;
         }
 
 
@@ -150,7 +147,7 @@ public class ChatGptService {
     }
 
     private int findNidaIndex(String content, int endIndex) {
-        int nidaIndex = content.lastIndexOf("니다.", endIndex);
+        int nidaIndex = content.lastIndexOf("니다. ", endIndex);
         return (nidaIndex == -1 || nidaIndex + 4 > endIndex) ? endIndex : nidaIndex + 4;
     }
 
@@ -284,10 +281,9 @@ public class ChatGptService {
         return pageService.register(pageDtoRequest);
     }
 
-    private FinalScriptPageResponse registerFinalScriptPage(FinalScriptPageRequest finalScriptPageRequest, String content, KarloResponse karloResponse, int sequence) {
+    private FinalScriptPageResponse registerFinalScriptPage(FinalScriptPageRequest finalScriptPageRequest, String content, KarloResponse karloResponse) {
       finalScriptPageRequest.setImage(karloResponse.getFileName());
       finalScriptPageRequest.setContent(content);
-      finalScriptPageRequest.setSequence(sequence);
       return finalScriptPageService.register(finalScriptPageRequest);
     }
 
