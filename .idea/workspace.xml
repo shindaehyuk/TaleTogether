@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9649107a-f65a-4b89-8c51-d6b4a1cf7e35" name="Changes" comment="fix : refactor folders&#10;배포 효율성을 올리기 위해 폴더 및 docker-compose.yml 세분화">
+    <list default="true" id="9649107a-f65a-4b89-8c51-d6b4a1cf7e35" name="Changes" comment="fix : docker 네트워크, 볼륨 지정&#10;폴더 세분화에 따른 네트워크 지정">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nginx/docker-compose.yml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,6 +20,7 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="MIXED" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -36,7 +38,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/SSAFY/Desktop/Coding/S09P12C110/static&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/SSAFY/Desktop/Coding/S09P12C110/nginx&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
@@ -46,6 +48,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\SSAFY\Desktop\Coding\S09P12C110\nginx" />
       <recent name="C:\Users\SSAFY\Desktop\Coding\S09P12C110\static" />
     </key>
   </component>
@@ -108,7 +111,23 @@
       <option name="project" value="LOCAL" />
       <updated>1692004178369</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="fix : docker 네트워크, 볼륨 지정&#10;폴더 세분화에 따른 네트워크 지정">
+      <option name="closed" value="true" />
+      <created>1692168928279</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1692168928279</updated>
+    </task>
+    <task id="LOCAL-00004" summary="fix : docker 네트워크, 볼륨 지정&#10;폴더 세분화에 따른 네트워크 지정">
+      <option name="closed" value="true" />
+      <created>1692169030405</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1692169030405</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -128,6 +147,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="feat : ci/cd" />
     <MESSAGE value="fix : refactor folders&#10;배포 효율성을 올리기 위해 폴더 및 docker-compose.yml 세분화" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix : refactor folders&#10;배포 효율성을 올리기 위해 폴더 및 docker-compose.yml 세분화" />
+    <MESSAGE value="fix : docker 네트워크, 볼륨 지정&#10;폴더 세분화에 따른 네트워크 지정" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix : docker 네트워크, 볼륨 지정&#10;폴더 세분화에 따른 네트워크 지정" />
   </component>
 </project>
