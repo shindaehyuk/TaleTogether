@@ -30,8 +30,11 @@ services:
 
 volumes:
   shared-volume:
+    external:
+      name: taletogether
 
 networks:
   app-network:
-    driver: bridge
+    external:
+      name: taletogether
 

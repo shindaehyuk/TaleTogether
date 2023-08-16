@@ -5,6 +5,7 @@ services:
     restart: always
     container_name: nginx
     build:
+      context: ./
       dockerfile: Dockerfile
     ports:
       - 80:80
@@ -25,7 +26,10 @@ services:
 
 volumes:
   shared-volume:
+    external:
+      name: taletogether
 
 networks:
   app-network:
-    driver: bridge
+    external:
+      name: taletogether
