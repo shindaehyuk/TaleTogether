@@ -1,0 +1,15 @@
+POST localhost:8083/api/register-game
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0d2phbmc4Mjg3QG5hdmVyLmNvbSIsImV4cCI6MTY5MTk4MTc2NCwiaXNzIjoia29uZy5jb20ifQ._wAHQG-IYaO4_Rno3XjtuLWqo0JYZ7eub_G2PbIJ860
+Content-Type: application/json
+###
+
+GET http://i9c110.p.ssafy.io:8083/api/register-game
+Content-Type: application/json
+
+###
+POST http://localhost:8083:8083/api/sessions
+Content-Type: application/json
+
+###
+GET localhost:8083/api/twjang8287@naver.com/enter-game/ssafy8259
+Content-Type: application/json

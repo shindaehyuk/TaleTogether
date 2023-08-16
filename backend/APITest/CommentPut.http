@@ -1,0 +1,7 @@
+PUT localhost:8083/comment/modify
+Content-Type: application/json
+
+{
+  "content": "test modify",
+  "commentId": 4
+}

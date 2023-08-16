@@ -1,0 +1,14 @@
+GET localhost:8083/api/community/info/1
+Content-Type: application/json
+
+###
+GET localhost:8083/api/community/all/1
+Content-Type: application/json
+
+###
+GET localhost:8083/api/community/detail/xodnjs8287@naver.com
+Content-Type: application/json
+
+###
+GET localhost:8083/api/community/likes/xodnjs8287@naver.com
+Content-Type: application/json
