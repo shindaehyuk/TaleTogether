@@ -1,0 +1,43 @@
+.button-orange {
+  background-color: #d4a373;
+  border-radius: 61px;
+  cursor: pointer;
+  color: black;
+}
+
+.button-green {
+  background-color: #ccd5ac;
+  border-radius: 61px;
+  cursor: pointer;
+  color: black;
+}
+
+hr {
+  margin-right: 5%;
+  margin-left: 5%;
+}
+
+.Nav {
+  display: flex;
+  justify-content: space-between;
+}
+
+.post-card-wrapper {
+  width: 100%;
+}
+
+.post-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(345px, 1fr));
+  gap: 1rem; /* 컨테이너 사이의 간격을 조절하세요 */
+  max-height: 55vh; /* 원하는 최대 높이값으로 조절하세요 */
+  overflow-y: scroll;
+  scrollbar-width: none; /* Firefox */
+  padding: 1rem; /* 적절한 패딩값을 원하는대로 조절하세요 */
+  margin: 0 auto;
+  width: 90%; /* 원하는 최대 너비값으로 조절하세요 */
+}
+
+.post-container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}

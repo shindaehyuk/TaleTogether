@@ -1,0 +1,21 @@
+.App {
+  text-align: center;
+  background-color: #fefae0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@font-face {
+  font-family: 'omyu_pretty';
+  src: url('./fonts/오뮤_다예쁨체.ttf') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'yg-jalnan';
+  src: url('./fonts/Jalnan.ttf') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}

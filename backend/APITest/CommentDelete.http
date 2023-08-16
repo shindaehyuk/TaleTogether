@@ -1,0 +1,2 @@
+DELETE localhost:8083/comment/delete/4
+Content-Type: application/json

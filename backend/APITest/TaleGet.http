@@ -1,0 +1,6 @@
+GET localhost:8083/tale/info/1
+Content-Type: application/json
+
+###
+GET localhost:8083/api/tale/info/all/xodnjs8287@naver.com
+Content-Type: application/json

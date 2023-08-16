@@ -1,0 +1,65 @@
+POST http://localhost:8083/create-image
+Content-Type: application/json
+
+{
+  "prompt": "high quality, painting.  Harry and James in the spaceship ",
+  "negative_prompt": "low quality, low contrast, draft, amateur, cut off, cropped, frame, scary"
+}
+
+###
+
+POST http://localhost:8083/api/create-chat
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0d2phbmc4Mjg3QG5hdmVyLmNvbSIsImV4cCI6MTY5NDc0MTI1NSwiaXNzIjoia29uZy5jb20ifQ.o4JwoEeZkey1O6LgdLTo2cx8YosAq3pFO6E72SBUeGM
+
+{
+"chatGptRequest": {
+  "messages": [
+    {
+      "role": "system",
+      "content": "너는 trpg 게임 진행자야 ."
+    },{
+      "role": "user",
+      "content": "3"
+    }
+  ]
+
+},
+  "userChoiceRequest": {
+    "backGround": "우주",
+    "player1": "범진",
+    "player2": "대혁",
+    "player1Character": "용감한",
+    "player2Character": "소심한",
+    "turn": "5"
+
+  },
+  "pageDtoRequest": {
+    "taleId": 1
+  }
+
+
+}
+
+###
+
+POST localhost:8083/api/finish-chat
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0d2phbmc4Mjg3QG5hdmVyLmNvbSIsImV4cCI6MTY5NDc0MTI1NSwiaXNzIjoia29uZy5jb20ifQ.o4JwoEeZkey1O6LgdLTo2cx8YosAq3pFO6E72SBUeGM
+
+{
+  "chatGptRequest": {
+
+  },
+
+
+  "pageDtoRequest": {
+    "taleId": 1
+  }
+
+}
+
+###
+GET localhost:8083/api/get-finalScript/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0d2phbmc4Mjg3QG5hdmVyLmNvbSIsImV4cCI6MTY5NDc0MTI1NSwiaXNzIjoia29uZy5jb20ifQ.o4JwoEeZkey1O6LgdLTo2cx8YosAq3pFO6E72SBUeGM

@@ -1,0 +1,8 @@
+POST localhost:8083/api/tale/register
+Content-Type: application/json
+
+{
+  "userId": "xodnjs8287@naver.com",
+  "title": "title",
+  "titleImage": "iaas"
+}

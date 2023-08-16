@@ -1,0 +1,7 @@
+.scroll {
+    -ms-overflow-style: none; /* IE, Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  .scroll::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
