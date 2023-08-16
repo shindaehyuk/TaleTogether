@@ -1,11 +1,12 @@
 import axios from 'axios';
+import { axiosInstance } from '../../../components/route/axiosInstance';
 
 async function LoginAxios(props) {
   try {
     // POST 요청은 body에 실어 보냄
-    const res = await axios.post(
-      '//i9c110.p.ssafy.io/api/auth/login',
-      // 'http://localhost:8083/api/auth/login',
+    const res = await axiosInstance.post(
+      // '//i9c110.p.ssafy.io/api/auth/login',
+      'auth/login',
       {
         userId: props.email,
         password: props.password,
@@ -17,9 +18,7 @@ async function LoginAxios(props) {
       }
     );
     return res;
-  } catch (e) {
-    console.error(e);
-  }
+  } catch (e) {}
 }
 
 export default LoginAxios;

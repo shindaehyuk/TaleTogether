@@ -1,11 +1,12 @@
 import axios from 'axios';
+import { axiosInstance } from '../../components/route/axiosInstance';
 
 export default async function getlikeTaleAxios(props) {
   try {
     // POST 요청은 body에 실어 보냄
-    const res = await axios.get(
-      `//i9c110.p.ssafy.io/api/community/likes`,
-      // `http://localhost:8083/api/community/likes`,
+    const res = await axiosInstance.get(
+      // `//i9c110.p.ssafy.io/api/community/likes`,
+      `community/likes`,
       {
         headers: {
           'Content-Type': 'application/json',
