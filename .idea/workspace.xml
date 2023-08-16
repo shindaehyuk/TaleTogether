@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9649107a-f65a-4b89-8c51-d6b4a1cf7e35" name="Changes" comment="fix : docker 네트워크, 볼륨 지정&#10;폴더 세분화에 따른 네트워크 지정">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nginx/docker-compose.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/static/docker-compose.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,6 +94,7 @@
       <workItem from="1690762229689" duration="9000" />
       <workItem from="1691125575133" duration="3893000" />
       <workItem from="1692087982851" duration="2629000" />
+      <workItem from="1692172483948" duration="35000" />
     </task>
     <task id="LOCAL-00001" summary="feat : ci/cd">
       <option name="closed" value="true" />

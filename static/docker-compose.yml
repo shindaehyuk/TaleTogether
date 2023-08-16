@@ -19,15 +19,6 @@ services:
       TZ: 'Asia/Seoul'
     networks:
       - app-network
-  db-backup:
-    image: appropriate/mysql-backup
-    volumes:
-      - db-data:/var/lib/mysql
-      - /path/to/backup/folder:/backup
-    environment:
-      CRON_TIME: '0 0 * * *'
-    networks:
-      - app-network
 volumes:
   db-data:
   shared-volume:
