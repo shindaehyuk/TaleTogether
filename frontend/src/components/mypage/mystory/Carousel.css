@@ -1,0 +1,36 @@
+img {
+  width: 12em;
+  height: 16em;
+}
+
+.slick-slide {
+  padding: 0 15px;
+}
+
+.slick-list {
+  margin: 2em;
+}
+
+.slick-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.slick-arrow.slick-next::before {
+  font-size: 30px;
+  color: #d4a373;
+}
+
+.slick-arrow.slick-prev::before {
+  font-size: 30px;
+  color: #d4a373;
+}
+
+.slick-slide.slick-active.slick-cloned {
+  display: none !important;
+}
+
+.card-padding {
+  padding-bottom: 20px;
+}

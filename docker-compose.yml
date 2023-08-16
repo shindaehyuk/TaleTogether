@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  react:
+    container_name: react
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    volumes:
+      - shared-volume:/usr/share/nginx/html
+      - "./frontend/:/app"
+      - "/node_modules"
+    ports:
+      - 3000:3000
+    networks:
+      - app-network
+  myapp:
+    container_name: backend
+    image: backend
+    restart: on-failure
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - 8083:8083
+    environment:
+      SPRING.DATASOURCE.URL: jdbc:mysql://db:3306/ssafy?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
+    networks:
+      - app-network
+
+
+volumes:
+  db-data:
+  shared-volume:
+  certs:
+
+networks:
+  app-network:
+    driver: bridge
+
