@@ -43,10 +43,13 @@ public class UserService {
     }
 
     @Transactional
-    public Boolean updateUserPassword(String userId, UserUpdatePasswordRequest userUpdatePasswordRequest) {
+    public UserUpdatePasswordResponse updateUserPassword(String userId, UserUpdatePasswordRequest userUpdatePasswordRequest) {
         User user = getUserByUserId(userId);
+
+        log.info("why {}", user.getUserId());
+
         user.updatePassword(userUpdatePasswordRequest.toUser(passwordEncoder));
-        return true;
+        return new UserUpdatePasswordResponse(userRepository.save(user));
     }
 
 

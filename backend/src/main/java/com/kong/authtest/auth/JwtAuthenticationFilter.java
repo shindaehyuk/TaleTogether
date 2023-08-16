@@ -82,6 +82,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         // "Bearer "제거한 string (순수 Token)을 decode.
         logger.info("After obtaining verifier.");
 
+
         DecodedJWT decodedJWT = verifier.verify(token.replace(JwtTokenUtil.TOKEN_PREFIX, ""));
 
         logger.info("After verifying token.");
