@@ -41,6 +41,8 @@ const LikeScroll = ({ myLikes }) => {
               <img
                 src={like.taleImage}
                 style={{
+                  width: "200px",
+                  height: "auto",
                   marginLeft: "auto",
                   alignSelf: "center",
                   borderRadius: "20px",

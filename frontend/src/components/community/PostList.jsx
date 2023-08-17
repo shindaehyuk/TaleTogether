@@ -9,6 +9,7 @@ function NavBar({ onButtonClick }) {
     <div>
       <Button
         className="button-orange"
+        style={{color:"white", backgroundColor:"#D0A370"}}
         sx={{ mt: '1rem', ml: '77%', width: '7rem' }}
         variant="text"
         onClick={onButtonClick}
