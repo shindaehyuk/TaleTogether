@@ -22,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -33,6 +34,7 @@ import org.springframework.web.client.RestTemplate;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Service
@@ -40,7 +42,8 @@ import java.util.stream.Collectors;
 @Slf4j
 public class ChatGptService {
 
-    private static final String API_KEY = "Bearer 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";
+    @Value("${cgpt.api-key}")
+    private String API_KEY;
     private final RestTemplate restTemplate = new RestTemplate();
 
     private final ObjectMapper objectMapper = new ObjectMapper();
@@ -137,7 +140,8 @@ public class ChatGptService {
         }
 
         return finalScriptPageRepository
-                .findAll()
+                .findByTale(taleRepository.findById(finalScriptPageRequest
+                        .getTaleId()).orElseThrow(() -> new NoSuchElementException()))
                 .stream()
                 .map(FinalScriptPageResponse::new)
                 .collect(Collectors.toList());

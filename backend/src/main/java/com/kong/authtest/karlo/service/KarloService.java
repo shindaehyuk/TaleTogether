@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
@@ -32,7 +33,8 @@ public class KarloService {
     private static final int MAX_RETRIES = 3;
     private static final int WAIT_TIME_IN_MS = 1000; // 1초
 
-    private static final String API_KEY = "KakaoAK f66e810c3f997ea0220e354d8e04017a";
+    @Value("${karlo.api-key}")
+    private String API_KEY ;
 
     private final RestTemplate restTemplate = new RestTemplate();
 
@@ -59,7 +61,7 @@ public class KarloService {
     }
 
     @NotNull
-    private static HttpHeaders setKarloApiHeaders() {
+    private HttpHeaders setKarloApiHeaders() {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.set(CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
         httpHeaders.set(AUTHORIZATION, API_KEY);
