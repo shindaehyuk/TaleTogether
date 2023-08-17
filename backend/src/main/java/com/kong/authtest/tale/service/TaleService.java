@@ -61,6 +61,7 @@ public class TaleService {
         // UserTale에서 Tale 리스트로 변환 후, 각 Tale을 TaleDtoResponse로 매핑
         return userTales.stream()
                 .map(ut -> new TaleDtoGetResponse(ut.getTale()))
+                .filter(response -> response.getTitle() != null)
                 .collect(Collectors.toList());
     }
 

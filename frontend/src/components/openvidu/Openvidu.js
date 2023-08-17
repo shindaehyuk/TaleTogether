@@ -75,7 +75,6 @@ export default function Openvidu() {
     player2: '',
     player2Character: '',
     backGround: '',
-    turn: '',
     taleId: state.taleId,
   });
 
@@ -99,10 +98,6 @@ export default function Openvidu() {
     {
       label: '배경',
       name: 'backGround',
-    },
-    {
-      label: '턴수',
-      name: 'turn',
     },
   ];
 
@@ -197,7 +192,7 @@ export default function Openvidu() {
       event.stream.session.on('signal:start', (event) => {
         const receivedData = JSON.parse(event.data);
         setGameStarted(receivedData);
-        setScript('Tale Together를 시작하기 전 주인공들의 이름과 성격, 배경, 턴수를 입력해주세요');
+        setScript('Tale Together를 시작하기 전 주인공들의 이름과 성격, 배경을 입력해주세요');
       });
       // 폼보여주는 신호 보내기
       event.stream.session.on('signal:ShowForm', (event) => {
@@ -407,7 +402,7 @@ export default function Openvidu() {
 
   // 처음 게임시작버튼 핸들러
   const startgameHandler = () => {
-    setScript('Tale Together를 시작하기 전 주인공들의 이름과 성격, 배경, 턴수를 입력해주세요');
+    setScript('Tale Together를 시작하기 전 주인공들의 이름과 성격, 배경을 입력해주세요');
     // setShowForm(true);
     sendShowFormToSubscribers(true);
     // setGameStarted(true);
@@ -694,7 +689,7 @@ export default function Openvidu() {
           {/* 상대방 카메라 */}
           <Box sx={{ width: '100%', height: '30%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             {subscribers.map((sub, i) => (
-              <div key={sub.id} onClick={() => handleMainVideoStream(sub)}>
+              <div key={sub.id}>
                 <span>{sub.id}</span>
                 <UserVideoComponent streamManager={sub} />
               </div>
