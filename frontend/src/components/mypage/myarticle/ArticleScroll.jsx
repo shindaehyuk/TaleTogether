@@ -41,6 +41,8 @@ const ArticleScroll = ({ myArticles }) => {
               <img
                 src={article.taleTitleImage}
                 style={{
+                  width: "200px",
+                  height: "auto",
                   marginLeft: "auto",
                   alignSelf: "center",
                   borderRadius: "20px",
