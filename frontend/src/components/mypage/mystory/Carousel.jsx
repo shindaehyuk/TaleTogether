@@ -9,6 +9,8 @@ import UserinfoAxios from "../../../api/auth/Get/UserinfoAxios";
 import deleteTaleAxios from "../../../api/tale/deleteTaleAxios";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import Button from "@mui/material/Button";
+import { Box } from "@mui/material";
+import notale from "../../community/src/notale.png";
 
 // 이전 화살표 디자인
 function NextArrow(props) {
@@ -118,7 +120,17 @@ const Carousel = () => {
   };
 
   return (
-    <div style={{ padding: "10px", top: "-15px" }}>
+    <Box
+      sx={{
+        padding: "10px",
+        top: "-15px",
+        width: "100%",
+        height: "100%",
+        backgroundImage: myStories.length === 0 ? `url(${notale})` : "none",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
       <Slider {...settings}>
         {myStories &&
           myStories.map((myStory, index) => {
@@ -147,7 +159,7 @@ const Carousel = () => {
             ) : null;
           })}
       </Slider>
-    </div>
+    </Box>
   );
 };
 
