@@ -2,6 +2,11 @@ import React, { useState, useEffect } from "react";
 import PostForm from "./PostForm";
 import PostList from "./PostList";
 import allCommunityAxios from "../../api/community/allCommunityAxios";
+import SkipNextIcon from "@mui/icons-material/SkipNext";
+import SkipPreviousIcon from "@mui/icons-material/SkipPrevious";
+import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
+import ArrowRightIcon from "@mui/icons-material/ArrowRight";
+import { Button } from "@mui/material";
 
 function Community() {
   const [mode, setMode] = useState("default");
@@ -15,10 +20,13 @@ function Community() {
 
       if (response) {
         setList(response.data);
-        if (response.pageInfo) {
-            setTotalPages(response.pageInfo.total_pages);
+        if (response.data) {
+          const communityCount = response.data[0].communityCount;
+          const totalPages =
+            Math.floor(communityCount / 9) + (communityCount % 9 === 0 ? 0 : 1);
+          setTotalPages(totalPages);
         } else {
-            setTotalPages(1);
+          setTotalPages(1);
         }
       } else {
         console.error("Failed to fetch posts");
@@ -44,31 +52,74 @@ function Community() {
     const buttons = [];
 
     const visiblePages = Math.min(totalPages, 5);
-    const startPage = Math.max(0, currentPage - Math.floor(visiblePages / 2));
+    const middle = Math.floor(visiblePages / 2);
+    const isStart = currentPage <= middle;
+    const isEnd = currentPage >= totalPages - (middle + 1);
+    const startPage = isStart
+      ? 0
+      : isEnd
+      ? totalPages - visiblePages
+      : currentPage - middle;
     const endPage = startPage + visiblePages;
+
+    if (currentPage !== 0) {
+      buttons.push(
+        <SkipPreviousIcon
+          style={{ cursor: "pointer" }}
+          key="first"
+          onClick={() => setCurrentPage(0)}
+        >
+          처음
+        </SkipPreviousIcon>,
+        <ArrowLeftIcon
+          style={{ cursor: "pointer" }}
+          key="prev"
+          onClick={prevPage}
+        >
+          이전
+        </ArrowLeftIcon>
+      );
+    }
 
     for (let i = startPage; i < endPage; i++) {
       buttons.push(
-        <button
+        <Button
           key={i}
           onClick={() => setCurrentPage(i)}
           className={currentPage === i ? "active" : ""}
         >
           {i + 1}
-        </button>
+        </Button>
+      );
+    }
+
+    if (currentPage !== totalPages - 1 && totalPages > 1) {
+      buttons.push(
+        <ArrowRightIcon
+          style={{ cursor: "pointer" }}
+          key="next"
+          onClick={nextPage}
+        >
+          다음
+        </ArrowRightIcon>,
+        <SkipNextIcon
+          style={{ cursor: "pointer" }}
+          key="last"
+          onClick={() => setCurrentPage(totalPages - 1)}
+        >
+          끝
+        </SkipNextIcon>
       );
     }
 
     return buttons;
-  }
+  };
 
   const content =
     mode === "default" ? (
       <>
         <PostList onButtonClick={setCreate} list={list} />
-        {currentPage > 0 && <button onClick={prevPage}>Previous Page</button>}
         {renderPageButtons()}
-        {currentPage < totalPages - 1 && <button onClick={nextPage}>Next Page</button>}
       </>
     ) : (
       <PostForm

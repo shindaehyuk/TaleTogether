@@ -3,6 +3,7 @@ import { Outlet, useParams, useNavigate } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import { Box, Modal } from "@mui/material";
 import postCommentAxios from "../../api/comment/postCommentAxios";
 import deleteCommentAxios from "../../api/comment/deleteCommentAxios";
 import getUserCommunityAxios from "../../api/community/getUserCommunityAxios";
@@ -11,6 +12,9 @@ import deleteCommunityAxios from "../../api/community/deleteCommunityAxios";
 import UserinfoAxios from "../../api/auth/Get/UserinfoAxios";
 import PostForm from "./PostForm";
 import HeartButton from "./HeartButton";
+import SummarizeBook from "../mypage/mystory/SummarizeBook";
+import getTaleAllAxios from "../../api/tale/getTaleAll";
+import Post from "./Post";
 
 // NavBar
 function NavBar({ onButtonClick, onDeleteClick, isAuthor }) {
@@ -168,6 +172,61 @@ function PostContent({ post, onCommentCreate }) {
     setLikes(newLikes);
   };
 
+  const [myStories, setMyStories] = useState([]);
+
+  const [selectedMyStory, setSelectedMyStory] = useState(null);
+
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const response = await getTaleAllAxios();
+        setMyStories(response);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getData();
+  }, []);
+
+  useEffect(() => {
+    const foundMyStory = myStories.find(
+      (myStory) => myStory.taleId === post.taleId
+    );
+    setSelectedMyStory(foundMyStory);
+  }, [myStories, post.taleId]);
+
+  // 모달 상태 관리
+  const [open, setOpen] = useState(false);
+
+  // 모달 열기
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  // 모달 닫기
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const modalStyle = {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  };
+
+  const boxStyle = {
+    position: "absolute",
+    display: "flex",
+    width: "80%",
+    height: "80%",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 0,
+    overflow: "auto",
+    backgroundImage: `url("../../assets/BookTemplate.jpg")`,
+    backgroundSize: "101.5% 100%",
+  };
+
   return (
     <div
       className="DetailBody"
@@ -188,14 +247,40 @@ function PostContent({ post, onCommentCreate }) {
         }}
       >
         <ul className="list-inline">
-          <li className="book_detail">
-            <img src={post.taleTitleImage} alt="" />
-          </li>
-          <hr />
           <h3>{post.taleTitle}</h3>
+          <hr />
+          <li
+            className="book_detail"
+            style={{ width: "18rem", height: "18rem" }}
+          >
+            <img
+              src={post.taleTitleImage}
+              alt=""
+              style={{ objectFit: "contain", width: "100%", height: "100%" }}
+              onClick={handleOpen} // 여기에 onClick 이벤트 추가
+            />
+          </li>
         </ul>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-title"
+          aria-describedby="modal-description"
+          style={modalStyle}
+        >
+          <Box sx={boxStyle}>
+      {selectedMyStory && (
+        <SummarizeBook pageList={selectedMyStory.finalScriptPageList} />
+      )}
+    </Box>
+        </Modal>
       </div>
-
+      <HeartButton
+        communityId={post.communityId}
+        likedUsers={post.likesList}
+        updateLikes={updateLikes}
+        likes={likes}
+      />
       <div
         className="right"
         style={{
@@ -208,23 +293,18 @@ function PostContent({ post, onCommentCreate }) {
           alignItems: "center",
         }}
       >
-        <div style={{ lineHeight: "3rem" }}>
+        <div style={{}}>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <h1>{post.title}</h1>
-            <HeartButton
-              communityId={post.communityId}
-              likedUsers={post.likesList}
-              updateLikes={updateLikes}
-              likes={likes}
-            />
+            {/* 좋아요 버튼 */}
           </div>
           <p style={{ maxHeight: "200px", overflowY: "auto" }}>
             {post.content}
           </p>
-          {/* 좋아요 버튼 */}
+
           <div style={{ display: "flex" }}>
-            <p style={{ fontSize: "1.5rem" }}>좋아요 : {likes}</p>
-            <p style={{ fontSize: "1.5rem" }}>
+            <p style={{ fontSize: "1rem" }}>좋아요 : {likes}</p>
+            <p style={{ fontSize: "1rem" }}>
               댓글 수 : {post.commentList.length}
             </p>
           </div>
@@ -305,7 +385,7 @@ function PostDetail() {
     if (result) {
       // This line handles the navigation after deleting a post.
       // Replace history.push("/") with navigate("/");
-      navigate("/");
+      navigate("/community");
     } else {
       // Handle error when deletion fails.
     }
@@ -358,7 +438,7 @@ function PostDetail() {
           onCommentUpdate={handleCommentUpdated}
         />
       )}
-
+      <hr />
       {!editing && ( // editing이 아닌 경우에만 댓글 폼을 표시합니다.
         <CommentForm onCommentCreate={handleCommentCreated}></CommentForm>
       )}
