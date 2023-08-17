@@ -7,6 +7,9 @@ import React, { useState, useEffect } from "react";
 import getTaleAllAxios from "../../../api/tale/getTaleAll";
 import UserinfoAxios from "../../../api/auth/Get/UserinfoAxios";
 import deleteTaleAxios from "../../../api/tale/deleteTaleAxios";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 
 // 이전 화살표 디자인
 function NextArrow(props) {
@@ -133,12 +136,13 @@ const Carousel = () => {
                     alt={`Image ${index + 1}`}
                     firstPageId={firstPageId}
                   />
-                  <button
-                    style={deleteButtonStyle}
+                  <Button
                     onClick={() => deleteTaleHandler(myStory)}
+                    color="error"
+                    style={deleteButtonStyle}
                   >
-                    삭제
-                  </button>
+                    <DeleteForeverIcon />
+                  </Button>
                 </div>
               </div>
             ) : null;

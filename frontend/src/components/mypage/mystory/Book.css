@@ -53,9 +53,10 @@
   height: 100%;
   padding-right: 10px;
   padding-bottom: 10px;
-  font-size: 18px;
+  font-size: 25px;
   line-height: 2.25;
-  font-family: "yg-jalnan";
+  font-family: "omyu_pretty";
+  white-space: pre-line;
 }
 
 .pageImage {
