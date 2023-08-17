@@ -14,7 +14,7 @@ import PostForm from "./PostForm";
 import HeartButton from "./HeartButton";
 import SummarizeBook from "../mypage/mystory/SummarizeBook";
 import getTaleAllAxios from "../../api/tale/getTaleAll";
-import Post from "./Post";
+
 
 // NavBar
 function NavBar({ onButtonClick, onDeleteClick, isAuthor }) {
@@ -269,10 +269,10 @@ function PostContent({ post, onCommentCreate }) {
           style={modalStyle}
         >
           <Box sx={boxStyle}>
-      {selectedMyStory && (
-        <SummarizeBook pageList={selectedMyStory.finalScriptPageList} />
-      )}
-    </Box>
+            {selectedMyStory && (
+              <SummarizeBook pageList={selectedMyStory.finalScriptPageList} />
+            )}
+          </Box>
         </Modal>
       </div>
       <HeartButton
@@ -340,7 +340,7 @@ function PostDetail() {
     user();
   });
 
-  // 댓글 비동기 처리 (실패)
+  // 댓글 비동기 처리 
   const handleCommentCreated = (newComment) => {
     setComments((prevComments) => [...prevComments, newComment.data]);
 

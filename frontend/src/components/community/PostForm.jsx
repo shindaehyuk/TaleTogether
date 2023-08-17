@@ -151,7 +151,12 @@ function PostForm({
               name="title"
               placeholder="제목을 입력해 주세요"
               value={title}
-              style={{ width: "80vh", fontSize: "2rem", height: "10vh", borderRadius:"10px" }}
+              style={{
+                width: "80vh",
+                fontSize: "2rem",
+                height: "10vh",
+                borderRadius: "10px",
+              }}
               onChange={(e) => setTitle(e.target.value)}
             />
           </div>
@@ -170,7 +175,7 @@ function PostForm({
                 fontSize: "2rem",
                 height: "35vh",
                 resize: "none",
-                borderRadius:"10px",
+                borderRadius: "10px",
               }}
               onChange={(e) => setContent(e.target.value)}
             />
@@ -190,14 +195,13 @@ function PostForm({
               width: [80, 150, 180, 250], // 100 for mobile, 150 for tablet, 200 for desktop
               height: 330,
               backgroundColor: "#FDFADF",
-              border:"solid 1px #D0A370"
+              border: "solid 1px #D0A370",
             }}
             style={{
               backgroundImage: selectedImage ? `url(${selectedImage})` : "none",
               backgroundSize: "cover",
               backgroundPosition: "center",
-              borderRadius:"10px",
-            
+              borderRadius: "10px",
             }}
             onClick={handleModalOpen} // 추가: Box 클릭 시 동화 고르기 기능을 수행
           />

@@ -7,6 +7,7 @@ import SkipPreviousIcon from "@mui/icons-material/SkipPrevious";
 import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import { Button } from "@mui/material";
+import nopost from "./src/nopost.png";
 
 function Community() {
   const [mode, setMode] = useState("default");
@@ -20,7 +21,7 @@ function Community() {
 
       if (response) {
         setList(response.data);
-        if (response.data) {
+        if (response.data && response.data.length > 0) {
           const communityCount = response.data[0].communityCount;
           const totalPages =
             Math.floor(communityCount / 9) + (communityCount % 9 === 0 ? 0 : 1);
@@ -51,7 +52,7 @@ function Community() {
   const renderPageButtons = () => {
     const buttons = [];
 
-    const visiblePages = Math.min(totalPages, 5);
+    const visiblePages = totalPages > 1 ? Math.min(totalPages, 5) : totalPages;
     const middle = Math.floor(visiblePages / 2);
     const isStart = currentPage <= middle;
     const isEnd = currentPage >= totalPages - (middle + 1);
@@ -68,16 +69,12 @@ function Community() {
           style={{ cursor: "pointer" }}
           key="first"
           onClick={() => setCurrentPage(0)}
-        >
-          처음
-        </SkipPreviousIcon>,
+        />,
         <ArrowLeftIcon
           style={{ cursor: "pointer" }}
           key="prev"
           onClick={prevPage}
-        >
-          이전
-        </ArrowLeftIcon>
+        />
       );
     }
 
@@ -99,16 +96,12 @@ function Community() {
           style={{ cursor: "pointer" }}
           key="next"
           onClick={nextPage}
-        >
-          다음
-        </ArrowRightIcon>,
+        />,
         <SkipNextIcon
           style={{ cursor: "pointer" }}
           key="last"
           onClick={() => setCurrentPage(totalPages - 1)}
-        >
-          끝
-        </SkipNextIcon>
+        />
       );
     }
 
@@ -118,8 +111,40 @@ function Community() {
   const content =
     mode === "default" ? (
       <>
-        <PostList onButtonClick={setCreate} list={list} />
-        {renderPageButtons()}
+        {list.length > 0 ? (
+          <>
+            <PostList onButtonClick={setCreate} list={list} />
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                padding: "10px",
+              }}
+            >
+              <div>{renderPageButtons().slice(0, 2)}</div>
+              <div>{renderPageButtons().slice(2, -2)}</div>
+              <div>{renderPageButtons().slice(-2)}</div>
+            </div>
+          </>
+        ) : (
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <img src={nopost} alt="" />
+            <Button
+              style={{ color: "white", backgroundColor: "#D0A370" }}
+              onClick={setCreate}
+            >
+              새 게시글 작성하기
+            </Button>
+          </div>
+        )}
       </>
     ) : (
       <PostForm
