@@ -14,6 +14,7 @@ import PostForm from "./PostForm";
 import HeartButton from "./HeartButton";
 import SummarizeBook from "../mypage/mystory/SummarizeBook";
 import getTaleAllAxios from "../../api/tale/getTaleAll";
+import getCommentAxios from "../../api/comment/getCommentAxios";
 
 
 // NavBar
@@ -24,7 +25,7 @@ function NavBar({ onButtonClick, onDeleteClick, isAuthor }) {
         {isAuthor && (
           <>
             <Button
-              className="button-orange"
+              style={{color:"white", backgroundColor:"#CCD5AC"}}
               sx={{ mt: "1rem", ml: "70%", width: "7rem" }}
               variant="text"
               onClick={onButtonClick}
@@ -32,10 +33,10 @@ function NavBar({ onButtonClick, onDeleteClick, isAuthor }) {
               수정하기
             </Button>
             <Button
-              className="button-orange"
               sx={{ mt: "1rem", ml: "1%", width: "7rem" }}
               variant="text"
               onClick={onDeleteClick}
+              style={{color:"white", backgroundColor:"#D0A370"}}
             >
               삭제하기
             </Button>
@@ -103,6 +104,23 @@ function CommentForm({ onCommentCreate }) {
 
 // 댓글목록
 function Comment({ comment, onDelete, onUpdate, userId_now }) {
+
+  const[commentDetail, setcommentDetail] = useState();
+
+   const fetchComments = async (commentId) => {
+    const res = await getCommentAxios({ commentId });
+    if (res) {
+      setcommentDetail(res.data.commentDetail);
+    } else {
+      // 데이터 로드 실패시 알림 처리를 적용하세요.
+    }
+  };
+
+  useEffect(() => {
+    fetchComments(comment.commentId);
+  }, []);
+
+  console.log(commentDetail)
   // 댓글 수정
   const [editMode, setEditMode] = useState(false);
   const [updatedContent, setUpdatedContent] = useState(comment.content);
