@@ -1,6 +1,7 @@
 import "./Article.css";
 import { Box } from "@mui/material";
 import React from "react";
+import nopost from "../../community/src/nopost.png";
 
 const ArticleScroll = ({ myArticles }) => {
   const handleClick = (article) => {
@@ -14,6 +15,9 @@ const ArticleScroll = ({ myArticles }) => {
         width: "90%",
         height: "80%",
         overflowY: "scroll",
+        backgroundImage: myArticles.length === 0 ? `url(${nopost})` : "none",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
       }}
     >
       {myArticles.map((article, index) => (
@@ -37,6 +41,8 @@ const ArticleScroll = ({ myArticles }) => {
               <img
                 src={article.taleTitleImage}
                 style={{
+                  width: "200px",
+                  height: "auto",
                   marginLeft: "auto",
                   alignSelf: "center",
                   borderRadius: "20px",

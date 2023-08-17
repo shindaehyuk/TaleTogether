@@ -39,20 +39,19 @@ export default function AreaCard({ myStory, alt, firstPageId }) {
     backgroundSize: "101.5% 100%",
   };
 
-  console.log(myStory);
-
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardActionArea>
         <CardMedia
           component="img"
+          className="card-img"
           height="100"
           image={myStory.titleImage}
           alt={{ alt }}
           onClick={handleOpen}
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
+          <Typography gutterBottom variant="h7" component="div">
             {myStory.title}
           </Typography>
         </CardContent>

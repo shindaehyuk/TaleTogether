@@ -1,16 +1,17 @@
-chatgpt:
-  api-key: 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
-
+cgpt:
+  api-key : Bearer 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
+karlo:
+  api-key: KakaoAK f66e810c3f997ea0220e354d8e04017a
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://db:3306/ssafy?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/ssafy?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
 
     username: root
     password: twja0930
   redis:
-    port: 6379
-    host: redis
+    port: 6363
+    host: i9c110.p.ssafy.io
   jpa:
     hibernate:
       ddl-auto: update

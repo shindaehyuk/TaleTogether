@@ -50,9 +50,9 @@ function HeartButton({ communityId, likedUsers, updateLikes, likes }) {
   return (
     <IconButton onClick={handleLike} color="danger">
       {liked ? (
-        <FavoriteIcon /> // 좋아요한 경우 (하트 채움)
+        <FavoriteIcon style={{color:"#ff0000"}} /> // 좋아요한 경우 (하트 채움)
       ) : (
-        <FavoriteBorderIcon /> // 좋아요 안한 경우 (하트 비움)
+        <FavoriteBorderIcon style={{color:"#ff0000"}} /> // 좋아요 안한 경우 (하트 비움)
       )}
     </IconButton>
   );

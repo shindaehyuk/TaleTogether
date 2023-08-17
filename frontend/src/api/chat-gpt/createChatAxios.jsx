@@ -34,7 +34,6 @@ export default async function createChatAxios(props, data) {
         },
       }
     );
-    console.log(res);
     return res;
   } catch (e) {
     console.error(e);

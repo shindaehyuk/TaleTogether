@@ -23,7 +23,7 @@
   height: 100%;
   margin-left: 55%; /* 기존의 margin-left 값 유지 */
   perspective-origin: center;
-  perspective: 2500px;
+  perspective: 3000px;
 }
 
 .page {
@@ -53,9 +53,10 @@
   height: 100%;
   padding-right: 10px;
   padding-bottom: 10px;
-  font-size: 18px;
+  font-size: 25px;
   line-height: 2.25;
-  font-family: "yg-jalnan";
+  font-family: "omyu_pretty";
+  white-space: pre-line;
 }
 
 .pageImage {

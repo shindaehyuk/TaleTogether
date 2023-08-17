@@ -7,6 +7,7 @@ import "./Community.css";
 import postCommunityAxios from "../../api/community/postCommunityAxios";
 import putCommunityAxios from "../../api/community/putCommunityAxios";
 import UserinfoAxios from "../../api/auth/Get/UserinfoAxios";
+import logo from "./src/Logo.png";
 
 function PostForm({
   list,
@@ -14,7 +15,7 @@ function PostForm({
   modeChanger,
   initialValues = {},
   setEditing,
-  onUpdatePost // 새로운 함수로 postIdRef를 업데이트합니다.
+  onUpdatePost, // 새로운 함수로 postIdRef를 업데이트합니다.
 }) {
   // payload를 통해 axios넘겨줄 데이터
   const [title, setTitle] = useState(initialValues?.title || "");
@@ -23,7 +24,7 @@ function PostForm({
 
   const [modalOpen, setModalOpen] = useState(false);
 
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(logo);
 
   const [taleTitle, setTaleTitle] = useState("");
 
@@ -80,6 +81,7 @@ function PostForm({
     }
 
     modeChanger();
+    window.location.reload(); // 페이지 새로고침
   }
 
   async function putSubmit(event) {
@@ -109,7 +111,7 @@ function PostForm({
     if (response) {
       setEditing(false);
       onUpdatePost(); // postIdRef를 업데이트하는 함수를 호출합니다.
-    }  else {
+    } else {
       // 실패한 경우 오류 처리
     }
   }
@@ -123,7 +125,7 @@ function PostForm({
         <Button
           type="submit"
           sx={{ mt: "1rem", ml: "77%", width: "7rem" }}
-          className="button-green"
+          style={{color:"white", backgroundColor:"#CCD5AC"}}
           onClick={handleSubmit}
         >
           작성완료
@@ -147,12 +149,19 @@ function PostForm({
             <input
               type="text"
               name="title"
+              placeholder="제목을 입력해 주세요"
               value={title}
-              style={{ width: "80vh", fontSize: "2rem", height: "10vh" }}
+              style={{
+                width: "80vh",
+                fontSize: "2rem",
+                height: "10vh",
+                border:"solid 2px #D0A370",
+                borderRadius: "10px",
+              }}
               onChange={(e) => setTitle(e.target.value)}
             />
           </div>
-          <hr />
+    
           <div>
             <h3 style={{ marginRight: "70vh" }}>
               <b>내용</b>
@@ -161,12 +170,14 @@ function PostForm({
             <textarea
               name="content"
               value={content}
-              placeholder="내용을 입력해주세요"
+              placeholder="내용을 입력해 주세요"
               style={{
                 width: "80vh",
                 fontSize: "2rem",
                 height: "35vh",
                 resize: "none",
+                border:"solid 2px #D0A370",
+                borderRadius: "10px",
               }}
               onChange={(e) => setContent(e.target.value)}
             />
@@ -185,29 +196,24 @@ function PostForm({
             sx={{
               width: [80, 150, 180, 250], // 100 for mobile, 150 for tablet, 200 for desktop
               height: 330,
-              backgroundColor: "primary.dark",
-              "&:hover": {
-                backgroundColor: "primary.main",
-                opacity: 1,
-              },
-              "@media (hover:hover)": {
-                "&:hover": {
-                  opacity: [0.9, 0.8, 0.7],
-                },
-              },
+              backgroundColor: "#FDFADF",
+              border: "solid 1px #D0A370",
             }}
             style={{
               backgroundImage: selectedImage ? `url(${selectedImage})` : "none",
               backgroundSize: "cover",
               backgroundPosition: "center",
+              borderRadius: "10px",
             }}
-          ></Box>
+            onClick={handleModalOpen} // 추가: Box 클릭 시 동화 고르기 기능을 수행
+          />
 
           <Button
             variant="text"
             onClick={handleModalOpen}
             className="button-orange"
             sx={{ width: "10rem", mt: "1rem" }}
+            style={{color:"white", backgroundColor:"#D0A370"}}
           >
             동화 고르기
           </Button>
@@ -224,4 +230,3 @@ function PostForm({
 }
 
 export default PostForm;
-

@@ -14,7 +14,7 @@ import java.util.Objects;
 @EqualsAndHashCode
 public class Content {
 
-    @Column(length = 100000)
+    @Column(length = 1000000)
     private String content;
 
     public Content(String content) {
@@ -35,8 +35,8 @@ public class Content {
     }
 
     private void checkContentLength(String content) {
-        if (content.length() <= 0 || content.length() > 100000) {
-            throw new IllegalArgumentException("글의 길이는 100000 자 이상 불가능 합니다");
+        if (content.length() <= 0 || content.length() > 1000000) {
+            throw new IllegalArgumentException("글의 길이는 1000000 자 이상 불가능 합니다");
         }
     }
 }

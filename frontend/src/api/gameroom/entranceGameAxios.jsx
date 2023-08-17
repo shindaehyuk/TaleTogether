@@ -15,7 +15,6 @@ export default async function entranceGamxAxios(sessionId) {
         },
       }
     );
-    console.log(res);
     return res;
   } catch (e) {
     console.error(e);

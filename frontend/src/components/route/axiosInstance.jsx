@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export const axiosInstance = axios.create({
   // baseURL: 'http://localhost:8083/api/',
-  baseURL: 'https://i9c110.p.ssafy.io:8083/api/',
+  baseURL: 'https://i9c110.p.ssafy.io/api/',
   headers: {
     'Content-Type': 'application/json',
     Authorization: sessionStorage.getItem('token'),
@@ -35,8 +35,8 @@ axiosInstance.interceptors.response.use(
       // if (error.response.data === 'Expired JWT') {
       const originalRequest = config;
       const res = await axios.get(
-        // `//i9c110.p.ssafy.io/api/auth/refresh`,
-        `//localhost:8083/api/auth/refresh`,
+        `//i9c110.p.ssafy.io/api/auth/refresh`,
+        // `//localhost:8083/api/auth/refresh`,
         {
           headers: {
             'Content-Type': 'application/json',
