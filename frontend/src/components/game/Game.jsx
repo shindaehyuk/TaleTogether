@@ -84,7 +84,7 @@ export default function Game() {
           backgroundColor: '#d4a373',
         }}
       >
-        <main class="main">
+        <main className="main">
           <Box
             sx={{
               width: '50%',
@@ -96,7 +96,7 @@ export default function Game() {
               flexDirection: 'column',
             }}
           >
-            <h2 className="animate__animated animate__fadeInLeft animate__delay-0.5s">너와 내가 만들어가는 이야기</h2>
+            <h2 className="animate__animated animate__fadeInLeft animate__delay-0.5s">함께 만들어가는 이야기</h2>
             <h1 className="animate__animated animate__fadeInLeft animate__delay-1s">Tale Together</h1>
             <img
               className="animate__animated animate__fadeInLeft animate__delay-1s"
@@ -119,19 +119,58 @@ export default function Game() {
               opacity: 0.7,
             }}
           >
-            <section class="hero-section">
-              <div class="card-grid">
-                <div class="card">
-                  <div class="card__background" style={{ backgroundImage: 'url(../../assets/makeFox.png)' }}></div>
-                  <h3 class="card__heading">방만들기</h3>
+            <section className="hero-section">
+              <div className="card-grid">
+                <div className="card" onClick={makeRoomHandler}>
+                  <div className="card__background" style={{ backgroundImage: 'url(../../assets/makeFox.png)' }}></div>
+                  <h3 className="card__heading">방만들기</h3>
                 </div>
 
-                <div class="card">
-                  <div class="card__background" style={{ backgroundImage: 'url(../../assets/joinFox.png)' }}></div>
+                <div className="card" onClick={handleOpen}>
+                  <div className="card__background" style={{ backgroundImage: 'url(../../assets/joinFox.png)' }}></div>
 
-                  <h3 class="card__heading">코드입력</h3>
+                  <h3 className="card__heading">코드입력</h3>
                 </div>
               </div>
+              <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+              >
+                <Box
+                  sx={{
+                    width: '25%',
+                    height: '20%',
+                    position: 'absolute',
+                    textAlign: 'center',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    backgroundColor: 'white',
+                    boxShadow: 20,
+                    fontFamily: 'omyu_pretty',
+                  }}
+                >
+                  <Typography id="modal-modal-title" variant="h4" component="h2" sx={{ marginY: 2 }}>
+                    코드를 입력해주세요
+                  </Typography>
+                  <form onSubmit={entranceHandler}>
+                    게임코드 :
+                    <Input
+                      color="success"
+                      required
+                      type="text"
+                      value={code}
+                      sx={{ marginX: 2 }}
+                      onChange={codeHandler}
+                    />
+                    <Button color="success" type="submit">
+                      입장
+                    </Button>
+                  </form>
+                </Box>
+              </Modal>
             </section>
           </Box>
         </main>

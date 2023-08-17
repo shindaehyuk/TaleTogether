@@ -1,11 +1,11 @@
-import * as React from "react";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
-import { CardActionArea, Modal, Box } from "@mui/material";
-import { useState } from "react";
-import SummarizeBook from "./Book";
+import * as React from 'react';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import { CardActionArea, Modal, Box } from '@mui/material';
+import { useState } from 'react';
+import SummarizeBook from './Book';
 
 export default function AreaCard({ myStory, alt, firstPageId }) {
   const [open, setOpen] = useState(false);
@@ -21,22 +21,22 @@ export default function AreaCard({ myStory, alt, firstPageId }) {
   };
 
   const modalStyle = {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   };
 
   const boxStyle = {
-    position: "absolute",
-    display: "flex",
-    width: "80%",
-    height: "80%",
-    alignItems: "center",
-    justifyContent: "center",
+    position: 'absolute',
+    display: 'flex',
+    width: '80%',
+    height: '80%',
+    alignItems: 'center',
+    justifyContent: 'center',
     padding: 0,
-    overflow: "auto",
+    overflow: 'auto',
     backgroundImage: `url("../../assets/BookTemplate.jpg")`,
-    backgroundSize: "101.5% 100%",
+    backgroundSize: '101.5% 100%',
   };
 
   console.log(myStory);
@@ -53,7 +53,7 @@ export default function AreaCard({ myStory, alt, firstPageId }) {
           onClick={handleOpen}
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
+          <Typography gutterBottom variant="h7" component="div">
             {myStory.title}
           </Typography>
         </CardContent>
@@ -66,7 +66,7 @@ export default function AreaCard({ myStory, alt, firstPageId }) {
         style={modalStyle}
       >
         <Box sx={boxStyle}>
-          <SummarizeBook pageList={myStory["finalScriptPageList"]} />
+          <SummarizeBook pageList={myStory['finalScriptPageList']} />
         </Box>
       </Modal>
     </Card>

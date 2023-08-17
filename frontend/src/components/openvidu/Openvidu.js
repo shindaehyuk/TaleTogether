@@ -1019,7 +1019,7 @@ export default function Openvidu() {
                 <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                   Tale Together
                 </Typography>
-                <Button color="inherit">타자연습</Button>
+                {/* <Button color="inherit">타자연습</Button> */}
                 {showbook && (
                   <Button color="inherit" onClick={handleOpen}>
                     동화보기
