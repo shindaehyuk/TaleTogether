@@ -40,6 +40,10 @@ function Nav() {
           <HomeIcon />
           메인
         </Link>
+        <Link to="game" className={`link ${activeLinkIndex === 2 ? 'active' : ''}`} onClick={() => handleLinkClick(2)}>
+          <SportsEsportsIcon />
+          게임하기
+        </Link>
         <Link
           to="community"
           className={`link ${activeLinkIndex === 1 ? 'active' : ''}`}
@@ -48,10 +52,7 @@ function Nav() {
           <LocalLibraryIcon />
           커뮤니티
         </Link>
-        <Link to="game" className={`link ${activeLinkIndex === 2 ? 'active' : ''}`} onClick={() => handleLinkClick(2)}>
-          <SportsEsportsIcon />
-          게임하기
-        </Link>
+
         <Link
           to="mypage"
           className={`link ${activeLinkIndex === 3 ? 'active' : ''}`}

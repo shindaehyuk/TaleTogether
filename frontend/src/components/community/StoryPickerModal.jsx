@@ -58,11 +58,11 @@ function StoryPickerModal({ open, onClose, onSelectImage, userId }) {
               onClick={() => handleImageClick(tale.titleImage , tale.taleId, tale.title)}
             >
               <img src={tale.titleImage} alt={tale.title} />
-              <p className="legend">{tale.title}</p>
+              <p style={{backgroundColor:"#D0A370"}} className="legend"><b>{tale.title}</b></p>
             </div>
           ))}
         </Carousel>
-        <Button onClick={onClose}>닫기</Button>
+        <Button style={{color:"white", backgroundColor:"#D0A370", marginLeft:"16rem", marginTop:"1rem"}} onClick={onClose}>닫기</Button>
       </Box>
     </Modal>
   );

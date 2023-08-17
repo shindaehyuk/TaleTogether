@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 export const axiosInstance = axios.create({
-  baseURL: 'http://localhost:8083/api/',
-  // baseURL: 'https://i9c110.p.ssafy.io:8083/api/',
+  // baseURL: 'http://localhost:8083/api/',
+  baseURL: 'https://i9c110.p.ssafy.io/api/',
   headers: {
     'Content-Type': 'application/json',
     Authorization: sessionStorage.getItem('token'),
