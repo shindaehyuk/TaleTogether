@@ -46,6 +46,7 @@ export default function AreaCard({ myStory, alt, firstPageId }) {
       <CardActionArea>
         <CardMedia
           component="img"
+          className="card-img"
           height="100"
           image={myStory.titleImage}
           alt={{ alt }}
