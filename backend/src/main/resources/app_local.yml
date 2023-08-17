@@ -9,7 +9,7 @@ spring:
     username: root
     password: twja0930
   redis:
-    port: 6380
+    port: 6363
     host: i9c110.p.ssafy.io
   jpa:
     hibernate:
@@ -46,4 +46,4 @@ jwt:
   expiration: 1800
 
 OPENVIDU_URL: https://i9c110.p.ssafy.io:4443
-OPENVIDU_SECRET: THEATERGLOATE
+OPENVIDU_SECRET: Theatergloate

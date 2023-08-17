@@ -1,11 +1,12 @@
 import axios from "axios";
+import { axiosInstance } from "../../components/route/axiosInstance";
 
 export default async function postTaleAxios(props) {
   try {
     // POST 요청은 body에 실어 보냄
-    const res = await axios.post(
+    const res = await axiosInstance.post(
       // '//i9c110.p.ssafy.io/api/tale/regiser',
-      "http://localhost:8083/api/tale/regiser",
+      "tale/regiser",
       {
         userid: null,
       },

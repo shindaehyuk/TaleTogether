@@ -83,15 +83,17 @@ function CommentForm({ onCommentCreate }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        value={content}
-        onChange={handleInputChange}
-        placeholder="댓글을 입력하세요."
-      />
-      <button type="submit">댓글 달기</button>
-    </form>
+    <div>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={content}
+          onChange={handleInputChange}
+          placeholder="댓글을 입력하세요."
+        />
+        <Button type="submit">댓글 달기</Button>
+      </form>
+    </div>
   );
 }
 
@@ -133,16 +135,6 @@ function Comment({ comment, onDelete, onUpdate, userId_now }) {
 
   return (
     <div>
-      <div>
-        <strong>{comment.userId}</strong>
-        {/* 삭제 수정 인가처리 */}
-        {comment.userId === userId_now && (
-          <>
-            <button onClick={() => setEditMode(!editMode)}>수정</button>
-            <button onClick={handleDelete}>삭제</button>
-          </>
-        )}
-      </div>
       {editMode ? (
         <div>
           <input
@@ -150,10 +142,18 @@ function Comment({ comment, onDelete, onUpdate, userId_now }) {
             value={updatedContent}
             onChange={handleInputChange}
           />
-          <button onClick={handleUpdate}>확인</button>
+          <Button onClick={handleUpdate}>확인</Button>
         </div>
       ) : (
-        <p>{comment.content}</p>
+        <p style={{ maxHeight: "100px", overflowY: "auto" }}>
+          {comment.userId} : {comment.content}
+        </p>
+      )}
+      {comment.userId === userId_now && (
+        <>
+          <Button onClick={() => setEditMode(!editMode)}>수정</Button>
+          <Button onClick={handleDelete}>삭제</Button>
+        </>
       )}
     </div>
   );
@@ -169,35 +169,66 @@ function PostContent({ post, onCommentCreate }) {
   };
 
   return (
-    <div>
+    <div
+      className="DetailBody"
+      style={{
+        display: "flex",
+        alignItems: "stretch",
+      }}
+    >
       <div
+        className="left"
         style={{
           display: "flex",
+          flexBasis: "50%",
+          maxWidth: "50%",
+          minWidth: "50%",
           alignItems: "center",
-          justifyContent: "space-around",
+          justifyContent: "center",
         }}
       >
-        <div>
-          <h2>{post.title}</h2>
+        <ul className="list-inline">
+          <li className="book_detail">
+            <img src={post.taleTitleImage} alt="" />
+          </li>
+          <hr />
           <h3>{post.taleTitle}</h3>
-          <p>{post.content}</p>
-          <p>좋아요 : {likes}</p>
-          {/* 좋아요 버튼 */}
-          <HeartButton
-            communityId={post.communityId}
-            likedUsers={post.likesList}
-            updateLikes={updateLikes}
-            likes={likes}
-          />
-          <p>댓글 수 : {post.commentList.length}</p>
-        </div>
-        <div>
-          <img src={post.taleTitleImage} alt="" />
-        </div>
+        </ul>
       </div>
 
-      <div className="comment">
-        <CommentForm onCommentCreate={onCommentCreate} />
+      <div
+        className="right"
+        style={{
+          flexBasis: "50%",
+          maxWidth: "50%",
+          minWidth: "50%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <div style={{ lineHeight: "3rem" }}>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <h1>{post.title}</h1>
+            <HeartButton
+              communityId={post.communityId}
+              likedUsers={post.likesList}
+              updateLikes={updateLikes}
+              likes={likes}
+            />
+          </div>
+          <p style={{ maxHeight: "200px", overflowY: "auto" }}>
+            {post.content}
+          </p>
+          {/* 좋아요 버튼 */}
+          <div style={{ display: "flex" }}>
+            <p style={{ fontSize: "1.5rem" }}>좋아요 : {likes}</p>
+            <p style={{ fontSize: "1.5rem" }}>
+              댓글 수 : {post.commentList.length}
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -288,10 +319,10 @@ function PostDetail() {
       if (res) {
         setPost(res.data);
       }
-  
+
       setLoading(false);
     }
-  
+
     fetchPost();
   }, [communityId, postIdRef]);
 
@@ -328,15 +359,20 @@ function PostDetail() {
         />
       )}
 
-      {post.commentList.map((comment) => (
-        <Comment
-          key={comment.commentId}
-          comment={comment}
-          onDelete={handleCommentDeleted}
-          onUpdate={handleCommentUpdated} // 수정된 댓글 내용을 갱신합니다.
-          userId_now={userId_now}
-        />
-      ))}
+      {!editing && ( // editing이 아닌 경우에만 댓글 폼을 표시합니다.
+        <CommentForm onCommentCreate={handleCommentCreated}></CommentForm>
+      )}
+
+      {!editing && // editing이 아닌 경우에만 댓글 목록을 표시합니다.
+        post.commentList.map((comment) => (
+          <Comment
+            key={comment.commentId}
+            comment={comment}
+            onDelete={handleCommentDeleted}
+            onUpdate={handleCommentUpdated} // 수정된 댓글 내용을 갱신합니다.
+            userId_now={userId_now}
+          />
+        ))}
     </>
   );
 }

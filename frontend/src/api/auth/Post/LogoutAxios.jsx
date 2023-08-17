@@ -1,11 +1,12 @@
 import axios from 'axios';
+import { axiosInstance } from '../../../components/route/axiosInstance';
 
-async function LoginAxios(props) {
+async function LogoutAxios(props) {
   try {
     // POST 요청은 body에 실어 보냄
-    const res = await axios.post(
-      '//i9c110.p.ssafy.io/api/auth/logout',
-      // 'http://localhost:8083/api/auth/logout',
+    const res = await axiosInstance.get(
+      // '//i9c110.p.ssafy.io/api/auth/logout',
+      'auth/logout',
       {
         headers: {
           'Content-Type': 'application/json',
@@ -19,4 +20,4 @@ async function LoginAxios(props) {
   }
 }
 
-export default LoginAxios;
+export default LogoutAxios;

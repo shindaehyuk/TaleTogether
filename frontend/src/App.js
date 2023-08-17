@@ -12,6 +12,7 @@ function App() {
       fontFamily: ['omyu_pretty'],
     },
   });
+
   // 토큰이 변경되면 로그아웃 처리
   window.addEventListener('storage', (event) => {
     if (event.key === 'token') {
