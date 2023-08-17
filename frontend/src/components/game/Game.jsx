@@ -3,7 +3,6 @@ import Box from '@mui/material/Box';
 import { useState } from 'react';
 import Button from '@mui/material/Button';
 import Input from '@mui/material/Input';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { useNavigate } from 'react-router-dom';
@@ -19,18 +18,6 @@ export default function Game() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [code, setCode] = useState('');
-  const [page, setPage] = useState(true);
-
-  const theme = createTheme({
-    palette: {
-      white: {
-        main: '#FFFFFF',
-      },
-    },
-    typography: {
-      fontFamily: ['omyu_pretty'],
-    },
-  });
 
   const makeRoomHandler = async () => {
     const res = await makeGameAxios();
@@ -50,23 +37,6 @@ export default function Game() {
 
   const codeHandler = (e) => {
     setCode(e.target.value);
-  };
-
-  const pagehandler = (e) => {
-    setPage(!page);
-  };
-
-  const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'white',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-    color: 'white',
   };
 
   return (
@@ -114,7 +84,7 @@ export default function Game() {
               marginRight: '10%',
               color: 'black',
               boxShadow: 20,
-              borderRadius: '20px',
+              borderRadius: '40px',
               backgroundColor: '#fefae0',
               opacity: 0.7,
             }}
