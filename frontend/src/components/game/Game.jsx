@@ -21,7 +21,6 @@ export default function Game() {
 
   const makeRoomHandler = async () => {
     const res = await makeGameAxios();
-    console.log(res);
     const code = res.data.sessionId;
     const taleId = res.data.taleId;
     navigate(`/webrtc/${code}`, { state: { code, owner: true, taleId } });

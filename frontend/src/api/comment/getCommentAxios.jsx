@@ -14,7 +14,6 @@ export default async function getCommentAxios(props) {
         },
       }
     );
-    console.log(res);
     return res;
   } catch (e) {
     console.error(e);

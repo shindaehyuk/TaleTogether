@@ -118,7 +118,7 @@ export default function SignIn() {
               sx={{ color: 'black' }}
             >
               <Link href="#" underline="none" variant="body2" color="inherit">
-                <b>비밀번호 재설정</b>
+                {/* <b>비밀번호 재설정</b> */}
               </Link>
             </Grid>
           </Grid>

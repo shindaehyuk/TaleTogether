@@ -13,7 +13,6 @@ export default async function saveTitleAxios(props) {
         titleImage: props.titleImage,
       }
     );
-    console.log(res);
     return res;
   } catch (e) {
     console.error(e);

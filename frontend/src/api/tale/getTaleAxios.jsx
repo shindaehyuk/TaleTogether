@@ -1,5 +1,5 @@
-import axios from "axios";
-import { axiosInstance } from "../../components/route/axiosInstance";
+import axios from 'axios';
+import { axiosInstance } from '../../components/route/axiosInstance';
 
 export default async function getTaleAxios(props) {
   try {
@@ -15,7 +15,6 @@ export default async function getTaleAxios(props) {
       //   },
       // }
     );
-    console.log(res);
     return res;
   } catch (e) {
     console.error(e);
