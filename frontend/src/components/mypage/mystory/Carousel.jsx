@@ -137,7 +137,8 @@ const Carousel = () => {
         top: "-15px",
         width: "100%",
         height: "100%",
-        backgroundImage: myStories.length === 0 ? `url(${notale})` : "none",
+        backgroundImage:
+          myStories && myStories.length === 0 ? `url(${notale})` : "none",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
       }}

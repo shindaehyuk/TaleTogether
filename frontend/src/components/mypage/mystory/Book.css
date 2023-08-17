@@ -23,7 +23,7 @@
   height: 100%;
   margin-left: 55%; /* 기존의 margin-left 값 유지 */
   perspective-origin: center;
-  perspective: 2500px;
+  perspective: 3000px;
 }
 
 .page {
