@@ -13,6 +13,4 @@ public class UserChoiceRequest {
     private String player2;
     private String player1Character;
     private String player2Character;
-    private String turn;
-
 }
