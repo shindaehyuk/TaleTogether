@@ -5,7 +5,7 @@ import axios from 'axios';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import UserVideoComponent from './UserVideoComponent';
 import { useLocation } from 'react-router';
-import { Box, Button, Grid, TextField } from '@mui/material';
+import { Box, Button, Grid, ImageList, ImageListItem, TextField } from '@mui/material';
 import { set, useForm } from 'react-hook-form';
 import createChatAxios from '../../api/chat-gpt/createChatAxios';
 import getPageAxios from '../../api/page/getPageAxios';
@@ -18,9 +18,10 @@ import { axiosInstance } from '../route/axiosInstance';
 import getTaleAxios from '../../api/tale/getTaleAxios';
 import Modal from '@mui/material/Modal';
 import Book from '../mypage/mystory/Book';
+import SummarizeBook from '../mypage/mystory/SummarizeBook';
 import finishChatAxios from '../../api/chat-gpt/finishChatAxios';
-import NotFound from '../../page/NotFound';
 import saveTitleAxios from '../../api/chat-gpt/saveTitleAxios';
+import MovingFox from '../../page/MovingFox';
 
 const APPLICATION_SERVER_URL = process.env.NODE_ENV === 'production' ? '' : '//i9c110.p.ssafy.io/';
 // const APPLICATION_SERVER_URL = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:8083/';
@@ -53,7 +54,8 @@ export default function Openvidu() {
   const [messageList, setMessageList] = useState([]);
   const chatScrollRef = useRef(null);
   const [open, setOpen] = useState(false);
-  const [pageList, setPageList] = useState('');
+  const [openimage, setOpenimage] = useState(false);
+  const [pageList, setPageList] = useState([]);
   const [showLastForm, setShowLastForm] = useState(false);
 
   const [showbook, setShowBook] = useState(false);
@@ -137,10 +139,18 @@ export default function Openvidu() {
     setOpen(true);
   };
 
+  const handleImageClose = () => {
+    setOpenimage(false);
+  };
+
+  const handleImageOpen = () => {
+    setOpenimage(true);
+  };
+
   // 페이지 뒤로가기 막기
   window.addEventListener('popstate', function (event) {
     // 페이지 새로고침
-    window.location.href = '/intro'; // 다른 URL로 이동
+    window.location.href = '/game'; // 다른 URL로 이동
 
     // 뒤로가기와 앞으로 가기 막기
     window.history.pushState(null, null, window.location.href);
@@ -236,6 +246,12 @@ export default function Openvidu() {
         setImage('../assets/Logo1-removebg-preview.png');
         setScript('마지막으로 동화의 제목과 메인사진을 골라주세요!');
         setShowLastForm(true);
+        setFinish(false);
+      });
+
+      event.stream.session.on('signal:finishgame', () => {
+        window.alert('게임을 종료합니다.');
+        window.location.href = '/game'; // 다른 URL로 이동
       });
     });
 
@@ -562,14 +578,13 @@ export default function Openvidu() {
   const loadingHandler = async () => {
     setLoading('true');
     sendLoadingToSubscribers('true');
-    setShowInput(true);
   };
 
   const sendFinishToSubscribers = (data) => {
     if (session) {
       session
         .signal({
-          type: 'loading',
+          type: 'finish',
           data: JSON.stringify(data),
         })
         .then(() => {
@@ -594,8 +609,33 @@ export default function Openvidu() {
     setScript('마지막으로 동화의 제목과 메인사진을 골라주세요!');
   };
 
-  const saveHandler = async () => {
-    const res = await saveTitleAxios();
+  const saveHandler = async (e) => {
+    e.preventDefault();
+    console.log(e);
+    console.log(choiceImage);
+    const data = {
+      taleId: state.taleId,
+      title: choicetitle,
+      titleImage: choiceImage,
+    };
+    const res = await saveTitleAxios(data);
+    sendfinishGameToSubscribers();
+    window.location.href = '/game'; // 다른 URL로 이동
+  };
+
+  const sendfinishGameToSubscribers = () => {
+    if (session) {
+      session
+        .signal({
+          type: 'finishgame',
+        })
+        .then(() => {
+          console.log('Data sent successfully');
+        })
+        .catch((error) => {
+          console.error('Error sending data');
+        });
+    }
   };
 
   return (
@@ -755,7 +795,7 @@ export default function Openvidu() {
           }}
         >
           {/* 이미지 출력 박스 */}
-          {showInput && loading === 'true' && <NotFound />}
+          {showInput && loading === 'true' && <MovingFox />}
           {loading === 'false' && (
             <Box
               sx={{
@@ -867,6 +907,7 @@ export default function Openvidu() {
                                   </Grid>
                                 ))}
                               </Grid>
+
                               <Button
                                 className="animate__animated animate__fadeIn animate__delay-1.2s"
                                 type="submit"
@@ -908,35 +949,58 @@ export default function Openvidu() {
 
                           {/* 마지막폼 */}
                           {showLastForm && state.owner && (
-                            <Box component="form" noValidate onSubmit={handleSubmit(saveHandler)}>
-                              <Grid container spacing={2}>
-                                <Grid item xs={12}>
-                                  <TextField
-                                    className="animate__animated animate__fadeIn animate__delay-0.3s"
-                                    required
-                                    fullWidth
-                                    label="타이틀"
-                                    autoFocus
-                                    {...register('title', {
-                                      required: true,
-                                    })}
-                                    color="success"
-                                    error={!!errors.title}
-                                    sx={{ backgroundColor: '#faedcd', borderRadius: '5px' }}
-                                  />
-                                </Grid>
-                              </Grid>
+                            <Box sx={{ marginTop: 4 }}>
+                              <form onSubmit={saveHandler}>
+                                <Grid container spacing={2}>
+                                  <Grid item xs={12}>
+                                    <TextField
+                                      className="animate__animated animate__fadeIn animate__delay-0.3s"
+                                      required
+                                      fullWidth
+                                      label="타이틀"
+                                      value={choicetitle}
+                                      onChange={(e) => {
+                                        setChoiceTitle(e.target.value);
+                                      }}
+                                      autoFocus
+                                      color="success"
+                                      sx={{ backgroundColor: '#faedcd', borderRadius: '5px' }}
+                                    />
+                                  </Grid>
+                                  <Grid item xs={12}>
+                                    <img
+                                      style={{ width: '100%', height: '100%' }}
+                                      src={choiceImage}
+                                      alt="이미지를 선택해주세요"
+                                    ></img>
+                                  </Grid>
 
-                              <Button
-                                className="animate__animated animate__fadeIn animate__delay-1.2s"
-                                type="submit"
-                                fullWidth
-                                color="inherit"
-                                variant="contained"
-                                sx={{ mt: 4, mb: 4, backgroundColor: '#faedcd', color: 'black' }}
-                              >
-                                저장하고 종료하기
-                              </Button>
+                                  <Grid item xs={6}>
+                                    <Button
+                                      className="animate__animated animate__fadeIn animate__delay-1.2s"
+                                      fullWidth
+                                      color="inherit"
+                                      variant="contained"
+                                      sx={{ mt: 4, mb: 4, backgroundColor: '#faedcd', color: 'black' }}
+                                      onClick={handleImageOpen}
+                                    >
+                                      이미지 선택하기
+                                    </Button>
+                                  </Grid>
+                                  <Grid item xs={6}>
+                                    <Button
+                                      className="animate__animated animate__fadeIn animate__delay-1.2s"
+                                      type="submit"
+                                      fullWidth
+                                      color="inherit"
+                                      variant="contained"
+                                      sx={{ mt: 4, mb: 4, backgroundColor: '#faedcd', color: 'black' }}
+                                    >
+                                      저장하고 종료하기
+                                    </Button>
+                                  </Grid>
+                                </Grid>
+                              </form>
                             </Box>
                           )}
                         </div>
@@ -956,12 +1020,12 @@ export default function Openvidu() {
                   Tale Together
                 </Typography>
                 <Button color="inherit">타자연습</Button>
-                {showInput && showbook && (
+                {showbook && (
                   <Button color="inherit" onClick={handleOpen}>
                     동화보기
                   </Button>
                 )}
-                {showInput && owner && finish && (
+                {showInput && owner && finish && loading === 'false' && (
                   <Button color="inherit" onClick={finishHandler}>
                     동화완결
                   </Button>
@@ -974,8 +1038,65 @@ export default function Openvidu() {
                   aria-describedby="modal-description"
                   style={modalStyle}
                 >
-                  <Box sx={boxStyle}>
-                    <Book pageList={pageList} />
+                  {finish ? (
+                    <Box sx={boxStyle}>
+                      <Book pageList={pageList} />
+                    </Box>
+                  ) : (
+                    <Box sx={boxStyle}>
+                      <SummarizeBook pageList={pageList} />
+                    </Box>
+                  )}
+                </Modal>
+
+                <Modal
+                  open={openimage}
+                  onClose={handleImageClose}
+                  aria-labelledby="modal-title"
+                  aria-describedby="modal-description"
+                  style={modalStyle}
+                >
+                  <Box
+                    sx={{
+                      position: 'absolute',
+                      top: '50%',
+                      left: '50%',
+                      transform: 'translate(-50%, -50%)',
+                      width: '50%',
+                      height: '80%',
+                      bgcolor: 'background.paper',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      boxShadow: 24,
+                      p: 4,
+                    }}
+                  >
+                    <ImageList
+                      sx={{
+                        width: '90%',
+                        height: '90%',
+                        overflowY: 'scroll',
+                        '&::-webkit-scrollbar': {
+                          display: 'none',
+                        },
+                      }}
+                      cols={3}
+                    >
+                      {pageList.map((item) => (
+                        <ImageListItem key={item.img} sx={{ widht: '30%', height: 'auto' }}>
+                          <img
+                            src={`${item.image}`}
+                            alt=""
+                            loading="lazy"
+                            onClick={() => {
+                              setChoiceImage(item.image);
+                              handleImageClose();
+                            }}
+                          />
+                        </ImageListItem>
+                      ))}
+                    </ImageList>
                   </Box>
                 </Modal>
               </Toolbar>
