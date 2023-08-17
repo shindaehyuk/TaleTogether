@@ -22,6 +22,7 @@ public class CommunityListResponse {
     private String taleImage;
     private long likeCount;
     private long commentCount;
+    private long communityCount;
 
     public CommunityListResponse(Community community) {
         this.title = community.getTitle();
