@@ -127,7 +127,6 @@ export default function Openvidu() {
 
   const getTaleBook = async () => {
     const res = await getTaleAxios(taleid);
-    console.log(res);
     setPageList(res.data.pageList);
   };
 
@@ -183,7 +182,6 @@ export default function Openvidu() {
       // 폼데이터입력시 데이터보내기
       event.stream.session.on('signal:custom', (event) => {
         const receivedData = JSON.parse(event.data);
-        console.log('Received data from sender:', receivedData);
 
         //폼데이터 받는 로직
         if (receivedData.field && receivedData.value) {
@@ -611,14 +609,12 @@ export default function Openvidu() {
 
   const saveHandler = async (e) => {
     e.preventDefault();
-    console.log(e);
-    console.log(choiceImage);
     const data = {
       taleId: state.taleId,
       title: choicetitle,
       titleImage: choiceImage,
     };
-    const res = await saveTitleAxios(data);
+    await saveTitleAxios(data);
     sendfinishGameToSubscribers();
     window.location.href = '/game'; // 다른 URL로 이동
   };
@@ -1019,7 +1015,6 @@ export default function Openvidu() {
                 <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                   Tale Together
                 </Typography>
-                {/* <Button color="inherit">타자연습</Button> */}
                 {showbook && (
                   <Button color="inherit" onClick={handleOpen}>
                     동화보기
