@@ -50,7 +50,7 @@ function Nav() {
         </Link>
         <Link to="game" className={`link ${activeLinkIndex === 2 ? 'active' : ''}`} onClick={() => handleLinkClick(2)}>
           <SportsEsportsIcon />
-          게임
+          게임하기
         </Link>
         <Link
           to="mypage"
@@ -72,6 +72,7 @@ function Nav() {
           borderBottomLeftRadius: '40px',
           borderBottomRightRadius: '40px',
           borderTopRightRadius: '40px',
+          fontFamily: 'omyu_pretty',
         }}
       >
         <Outlet></Outlet>

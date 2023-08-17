@@ -8,7 +8,6 @@ import getTaleAllAxios from "../../../api/tale/getTaleAll";
 import UserinfoAxios from "../../../api/auth/Get/UserinfoAxios";
 import deleteTaleAxios from "../../../api/tale/deleteTaleAxios";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 
 // 이전 화살표 디자인

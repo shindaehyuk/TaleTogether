@@ -16,8 +16,6 @@ function Post({ post }) {
   function handleClick() {
     navigate(`postDetail/${post.communityId}`);
   }
-
-  console.log(post);
   return (
     <div className="post-card-wrapper">
       <Card
