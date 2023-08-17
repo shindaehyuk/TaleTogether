@@ -113,32 +113,11 @@ public class KarloService {
     private static void saveImageLocal(KarloResponse karloResponse) {
         String image = karloResponse.getImages().get(0).getImage();
 
-        // 바이트 배열을 파일에 저장
-        try {
-            String fileName = "outputImage_" + System.currentTimeMillis() + ".jpg";
-
-            String savePath = "src/main/resources/static/" + fileName;
-
-            URL url = new URL(image);
-            URLConnection connection = url.openConnection();
-            InputStream in = connection.getInputStream();
-            FileOutputStream out = new FileOutputStream(savePath);
-
-            byte[] buffer = new byte[4096];
-            int bytesRead;
-            while ((bytesRead = in.read(buffer)) != -1) {
-                out.write(buffer, 0, bytesRead);
-            }
-            karloResponse.setFileName(image);
-
-            in.close();
-            out.close();
-            System.out.println("이미지 성공적으로 저장됨 " + new File(savePath).getCanonicalPath());
-        } catch (IOException e) {
-            System.err.println("이미지 생성중 에러");
-            e.printStackTrace();
-        }
+        karloResponse.setFileName(image);
     }
+
+
+
 
 
 }
