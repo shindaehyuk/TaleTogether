@@ -24,7 +24,15 @@ export default function Intro() {
           <label className="book__page book__page--2">
             <div className="book__page-front">
               <div className="page__content">
-                <h1 className="page__content-book-title">Tale Together</h1>
+                <h1 className="page__content-book-title animate__animated animate__fadeIn animate__delay-0.5s">
+                  Tale Together
+                </h1>
+                <img
+                  className="animate__animated animate__fadeIn animate__delay-1s"
+                  style={{ width: '20%', height: '20%' }}
+                  src="../../assets/Logo2-removebg-preview.png"
+                  alt=""
+                />
                 <p className="page__content-credits">
                   Inuloduction by
                   <span>신머혁</span>
@@ -34,8 +42,7 @@ export default function Intro() {
                   <span>범규오빠 잘생겼어요</span>
                 </p>
                 <div className="page__content-copyright">
-                  <p>Made by</p>
-                  <p>도와줘 GPT</p>
+                  <p>Made by 도와줘 GPT</p>
                 </div>
               </div>
             </div>

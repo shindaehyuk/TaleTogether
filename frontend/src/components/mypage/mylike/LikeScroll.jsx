@@ -1,6 +1,6 @@
-import "./Like.css";
-import { Box } from "@mui/material";
-import React from "react";
+import './Like.css';
+import { Box } from '@mui/material';
+import React from 'react';
 
 const LikeScroll = ({ myLikes }) => {
   const handleClick = (like) => {
@@ -11,9 +11,9 @@ const LikeScroll = ({ myLikes }) => {
     <Box
       className="no-scroll"
       style={{
-        width: "90%",
-        height: "80%",
-        overflowY: "scroll",
+        width: '90%',
+        height: '80%',
+        overflowY: 'scroll',
       }}
     >
       {myLikes.map((like, index) => (
@@ -21,15 +21,15 @@ const LikeScroll = ({ myLikes }) => {
           <Box
             onClick={() => handleClick(like)}
             sx={{
-              width: "100%",
-              height: "60%",
-              display: "flex",
-              flexDirection: "column", // 추가
-              justifyContent: "flex-start",
-              alignItems: "flex-start",
-              textColor: "inherit",
-              indicatorColor: "inherit",
-              fontFamily: "omyu_pretty",
+              width: '100%',
+              height: '60%',
+              display: 'flex',
+              flexDirection: 'column', // 추가
+              justifyContent: 'flex-start',
+              alignItems: 'flex-start',
+              textColor: 'inherit',
+              indicatorColor: 'inherit',
+              fontFamily: 'omyu_pretty',
             }}
           >
             <h2>{like.title}</h2>
@@ -37,28 +37,30 @@ const LikeScroll = ({ myLikes }) => {
               <img
                 src={like.taleImage}
                 style={{
-                  marginLeft: "auto",
-                  alignSelf: "center",
-                  borderRadius: "20px",
+                  width: '200px',
+                  height: 'auto',
+                  marginLeft: 'auto',
+                  alignSelf: 'center',
+                  borderRadius: '20px',
                 }}
               />
             )}
             <Box
               sx={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "flex-end",
-                alignItems: "center",
-                width: "100%",
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'flex-end',
+                alignItems: 'center',
+                width: '100%',
               }}
             >
-              <p style={{ alignSelf: "flex-end", marginRight: "10px" }}>
+              <p style={{ alignSelf: 'flex-end', marginRight: '10px' }}>
                 댓글 : {like.commentCount}
               </p>
-              <p style={{ alignSelf: "flex-end" }}>좋아요 : {like.likeCount}</p>
+              <p style={{ alignSelf: 'flex-end' }}>좋아요 : {like.likeCount}</p>
             </Box>
           </Box>
-          <hr style={{ marginBottom: "0px" }} />
+          <hr style={{ marginBottom: '0px' }} />
         </React.Fragment>
       ))}
     </Box>

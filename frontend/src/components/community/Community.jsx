@@ -66,12 +66,12 @@ function Community() {
     if (currentPage !== 0) {
       buttons.push(
         <SkipPreviousIcon
-          style={{ cursor: "pointer" }}
+          style={{ cursor: "pointer", color:"Black"}}
           key="first"
           onClick={() => setCurrentPage(0)}
         />,
         <ArrowLeftIcon
-          style={{ cursor: "pointer" }}
+          style={{ cursor: "pointer", color:"Black" }}
           key="prev"
           onClick={prevPage}
         />
@@ -83,6 +83,7 @@ function Community() {
         <Button
           key={i}
           onClick={() => setCurrentPage(i)}
+          style={{ color:"Black"}}
           className={currentPage === i ? "active" : ""}
         >
           {i + 1}
@@ -93,12 +94,12 @@ function Community() {
     if (currentPage !== totalPages - 1 && totalPages > 1) {
       buttons.push(
         <ArrowRightIcon
-          style={{ cursor: "pointer" }}
+          style={{ cursor: "pointer", color:"Black" }}
           key="next"
           onClick={nextPage}
         />,
         <SkipNextIcon
-          style={{ cursor: "pointer" }}
+          style={{ cursor: "pointer", color:"Black" }}
           key="last"
           onClick={() => setCurrentPage(totalPages - 1)}
         />
@@ -124,7 +125,7 @@ function Community() {
             >
               <div>{renderPageButtons().slice(0, 2)}</div>
               <div>{renderPageButtons().slice(2, -2)}</div>
-              <div>{renderPageButtons().slice(-2)}</div>
+              {totalPages >= 2 && <div>{renderPageButtons().slice(-2)}</div>}
             </div>
           </>
         ) : (

@@ -125,7 +125,7 @@ function PostForm({
         <Button
           type="submit"
           sx={{ mt: "1rem", ml: "77%", width: "7rem" }}
-          className="button-green"
+          style={{color:"white", backgroundColor:"#CCD5AC"}}
           onClick={handleSubmit}
         >
           작성완료
@@ -155,12 +155,13 @@ function PostForm({
                 width: "80vh",
                 fontSize: "2rem",
                 height: "10vh",
+                border:"solid 2px #D0A370",
                 borderRadius: "10px",
               }}
               onChange={(e) => setTitle(e.target.value)}
             />
           </div>
-          <hr />
+    
           <div>
             <h3 style={{ marginRight: "70vh" }}>
               <b>내용</b>
@@ -175,6 +176,7 @@ function PostForm({
                 fontSize: "2rem",
                 height: "35vh",
                 resize: "none",
+                border:"solid 2px #D0A370",
                 borderRadius: "10px",
               }}
               onChange={(e) => setContent(e.target.value)}
@@ -211,6 +213,7 @@ function PostForm({
             onClick={handleModalOpen}
             className="button-orange"
             sx={{ width: "10rem", mt: "1rem" }}
+            style={{color:"white", backgroundColor:"#D0A370"}}
           >
             동화 고르기
           </Button>
