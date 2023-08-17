@@ -14,7 +14,6 @@ export default async function getDetailAxios(props) {
         },
       }
     );
-    console.log(res);
     return res;
   } catch (e) {
     console.error(e);
