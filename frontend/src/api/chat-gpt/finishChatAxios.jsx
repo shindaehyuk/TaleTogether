@@ -2,7 +2,6 @@ import axios from 'axios';
 import { axiosInstance } from '../../components/route/axiosInstance';
 
 export default async function finishChatAxios(props) {
-  console.log(props);
   try {
     // POST 요청은 body에 실어 보냄
     const res = await axiosInstance.post(
