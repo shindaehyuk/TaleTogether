@@ -2,6 +2,7 @@ import axios from 'axios';
 import { axiosInstance } from '../../components/route/axiosInstance';
 
 export default async function createChatAxios(props, data) {
+  console.log(props, data);
   try {
     // POST 요청은 body에 실어 보냄
     const res = await axiosInstance.post(
@@ -26,6 +27,7 @@ export default async function createChatAxios(props, data) {
           player2: props.player2,
           player1Character: props.player1Character,
           player2Character: props.player2Character,
+          turn: props.turn,
         },
         pageDtoRequest: {
           taleId: props.taleId,

@@ -403,9 +403,9 @@ export default function Openvidu() {
   // 처음 게임시작버튼 핸들러
   const startgameHandler = () => {
     setScript('Tale Together를 시작하기 전 주인공들의 이름과 성격, 배경을 입력해주세요');
-    setShowForm(true);
+    // setShowForm(true);
     sendShowFormToSubscribers(true);
-    setGameStarted(true);
+    // setGameStarted(true);
     sendDataToSubscribers(true);
     getTaleBook();
   };
