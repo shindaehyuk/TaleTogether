@@ -75,7 +75,6 @@ export default function Openvidu() {
     player2: '',
     player2Character: '',
     backGround: '',
-    turn: '',
     taleId: state.taleId,
   });
 
@@ -100,10 +99,6 @@ export default function Openvidu() {
       label: '배경',
       name: 'backGround',
     },
-    {
-      label: '턴수',
-      name: 'turn',
-    },
   ];
 
   const modalStyle = {
@@ -127,7 +122,6 @@ export default function Openvidu() {
 
   const getTaleBook = async () => {
     const res = await getTaleAxios(taleid);
-    console.log(res);
     setPageList(res.data.pageList);
   };
 
@@ -183,7 +177,6 @@ export default function Openvidu() {
       // 폼데이터입력시 데이터보내기
       event.stream.session.on('signal:custom', (event) => {
         const receivedData = JSON.parse(event.data);
-        console.log('Received data from sender:', receivedData);
 
         //폼데이터 받는 로직
         if (receivedData.field && receivedData.value) {
@@ -199,7 +192,7 @@ export default function Openvidu() {
       event.stream.session.on('signal:start', (event) => {
         const receivedData = JSON.parse(event.data);
         setGameStarted(receivedData);
-        setScript('Tale Together를 시작하기 전 주인공들의 이름과 성격, 배경, 턴수를 입력해주세요');
+        setScript('Tale Together를 시작하기 전 주인공들의 이름과 성격, 배경을 입력해주세요');
       });
       // 폼보여주는 신호 보내기
       event.stream.session.on('signal:ShowForm', (event) => {
@@ -409,7 +402,7 @@ export default function Openvidu() {
 
   // 처음 게임시작버튼 핸들러
   const startgameHandler = () => {
-    setScript('Tale Together를 시작하기 전 주인공들의 이름과 성격, 배경, 턴수를 입력해주세요');
+    setScript('Tale Together를 시작하기 전 주인공들의 이름과 성격, 배경을 입력해주세요');
     // setShowForm(true);
     sendShowFormToSubscribers(true);
     // setGameStarted(true);
@@ -611,14 +604,12 @@ export default function Openvidu() {
 
   const saveHandler = async (e) => {
     e.preventDefault();
-    console.log(e);
-    console.log(choiceImage);
     const data = {
       taleId: state.taleId,
       title: choicetitle,
       titleImage: choiceImage,
     };
-    const res = await saveTitleAxios(data);
+    await saveTitleAxios(data);
     sendfinishGameToSubscribers();
     window.location.href = '/game'; // 다른 URL로 이동
   };
@@ -698,7 +689,7 @@ export default function Openvidu() {
           {/* 상대방 카메라 */}
           <Box sx={{ width: '100%', height: '30%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             {subscribers.map((sub, i) => (
-              <div key={sub.id} onClick={() => handleMainVideoStream(sub)}>
+              <div key={sub.id}>
                 <span>{sub.id}</span>
                 <UserVideoComponent streamManager={sub} />
               </div>
@@ -1019,7 +1010,6 @@ export default function Openvidu() {
                 <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                   Tale Together
                 </Typography>
-                {/* <Button color="inherit">타자연습</Button> */}
                 {showbook && (
                   <Button color="inherit" onClick={handleOpen}>
                     동화보기

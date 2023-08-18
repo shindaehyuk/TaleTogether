@@ -195,7 +195,7 @@ public class ChatGptService {
     @NotNull
     private KarloRequest setDefaultKarlo(UserChoiceRequest userChoiceRequest, String content) throws Exception {
         KarloRequest karloRequest = new KarloRequest();
-        karloRequest.setPrompt("GHIBLI.Painting.Except text." + translateGptMessage(userChoiceRequest, content)); // 예시로 1번째 인덱스 사용
+        karloRequest.setPrompt("Only Painting." + translateGptMessage(userChoiceRequest, content)); // 예시로 1번째 인덱스 사용
         karloRequest.setNegative_prompt("text, avoirdupois, Cuneiform, Runes," +
                 " pictograph, alphabet, words, letters,low quality, low contrast, draft, amateur, cut off, cropped, frame, scary");
         return karloRequest;
@@ -206,7 +206,7 @@ public class ChatGptService {
         KarloRequest karloRequest = new KarloRequest();
         karloRequest.setPrompt("Only Painting." + translateFinishGptMessage(content)); // 예시로 1번째 인덱스 사용
         karloRequest.setNegative_prompt("text, avoirdupois, Cuneiform, Runes," +
-                " pictograph, letters,low quality, low contrast, draft, amateur, cut off, cropped, frame, scary");
+                " pictograph,alphabet, words, letters,low quality, low contrast, draft, amateur, cut off, cropped, frame, scary");
         return karloRequest;
     }
 

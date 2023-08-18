@@ -65,20 +65,18 @@ export default function Admin() {
         }}
       >
         <Box
-          className="imagehover"
           sx={{
             width: '80%',
-            height: '100%', // 이미지의 높이를 자동으로 조정하여 비율 유지
-            borderRadius: '61px',
+            height: '100%',
           }}
         >
           <img
             src="./assets/Framebg.png"
             alt=""
             style={{
-              width: '100%', // 이미지의 너비를 100%로 설정하여 부모 박스의 너비에 맞춤
-              height: '100%', // 이미지의 높이를 자동으로 조정하여 비율 유지
-              display: 'block', // inline 요소로부터의 여백 제거를 위해 블록 요소로 설정
+              width: '100%',
+              height: '100%',
+              display: 'block',
             }}
           />
         </Box>
@@ -90,23 +88,23 @@ export default function Admin() {
             marginTop: '10px',
           }}
         >
+          <Typography
+            className="animate__animated animate__backInDown animate__delay-0.5s"
+            variant="h3"
+            color="black"
+            sx={{ color: '#a65e45', marginY: 1 }}
+          >
+            Tale Together
+          </Typography>
           <img
             className="animate__animated animate__backInDown animate__delay-0.5s"
             src="./assets/Logo2-removebg-preview.png"
             alt=""
             style={{
-              width: '30%', // 이미지의 너비를 100%로 설정하여 부모 박스의 너비에 맞춤
-              height: '15%', // 이미지의 높이를 자동으로 조정하여 비율 유지
+              width: '30%',
+              height: '15%',
             }}
           />
-          <Typography
-            className="animate__animated animate__backInDown animate__delay-0.5s"
-            variant="h3"
-            color="black"
-            sx={{ color: '#a65e45' }}
-          >
-            Tale Together
-          </Typography>
 
           <Tabs
             textColor="inherit"
@@ -114,7 +112,7 @@ export default function Admin() {
             value={value}
             onChange={handleChange}
             centered
-            sx={{ marginTop: 2, marginBottom: 2 }}
+            sx={{ marginTop: 1, marginBottom: 2 }}
           >
             <Tab label="Login" {...a11yProps(0)} sx={{ marginRight: 3, fontWeight: 'bold' }} />
             <Tab label="Signup" {...a11yProps(1)} sx={{ marginLeft: 3, fontWeight: 'bold' }} />

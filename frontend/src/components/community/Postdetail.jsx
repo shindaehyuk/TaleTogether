@@ -16,7 +16,6 @@ import SummarizeBook from "../mypage/mystory/SummarizeBook";
 import getTaleAllAxios from "../../api/tale/getTaleAll";
 import getCommentAxios from "../../api/comment/getCommentAxios";
 
-
 // NavBar
 function NavBar({ onButtonClick, onDeleteClick, isAuthor }) {
   return (
@@ -25,7 +24,7 @@ function NavBar({ onButtonClick, onDeleteClick, isAuthor }) {
         {isAuthor && (
           <>
             <Button
-              style={{color:"white", backgroundColor:"#CCD5AC"}}
+              style={{ color: "white", backgroundColor: "#CCD5AC" }}
               sx={{ mt: "1rem", ml: "70%", width: "7rem" }}
               variant="text"
               onClick={onButtonClick}
@@ -36,7 +35,7 @@ function NavBar({ onButtonClick, onDeleteClick, isAuthor }) {
               sx={{ mt: "1rem", ml: "1%", width: "7rem" }}
               variant="text"
               onClick={onDeleteClick}
-              style={{color:"white", backgroundColor:"#D0A370"}}
+              style={{ color: "white", backgroundColor: "#D0A370" }}
             >
               삭제하기
             </Button>
@@ -88,15 +87,31 @@ function CommentForm({ onCommentCreate }) {
   };
 
   return (
-    <div>
+    <div style={{ marginTop: "1rem" }}>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
           value={content}
           onChange={handleInputChange}
           placeholder="댓글을 입력하세요."
+          style={{
+            width: "25rem",
+            fontSize: "25px",
+            border: "solid 2px #D0A370",
+            borderRadius: "5px",
+            marginRight: "1rem",
+          }}
         />
-        <Button type="submit">댓글 달기</Button>
+        <Button
+          style={{
+            color: "white",
+            backgroundColor: "#D0A370",
+            marginBottom: "8px",
+          }}
+          type="submit"
+        >
+          댓글 달기
+        </Button>
       </form>
     </div>
   );
@@ -104,13 +119,12 @@ function CommentForm({ onCommentCreate }) {
 
 // 댓글목록
 function Comment({ comment, onDelete, onUpdate, userId_now }) {
+  const [commentDetail, setcommentDetail] = useState();
 
-  const[commentDetail, setcommentDetail] = useState();
-
-   const fetchComments = async (commentId) => {
+  const fetchComments = async (commentId) => {
     const res = await getCommentAxios({ commentId });
     if (res) {
-      setcommentDetail(res.data.commentDetail);
+      setcommentDetail(res.data.userName);
     } else {
       // 데이터 로드 실패시 알림 처리를 적용하세요.
     }
@@ -120,7 +134,6 @@ function Comment({ comment, onDelete, onUpdate, userId_now }) {
     fetchComments(comment.commentId);
   }, []);
 
-  console.log(commentDetail)
   // 댓글 수정
   const [editMode, setEditMode] = useState(false);
   const [updatedContent, setUpdatedContent] = useState(comment.content);
@@ -164,17 +177,32 @@ function Comment({ comment, onDelete, onUpdate, userId_now }) {
             value={updatedContent}
             onChange={handleInputChange}
           />
-          <Button onClick={handleUpdate}>확인</Button>
+          <Button
+            style={{ color: "white", backgroundColor: "#D0A370" }}
+            onClick={handleUpdate}
+          >
+            확인
+          </Button>
         </div>
       ) : (
         <p style={{ maxHeight: "100px", overflowY: "auto" }}>
-          {comment.userId} : {comment.content}
+          {commentDetail} : {comment.content}
         </p>
       )}
       {comment.userId === userId_now && (
         <>
-          <Button onClick={() => setEditMode(!editMode)}>수정</Button>
-          <Button onClick={handleDelete}>삭제</Button>
+          <Button
+            style={{ color: "white", backgroundColor: "#D0A370" }}
+            onClick={() => setEditMode(!editMode)}
+          >
+            수정
+          </Button>
+          <Button
+            style={{ color: "white", backgroundColor: "#D0A370" }}
+            onClick={handleDelete}
+          >
+            삭제
+          </Button>
         </>
       )}
     </div>
@@ -265,8 +293,6 @@ function PostContent({ post, onCommentCreate }) {
         }}
       >
         <ul className="list-inline">
-          <h3>{post.taleTitle}</h3>
-          <hr />
           <li
             className="book_detail"
             style={{ width: "18rem", height: "18rem" }}
@@ -278,6 +304,14 @@ function PostContent({ post, onCommentCreate }) {
               onClick={handleOpen} // 여기에 onClick 이벤트 추가
             />
           </li>
+          <h2
+            style={{
+              backgroundColor: "#D0A370",
+              borderRadius: "10px",
+            }}
+          >
+            {post.taleTitle}
+          </h2>
         </ul>
         <Modal
           open={open}
@@ -293,12 +327,6 @@ function PostContent({ post, onCommentCreate }) {
           </Box>
         </Modal>
       </div>
-      <HeartButton
-        communityId={post.communityId}
-        likedUsers={post.likesList}
-        updateLikes={updateLikes}
-        likes={likes}
-      />
       <div
         className="right"
         style={{
@@ -313,17 +341,34 @@ function PostContent({ post, onCommentCreate }) {
       >
         <div style={{}}>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <h1>{post.title}</h1>
+            <h1 style={{ fontSize: "40px" }}>{post.title}</h1>
             {/* 좋아요 버튼 */}
+            <HeartButton
+              communityId={post.communityId}
+              likedUsers={post.likesList}
+              updateLikes={updateLikes}
+              likes={likes}
+            />
           </div>
-          <p style={{ maxHeight: "200px", overflowY: "auto" }}>
+          <p
+            style={{
+              display: "flex",
+              maxHeight: "200px",
+              overflowY: "auto",
+              fontSize: "20px",
+            }}
+          >
             {post.content}
           </p>
 
-          <div style={{ display: "flex" }}>
-            <p style={{ fontSize: "1rem" }}>좋아요 : {likes}</p>
+          <div
+            style={{ display: "flex", marginTop: "14rem", marginLeft: "20rem" }}
+          >
+            <p style={{ fontSize: "1rem", marginRight: "2rem" }}>
+              좋아요 {likes}
+            </p>
             <p style={{ fontSize: "1rem" }}>
-              댓글 수 : {post.commentList.length}
+              댓글 수 {post.commentList.length}
             </p>
           </div>
         </div>
@@ -358,7 +403,7 @@ function PostDetail() {
     user();
   });
 
-  // 댓글 비동기 처리 
+  // 댓글 비동기 처리
   const handleCommentCreated = (newComment) => {
     setComments((prevComments) => [...prevComments, newComment.data]);
 
