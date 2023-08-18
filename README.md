@@ -135,8 +135,8 @@
         - 애플리케이션 추가하기를 눌러 팝업창이 뜨면 앱이름, 사업자명을 입력하고 운영정책에 동의 후 저장
 
         - 추가한 애플리케이션을 선택하면 앱 키 아래에 REST API 키 생성
-          발급한 REST API KEY를 backend/src/main/java/com/kong/authtest/karlo/service 내의 
-          KarloService 파일 내의 API_KEY 값으로 설정한다 
+          발급한 REST API KEY를 backend/src/resources 내의 
+          application.yml 파일 내의 karlo:api-key 값으로 설정한다 
     
     3) DeepL
 
