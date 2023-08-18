@@ -14,7 +14,6 @@ import { useEffect } from 'react';
 function Nav() {
   const [activeLinkIndex, setActiveLinkIndex] = useState('');
 
-  // 페이지 로드 시 localStorage에서 값을 읽어옴
   useEffect(() => {
     const storedIndex = sessionStorage.getItem('activeLinkIndex');
     if (storedIndex !== null) {
