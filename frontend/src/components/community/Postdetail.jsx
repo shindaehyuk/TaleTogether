@@ -3,6 +3,7 @@ import { Outlet, useParams, useNavigate } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import { Box, Modal } from "@mui/material";
 import postCommentAxios from "../../api/comment/postCommentAxios";
 import deleteCommentAxios from "../../api/comment/deleteCommentAxios";
 import getUserCommunityAxios from "../../api/community/getUserCommunityAxios";
@@ -11,6 +12,9 @@ import deleteCommunityAxios from "../../api/community/deleteCommunityAxios";
 import UserinfoAxios from "../../api/auth/Get/UserinfoAxios";
 import PostForm from "./PostForm";
 import HeartButton from "./HeartButton";
+import SummarizeBook from "../mypage/mystory/SummarizeBook";
+import getTaleAllAxios from "../../api/tale/getTaleAll";
+import getCommentAxios from "../../api/comment/getCommentAxios";
 
 // NavBar
 function NavBar({ onButtonClick, onDeleteClick, isAuthor }) {
@@ -20,7 +24,7 @@ function NavBar({ onButtonClick, onDeleteClick, isAuthor }) {
         {isAuthor && (
           <>
             <Button
-              className="button-orange"
+              style={{ color: "white", backgroundColor: "#CCD5AC" }}
               sx={{ mt: "1rem", ml: "70%", width: "7rem" }}
               variant="text"
               onClick={onButtonClick}
@@ -28,10 +32,10 @@ function NavBar({ onButtonClick, onDeleteClick, isAuthor }) {
               수정하기
             </Button>
             <Button
-              className="button-orange"
               sx={{ mt: "1rem", ml: "1%", width: "7rem" }}
               variant="text"
               onClick={onDeleteClick}
+              style={{ color: "white", backgroundColor: "#D0A370" }}
             >
               삭제하기
             </Button>
@@ -83,20 +87,53 @@ function CommentForm({ onCommentCreate }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        value={content}
-        onChange={handleInputChange}
-        placeholder="댓글을 입력하세요."
-      />
-      <button type="submit">댓글 달기</button>
-    </form>
+    <div style={{ marginTop: "1rem" }}>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={content}
+          onChange={handleInputChange}
+          placeholder="댓글을 입력하세요."
+          style={{
+            width: "25rem",
+            fontSize: "25px",
+            border: "solid 2px #D0A370",
+            borderRadius: "5px",
+            marginRight: "1rem",
+          }}
+        />
+        <Button
+          style={{
+            color: "white",
+            backgroundColor: "#D0A370",
+            marginBottom: "8px",
+          }}
+          type="submit"
+        >
+          댓글 달기
+        </Button>
+      </form>
+    </div>
   );
 }
 
 // 댓글목록
 function Comment({ comment, onDelete, onUpdate, userId_now }) {
+  const [commentDetail, setcommentDetail] = useState();
+
+  const fetchComments = async (commentId) => {
+    const res = await getCommentAxios({ commentId });
+    if (res) {
+      setcommentDetail(res.data.userName);
+    } else {
+      // 데이터 로드 실패시 알림 처리를 적용하세요.
+    }
+  };
+
+  useEffect(() => {
+    fetchComments(comment.commentId);
+  }, []);
+
   // 댓글 수정
   const [editMode, setEditMode] = useState(false);
   const [updatedContent, setUpdatedContent] = useState(comment.content);
@@ -133,16 +170,6 @@ function Comment({ comment, onDelete, onUpdate, userId_now }) {
 
   return (
     <div>
-      <div>
-        <strong>{comment.userId}</strong>
-        {/* 삭제 수정 인가처리 */}
-        {comment.userId === userId_now && (
-          <>
-            <button onClick={() => setEditMode(!editMode)}>수정</button>
-            <button onClick={handleDelete}>삭제</button>
-          </>
-        )}
-      </div>
       {editMode ? (
         <div>
           <input
@@ -150,10 +177,33 @@ function Comment({ comment, onDelete, onUpdate, userId_now }) {
             value={updatedContent}
             onChange={handleInputChange}
           />
-          <button onClick={handleUpdate}>확인</button>
+          <Button
+            style={{ color: "white", backgroundColor: "#D0A370" }}
+            onClick={handleUpdate}
+          >
+            확인
+          </Button>
         </div>
       ) : (
-        <p>{comment.content}</p>
+        <p style={{ maxHeight: "100px", overflowY: "auto" }}>
+          {commentDetail} : {comment.content}
+        </p>
+      )}
+      {comment.userId === userId_now && (
+        <>
+          <Button
+            style={{ color: "white", backgroundColor: "#D0A370" }}
+            onClick={() => setEditMode(!editMode)}
+          >
+            수정
+          </Button>
+          <Button
+            style={{ color: "white", backgroundColor: "#D0A370" }}
+            onClick={handleDelete}
+          >
+            삭제
+          </Button>
+        </>
       )}
     </div>
   );
@@ -168,36 +218,160 @@ function PostContent({ post, onCommentCreate }) {
     setLikes(newLikes);
   };
 
+  const [myStories, setMyStories] = useState([]);
+
+  const [selectedMyStory, setSelectedMyStory] = useState(null);
+
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const response = await getTaleAllAxios();
+        setMyStories(response);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getData();
+  }, []);
+
+  useEffect(() => {
+    const foundMyStory = myStories.find(
+      (myStory) => myStory.taleId === post.taleId
+    );
+    setSelectedMyStory(foundMyStory);
+  }, [myStories, post.taleId]);
+
+  // 모달 상태 관리
+  const [open, setOpen] = useState(false);
+
+  // 모달 열기
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  // 모달 닫기
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const modalStyle = {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  };
+
+  const boxStyle = {
+    position: "absolute",
+    display: "flex",
+    width: "80%",
+    height: "80%",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 0,
+    overflow: "auto",
+    backgroundImage: `url("../../assets/BookTemplate.jpg")`,
+    backgroundSize: "101.5% 100%",
+  };
+
   return (
-    <div>
+    <div
+      className="DetailBody"
+      style={{
+        display: "flex",
+        alignItems: "stretch",
+      }}
+    >
       <div
+        className="left"
         style={{
           display: "flex",
+          flexBasis: "50%",
+          maxWidth: "50%",
+          minWidth: "50%",
           alignItems: "center",
-          justifyContent: "space-around",
+          justifyContent: "center",
         }}
       >
-        <div>
-          <h2>{post.title}</h2>
-          <h3>{post.taleTitle}</h3>
-          <p>{post.content}</p>
-          <p>좋아요 : {likes}</p>
-          {/* 좋아요 버튼 */}
-          <HeartButton
-            communityId={post.communityId}
-            likedUsers={post.likesList}
-            updateLikes={updateLikes}
-            likes={likes}
-          />
-          <p>댓글 수 : {post.commentList.length}</p>
-        </div>
-        <div>
-          <img src={post.taleTitleImage} alt="" />
-        </div>
+        <ul className="list-inline">
+          <li
+            className="book_detail"
+            style={{ width: "18rem", height: "18rem" }}
+          >
+            <img
+              src={post.taleTitleImage}
+              alt=""
+              style={{ objectFit: "contain", width: "100%", height: "100%" }}
+              onClick={handleOpen} // 여기에 onClick 이벤트 추가
+            />
+          </li>
+          <h2
+            style={{
+              backgroundColor: "#D0A370",
+              borderRadius: "10px",
+            }}
+          >
+            {post.taleTitle}
+          </h2>
+        </ul>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-title"
+          aria-describedby="modal-description"
+          style={modalStyle}
+        >
+          <Box sx={boxStyle}>
+            {selectedMyStory && (
+              <SummarizeBook pageList={selectedMyStory.finalScriptPageList} />
+            )}
+          </Box>
+        </Modal>
       </div>
+      <div
+        className="right"
+        style={{
+          flexBasis: "50%",
+          maxWidth: "50%",
+          minWidth: "50%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <div style={{}}>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <h1 style={{ fontSize: "40px" }}>{post.title}</h1>
+            {/* 좋아요 버튼 */}
+            <HeartButton
+              communityId={post.communityId}
+              likedUsers={post.likesList}
+              updateLikes={updateLikes}
+              likes={likes}
+            />
+          </div>
+          <p
+            style={{
+              display: "flex",
+              maxHeight: "200px",
+              overflowY: "auto",
+              fontSize: "20px",
+            }}
+          >
+            {post.content}
+          </p>
 
-      <div className="comment">
-        <CommentForm onCommentCreate={onCommentCreate} />
+          <div
+            style={{ display: "flex", marginTop: "14rem", marginLeft: "20rem" }}
+          >
+            <p style={{ fontSize: "1rem", marginRight: "2rem" }}>
+              좋아요 {likes}
+            </p>
+            <p style={{ fontSize: "1rem" }}>
+              댓글 수 {post.commentList.length}
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -229,7 +403,7 @@ function PostDetail() {
     user();
   });
 
-  // 댓글 비동기 처리 (실패)
+  // 댓글 비동기 처리
   const handleCommentCreated = (newComment) => {
     setComments((prevComments) => [...prevComments, newComment.data]);
 
@@ -274,7 +448,7 @@ function PostDetail() {
     if (result) {
       // This line handles the navigation after deleting a post.
       // Replace history.push("/") with navigate("/");
-      navigate("/");
+      navigate("/community");
     } else {
       // Handle error when deletion fails.
     }
@@ -288,10 +462,10 @@ function PostDetail() {
       if (res) {
         setPost(res.data);
       }
-  
+
       setLoading(false);
     }
-  
+
     fetchPost();
   }, [communityId, postIdRef]);
 
@@ -327,16 +501,21 @@ function PostDetail() {
           onCommentUpdate={handleCommentUpdated}
         />
       )}
+      <hr />
+      {!editing && ( // editing이 아닌 경우에만 댓글 폼을 표시합니다.
+        <CommentForm onCommentCreate={handleCommentCreated}></CommentForm>
+      )}
 
-      {post.commentList.map((comment) => (
-        <Comment
-          key={comment.commentId}
-          comment={comment}
-          onDelete={handleCommentDeleted}
-          onUpdate={handleCommentUpdated} // 수정된 댓글 내용을 갱신합니다.
-          userId_now={userId_now}
-        />
-      ))}
+      {!editing && // editing이 아닌 경우에만 댓글 목록을 표시합니다.
+        post.commentList.map((comment) => (
+          <Comment
+            key={comment.commentId}
+            comment={comment}
+            onDelete={handleCommentDeleted}
+            onUpdate={handleCommentUpdated} // 수정된 댓글 내용을 갱신합니다.
+            userId_now={userId_now}
+          />
+        ))}
     </>
   );
 }

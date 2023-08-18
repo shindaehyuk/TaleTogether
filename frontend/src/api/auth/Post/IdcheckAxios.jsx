@@ -16,7 +16,6 @@ async function IdcheckAxios(props) {
       //   },
       // }
     );
-    console.log(res);
     return res;
   } catch (e) {
     console.error(e);

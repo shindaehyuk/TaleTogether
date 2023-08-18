@@ -77,9 +77,14 @@ public class CommunityService {
     }
 
     public List<CommunityListResponse> getAll(int page) {
+
         return communityRepository.findAll(PageRequest.of(page, 9, Sort.by("createdAt").descending()))
                 .stream()
-                .map((CommunityListResponse::new))
+                .map(community -> {
+                    CommunityListResponse response = new CommunityListResponse(community);
+                    response.setCommunityCount(communityRepository.findAll().size());
+                    return response;
+                })
                 .collect(Collectors.toList());
     }
 

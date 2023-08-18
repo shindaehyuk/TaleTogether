@@ -34,3 +34,8 @@
 .card-padding {
   padding-bottom: 20px;
 }
+
+.card-img {
+  width: 12em;
+  height: 16em;
+}

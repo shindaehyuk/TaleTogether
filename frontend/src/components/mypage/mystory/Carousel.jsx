@@ -7,6 +7,12 @@ import React, { useState, useEffect } from "react";
 import getTaleAllAxios from "../../../api/tale/getTaleAll";
 import UserinfoAxios from "../../../api/auth/Get/UserinfoAxios";
 import deleteTaleAxios from "../../../api/tale/deleteTaleAxios";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import Button from "@mui/material/Button";
+import { Box } from "@mui/material";
+import notale from "../../community/src/notale.png";
+import Modal from "@mui/material/Modal";
+import Typography from "@mui/material/Typography";
 
 // 이전 화살표 디자인
 function NextArrow(props) {
@@ -79,6 +85,15 @@ const Carousel = () => {
   }, []);
 
   // console.log(myStories);
+
+  const [openDelete, setOpenDelete] = useState(false);
+  const handleOpenDelete = () => setOpenDelete(true);
+  const handleCloseDelete = () => {
+    setTimeout(() => {
+      setOpenDelete(false);
+    }, 0);
+  };
+
   const deleteTaleHandler = async (myStory) => {
     await deleteTaleAxios(myStory);
     const newStories = myStories.filter((story) => story !== myStory);
@@ -116,7 +131,18 @@ const Carousel = () => {
   };
 
   return (
-    <div style={{ padding: "10px", top: "-15px" }}>
+    <Box
+      sx={{
+        padding: "10px",
+        top: "-15px",
+        width: "100%",
+        height: "100%",
+        backgroundImage:
+          myStories && myStories.length === 0 ? `url(${notale})` : "none",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
       <Slider {...settings}>
         {myStories &&
           myStories.map((myStory, index) => {
@@ -133,18 +159,63 @@ const Carousel = () => {
                     alt={`Image ${index + 1}`}
                     firstPageId={firstPageId}
                   />
-                  <button
+                  <Button
+                    onClick={handleOpenDelete}
+                    color="error"
                     style={deleteButtonStyle}
-                    onClick={() => deleteTaleHandler(myStory)}
                   >
-                    삭제
-                  </button>
+                    <DeleteForeverIcon />
+                    <Modal
+                      open={openDelete}
+                      onClose={handleCloseDelete}
+                      aria-labelledby="confirm-modal-title"
+                      aria-describedby="confirm-modal-description"
+                    >
+                      <Box
+                        sx={{
+                          position: "absolute",
+                          top: "50%",
+                          left: "50%",
+                          transform: "translate(-50%, -50%)",
+                          width: "30%",
+                          bgcolor: "background.paper",
+                          boxShadow: 24,
+                          p: 4,
+                        }}
+                      >
+                        <Typography variant="h6">
+                          삭제하면 같이 동화를 만든 사람의 동화도 삭제됩니다.
+                        </Typography>
+                        <Typography variant="h6">
+                          그래도 삭제하시겠습니까?
+                        </Typography>
+
+                        <Button
+                          onClick={() => {
+                            deleteTaleHandler(myStory);
+                            handleCloseDelete();
+                          }}
+                          variant="contained"
+                          color="error"
+                        >
+                          예
+                        </Button>
+                        <Button
+                          onClick={handleCloseDelete}
+                          variant="outlined"
+                          color="error"
+                        >
+                          아니요
+                        </Button>
+                      </Box>
+                    </Modal>
+                  </Button>
                 </div>
               </div>
             ) : null;
           })}
       </Slider>
-    </div>
+    </Box>
   );
 };
 

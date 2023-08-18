@@ -1,6 +1,7 @@
 import "./Like.css";
 import { Box } from "@mui/material";
 import React from "react";
+import nopost from "../../community/src/nopost.png";
 
 const LikeScroll = ({ myLikes }) => {
   const handleClick = (like) => {
@@ -14,6 +15,9 @@ const LikeScroll = ({ myLikes }) => {
         width: "90%",
         height: "80%",
         overflowY: "scroll",
+        backgroundImage: myLikes.length === 0 ? `url(${nopost})` : "none",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
       }}
     >
       {myLikes.map((like, index) => (
@@ -37,6 +41,8 @@ const LikeScroll = ({ myLikes }) => {
               <img
                 src={like.taleImage}
                 style={{
+                  width: "200px",
+                  height: "auto",
                   marginLeft: "auto",
                   alignSelf: "center",
                   borderRadius: "20px",

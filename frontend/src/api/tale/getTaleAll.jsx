@@ -1,5 +1,5 @@
-import axios from 'axios';
-import { axiosInstance } from '../../components/route/axiosInstance';
+import axios from "axios";
+import { axiosInstance } from "../../components/route/axiosInstance";
 
 export default async function getTaleAllAxios() {
   try {
