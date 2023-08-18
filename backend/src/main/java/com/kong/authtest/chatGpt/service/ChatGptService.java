@@ -30,6 +30,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.context.annotation.SessionScope;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -40,6 +41,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 @Slf4j
+@SessionScope
 public class ChatGptService {
 
     @Value("${cgpt.api-key}")
@@ -63,6 +65,8 @@ public class ChatGptService {
     private final KarloService karloService;
 
     private final DeepLService deepLService;
+
+
 
 
     @Transactional
