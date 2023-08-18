@@ -67,16 +67,16 @@ export default function Admin() {
         <Box
           sx={{
             width: '80%',
-            height: '100%', // 이미지의 높이를 자동으로 조정하여 비율 유지
+            height: '100%',
           }}
         >
           <img
             src="./assets/Framebg.png"
             alt=""
             style={{
-              width: '100%', // 이미지의 너비를 100%로 설정하여 부모 박스의 너비에 맞춤
-              height: '100%', // 이미지의 높이를 자동으로 조정하여 비율 유지
-              display: 'block', // inline 요소로부터의 여백 제거를 위해 블록 요소로 설정
+              width: '100%',
+              height: '100%',
+              display: 'block',
             }}
           />
         </Box>
@@ -101,8 +101,8 @@ export default function Admin() {
             src="./assets/Logo2-removebg-preview.png"
             alt=""
             style={{
-              width: '30%', // 이미지의 너비를 100%로 설정하여 부모 박스의 너비에 맞춤
-              height: '15%', // 이미지의 높이를 자동으로 조정하여 비율 유지
+              width: '30%',
+              height: '15%',
             }}
           />
 

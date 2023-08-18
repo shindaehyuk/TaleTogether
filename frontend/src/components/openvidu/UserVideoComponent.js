@@ -5,7 +5,6 @@ import { Box } from '@mui/material';
 
 export default function UserVideoComponent({ streamManager }) {
   const getNicknameTag = () => {
-    // Gets the nickName of the user
     return JSON.parse(streamManager.stream.connection.data).clientData;
   };
 

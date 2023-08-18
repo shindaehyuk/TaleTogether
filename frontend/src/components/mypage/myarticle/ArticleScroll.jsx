@@ -37,9 +37,9 @@ const ArticleScroll = ({ myArticles }) => {
             }}
           >
             <h2>{article.title}</h2>
-            {article.taleTitleImage && (
+            {article.taleImage && (
               <img
-                src={article.taleTitleImage}
+                src={article.taleImage}
                 style={{
                   width: "200px",
                   height: "auto",
