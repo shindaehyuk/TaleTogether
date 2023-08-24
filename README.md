@@ -1,3 +1,5 @@
+<img title="" src="./README_IMG/Logo.png" alt="" width="143">
+
 # 함께 만들어가는 나만의 이야기 - Tale Together
 
 <br/>
@@ -151,10 +153,58 @@
 
 - #### 아키텍처
 
-![](./README_IMG/Architecture.png)
+<img src="./README_IMG/Architecture.png" title="" alt="" width="495">
 
 <br/>
 
 ## :books: 서비스 화면
 
-### 랜딩 페이지
+### 회원가입
+
+![](./README_IMG/Signup.gif)
+
+### 로그인
+
+![](./README_IMG/Login.gif)
+
+### 메인페이지
+
+![](./README_IMG/Main.gif)
+
+### 게임 방생성
+
+![](./README_IMG/EnterRoom.gif)
+
+### 게임 방참가
+
+![](./README_IMG/Room.gif)
+
+### 게임 시작
+
+![](./README_IMG/PlayStory.gif)
+
+### 동화 완결
+
+![](./README_IMG/ConcludeStory1.gif)
+
+![](./README_IMG/ConcludeStory2.gif)
+
+### 커뮤니티 글쓰기
+
+![](./README_IMG/CommunityPost.gif)
+
+### 커뮤니티 글보기
+
+![](./README_IMG/CommunityRead.gif)
+
+### 내 동화 보기
+
+![](./README_IMG/Story.gif)
+
+### 게시글 보기
+
+![](./README_IMG/Article.gif)
+
+### 개인정보 변경
+
+![](./README_IMG/userUpdate.gif) 
