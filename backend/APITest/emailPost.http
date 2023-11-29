@@ -1,7 +1,0 @@
-POST https://i9c110.p.ssafy.io/api/mail/send
-Content-Type: application/json
-
-{
-  "email": "rhks1132ek@naver.com",
-  "code": "1a4Lg6qK"
-}
