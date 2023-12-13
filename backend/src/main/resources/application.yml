@@ -1,7 +1,7 @@
 cgpt:
-  api-key : Bearer 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
+  api-key : 
 karlo:
-  api-key: KakaoAK f66e810c3f997ea0220e354d8e04017a
+  api-key: 
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
