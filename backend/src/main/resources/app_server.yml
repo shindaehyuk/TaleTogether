@@ -1,5 +1,5 @@
 chatgpt:
-  api-key: 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
+  api-key: 
 
 spring:
   datasource:
